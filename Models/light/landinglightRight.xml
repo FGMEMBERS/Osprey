@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>flash.ac</path>
+
+  <animation>
+    <!-- Objets opaques -->
+
+    <!-- Objets transparents -->
+    <object-name>flash</object-name>
+  </animation>
+
+  <animation>
+    <type>noshadow</type>
+    <object-name>flash</object-name>
+  </animation>
+  
+	<animation>
+        <type>select</type>
+        <object-name>flash</object-name>
+        <condition>
+            <!-- <property>sim/model/lights/landing-lights/state</property> -->
+			<property>sim/multiplay/generic/int[10]</property>
+        </condition>
+    </animation>
+  
+  <animation>
+    <name>landinglight_ALL</name>
+	<object-name>flash</object-name>
+	<type>rotate</type>
+	<!-- <property>instrumentation/doors/landinglightpos/position-norm</property> -->
+	<property>sim/multiplay/generic/float[15]</property>
+    <factor> 0.100 </factor>
+	<interpolation>
+      <entry><ind> 0.0 </ind><dep>    0 </dep></entry>
+	  <entry><ind> 1.0 </ind><dep>  -90 </dep></entry>
+    </interpolation>
+    <center>
+      <x-m>  0.115 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m>  0.000 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+   </animation>
+
+  <animation>
+    <type>flash</type>
+    <object-name>flash</object-name>
+    <center>
+      <x-m> 0.000 </x-m>
+      <y-m> 0.000 </y-m>
+      <z-m> 0.000 </z-m>
+    </center>
+    <axis>
+      <x> -1 </x>
+      <y>  0 </y>
+      <z>  0 </z>
+    </axis>
+    <power>1</power>
+    <factor>2</factor>
+    <offset>0</offset>
+    <two-sides type="bool">false</two-sides>
+    <min>0.5</min>
+    <max>2</max>
+  </animation>
+
+<animation>
+<type>dist-scale</type>
+<object-name>flash</object-name>
+<interpolation>
+<entry>
+<ind>0</ind>
+<dep>1</dep>
+</entry>
+<entry>
+<ind>2</ind>
+<dep>1</dep>
+</entry>
+</interpolation>
+</animation>
+
+<animation>
+<type>select</type>
+<object-name>flash</object-name>
+<condition>
+<!-- <property>controls/lighting/landing-lights</property> -->
+</condition>
+</animation>
+
+</PropertyList>

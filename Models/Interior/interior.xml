@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <path>interior.ac</path>
+
+  <animation>
+    <!-- Objets opaques -->
+    <object-name>interieur</object-name>
+    <object-name>tour</object-name>
+    <object-name>siege</object-name>
+    <object-name>cosiege</object-name>
+	
+	<object-name>floor_front</object-name>
+	<object-name>floor_back</object-name>
+	<object-name>floorbeams</object-name>
+	
+	<object-name>crewdoor_housing</object-name>
+	
+	<object-name>cockpit_wall</object-name>
+	<object-name>co_wallfront</object-name>
+	<object-name>cockpit_door</object-name>
+	<object-name>frontwall</object-name>
+	<object-name>side_wallback</object-name>
+	<object-name>cadoor_frame</object-name>
+	
+	<object-name>panel_top</object-name>
+	<object-name>panel_center</object-name>
+	<object-name>panel_frame</object-name>
+	
+
+    <!-- Objets transparents -->
+    <object-name>intvitres</object-name>
+  </animation>
+
+  <animation>
+    <type>shader</type>
+    <shader>chrome</shader>
+    <texture>shader.png</texture>
+    <object-name>intvitres</object-name>
+  </animation>
+  
+  <!-- vmx22 model prototype colors START 
+  <animation>
+    <type>material</type>
+	<texture>interior.png</texture>
+	<object-name>fuselage_internal</object-name>
+	<object-name>frontwall</object-name>
+	<object-name>cargowall</object-name>
+	<object-name>side_wallback</object-name>
+  </animation>
+  
+  <animation>
+    <type>material</type>
+	<texture>floor.png</texture>
+	<object-name>floor_back</object-name>
+  </animation>
+  -->
+  
+  <!-- <animation>
+    <type>material</type>
+	<texture>cockpit_wall.png</texture>
+	<object-name>cockpit_wall</object-name>
+  </animation>
+  
+  <animation>
+    <type>material</type>
+	<texture>cockpit_door.png</texture>
+	<object-name>cockpit_door</object-name>
+  </animation>
+  
+  <animation>
+    <type>material</type>
+	<texture>seat_wall.png</texture>
+	<object-name>cargoseatwall</object-name>
+  </animation>
+  
+  vmx22 model prototype colors END -->
+
+  <animation>
+    <type>noshadow</type>
+    <object-name>intvitres</object-name>
+  </animation>
+
+  <!-- Planches de bord -->
+  <model>
+    <path>Aircraft/VMX22-Osprey/Models/Interior/Panel/panel.xml</path>
+    <offsets>
+      <x-m> -6.736 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> -1.445 </z-m>
+      <roll-deg>    0.0 </roll-deg>
+      <pitch-deg>   0.0 </pitch-deg>
+      <heading-deg> 0.0 </heading-deg>
+    </offsets>
+  </model>
+
+  <!-- Pilote -->
+  <model>
+    <path>Aircraft/VMX22-Osprey/Models/Pilot/pilot.xml</path>
+    <offsets>
+      <x-m> -5.810 </x-m>
+      <y-m>  0.524 </y-m>
+      <z-m> -1.274 </z-m>
+    </offsets>
+  </model>
+
+  <!-- Copilote -->
+  <model>
+    <path>Aircraft/VMX22-Osprey/Models/Pilot/pilot.xml</path>
+    <offsets>
+      <x-m> -5.810 </x-m>
+      <y-m> -0.524 </y-m>
+      <z-m> -1.274 </z-m>
+    </offsets>
+  </model>
+
+</PropertyList>
+

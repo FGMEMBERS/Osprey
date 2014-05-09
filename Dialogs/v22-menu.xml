@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <default>
+    <menu n="10">
+      <label>V22 Osprey</label>
+      <enabled type="bool">true</enabled>
+      <item>
+        <label>Select Livery</label>
+        <binding>
+          <command>nasal</command>
+          <script>aircraft.livery.dialog.toggle()</script>
+        </binding>
+      </item>
+      <item>
+        <label>Blades visible</label>
+        <binding>
+          <command>nasal</command>
+          <script>
+            var p = "rotors/main/bladesvisible";
+            setprop(p, var i = !getprop(p));
+            gui.popupTip("Blades visible " ~ (i ? "On" : "Off"));
+          </script>
+        </binding>
+      </item>
+	  <item>
+        <label>GIT-Zan landing lights</label>
+        <binding>
+          <command>nasal</command>
+          <script>
+            var p = "sim/model/lights/git-landing-lights/state";
+            setprop(p, var i = !getprop(p));
+            gui.popupTip("GIT-Zan landing lights visible " ~ (i ? "On" : "Off"));
+          </script>
+        </binding>
+      </item>
+      <item>
+        <label>Immatriculation</label>
+        <binding>
+          <command>nasal</command>
+          <script>v22.immat_dialog.toggle()</script>
+        </binding>
+      </item>
+	  <item>
+			<label>Find Aircraft to Tow [Ctrl o]</label>
+			<binding>
+				<command>property-assign</command>
+				<property>controls/aerotow/find-aircraft</property>
+				<value type="bool">true</value>
+			</binding>
+			<mod-up>
+				<binding>
+				<command>property-assign</command>
+				<property>controls/aerotow/find-aircraft</property>
+				<value type="bool">false</value>
+				</binding>
+			</mod-up>
+		</item>
+		<item>
+			<label>lock tow hook [o]</label>
+			<binding>
+				<command>property-assign</command>
+				<property>sim/hitches/aerotow/open</property>
+				<value type="bool">false</value>
+			</binding>
+		</item>
+		<item>
+			<label>open tow hook [O]</label>
+			<binding>
+				<command>property-assign</command>
+				<property>sim/hitches/aerotow/open</property>
+				<value type="bool">true</value>
+			</binding>
+		</item>
+    </menu>
+	
+	<!-- pushback generic dialog -->
+	<menu n="5">
+		<item n="10">
+		<label>Pushback</label>
+		<name>pushback</name>
+			<binding>
+				<command>dialog-show</command>
+				<dialog-name>pushback</dialog-name>
+			</binding>
+		</item>
+	</menu>
+	
+	
+	
+  </default>
+  
+
+</PropertyList>
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <path>panel.ac</path>
+
+  <animation>
+    <object-name>panel</object-name>
+  </animation>
+
+  <model>
+    <path>Aircraft/Instruments-3d/primus-1000/primus1000-pfd.xml</path>
+    <offsets>
+      <x-m>  0.041 </x-m>
+      <y-m> -0.538 </y-m>
+      <z-m>  0.165 </z-m>
+      <pitch-deg>-30.26</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Aircraft/Instruments-3d/primus-1000/primus2000-eicas.xml</path>
+    <offsets>
+      <x-m>  0.041 </x-m>
+      <y-m> -0.322 </y-m>
+      <z-m>  0.165 </z-m>
+      <pitch-deg>-30.26</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Aircraft/Instruments-3d/primus-1000/primus2000-eicas.xml</path>
+    <offsets>
+      <x-m>  0.041 </x-m>
+      <y-m>  0.322 </y-m>
+      <z-m>  0.165 </z-m>
+      <pitch-deg>-30.26</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Aircraft/Instruments-3d/primus-1000/primus1000-pfd.xml</path>
+    <offsets>
+      <x-m>  0.041 </x-m>
+      <y-m>  0.538 </y-m>
+      <z-m>  0.165 </z-m>
+      <pitch-deg>-30.26</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Aircraft/VMX22-Osprey/Models/Interior/Panel/Instruments/ai/ai.xml</path>
+    <offsets>
+      <x-m> 0.033 </x-m>
+      <y-m> 0.147 </y-m>
+      <z-m> 0.235 </z-m>
+      <pitch-deg>-30.69</pitch-deg>
+    </offsets>
+  </model>
+
+</PropertyList>

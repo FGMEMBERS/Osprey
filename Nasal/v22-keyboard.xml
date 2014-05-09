@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+	<key n="100">
+		<name>d</name>
+		<desc>Crewdoor upperpart - open or close</desc>
+		<binding>
+		  <command>nasal</command>
+		  <script>v22.doorsystem.crewupexport();</script>
+		</binding>
+		
+		<binding>
+		<condition>
+				<equals>
+				<property>instrumentation/doors/crew/position-norm</property>
+				<value>1.0</value>
+				</equals>
+			</condition>
+		  <command>nasal</command>
+		  <script>v22.doorsystem.crewexport();</script>
+		</binding>
+	</key>
+	
+	<key n="68">
+		<name>D</name>
+		<desc>Crewdoor lowerpart - open or close</desc>
+		<binding>
+			<condition>
+				<greater-than>
+				<property>instrumentation/doors/crewup/position-norm</property>
+				<value>0.5</value>
+				</greater-than>
+			</condition>
+		  <command>nasal</command>
+		  <script>v22.doorsystem.crewexport();</script>
+		</binding>
+	</key>
+	
+	<key n="67">
+		<name>C</name>
+		<desc>Cargo Door OPEN</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>property-adjust</command>
+				<property>instrumentation/doors/cargodoor/position-norm</property>
+				<step type="double">0.02</step>
+				<min>0.0</min>
+				<max>1.0</max>
+		</binding>
+	</key>
+	
+	<key n="99">
+		<name>c</name>
+		<desc>Cargo Door CLOSE</desc>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>property-adjust</command>
+				<property>instrumentation/doors/cargodoor/position-norm</property>
+				<step type="double">-0.02</step>
+				<min>0.0</min>
+				<max>1.0</max>
+		</binding>
+	</key>
+	
+	<key n="115">
+		<name>s</name>
+		<desc>Toggle Cargo Door upper part</desc>
+		<binding>
+		   <command>nasal</command>
+		   <script>v22.doorsystem.cargodoorupexport();</script>
+		</binding>
+	</key>
+	
+	<key n="101">
+		<name>e</name>
+		<desc>Toggle Cockpit Door open or close</desc>
+		<binding>
+		   <command>nasal</command>
+		   <script>v22.doorsystem.cockpitdoorexport();</script>
+		</binding>
+	</key>
+	
+	<key n="102">
+		<name>f</name>
+		<desc>Toggle Air Refuleing Probe retract</desc>
+		<binding>
+		   <command>nasal</command>
+		   <script>v22.doorsystem.airrefuleexport();</script>
+		</binding>
+	</key>
+	
+	<key n="10">
+		<name>Ctrl-j</name>
+		<desc>Jump signal</desc>
+		<binding>
+			<command>property-toggle</command>
+			<property>controls/jump-signal</property>
+			<value>true</value>
+			<value>false</value>
+		</binding>
+	</key>
+	
+	<key n="108">
+		<name>l</name>
+		<desc>Landing Lights position</desc>
+		<binding>
+		   <command>nasal</command>
+		   <script>v22.doorsystem.landinglightposexport();</script>
+		</binding>
+	</key>
+	
+	<key n="76">
+		<name>L</name>
+		<desc>Landing Lights ON OFF</desc>
+		<binding>
+			<command>property-toggle</command>
+			<property>sim/model/lights/landing-lights/state</property>
+			<value>true</value>
+			<value>false</value>
+		</binding>
+	</key>
+	
+	<key n="15">
+        <name>Ctrl-o</name>
+        <desc>Find aircraft for aerotow</desc>
+        <binding>
+          <command>property-assign</command>
+          <property>controls/aerotow/find-aircraft</property>
+          <value type="bool">true</value>
+        </binding>
+        <mod-up>
+          <binding>
+            <command>property-assign</command>
+            <property>controls/aerotow/find-aircraft</property>
+            <value type="bool">false</value>
+          </binding>
+        </mod-up>
+    </key>
+	
+    <key n="111">
+        <name>o</name>
+        <desc>Lock aerotow hook</desc>
+        <binding>
+          <command>property-assign</command>
+          <property>sim/hitches/aerotow/open</property>
+          <value type="bool">false</value>
+        </binding>
+    </key>
+	
+    <key n="79">
+        <name>O</name>
+        <desc>Open aerotow hook</desc>
+        <binding>
+          <command>property-assign</command>
+          <property>sim/hitches/aerotow/open</property>
+          <value type="bool">true</value>
+        </binding>
+    </key>
+	
+	
+  <key n="78">
+    <name>N</name>
+    <desc>Fold wing back</desc>
+  </key>
+
+  <key n="110">
+    <name>n</name>
+    <desc>Unfold wing</desc>
+  </key>
+
+  <key n="123">
+    <name>{</name>
+    <desc>Shutdown Engines</desc>
+    <binding>
+      <command>nasal</command>
+      <script>v22.engines(0)</script>
+    </binding>
+  </key>
+
+  <key n="125">
+    <name>}</name>
+    <desc>Start Engines</desc>
+    <binding>
+      <command>nasal</command>
+      <script>v22.engines(1)</script>
+    </binding>
+  </key>
+
+  <key n="109">
+    <name>m</name>
+    <desc>Tilt Rotors fwd</desc>
+    <repeatable>false</repeatable>
+    <mod-alt>
+      <binding>
+        <command>nasal</command>
+        <script>v22.set_tilt(0,0)</script>
+      </binding>
+    </mod-alt>
+  </key>
+
+  <key n="77">
+    <name>M</name>
+    <desc>Tilt Rotors aft</desc>
+    <repeatable>false</repeatable>
+  </key>
+
+</PropertyList>
+
