@@ -612,14 +612,12 @@
       <max-dist>1000</max-dist>
     </door>
 	
-	<!-- airrefule sounds -->
+	<!-- airrefuel sounds -->
 	<door>
-      <name>airrefule-move</name>
+      <name>airrefuel-move</name>
       <mode>in-transit</mode>
       <path>Aircraft/VMX22-Osprey/Sounds/servo.wav</path>
-     
-			<property>instrumentation/doors/airrefule/position-norm</property>
-         
+			<property>instrumentation/doors/airrefuel/position-norm</property>
       <volume>
         <factor>0.25</factor>
       </volume>
@@ -632,7 +630,6 @@
       <max-dist>1000</max-dist>
     </door>
 
-	
 	<!-- gear sounds -->
     <gear>
       <name>gear</name>

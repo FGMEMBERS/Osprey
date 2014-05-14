@@ -321,13 +321,13 @@ var rotor = props.globals.getNode("controls/engines/engine/magnetos", 1);
 var rotor_rpm = props.globals.getNode("rotors/main/rpm", 1);
 
 
-# MP door/airrefule ======================================================
+# MP door/airrefuel ======================================================
 # door cargodown - cargodoormix
 var door_cargodown = props.globals.getNode("instrumentation/doors/cargodoor/position-norm", 1);
 # door cargodoorup
 var door_cargoup = props.globals.getNode("instrumentation/doors/cargodoorup/position-norm", 1);
 # door airrefuel probe
-var door_fuelpr = props.globals.getNode("instrumentation/doors/airrefule/position-norm", 1);
+var door_fuelpr = props.globals.getNode("instrumentation/doors/airrefuel/position-norm", 1);
 # door cockpit
 var door_cockpit = props.globals.getNode("instrumentation/doors/cockpitdoor/position-norm", 1);
 # door crew
@@ -909,7 +909,7 @@ var update_mp_generics = func {
 	setprop("sim/multiplay/generic/float[4]", door_cargodown.getValue());
 	# door cargoup
 	setprop("sim/multiplay/generic/float[5]", door_cargoup.getValue());
-	# door airrefule
+	# door airrefuel
 	setprop("sim/multiplay/generic/float[6]", door_fuelpr.getValue());
 	# door cockpit
 	setprop("sim/multiplay/generic/float[7]", door_cockpit.getValue());

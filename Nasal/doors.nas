@@ -67,5 +67,5 @@ var crew_lower_toggle = func {
 ################################################################################
 
 var cockpit = aircraft.door.new("instrumentation/doors/cockpitdoor", 1.0, 0);
-var air_refuel = aircraft.door.new("instrumentation/doors/airrefule", 4.0, 0);
+var air_refuel = aircraft.door.new("instrumentation/doors/airrefuel", 4.0, 0);
 var landinglightpos = aircraft.door.new("instrumentation/doors/landinglightpos", 4.0, 0);
