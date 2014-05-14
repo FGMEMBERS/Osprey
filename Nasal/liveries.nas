@@ -1,2 +1,3 @@
-aircraft.livery.init("Aircraft/VMX22-Osprey/Models/Liveries");
+# Liveries
 
+aircraft.livery.init("Aircraft/VMX22-Osprey/Models/Liveries");

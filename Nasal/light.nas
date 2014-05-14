@@ -1,3 +1,5 @@
+# Strobe and beacon lights
+
 var sbc1 = aircraft.light.new("/sim/model/lights/sbc1", [0.5, 0.3]);
 sbc1.interval = 0.1;
 sbc1.switch(1);
