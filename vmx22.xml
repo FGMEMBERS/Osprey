@@ -20,7 +20,7 @@
 	<!-- mintiltpitch=" -180"  maxtiltpitch="180" tiltcenterx="2.48" tiltcentery="-2.1" tiltcenterz="0.12" -->
 	<rotor name="main" x="1.57" y="-7.041" z="2.550" nx="0.0" ny="0" nz="1." fx="1" fy="0" fz="0" ccw="1"
 		   maxcollective="180" mincollective="-180" mincyclicele="-90" maxcyclicele="90" mincyclicail="-90" maxcyclicail="90"
-		   mintiltpitch=" -180"  maxtiltpitch="180" tiltcenterx="1.75" tiltcentery="-2.1" tiltcenterz="0.30"
+		   mintiltpitch="-180"  maxtiltpitch="180" tiltcenterx="1.75" tiltcentery="-2.1" tiltcenterz="0.30"
 		   
 		   mintiltroll="-90" maxtiltroll="90" 
 		   diameter="11.58" numblades="3" weightperblade="675" twist="-47.5" chord="0.81" rpm="412" relbladecenter="0.5" dynamic="1"
@@ -39,7 +39,7 @@
 	<!-- mintiltpitch=" -180"  maxtiltpitch="180" tiltcenterx="2.48" tiltcentery="2.1" tiltcenterz="0.12" -->
 	<rotor name="tail" x="1.57" y="7.041" z="2.550" nx="0.0" ny="0" nz="1." fx="1" fy="0" fz="0" ccw="0"
 		   maxcollective="180" mincollective="-180" mincyclicele="-90" maxcyclicele="90" mincyclicail="-90" maxcyclicail="90"
-		   mintiltpitch=" -180"  maxtiltpitch="180" tiltcenterx="1.75" tiltcentery="2.1" tiltcenterz="0.30"
+		   mintiltpitch="-180"  maxtiltpitch="180" tiltcenterx="1.75" tiltcentery="2.1" tiltcenterz="0.30"
 		   
 		   mintiltroll="-90" maxtiltroll="90" 
 		   diameter="11.58" numblades="3" weightperblade="675" twist="-47.5" chord="0.81" rpm="412" relbladecenter="0.5" dynamic="1"
@@ -336,7 +336,7 @@
 	
 	<!-- pushback -->
 	<thruster x="7.105" y="0" z="-3.212" vx="1" vy="0" vz="0" thrust="5200">
-	<control-input axis="/sim/model/pushback/target-speed-fps" control="THROTTLE" src0="-1" src1="1" dst0="-1" dst1="1"/>
+	    <control-input axis="/sim/model/pushback/target-speed-fps" control="THROTTLE" src0="-1" src1="1" dst0="-1" dst1="1"/>
 	</thruster>
 	
 	<!-- hitch 
@@ -346,15 +346,11 @@
 		<control-input axis="/controls/aerotow/find-aircraft" control="FINDAITOW"/>
 	</hitch>-->
 	
-	
 	<!-- -->
 	<hitch name="aerotow" x="-3.1" y="0.0" z="-2.525" force-is-calculated-by-other="0">
 		<tow length="30" weight-per-meter="0.035" elastic-constant="9000" break-force="80000" mp-auto-connect-period="0.0"/>
 		<winch max-tow-length="100" min-tow-length="30" initial-tow-length="30"/>
 		<control-input axis="/controls/aerotow/find-aircraft" control="FINDAITOW"/>
 	</hitch>
-	
-
-	
 
 </airplane>
