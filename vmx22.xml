@@ -76,22 +76,6 @@
 
 	</rotorgear>
 	
-	<!-- v22 CVS working copy
-	<rotorgear max-power-engine-real="9172" max-power-engine="131720" max-power-rotor-brake="4850" rotorgear-friction="30" engine-prop-factor="0.015" engine-accel-limit="4"
-			   yasimdragfactor="270" yasimliftfactor="28">
-		<control-input axis="/controls/engines/engine[0]/magnetos" control="ROTORGEARENGINEON"/>
-		<control-input axis="/controls/rotor/brake" control="ROTORBRAKE" src0="0.0" src1="1.0" dst0="0.0" dst1="1.0"/>
-		<control-input axis="/controls/rotor/reltarget" control="ROTORRELTARGET"
-					   src0="0.0" src1="2.0"
-					   dst0="0.0" dst1="2.0"/>
-		<control-input axis="/controls/rotor/maxreltorque" control="ROTORENGINEMAXRELTORQUE"
-					   src0="0.0" src1="2.0"
-					   dst0="0.0" dst1="2.0"/>
-
-
-	</rotorgear>
-	-->
-
 	<!-- only for the solver -->
 	<!--
 <thruster vx="1" vy="0" vz="0" x="4.62" z="0.39" y="7.041" thrust="3514">
@@ -104,8 +88,7 @@
 	<!-- fuselage -->
 	<cockpit x="-1.88" y=".33" z="0.6"/>
 	
-	<!-- air refuleing fuselage -->
-	
+	<!-- air refueling fuselage -->
 	
 	<!-- main fuselage front-->
 	<fuselage ax="8.1" ay="0" az="-1.9" bx="5.8" by="0" bz="-1.4" width="2.2" taper="0.25" midpoint="1.0" cx="0.15" cy="0.15" cz="0.35" idrag="0"/>

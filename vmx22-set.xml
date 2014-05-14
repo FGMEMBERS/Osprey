@@ -118,7 +118,7 @@
                 <float n="3"/>
                 <float n="4"/> <!-- door mp - cargodoormix - down -->
                 <float n="5"/> <!-- door mp - cargodoorup -->
-                <float n="6"/> <!-- door mp - airfefule -->
+                <float n="6"/> <!-- door mp - airrefuel -->
                 <float n="7"/> <!-- door mp - cockpit -->
                 <float n="8"/> <!-- door mp - crew -->
                 <float n="9"/> <!-- door mp - crewup -->
@@ -352,13 +352,15 @@ VMX22-Osprey for FGFS GIT
     <nasal>
         <v22>
             <file>Aircraft/VMX22-Osprey/Nasal/v22.nas</file>
-            <file>Aircraft/VMX22-Osprey/Nasal/doors.nas</file>
             <!-- <file>Aircraft/VMX22-Osprey/Nasal/terrain_under.nas</file> -->
             <file>Aircraft/VMX22-Osprey/Nasal/tyresmoke.nas</file>
             <file>Aircraft/VMX22-Osprey/Nasal/immat.nas</file>
             <file>Aircraft/VMX22-Osprey/Nasal/light.nas</file>
             <file>Aircraft/VMX22-Osprey/Nasal/liveries.nas</file>
         </v22>
+        <doors>
+            <file>Aircraft/VMX22-Osprey/Nasal/doors.nas</file>
+        </doors>
     </nasal>
 
 </PropertyList>
