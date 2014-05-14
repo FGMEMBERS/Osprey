@@ -87,15 +87,7 @@ var update_controls_and_tilt_loop = func(dt){
 	var flap = control_flaps.getValue();
 	var iflap = input_flaps.getValue();
 	var maxflap_delta=dt*0.125;
-	if (iflap > (flap+maxflap_delta)){
-		flap = flap+maxflap_delta;
-	} else {
-		if (iflap < (flap-maxflap_delta)){
-			flap = flap-maxflap_delta;
-		} else {
-			flap = iflap;
-		}
-	}
+    flap = max(min(iflap, flap + maxflap_delta), flap - maxflap_delta);
 	control_flaps.setValue(flap);
 	
 	var ail = control_ail.getValue() + control_trim_ail.getValue();
