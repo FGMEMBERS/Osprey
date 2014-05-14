@@ -20,16 +20,16 @@
         </binding>
     </key>
 
-    <key n="99">
-        <name>c</name>
+    <key n="115">
+        <name>s</name>
         <desc>Toggle cargo door lower part open/close</desc>
         <binding>
            <script>doors.cargo_lower_toggle();</script>
         </binding>
     </key>
 
-    <key n="115">
-        <name>s</name>
+    <key n="99">
+        <name>c</name>
         <desc>Toggle cargo door upper part open/close</desc>
         <binding>
            <command>nasal</command>

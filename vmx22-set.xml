@@ -164,8 +164,10 @@
         <weight n="4">
             <name>Load</name>
             <weight-lb>0</weight-lb>
-            <max-lb>10000</max-lb>
+            <max-lb>20000</max-lb> <!-- or 15000 lb external cargo -->
         </weight>
+
+        <checklists include="v22-checklists.xml"/>
     
         <submodels>
             <serviceable type="bool">true</serviceable>
@@ -173,10 +175,7 @@
         </submodels>
 
         <help>
-            <title>Bell Boeing V22 Osprey - Background and Help</title>
-            <line/>
-            <line>Informations about the V22 Osprey</line>
-            <line/>
+            <title>Bell Boeing V22 Osprey</title>
             <key>
                 <name>}</name>
                 <desc>Start Engines</desc>
@@ -187,74 +186,67 @@
             </key>
             <key>
                 <name>m</name>
-                <desc>Tilt Rotors fwd by 10 deg</desc>
+                <desc>Tilt rotors forward by 10 degrees</desc>
             </key>
             <key>
                 <name>M</name>
-                <desc>Tilt Rotors aft by 10 deg</desc>
+                <desc>Tilt rotors backward by 10 degrees</desc>
             </key>
             <key>
                 <name>Alt-m</name>
-                <desc>Tilt Rotors vertical</desc>
+                <desc>Tilt rotors vertical</desc>
             </key>
             <key>
                 <name>n</name>
-                <desc>Unfold Wing</desc>
+                <desc>Unfold wing</desc>
             </key>
             <key>
                 <name>N</name>
-                <desc>Fold Wing</desc>
+                <desc>Fold wing</desc>
             </key>
             <key>
                 <name>e</name>
-                <desc>Cockpitdoor</desc>
+                <desc>Open/Close cockpit door</desc>
             </key>
             <key>
                 <name>d</name>
-                <desc>Crewdoor UP</desc>
+                <desc>Open/Close starboard door upper part</desc>
             </key>
             <key>
                 <name>D</name>
-                <desc>Crewdoor LO</desc>
-            </key>
-            <key>
-                <name>s</name>
-                <desc>Cargodoor UP</desc>
+                <desc>Open/Close starboard door lower part</desc>
             </key>
             <key>
                 <name>c</name>
-                <desc>Cargodoor LO close</desc>
+                <desc>Open/Close cargo door upper part</desc>
             </key>
             <key>
-                <name>C</name>
-                <desc>Cargodoor LO open</desc>
+                <name>s</name>
+                <desc>Open/Close cargo door lower part</desc>
             </key>
             <key>
                 <name>f</name>
-            <desc>Air fuel probe</desc>
+                <desc>Air refuel probe</desc>
             </key>
             <key>
                 <name>Ctrl-j</name>
-                <desc>Deploy Paratroopers - Jump signal</desc>
+                <desc>Deploy paratroopers</desc>
             </key>
-<text>
-The tilt range is -10deg .. 0deg (vertical) .. 90deg (horitzontal)
-The allowed tilt range is a function of the aircrafts speed.
-The flight computer limits the actual tilt to this range.
-Therefore you can lift of with vertical rotors and accelerate
-like a helicopter.
-The computer will increase the tilt with increasing airspeed.
-For faster acceleration set the tilt to the maximum.
-The Osprey can hover within a range of -10deg to 30deg.
-You can set the tilt to horizontal/90deg on ground. Due to the
-lack of speed the tilt is limited to 30deg max.
-        
-GIT landing lights and rotor visabilety
-can be switched in the v22 dialog.
-        
-VMX22-Osprey for FGFS GIT
-(works with FGFS 2.0 - do not use GIT lights)
-</text>
+            <key>
+                <name>Ctrl-o</name>
+                <desc>Find aircraft to tow</desc>
+            </key>
+            <key>
+                <name>o</name>
+                <desc>Lock tow hook</desc>
+            </key>
+            <key>
+                <name>O</name>
+                <desc>Open tow hook</desc>
+            </key>
+            <text>The tilt range is from -10 degrees to 0 degrees (vertical) to 90 degrees (horizontal). The allowed tilt range is a function of the aircraft's speed. The flight computer limits the actual tilt to this range. Therefore you can lift of with vertical rotors and accelerate like a helicopter. The computer will increase the tilt with increasing airspeed. For faster acceleration set the tilt to the maximum.
+
+The Osprey can hover within a range of -10 degrees to 30 degrees. You can set the tilt to 90 degrees (horizontal) on ground. However, due to the lack of speed the tilt is limited to a maximum of 30 degrees.</text>
         </help>
 
         <flaps>
@@ -265,8 +257,8 @@ VMX22-Osprey for FGFS GIT
         </flaps>
     
         <hitches>
-            <!-- make sure some properties do exist, when the list for multiplayer transfer is defined -->
-            <!-- they need to be in the same value, as they are initilized in the FDM, to get the same values after reset should fix this somehow -->
+            <!-- Make sure some properties do exist, when the list for multiplayer transfer is defined -->
+            <!-- They need to be in the same value, as they are initilized in the FDM, to get the same values after reset should fix this somehow -->
             <aerotow>
                 <tow>
                     <length type="float">30</length>

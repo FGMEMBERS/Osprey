@@ -1,0 +1,50 @@
+<PropertyList>
+
+    <checklist>
+        <title>Before Starting Engines</title>
+
+        <item>
+            <name>Fuel Quantity</name>
+            <value>Check</value>
+        </item>
+        <item>
+            <name>Engine Instruments</name>
+            <value>Check</value>
+        </item>
+        <item>
+            <name>Flight Controls</name>
+            <value>Free and Correct</value>
+        </item>
+        <item>
+            <name>Avionics</name>
+            <value>On</value>
+        </item>
+        <item>
+            <name>Exterior Lights</name>
+            <value>Off</value>
+        </item>
+
+        <item>
+            <name>Aerial Refueling Probe</name>
+            <value>Retracted</value>
+            <condition>
+                <equals>
+                    <property>instrumentation/doors/airrefuel/position-norm</property>
+                    <value>1</value>
+                </equals>
+            </condition>
+        </item>
+
+        <item>
+            <name>Wings</name>
+            <value>Unfolded</value>
+            <condition>
+                <equals>
+                    <property>sim/model/v22/wing_state</property>
+                    <value>0</value>
+                </equals>
+            </condition>
+        </item>
+    </checklist>
+
+</PropertyList>

@@ -16,7 +16,7 @@
             </item>
 
             <item>
-                <label>Blades visible</label>
+                <label>Blades Visible</label>
                 <binding>
                     <command>nasal</command>
                     <script>
@@ -28,7 +28,7 @@
             </item>
 
             <item>
-                <label>GIT-Zan landing lights</label>
+                <label>GIT-Zan Landing Lights</label>
                 <binding>
                     <command>nasal</command>
                     <script>
@@ -48,7 +48,7 @@
             </item>
 
             <item>
-                <label>Find Aircraft to Tow [Ctrl o]</label>
+                <label>Find Aircraft to Tow</label>
                 <binding>
                     <command>property-assign</command>
                     <property>controls/aerotow/find-aircraft</property>
@@ -64,7 +64,7 @@
             </item>
 
             <item>
-                <label>Lock tow hook [o]</label>
+                <label>Lock Tow Hook</label>
                 <binding>
                     <command>property-assign</command>
                     <property>sim/hitches/aerotow/open</property>
@@ -73,7 +73,7 @@
             </item>
 
             <item>
-                <label>Open tow hook [O]</label>
+                <label>Open Tow Hook</label>
                 <binding>
                     <command>property-assign</command>
                     <property>sim/hitches/aerotow/open</property>
