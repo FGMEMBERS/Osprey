@@ -6,13 +6,11 @@
 
     <sim include="Nasal/views.xml">
 
-        <description>Bell Boeing VMX22 Osprey (Yasim)</description>
         <author>BARANGER Emmanuel (3D), Maik Justus (FDM), Oliver Thurau (3D upgrade and FDM / XML upgrade)</author>
         <status>alpha</status>
         <aircraft-version>0.59-28.08.2010</aircraft-version>
     
         <flight-model>yasim</flight-model>
-        <aero>vmx22</aero>
         <fuel-fraction>0.8</fuel-fraction>
 
         <startup>
@@ -150,32 +148,19 @@
         </weight>
 
         <weight n="2">
-            <name>Right Passenger</name>
+            <name>Cabin Crew</name>
             <weight-lb>0</weight-lb>
             <max-lb>300</max-lb>
-        </weight>
-
-        <weight n="3">
-            <name>Left Passenger</name>
-            <weight-lb>0</weight-lb>
-            <max-lb>300</max-lb>
-        </weight>
-
-        <weight n="4">
-            <name>Load</name>
-            <weight-lb>0</weight-lb>
-            <max-lb>20000</max-lb> <!-- or 15000 lb external cargo -->
         </weight>
 
         <checklists include="v22-checklists.xml"/>
-    
+
         <submodels>
             <serviceable type="bool">true</serviceable>
             <path>Aircraft/VMX22-Osprey/Submodels/submodels.xml</path>
         </submodels>
 
         <help>
-            <title>Bell Boeing V22 Osprey</title>
             <key>
                 <name>}</name>
                 <desc>Start Engines</desc>
@@ -226,7 +211,7 @@
             </key>
             <key>
                 <name>f</name>
-                <desc>Air refuel probe</desc>
+                <desc>Aerial refueling probe</desc>
             </key>
             <key>
                 <name>Ctrl-j</name>

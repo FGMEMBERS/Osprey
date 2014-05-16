@@ -2,7 +2,8 @@
 
 <!-- VMX-22 Version - 28.08.2010 -->
 
-<airplane mass="50000">
+<!-- 33140 -->
+<airplane mass="50000"> <!-- Original VMX-22 value: 50000 -->
 
     <approach speed="85" aoa="6">
         <control-setting axis="/sim/model/v22/solver_throttle" value="0.2"/>
@@ -55,7 +56,14 @@
         <control-input axis="/sim/model/v22/rotor/left/collective" control="COLLECTIVE" src0="-180.0" src1="180.0" dst0="-1" dst1="1.0"/>
     </rotor>
 
-    <rotorgear max-power-engine-real="9172"
+    <!--
+         6150 HP = 4586 kW
+         7195 HP = 5365 kW (+ 17 %)
+         9066 HP = 6761 kW (+ 26 %)
+
+         Original value VMX-22 max-power-engine-real = 9172
+    -->
+    <rotorgear max-power-engine-real="4586"
                max-power-engine="131720"
                max-power-rotor-brake="4850"
                rotorgear-friction="30"
@@ -299,16 +307,14 @@
     <ballast x="-1.10" yr="6" y="2.1" z="-2.40" mass="230"/>
     <ballast x="-1.10" yr="-6" y="-2.1" z="-2.40" mass="230"/>
 
-    <!-- pilot -->
+    <!-- Pilot -->
     <weight x="6.0" y="0.60" z="-1.3" mass-prop="/sim/weight[0]/weight-lb"/>
-    <!-- co-pilot -->
+    <!-- Co-pilot -->
     <weight x="6.0" y="-0.60" z="-1.3" mass-prop="/sim/weight[1]/weight-lb"/>
-    <!-- right passenger -->
-    <weight x="4.2" y="0.60" z="-1.5" mass-prop="/sim/weight[2]/weight-lb"/>
-    <!-- left passenger -->
-    <weight x="4.2" y="-0.60" z="-1.5" mass-prop="/sim/weight[3]/weight-lb"/>
-    <!-- load -->
-    <weight x="0.20" y="0" z="-1.9" mass-prop="/sim/weight[4]/weight-lb"/>
+    <!-- Cabin crew -->
+    <weight x="4.2" y="-0.60" z="-1.5" mass-prop="/sim/weight[2]/weight-lb"/>
+    <!-- Load -->
+    <weight x="0.20" y="0" z="-1.9" mass-prop="/sim/weight[3]/weight-lb"/>
 
     <!-- pushback -->
     <thruster x="7.105" y="0" z="-3.212" vx="1" vy="0" vz="0" thrust="5200">

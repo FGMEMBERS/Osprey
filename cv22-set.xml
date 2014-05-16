@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList include="vmx22-set.xml">
+
+    <sim>
+
+        <description>Bell Boeing CV-22B Osprey</description>
+        <aero>cv22</aero>
+
+        <weight n="3">
+            <name>Flight Engineer</name>
+            <weight-lb>0</weight-lb>
+            <max-lb>300</max-lb>
+        </weight>
+
+        <weight n="4">
+            <name>Load</name>
+            <weight-lb>0</weight-lb>
+            <max-lb>20000</max-lb> <!-- or 12500 lb external cargo -->
+        </weight>
+
+        <aircraft-operator>USAF</aircraft-operator>
+
+        <help>
+            <title>Bell Boeing CV-22B Osprey</title>
+        </help>
+
+        <menubar n="0">
+            <default n="0">
+                <menu n="10">
+                    <label>CV-22B Osprey</label>
+                </menu>
+            </default>
+        </menubar>
+
+    </sim>
+
+</PropertyList>
