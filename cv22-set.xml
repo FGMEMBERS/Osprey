@@ -35,4 +35,11 @@
 
     </sim>
 
+    <consumables>
+        <fuel>
+            <tank n="8"><name>Left Wing Auxilliary</name></tank>
+            <tank n="9"><name>Right Wing Auxilliary</name></tank>
+        </fuel>
+    </consumables>
+
 </PropertyList>

@@ -2,7 +2,24 @@
 
 <!-- VMX-22 Version - 28.08.2010 -->
 
-<!-- 33140 -->
+<!--
+     Sources:
+        [1]  http://www.boeing.com/boeing/rotorcraft/military/v22/v22spec.page
+        [2]  http://www.boeing.com/assets/pdf/rotorcraft/military/v22/docs/V-22_overview.pdf
+        [3]  https://en.wikipedia.org/wiki/V-22#Specifications_.28MV-22B.29
+        [4]  http://www.globalsecurity.org/military/systems/aircraft/v-22-specs.htm
+        [5]  http://www.bellhelicopter.com/MungoBlobs/126/268/V-22%20Guidebook%202013_update_PREVIEW_LR2.pdf (conversion corridor, page 29)
+        [6]  http://www.boeing.com/ospreynews/2011/issue_02/final_2011_2012_guidebook.pdf (performance, page 30)
+        [7]  http://www.defensenews.com/article/20130916/DEFREG02/309160009/Rolls-Royce-Boosts-Power-V-22-Engines?odyssey=mod_sectionstories
+        [8]  http://www.rolls-royce.com/defence/products/tactical_aircraft/ae_1107/
+        [9]  http://www.globalsecurity.org/military/systems/aircraft/v-22-fuel.htm
+        [10] http://www.fas.org/man/dod-101/sys/ac/docs/99-033.pdf
+-->
+
+<!--
+     Empty weight: 33140 lbs
+-->
+<!-- version="YASIM_VERSION_32" -->
 <airplane mass="50000"> <!-- Original VMX-22 value: 50000 -->
 
     <approach speed="85" aoa="6">
@@ -10,7 +27,15 @@
         <control-setting axis="/sim/model/v22/tilt" value="90"/>
     </approach>
 
-    <cruise speed="275" alt="15000">
+    <!--
+         275 KTAS at sea level, 305 KTAS at 15000 ft
+
+         Sources:
+            - [3]
+
+         Original value VMX-22 speed = 275
+    -->
+    <cruise speed="305" alt="15000">
         <control-setting axis="/sim/model/v22/solver_throttle" value="1.0"/>
         <control-setting axis="/sim/model/v22/tilt" value="90"/>
     </cruise>
@@ -57,11 +82,19 @@
     </rotor>
 
     <!--
-         6150 HP = 4586 kW
-         7195 HP = 5365 kW (+ 17 %)
-         9066 HP = 6761 kW (+ 26 %)
+         6150 SHP = 4586 kW
+         7195 SHP = 5365 kW (+ 17 %)
+         9066 SHP = 6761 kW (+ 26 %)
+
+         Sources:
+            - [7] (Mentions 17 % Block 3 and 10000 SHP for Block 4)
+            - [8] (The overview says 7000 SHP (13 % increase), but the
+            specification says 7650 SHP (24 %) and 9000 SHP (17 %), so
+            the second number (7650 SHP) seems too high to me)
 
          Original value VMX-22 max-power-engine-real = 9172
+         
+         Warning: I haven't modified max-power-engine and max-power-rotor-brake!
     -->
     <rotorgear max-power-engine-real="4586"
                max-power-engine="131720"
@@ -279,17 +312,49 @@
     <gear x=" 2.52" y="+7.441" z="-1.87" skid="1" compression="0.10" spring="0.8" sfric="0.7" dfric="0.6" ignored-by-solver="1"/>
     <gear x=" 1.40" y="+7.241" z="-1.87" skid="1" compression="0.10" spring="0.8" sfric="0.7" dfric="0.6" ignored-by-solver="1"/>
 
-    <!-- Forward sponson Fuel tank -->
-    <tank x="1.70" y="+1.4" z="-2.10" capacity="75"/>
-    <tank x="1.70" y="-1.4" z="-2.10" capacity="75"/>
+    <!-- Forward sponson tanks
+         2x 478 gal or 3250 lbs
+    -->
+    <tank x="1.7" y="+1.4" z="-2.1" jet="true" capacity="3250"/>
+    <tank x="1.7" y="-1.4" z="-2.1" jet="true" capacity="3250"/>
 
-    <!-- Wing feeder tank -->
-    <tank x="1.90" y="+5.8" z="0.30" capacity="75"/>
-    <tank x="1.90" y="-5.8" z="0.30" capacity="75"/>
+    <!-- Wing feeder tanks
+         2x 88 gal or 600 lbs
+    -->
+    <tank x="1.9" y="+5.8" z="0.3" jet="true" capacity="600"/>
+    <tank x="1.9" y="-5.8" z="0.3" jet="true" capacity="600"/>
 
-    <!-- Wing aux tank -->
-    <tank x="1.90" y="+3.6" z="0.10" capacity="75"/>
-    <tank x="1.90" y="-3.6" z="0.10" capacity="75"/>
+    <!-- Note: CV-22B has additionally: Wing auxilliary tanks
+         2x 296 gal (8 * 74) or 2000 lbs (8 * 500)
+         MV-22B does not have these!
+    -->
+
+    <!-- Aft sponson tank
+         1x 316 gal or 2150 lbs
+    -->
+    <tank x="-1" y="-1.4" z="-2.1" jet="true" capacity="2150"/>
+
+    <!-- Optional MATS tanks
+         480 gal or 3264 lbs each ([3], [5] and [6])
+         or 800 gal or 5450 lbs [9]
+         or 4000 lbs [10]
+
+         Not sure about the x and y coordinates. For now I'm assuming
+         two in the front and one in the back.
+    -->
+    <tank x="1.2" y="0" z="-1.5" jet="true" capacity="3264"/>
+    <tank x="1.2" y="0" z="-0.6" jet="true" capacity="3264"/>
+    <tank x="0.0" y="0" z="-1.5" jet="true" capacity="3264"/>
+
+    <!--
+         If we assume CV-22B has two additional wing auxilliary tanks ([9], [10]), we get for MV-22B:
+            2*478 + 2*88 + 1*316 = 1448 gal (instead of the 1721 gal mentioned by [5] and [6])
+         If we instead assume CV-22B has just the one additional sponson (aft) tank,
+         we get for MV-22B:
+            2*478 + 2*88 + 2*296 = 1724 gal (close to what [5] and [6] say)
+         and for the CV-22B:
+            2*478 + 2*88 + 2*296 + 1*316 = 2040 gal (close to what [3], [5], and [6] say)
+    -->
 
     <!-- work around bug in native-fdm.cxx:184 -->
     <tank x="0" y="0" z="0" capacity="0"/>

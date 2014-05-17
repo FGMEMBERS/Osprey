@@ -340,4 +340,17 @@ The Osprey can hover within a range of -10 degrees to 30 degrees. You can set th
         </doors>
     </nasal>
 
+    <consumables>
+        <fuel>
+            <tank n="0"><name>Left Forward Sponson</name></tank>
+            <tank n="1"><name>Right Forward Sponson</name></tank>
+            <tank n="2"><name>Left Wing Feeder</name></tank>
+            <tank n="3"><name>Right Wing Feeder</name></tank>
+            <tank n="4"><name>Right Aft Sponson</name></tank>
+            <tank n="5"><name>Optional MATS no. 1</name></tank>
+            <tank n="6"><name>Optional MATS no. 2</name></tank>
+            <tank n="7"><name>Optional MATS no. 3</name></tank>
+        </fuel>
+    </consumables>
+
 </PropertyList>
