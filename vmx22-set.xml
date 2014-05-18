@@ -12,6 +12,7 @@
     
         <flight-model>yasim</flight-model>
         <fuel-fraction>0.8</fuel-fraction>
+        <max-payload>60500</max-payload>
 
         <startup>
             <splash-texture>Aircraft/VMX22-Osprey/vmx22-splash.png</splash-texture>

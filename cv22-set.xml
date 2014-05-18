@@ -19,7 +19,7 @@
             <max-lb>20000</max-lb> <!-- or 12500 lb external cargo -->
         </weight>
 
-        <aircraft-operator>USAF</aircraft-operator>
+        <aircraft-operator>AFSOC</aircraft-operator>
 
         <help>
             <title>Bell Boeing CV-22B Osprey</title>

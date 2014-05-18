@@ -356,9 +356,6 @@
             2*478 + 2*88 + 2*296 + 1*316 = 2040 gal (close to what [3], [5], and [6] say)
     -->
 
-    <!-- work around bug in native-fdm.cxx:184 -->
-    <tank x="0" y="0" z="0" capacity="0"/>
-
     <!-- ballast corections overall plane--> 
     <ballast x=" 4.25" y="+0.0" z="-2.5" mass=" 9500"/>
     <ballast x="-8" y="+0.0" z="0.5" mass="-9800"/> 
