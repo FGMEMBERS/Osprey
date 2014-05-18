@@ -142,12 +142,14 @@
             <name>Pilot</name>
             <weight-lb>180</weight-lb>
             <max-lb>300</max-lb>
+            <min-lb>150</min-lb>
         </weight>
 
         <weight n="1">
             <name>Co-Pilot</name>
             <weight-lb>180</weight-lb>
             <max-lb>300</max-lb>
+            <min-lb>150</min-lb>
         </weight>
 
         <weight n="2">
