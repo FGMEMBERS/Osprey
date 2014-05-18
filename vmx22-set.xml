@@ -11,7 +11,9 @@
         <aircraft-version>0.59-28.08.2010</aircraft-version>
     
         <flight-model>yasim</flight-model>
-        <fuel-fraction>0.8</fuel-fraction>
+
+        <!-- Empty fuel tanks at start-up of FG -->
+        <fuel-fraction>0.0</fuel-fraction>
         <max-payload>60500</max-payload>
 
         <startup>
