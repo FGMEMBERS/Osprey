@@ -11,6 +11,9 @@ var cargo_upper_toggle = func {
             cargo_upper.close();
             cargo_upper_state = 0;
         }
+        else {
+            gui.popupTip("Close loading ramp first", 3);
+        }
     }
     else {
         cargo_upper.open();
@@ -28,6 +31,9 @@ var cargo_lower_toggle = func {
             cargo_lower.open();
             cargo_lower_state = 1;
         }
+        else {
+            gui.popupTip("Open cargo door first", 3);
+        }
     }
 }
 
@@ -43,6 +49,9 @@ var crew_upper_toggle = func {
         if (!crew_lower_state) {
             crew_upper.close();
             crew_upper_state = 0;
+        }
+        else {
+            gui.popupTip("Close lower starboard door first", 3);
         }
     }
     else {
@@ -60,6 +69,9 @@ var crew_lower_toggle = func {
         if (crew_upper_state) {
             crew_lower.open();
             crew_lower_state = 1;
+        }
+        else {
+            gui.popupTip("Open upper starboard door first");
         }
     }
 }
