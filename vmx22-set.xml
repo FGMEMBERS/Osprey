@@ -283,6 +283,11 @@ The Osprey can hover within a range of -10 degrees to 30 degrees. You can set th
         <aerotow>
             <find-aircraft type="bool">false</find-aircraft>
         </aerotow> 
+
+        <lighting>
+            <beacon type="bool">false</beacon>
+            <nav-lights type="bool">false</nav-lights>
+        </lighting>
     </controls>
 
     <rotors>
@@ -332,12 +337,14 @@ The Osprey can hover within a range of -10 degrees to 30 degrees. You can set th
     </gear>
   
     <nasal>
+        <lighting>
+            <file>Aircraft/VMX22-Osprey/Nasal/lighting.nas</file>
+        </lighting>
         <v22>
             <file>Aircraft/VMX22-Osprey/Nasal/v22.nas</file>
             <!-- <file>Aircraft/VMX22-Osprey/Nasal/terrain_under.nas</file> -->
             <file>Aircraft/VMX22-Osprey/Nasal/tyresmoke.nas</file>
             <file>Aircraft/VMX22-Osprey/Nasal/immat.nas</file>
-            <file>Aircraft/VMX22-Osprey/Nasal/light.nas</file>
             <file>Aircraft/VMX22-Osprey/Nasal/liveries.nas</file>
         </v22>
         <doors>

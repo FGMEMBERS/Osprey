@@ -20,6 +20,14 @@
     <spherical type="bool">true</spherical>
   </animation>
 
+    <animation>
+        <type>select</type>
+        <object-name>Light</object-name>
+        <condition>
+            <property>/controls/lighting/nav-lights</property>
+        </condition>
+    </animation>
+
   <animation>
     <type>dist-scale</type>
     <object-name>Light</object-name>
@@ -38,7 +46,5 @@
       </entry>
     </interpolation>
   </animation>
-  
-  
 
 </PropertyList>

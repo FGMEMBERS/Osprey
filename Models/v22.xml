@@ -548,19 +548,19 @@
   </model>
   
 
-  <!-- Position Lights -->
-  <model>
-    <name>LampeCentrale</name>
-    <path>Aircraft/VMX22-Osprey/Models/light/beacon.xml</path>
-    <offsets>
-      <x-m> -2.673 </x-m>
-      <y-m>  0.000 </y-m>
-      <z-m> -2.550 </z-m>
-    </offsets>
-  </model>
+    <!-- Beacon light under fuselage -->
+    <model>
+        <name>BeaconLightUnderFuselage</name>
+        <path>Aircraft/VMX22-Osprey/Models/light/beacon.xml</path>
+        <offsets>
+            <x-m> -2.673 </x-m>
+            <y-m>  0.000 </y-m>
+            <z-m> -2.550 </z-m>
+        </offsets>
+    </model>
 
   <model>
-    <name>LampeGauche</name>
+    <name>NavigationLightRed</name>
     <path>Aircraft/VMX22-Osprey/Models/light/RedLight.xml</path>
     <offsets>
       <x-m> -1.515 </x-m>
@@ -570,7 +570,7 @@
   </model>
 
   <model>
-    <name>LampeDroite</name>
+    <name>NavigationLightGreen</name>
     <path>Aircraft/VMX22-Osprey/Models/light/GreenLight.xml</path>
     <offsets>
       <x-m> -1.515 </x-m>
@@ -579,13 +579,15 @@
     </offsets>
   </model>
 
-  <model>
-    <path>Aircraft/VMX22-Osprey/Models/light/beacon.xml</path>
-    <offsets>
-      <x-m>  8.392 </x-m>
-      <y-m> -2.515 </y-m>
-      <z-m>  1.759 </z-m>
-    </offsets>
+    <!-- Beacon light on tail -->
+    <model>
+        <name>BeaconLightOnTail</name>
+        <path>Aircraft/VMX22-Osprey/Models/light/beacon.xml</path>
+        <offsets>
+            <x-m>  8.392 </x-m>
+            <y-m> -2.515 </y-m>
+            <z-m>  1.759 </z-m>
+        </offsets>
   </model>
   
   <!-- Taxi / Landing Lights - rotation for the model-->
@@ -955,9 +957,9 @@
     <object-name>propdiscD</object-name>
     <object-name>propblurG</object-name>
     <object-name>propblurD</object-name>
-    <object-name>LampeCentrale</object-name>
-    <object-name>LampeGauche</object-name>
-    <object-name>LampeDroite</object-name>
+    <object-name>BeaconLightUnderFuselage</object-name>
+    <object-name>NavigationLightRed</object-name>
+    <object-name>NavigationLightGreen</object-name>
 	<object-name>wing_stab</object-name>
 	
 	<object-name>engine_hinge_01</object-name>
@@ -1135,8 +1137,8 @@
     <object-name>propdiscG</object-name>
     <object-name>propblurD</object-name>
     <object-name>propblurG</object-name>
-    <object-name>LampeGauche</object-name>
-    <object-name>LampeDroite</object-name>
+    <object-name>NavigationLightRed</object-name>
+    <object-name>NavigationLightGreen</object-name>
 	
 	<object-name>Nacur_G_ext</object-name>
 	<object-name>Nacur_D_ext</object-name>

@@ -283,34 +283,6 @@ var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
 aircraft.light.new("sim/model/v22/lighting/strobe-top", [0.05, 1.00], strobe_switch);
 aircraft.light.new("sim/model/v22/lighting/strobe-bottom", [0.05, 1.03], strobe_switch);
 
-# beacons ===========================================================
-var beacon_switch = props.globals.getNode("controls/lighting/beacon", 1);
-aircraft.light.new("sim/model/v22/lighting/beacon-top", [0.62, 0.62], beacon_switch);
-aircraft.light.new("sim/model/v22/lighting/beacon-bottom", [0.63, 0.63], beacon_switch);
-
-
-# nav lights ========================================================
-var nav_light_switch = props.globals.getNode("controls/lighting/nav-lights", 1);
-var visibility = props.globals.getNode("environment/visibility-m", 1);
-var sun_angle = props.globals.getNode("sim/time/sun-angle-rad", 1);
-var nav_lights = props.globals.getNode("sim/model/s58/lighting/nav-lights", 1);
-
-var nav_light_loop = func {
-	if (nav_light_switch.getValue()) {
-		nav_lights.setValue(visibility.getValue() < 5000 or sun_angle.getValue() > 1.4);
-	} else {
-		nav_lights.setValue(0);
-	}
-	settimer(nav_light_loop, 3);
-}
-
-settimer(nav_light_loop, 0);
-
-
-
-
-
-
 # engines/rotor/wing =====================================================
 var state = props.globals.getNode("sim/model/v22/state", 1);
 var wing_state = props.globals.getNode("sim/model/v22/wing_state", 1);
@@ -783,8 +755,8 @@ var crash = func {
 		setprop("rotors/main/blade[2]/incidence-deg", -50);
 		setprop("rotors/tail/rpm", 0);
 		strobe_switch.setValue(0);
-		beacon_switch.setValue(0);
-		nav_light_switch.setValue(0);
+		lighting.beacon_switch.setValue(0);
+		lighting.navigation_switch.setValue(0);
 		rotor.setValue(0);
 		torque_pct.setValue(torque_val = 0);
 		stall_filtered.setValue(stall_val = 0);
@@ -799,7 +771,8 @@ var crash = func {
 			setprop("rotors/main/blade[" ~ i ~ "]/incidence-deg", 0);
 		}
 		strobe_switch.setValue(1);
-		beacon_switch.setValue(1);
+		lighting.beacon_switch.setValue(1);
+		lighting.navigation_switch.setValue(1);
 		rotor.setValue(1);
 		state.setValue(5);
 	}
@@ -1052,5 +1025,3 @@ setlistener("/sim/signals/fdm-initialized", func {
 
 	main_loop();
 });
-
-
