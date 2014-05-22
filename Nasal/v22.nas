@@ -973,17 +973,14 @@ var main_loop = func {
 	update_controls_and_tilt_loop(dt);
 	# update_rotor_brake();
 	update_mp_generics();
-	settimer(main_loop, 0);
 }
-
 
 var crashed = 0;
 var variant = nil;
 var doors = nil;
 var config_dialog = nil;
 
-
-# initialization
+# Initialization
 setlistener("/sim/signals/fdm-initialized", func {
 
 	#init_rotoranim();
@@ -1023,5 +1020,6 @@ setlistener("/sim/signals/fdm-initialized", func {
 	# the attitude indicator needs pressure
 	# settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
 
-	main_loop();
+    var main_loop_timer = maketimer(0.0, main_loop);
+    main_loop_timer.start();
 });
