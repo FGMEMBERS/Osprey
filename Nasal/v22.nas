@@ -1,6 +1,10 @@
 # Maik Justus < fg # mjustus : de >, partly based on bo105.nas by Melchior FRANZ, < mfranz # aon : at >
 # updates for vmx22 version by Oliver Thurau
 
+# Sources:
+#     [1] http://www.bellhelicopter.com/MungoBlobs/126/268/V-22%20Guidebook%202013_update_PREVIEW_LR2.pdf
+#     (conversion corridor, page 57 on slide 29)
+
 if (!contains(globals, "cprint")) {
     globals.cprint = func {};
 }
@@ -79,6 +83,17 @@ var target_rpm_airplane = 333;
 var target_rpm_helicopter = 412;
 var target_rpm = target_rpm_helicopter;
 
+# [1] actually describes the lower bound as "40 to 80 knots" (KTAS) and the
+# upper bound as "100 to 120 knots" (KTAS)
+var min_conv_mode_kias = 40;
+var max_conv_mode_kias = 120;
+
+# Lower the speed at which the flaps are fully extended by 10 knots
+var flap_speed_offset = -10;
+
+# Increase the range in which the flaps are (partially) extended by 40 knots
+var flap_speed_range = 40;
+
 var update_controls_and_tilt_loop = func(dt){
     if (props.globals.getNode("sim/crashed",1).getBoolValue()) {
         return;
@@ -127,11 +142,13 @@ var update_controls_and_tilt_loop = func(dt){
     if (state.getValue() == 5) {
         target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
     }
-    
-    # airplane_control_factor = clamp( (act_tilt-30)/15 ,0 ,1);
-    airplane_control_factor = clamp( (speed-40)/40 ,0 ,1);
-    helicopter_control_factor = clamp( (90-act_tilt)/50,0 ,1);
-    var flap_control_factor = clamp( (speed-40)/80 ,0 ,1);
+
+    # Below min_conv_mode_kias the conversion factor is 0, above max_conv_mode_kias it is 1
+    var conv_factor = clamp((speed - min_conv_mode_kias) / (max_conv_mode_kias - min_conv_mode_kias), 0, 1);
+
+    airplane_control_factor = conv_factor;
+    helicopter_control_factor = 1 - conv_factor;
+    var flap_control_factor = clamp((speed - min_conv_mode_kias - flap_speed_offset) / (max_conv_mode_kias - min_conv_mode_kias + flap_speed_range), 0, 1);
     
     out_wing_ele.setValue( ele );
     out_wing_ail.setValue( ail * 0.15 * airplane_control_factor );
