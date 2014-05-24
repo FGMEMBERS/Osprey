@@ -143,13 +143,15 @@
   <nasal>
     <load>
       var self = cmdarg();
-      var animation_tilt = self.getNode("sim/model/v22/animation_tilt",1);
+      var animation_tilt_left = self.getNode("sim/model/v22/rotor/left/animation_tilt",1);
+      var animation_tilt_right = self.getNode("sim/model/v22/rotor/right/animation_tilt",1);
       var blade_folding = self.getNode("sim/model/v22/blade_folding",1);
       var wing_rotation = self.getNode("sim/model/v22/wing_rotation", 1);
       var blade_folding_mp = self.getNode("sim/multiplay/generic/float[0]", 1);
-      var animation_tilt_mp = self.getNode("sim/multiplay/generic/float[1]", 1);
-      var wing_rotation_mp = self.getNode("sim/multiplay/generic/float[2]", 1);
-      var blade_incidence_mp = self.getNode("sim/multiplay/generic/float[3]", 1);
+      var animation_tilt_mp_left = self.getNode("sim/multiplay/generic/float[1]", 1);
+      var animation_tilt_mp_right = self.getNode("sim/multiplay/generic/float[2]", 1);
+      var wing_rotation_mp = self.getNode("sim/multiplay/generic/float[3]", 1);
+      var blade_incidence_mp = self.getNode("sim/multiplay/generic/float[4]", 1);
 	
       var blade_incidence0 = self.getNode("rotors/main/blade[0]/incidence-deg", 1);
       var blade_incidence1 = self.getNode("rotors/main/blade[1]/incidence-deg", 1);
@@ -161,25 +163,37 @@
       var loop = func(id) {
                  id == loopid or return;
                  var v = blade_folding_mp.getValue();
-                 if ( v == nil) v = 0.0;
-                 blade_folding.setDoubleValue( v );
+                 if (v == nil) v = 0.0;
+                 blade_folding.setDoubleValue(v);
 
-                 v = animation_tilt_mp.getValue();
-                 if ( v == nil) v = 0.0;
-                 animation_tilt.setDoubleValue( v );
+                 v = animation_tilt_mp_left.getValue();
+                 if (v == nil) {
+                    v = 0.0;
+                 }
+                 animation_tilt_left.setDoubleValue(v);
+
+                 v = animation_tilt_mp_right.getValue();
+                 if (v == nil) {
+                    v = 0.0;
+                 }
+                 animation_tilt_right.setDoubleValue(v);
 
                  v = wing_rotation_mp.getValue();
-                 if ( v == nil) v = 0.0;
-                 wing_rotation.setDoubleValue( v );
+                 if (v == nil) {
+                    v = 0.0;
+                 }
+                 wing_rotation.setDoubleValue(v);
 
                  v = blade_incidence_mp.getValue();
-                 if ( v == nil) v = 0.0;
-                 blade_incidence0.setDoubleValue( v );
-                 blade_incidence1.setDoubleValue( v );
-                 blade_incidence2.setDoubleValue( v );
-                 blade_incidence10.setDoubleValue( v );
-                 blade_incidence11.setDoubleValue( v );
-                 blade_incidence12.setDoubleValue( v );
+                 if (v == nil) {
+                    v = 0.0;
+                 }
+                 blade_incidence0.setDoubleValue(v);
+                 blade_incidence1.setDoubleValue(v);
+                 blade_incidence2.setDoubleValue(v);
+                 blade_incidence10.setDoubleValue(v);
+                 blade_incidence11.setDoubleValue(v);
+                 blade_incidence12.setDoubleValue(v);
 
                  settimer(func { loop(id) }, 0);
       }
@@ -596,7 +610,7 @@
 	<object-name>landinglight_03</object-name>
 	<type>rotate</type>
 	<!-- <property>instrumentation/doors/landinglightpos/position-norm</property> -->
-	<property>sim/multiplay/generic/float[15]</property>
+	<property>sim/multiplay/generic/float[16]</property>
     <factor> 0.100 </factor>
 	<interpolation>
       <entry><ind> 0.0 </ind><dep>    0 </dep></entry>
@@ -861,7 +875,8 @@
 	<object-name>nassel_hydr_wing_G</object-name>
 	
   </animation>
-  
+ 
+  <!-- Left nacelle -->
   <animation>
     <name>moteurG</name>
     <object-name>moteurG_turbine</object-name>
@@ -878,7 +893,8 @@
 	<object-name>moteurG_out</object-name>
 	<object-name>moteurG_in</object-name>
   </animation>
-  
+ 
+  <!-- Right nacelle -->
   <animation>
     <name>moteurD</name>
     <object-name>moteurD_turbine</object-name>
@@ -1113,42 +1129,43 @@
     </axis>
 	</animation>
 	
-
-  <!-- Rotation des moteurs - rotation of engine left and right -->
   <animation>
-    <name>LesMoteurs</name>
-    <object-name>moteurD</object-name>
+    <name>EngineLeft</name>
     <object-name>moteurG</object-name>
-    <object-name>piedpaleD1</object-name>
-    <object-name>piedpaleD2</object-name>
-    <object-name>piedpaleD3</object-name>
     <object-name>piedpaleG1</object-name>
     <object-name>piedpaleG2</object-name>
     <object-name>piedpaleG3</object-name>
-    <object-name>paleD1</object-name>
-    <object-name>paleD2</object-name>
-    <object-name>paleD3</object-name>
     <object-name>paleG1</object-name>
     <object-name>paleG2</object-name>
     <object-name>paleG3</object-name>
-    <object-name>bolD</object-name>
     <object-name>bolG</object-name>
-    <object-name>propdiscD</object-name>
     <object-name>propdiscG</object-name>
-    <object-name>propblurD</object-name>
     <object-name>propblurG</object-name>
     <object-name>NavigationLightRed</object-name>
-    <object-name>NavigationLightGreen</object-name>
-	
 	<object-name>Nacur_G_ext</object-name>
+  </animation>
+
+  <animation>
+    <name>EngineRight</name>
+    <object-name>moteurD</object-name>
+    <object-name>piedpaleD1</object-name>
+    <object-name>piedpaleD2</object-name>
+    <object-name>piedpaleD3</object-name>
+    <object-name>paleD1</object-name>
+    <object-name>paleD2</object-name>
+    <object-name>paleD3</object-name>
+    <object-name>bolD</object-name>
+    <object-name>propdiscD</object-name>
+    <object-name>propblurD</object-name>
+    <object-name>NavigationLightGreen</object-name>
 	<object-name>Nacur_D_ext</object-name>
   </animation>
 
-  <!-- This seems to be Engine Tilt -->
+  <!-- Rotation of left engine -->
   <animation>
     <type>rotate</type>
-    <object-name>LesMoteurs</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <object-name>EngineLeft</object-name>
+    <property>sim/model/v22/rotor/left/animation_tilt</property>
     <factor>1</factor>
     <center>
       <x-m> -1.570 </x-m>
@@ -1162,12 +1179,30 @@
     </axis>
   </animation>
   
+  <!-- Rotation of right engine -->
+  <animation>
+    <type>rotate</type>
+    <object-name>EngineRight</object-name>
+    <property>sim/model/v22/rotor/right/animation_tilt</property>
+    <factor>1</factor>
+    <center>
+      <x-m> -1.570 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m>  0.500 </z-m>
+    </center>
+    <axis>
+      <x>  0 </x>
+      <y> -1 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+
   <!-- Rotation of Engine Nacel Hydraulics left and right - note: moddeled closed make offset -90 -->
   
   <animation>
     <type>rotate</type>
     <object-name>Nhydr_G</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <property>sim/model/v22/rotor/left/animation_tilt</property>
 	<offset-deg>-90</offset-deg>
     <factor>1</factor>
     <center>
@@ -1187,7 +1222,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nacur_G</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <property>sim/model/v22/rotor/left/animation_tilt</property>
 	<!-- <offset-deg>-90</offset-deg> -->
     <factor>1</factor>
 	<interpolation>
@@ -1214,7 +1249,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nacur_G_ext</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <property>sim/model/v22/rotor/left/animation_tilt</property>
 	<!-- <offset-deg>-90</offset-deg> -->
     <factor>1</factor>
 	<interpolation>
@@ -1243,7 +1278,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nacur_D</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <property>sim/model/v22/rotor/right/animation_tilt</property>
 	<!-- <offset-deg>-90</offset-deg> -->
     <factor>1</factor>
 	<interpolation>
@@ -1270,7 +1305,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nacur_D_ext</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <property>sim/model/v22/rotor/right/animation_tilt</property>
 	<!-- <offset-deg>-90</offset-deg> -->
     <factor>1</factor>
 	<interpolation>
@@ -1927,7 +1962,7 @@
 	<object-name>aG_h2_01</object-name>
 	<object-name>aG_h2_02</object-name>
   </animation>
-  
+ 
   <animation>
     <name>aileronG_MAIN</name>
 	<object-name>aileronG</object-name>
@@ -1987,7 +2022,7 @@
 	<object-name>aD_h2_01</object-name>
 	<object-name>aD_h2_02</object-name>
   </animation>
-  
+ 
   <animation>
     <name>aileronD_MAIN</name>
 	<object-name>aileronD</object-name>
@@ -2140,7 +2175,7 @@
    <type>translate</type>
 		<object-name>AirRF-02</object-name>
 		<!--<property>instrumentation/doors/airrefuel/position-norm</property>-->
-		<property>sim/multiplay/generic/float[6]</property>
+		<property>sim/multiplay/generic/float[7]</property>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>    0.0 </dep></entry>
       <entry><ind> 1.000 </ind><dep>  1.700 </dep></entry>
@@ -2158,7 +2193,7 @@
    <type>rotate</type>
 		<object-name>cockpit_door</object-name>
 		<!--<property>instrumentation/doors/cockpitdoor/position-norm</property>-->
-		<property>sim/multiplay/generic/float[7]</property>
+		<property>sim/multiplay/generic/float[8]</property>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>   0 </dep></entry>
       <!--<entry><ind> 0.1 </ind><dep>   0 </dep></entry>
@@ -2204,7 +2239,7 @@
    <type>rotate</type>
 		<object-name>frontLOW</object-name>
 		<!--<property>instrumentation/doors/crew/position-norm</property>-->
-		<property>sim/multiplay/generic/float[8]</property>
+		<property>sim/multiplay/generic/float[9]</property>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>   0 </dep></entry>
       <entry><ind> 1.0 </ind><dep> 142 </dep></entry>
@@ -2224,7 +2259,7 @@
    <type>translate</type>
 		<object-name>frontUP</object-name>
 		<!--<property>instrumentation/doors/crewup/position-norm</property>-->
-		<property>sim/multiplay/generic/float[9]</property>
+		<property>sim/multiplay/generic/float[10]</property>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>    0.0 </dep></entry>
       <entry><ind> 0.250 </ind><dep>  0.0 </dep></entry>
@@ -2242,7 +2277,7 @@
    <type>translate</type>
 		<object-name>frontUP</object-name>
 		<!--<property>instrumentation/doors/crewup/position-norm</property>-->
-		<property>sim/multiplay/generic/float[9]</property>
+		<property>sim/multiplay/generic/float[10]</property>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>    0.0 </dep></entry>
       <entry><ind> 0.200 </ind><dep>  -0.040 </dep></entry>
@@ -2260,7 +2295,7 @@
    <type>rotate</type>
 		<object-name>frontUP</object-name>
 		<!--<property>instrumentation/doors/crewup/position-norm</property>-->
-		<property>sim/multiplay/generic/float[9]</property>
+		<property>sim/multiplay/generic/float[10]</property>
 		<interpolation>
       <entry><ind> 0.000 </ind><dep>   0 </dep></entry>
 	  <entry><ind> 0.250 </ind><dep>   0 </dep></entry>
@@ -2304,7 +2339,7 @@
 		<object-name>cargoLOW</object-name>
 		<object-name>cargoLOWhydr</object-name>
 		<!--<property>instrumentation/doors/cargodoormix/position-norm</property>-->
-		<property>sim/multiplay/generic/float[4]</property>
+		<property>sim/multiplay/generic/float[5]</property>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>  0 </dep></entry>
       
@@ -2325,7 +2360,7 @@
    <type>rotate</type>
 		<object-name>cargoLOWhydr</object-name>
 		<!--<property>instrumentation/doors/cargodoormix/position-norm</property>-->
-		<property>sim/multiplay/generic/float[4]</property>
+		<property>sim/multiplay/generic/float[5]</property>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>   0 </dep></entry>
       
@@ -2348,7 +2383,7 @@
    <type>rotate</type>
 		<object-name>cargoUPhydr</object-name>
 		<!--<property>instrumentation/doors/cargodoormix/position-norm</property>-->
-		<property>sim/multiplay/generic/float[4]</property>
+		<property>sim/multiplay/generic/float[5]</property>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>   0 </dep></entry>
       
@@ -2371,7 +2406,7 @@
    <type>rotate</type>
 		<object-name>cargodoorup</object-name>
 		<!--<property>instrumentation/doors/cargodoorup/position-norm</property>-->
-		<property>sim/multiplay/generic/float[5]</property>
+		<property>sim/multiplay/generic/float[6]</property>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>  0 </dep></entry>
       <entry><ind> 0.2 </ind><dep>  1 </dep></entry>
@@ -2872,7 +2907,7 @@
     <type>rotate</type>
     <object-name>TrainAvant</object-name>
 	<!-- <property>gear/gear[0]/caster-angle-deg</property> -->
-	<property>sim/multiplay/generic/float[11]</property>
+	<property>sim/multiplay/generic/float[12]</property>
 	<factor> 1 </factor>
     <!--<property>/controls/flight/rudder</property>
     <factor> 20.0 </factor>
@@ -2895,7 +2930,7 @@
     <type>spin</type>
     <object-name>roueA</object-name>
     <!-- <property>/gear/gear[0]/rollspeed-ms</property> -->
-	<property>sim/multiplay/generic/float[17]</property>
+	<property>sim/multiplay/generic/float[18]</property>
     <factor> 30 </factor>
     <center>
       <x-m> -7.105 </x-m>
@@ -2913,7 +2948,7 @@
     <type>spin</type>
     <object-name>roueG</object-name>
     <!-- <property>/gear/gear[1]/rollspeed-ms</property> -->
-	<property>sim/multiplay/generic/float[18]</property>
+	<property>sim/multiplay/generic/float[19]</property>
     <factor> 30 </factor>
     <center>
       <x-m>  1.118 </x-m>
@@ -2931,7 +2966,7 @@
     <type>spin</type>
     <object-name>roueD</object-name>
     <!-- <property>/gear/gear[2]/rollspeed-ms</property> -->
-	<property>sim/multiplay/generic/float[19]</property>
+	<property>sim/multiplay/generic/float[20]</property>
     <factor> 30 </factor>
     <center>
       <x-m>  1.118 </x-m>

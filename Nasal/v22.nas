@@ -41,7 +41,6 @@ var interpolation = func (x, x0, y0, x1, y1 ,x2 = nil , y2 = nil, x3 = nil, y3 =
     }
 }
 
-
 # controls 
 var control_rotor_incidence_wing_fold = props.globals.getNode("sim/model/v22/wingfoldincidence");
 var control_ail = props.globals.getNode("/sim/model/v22/flight_computer/roll/out");
@@ -70,13 +69,12 @@ var out_rotor_l_col = props.globals.getNode("sim/model/v22/rotor/left/collective
 
 var airspeed_kt = props.globals.getNode("/velocities/airspeed-kt");
 var rotor_pos = props.globals.getNode("rotors/main/blade[0]/position-deg",1);
-var actual_tilt = props.globals.getNode("sim/model/v22/tilt",1); #0 up, 90 forward, range -10 ... 90
-var animation_tilt = props.globals.getNode("sim/model/v22/animation_tilt",1);
-actual_tilt.setValue(0);
-var min_tilt = -10+0*100;
-var max_tilt = 90;
-var min_allowed_tilt = -10;
-var max_allowed_tilt = 30;
+var actual_tilt_left = props.globals.getNode("sim/model/v22/rotor/left/tilt",1); #0 up, 90 forward, range -10 ... 90
+var actual_tilt_right = props.globals.getNode("sim/model/v22/rotor/right/tilt",1); #0 up, 90 forward, range -10 ... 90
+var animation_tilt_left = props.globals.getNode("sim/model/v22/rotor/left/animation_tilt",1);
+var animation_tilt_right = props.globals.getNode("sim/model/v22/rotor/right/animation_tilt",1);
+actual_tilt_left.setValue(0);
+actual_tilt_right.setValue(0);
 var airplane_control_factor = 0;
 var helicopter_control_factor = 1;
 var target_rpm_airplane = 333;
@@ -94,29 +92,28 @@ var flap_speed_offset = -10;
 # Increase the range in which the flaps are (partially) extended by 40 knots
 var flap_speed_range = 40;
 
-var update_controls_and_tilt_loop = func(dt){
+var update_controls_and_tilt_loop = func(dt) {
     if (props.globals.getNode("sim/crashed",1).getBoolValue()) {
         return;
     }
-    
+
     var flap = control_flaps.getValue();
     var iflap = input_flaps.getValue();
-    var maxflap_delta=dt*0.125;
+    var maxflap_delta = dt * 0.125;
     flap = max(min(iflap, flap + maxflap_delta), flap - maxflap_delta);
     control_flaps.setValue(flap);
-    
-    var ail = control_ail.getValue() + control_trim_ail.getValue();
-    ail = clamp (ail, -1 , 1);
-    var ele = control_ele.getValue() + control_trim_ele.getValue();
-    ele = clamp (ele, -1 , 1);
-    var rud = control_rud.getValue() + control_trim_rud.getValue();
-    rud = clamp (rud, -1 , 1);
-    
+
+    var ail = clamp(control_ail.getValue() + control_trim_ail.getValue(), -1, 1);
+    var ele = clamp(control_ele.getValue() + control_trim_ele.getValue(), -1, 1);
+    var rud = clamp(control_rud.getValue() + control_trim_rud.getValue(), -1, 1);
+
     var tilt = control_tilt.getValue();
     var thr = 1 - control_throttle.getValue();
-    var act_tilt = actual_tilt.getValue();
+    var act_tilt_avg = (actual_tilt_left.getValue() + actual_tilt_right.getValue()) / 2.0;
+    var act_tilt_left = actual_tilt_left.getValue();
+    var act_tilt_right = actual_tilt_right.getValue();
     var speed = airspeed_kt.getValue();
-    
+
     # min_allowed_tilt : speed:   0 tilt: -10
     #                  : speed:  40 tilt:   0
     #                  : speed: 100 tilt:  10
@@ -127,21 +124,31 @@ var update_controls_and_tilt_loop = func(dt){
     #                  : speed:  40 tilt:  30
     #                  : speed:  80 tilt:  60
     #                  : speed: 105 tilt:  90
-    min_allowed_tilt = interpolation(speed, 0, -10, 40, 0, 100 , 10, 185, 75, 200, 90);
-    max_allowed_tilt = interpolation(speed, 40, 30, 80, 60, 105, 90);
-    
-    var new_tilt=clamp(tilt ,min_allowed_tilt ,max_allowed_tilt);
-    if (new_tilt != act_tilt ) {
-        interpolate(actual_tilt,new_tilt,abs(act_tilt - new_tilt)*12/90);
+    var min_allowed_tilt = interpolation(speed, 0, -10, 40, 0, 100 , 10, 185, 75, 200, 90);
+    var max_allowed_tilt = interpolation(speed, 40, 30, 80, 60, 105, 90);
+
+    var new_tilt = clamp(tilt, min_allowed_tilt, max_allowed_tilt);
+    var inp_left = 0;
+    var inp_right = 0;
+    if (new_tilt != act_tilt_avg) {
+        interpolate(actual_tilt_left, new_tilt, abs(act_tilt_left - new_tilt) * 12 / 90);
+        interpolate(actual_tilt_right, new_tilt, abs(act_tilt_right - new_tilt) * 12 / 90);
     }
-    if (wing_state.getValue()==0) {
-        animation_tilt.setValue(act_tilt);
+
+    if (wing_state.getValue() == 0) {
+        animation_tilt_left.setValue(act_tilt_left);
+        animation_tilt_right.setValue(act_tilt_right);
     }
-    target_rpm = clamp ( target_rpm_helicopter+(target_rpm_airplane-target_rpm_helicopter)*(act_tilt-30)/60,
-            target_rpm_airplane,target_rpm_helicopter);
+
+    target_rpm = clamp (target_rpm_helicopter + (target_rpm_airplane - target_rpm_helicopter) * (act_tilt_avg - 30) / 60,
+        target_rpm_airplane,target_rpm_helicopter);
     if (state.getValue() == 5) {
         target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
     }
+
+    ################################################################################
+    # Conversion mode control factors
+    ################################################################################
 
     # Below min_conv_mode_kias the conversion factor is 0, above max_conv_mode_kias it is 1
     var conv_factor = clamp((speed - min_conv_mode_kias) / (max_conv_mode_kias - min_conv_mode_kias), 0, 1);
@@ -149,17 +156,19 @@ var update_controls_and_tilt_loop = func(dt){
     airplane_control_factor = conv_factor;
     helicopter_control_factor = 1 - conv_factor;
     var flap_control_factor = clamp((speed - min_conv_mode_kias - flap_speed_offset) / (max_conv_mode_kias - min_conv_mode_kias + flap_speed_range), 0, 1);
-    
-    out_wing_ele.setValue( ele );
-    out_wing_ail.setValue( ail * 0.15 * airplane_control_factor );
-    out_wing_rud.setValue( rud );
-    if (wing_state.getValue()==0) {
-        out_wing_flap.setValue( flap * flap_control_factor * 0.3 + (1-flap_control_factor)*min(1,1-act_tilt/90));
+
+    ################################################################################
+
+    out_wing_ele.setValue(ele);
+    out_wing_ail.setValue(ail * airplane_control_factor); # * 0.15
+    out_wing_rud.setValue(rud * airplane_control_factor);
+
+    if (wing_state.getValue() == 0) {
+        out_wing_flap.setValue(flap * flap_control_factor * 0.3 + (1 - flap_control_factor) * min(1, 1 - act_tilt_avg / 90));
     }
-    
 
     var col_wing = thr * interpolation(speed, 0, 20, 300, 75); 
-    
+
     #calculate the rotor controls
     var ele2ele = 10;
     var ail2col = 5;
@@ -167,71 +176,63 @@ var update_controls_and_tilt_loop = func(dt){
     var ail2ele = 0;
     var min_col =  2;
     var max_col = 23;
-    
-    var col_tilt_correction = 1 / cos( clamp (act_tilt ,-10 ,30 ));
-    
+
+    var col_tilt_correction = 1 / cos(clamp(act_tilt_avg, -10, 30));
+
     var col_rotor = min_col + thr * (max_col - min_col) * col_tilt_correction;
-    
+
     #set blades vertical if folded
     var h = control_rotor_incidence_wing_fold.getValue();
     col_rotor = 100 * h + col_rotor * (1-h);
     ail = ail * (1-h);
     ele = ele * (1-h);
     rud = rud * (1-h);
-    
-    #rotor collective corection factor for ruder input
+
+    #rotor collective correction factor for rudder input
     var rudright = interpolation(rud, -1, 1, 0, 0, 1, 0);
     var rudleft = interpolation(rud, -1, 0, 0, 0, 1, 1);
-    
-    #rotor tilt corection factor to asume 0 rotor ele movement if 90deg tilt
-    var tiltrotcor = interpolation(act_tilt, -10, 1, 0, 1, 80, 0, 90, 0);
-    #print ("act_tilt  ", act_tilt);
-    
-    #rotor tilt corection factor to reduce collective corection factor if engines tilt to 90deg 
-    var speedtiltrotcor = interpolation(act_tilt, -10, 1, 0, 1, 75, 1, 90, 0.1);
-    
-    #rotor collective factor if 0deg tilt - seems to needs more collective input change to get ruder effect with incresing speed TEST
-    var tiltzerocor = interpolation(act_tilt, -10, 1, 0, 1, 10, 0, 90, 0);
-    
-    #rotor collective corection factor for speed
+
+    #rotor tilt correction factor to assume 0 rotor ele movement if 90 degrees tilt
+    var tiltrotcor = interpolation(act_tilt_avg, -10, 1, 0, 1, 80, 0, 90, 0);
+
+    #rotor tilt correction factor to reduce collective correction factor if engines tilt to 90 degrees
+    var speedtiltrotcor = interpolation(act_tilt_avg, -10, 1, 0, 1, 75, 1, 90, 0.1);
+
+    #rotor collective factor if 0 degrees tilt - seems to needs more collective input change to get rudder effect with increasing speed TEST
+    var tiltzerocor = interpolation(act_tilt_avg, -10, 1, 0, 1, 10, 0, 90, 0);
+
+    #rotor collective correction factor for speed
     var speedcor0 = interpolation(speed, 0, 0, 10, 4, 20, 8, 50, 15, 110, 25, 400, 4);
     var speedcor1 = interpolation(speed, 0, 0, 10, 4, 50, 19, 110, 35, 400, 4);
     #var speedcor = interpolation(speed, 0, 0, 10, 4, 50, 19, 110, 35, 400, 4);
     var speedcor = speedcor1 + (speedcor0 * tiltzerocor);
-    
+
     var rr_cor = (rudright * speedcor) * speedtiltrotcor;
     var rl_cor = (rudleft * speedcor) * speedtiltrotcor;
     #var rr_cor = 0;
     #var rl_cor = 0;
-    
+
     #rotor collective
     out_rotor_r_col.setValue( airplane_control_factor * col_wing +
                               helicopter_control_factor * (col_rotor - ail * ail2col) + (rr_cor / 2) - (rl_cor / 2));
     out_rotor_l_col.setValue( airplane_control_factor * col_wing +
                               helicopter_control_factor * (col_rotor + ail * ail2col) + (rl_cor / 2) - (rr_cor / 2));
-    
+
     #print ("rl_cor  ", rl_cor , " rr_cor  ", rr_cor , " rud  " , rud);
-    
+
     #orginal 
     #out_rotor_r_col.setValue( airplane_control_factor * col_wing +
     #                         helicopter_control_factor * (col_rotor - ail * ail2col) );
     #out_rotor_l_col.setValue( airplane_control_factor * col_wing +
     #                         helicopter_control_factor * (col_rotor + ail * ail2col) );
-    
+
     #was marked out before
     # out_rotor_r_ele.setValue( helicopter_control_factor * (ele * ele2ele - ( rud * rud2ele + ail * ail2ele)));
     # out_rotor_l_ele.setValue( helicopter_control_factor * (ele * ele2ele + ( rud * rud2ele + ail * ail2ele)));
-    
-    
+
     out_rotor_r_ele.setValue (tiltrotcor * ( helicopter_control_factor * (ele * ele2ele - ( rud * rud2ele + ail * ail2ele)) + (1-helicopter_control_factor) * (ele * ele2ele)));
     out_rotor_l_ele.setValue (tiltrotcor * ( helicopter_control_factor * (ele * ele2ele + ( rud * rud2ele + ail * ail2ele)) + (1-helicopter_control_factor) * (ele * ele2ele)));
     
-    #just for test
-    #out_rtest = (tiltrotcor * ( helicopter_control_factor * (ele * ele2ele - ( rud * rud2ele + ail * ail2ele)) + (1-helicopter_control_factor) * (ele * ele2ele)));
-    #out_ltest = (tiltrotcor * ( helicopter_control_factor * (ele * ele2ele + ( rud * rud2ele + ail * ail2ele)) + (1-helicopter_control_factor) * (ele * ele2ele)));
-    #print ("out_ltest  ", out_ltest , " out_rtest  " , out_rtest);
-    
-    #orginal
     #out_rotor_r_ele.setValue( helicopter_control_factor * (ele * ele2ele - ( rud * rud2ele + ail * ail2ele)) + (1-helicopter_control_factor) * (ele * ele2ele));
     #out_rotor_l_ele.setValue( helicopter_control_factor * (ele * ele2ele + ( rud * rud2ele + ail * ail2ele)) + (1-helicopter_control_factor) * (ele * ele2ele));
     
@@ -382,7 +383,6 @@ var max_rel_torque = props.globals.getNode("controls/rotor/maxreltorque", 1);
 # 11 rotating wing and moving engines up
 # 12 unfolding blades
 # 13 -> 0
-var animation_tilt = props.globals.getNode("sim/model/v22/animation_tilt",1);
 var blade_folding = props.globals.getNode("sim/model/v22/blade_folding",1);
 var blade_incidence = props.globals.getNode("rotors/main/blade/incidence-deg",1);
 
@@ -392,9 +392,11 @@ var update_wing_state = func {
     if (new_state == (ws+1)) {
         wing_state.setValue(new_state);
         if (new_state == 1) {
-            var delta = abs(animation_tilt.getValue()-0);
+            var animation_tilt_avg = (animation_tilt_left.getValue() + animation_tilt_right.getValue()) / 2;
+            var delta = abs(animation_tilt_avg-0);
             settimer(func { update_wing_state(2) }, max(1.2 , delta/9+0.5));
-            interpolate(animation_tilt, 0, delta/9);
+            interpolate(animation_tilt_left, 0, delta/9);
+            interpolate(animation_tilt_right, 0, delta/9);
             interpolate(out_wing_flap, 0, 5.5);
             interpolate(control_rotor_incidence_wing_fold, 1 , 1);
         }
@@ -404,7 +406,8 @@ var update_wing_state = func {
         }
         if (new_state == 3) {
             settimer(func { update_wing_state(4) }, 12);
-            interpolate(animation_tilt, 90, 9);
+            interpolate(animation_tilt_left, 90, 9);
+            interpolate(animation_tilt_right, 90, 9);
             interpolate(wing_rotation, 90, 11.5);
         }
         if (new_state == 4) {
@@ -415,7 +418,8 @@ var update_wing_state = func {
             # interpolate(animation_tilt, 90, 2.5, 0, 11);
             interpolate(wing_rotation, 0, 11.5);
             # interpolate(out_wing_flap, 0, 7, 1, 12.5);
-            settimer(func { interpolate(animation_tilt, 0, 8.5); }, 2.5);
+            settimer(func { interpolate(animation_tilt_left, 0, 8.5); }, 2.5);
+            settimer(func { interpolate(animation_tilt_right, 0, 8.5); }, 2.5);
             settimer(func { interpolate(out_wing_flap, 1, 5.5);}, 7);
         }
         if (new_state == 12) {
@@ -647,7 +651,8 @@ var update_sound = func(dt) {
     flap_speed.setValue(fpsf);
     last_flap = fp;
 
-    var at = animation_tilt.getValue();
+    var animation_tilt_avg = (animation_tilt_left.getValue() + animation_tilt_right.getValue()) / 2;
+    var at = animation_tilt_avg;
     var ats = abs (at - last_animation_tilt);
     if (dt > 0.00001){
         ats=ats/dt;
@@ -890,69 +895,70 @@ dynamic_view.register(func {
 
 var update_mp_generics = func {
     setprop("sim/multiplay/generic/float[0]", blade_folding.getValue());
-    setprop("sim/multiplay/generic/float[1]", animation_tilt.getValue());
-    setprop("sim/multiplay/generic/float[2]", wing_rotation.getValue());
-    setprop("sim/multiplay/generic/float[3]", blade_incidence.getValue());
-    
-    
+    setprop("sim/multiplay/generic/float[1]", animation_tilt_left.getValue());
+    setprop("sim/multiplay/generic/float[2]", animation_tilt_right.getValue());
+    setprop("sim/multiplay/generic/float[3]", wing_rotation.getValue());
+    setprop("sim/multiplay/generic/float[4]", blade_incidence.getValue());
+
     # door cargodown
-    setprop("sim/multiplay/generic/float[4]", door_cargodown.getValue());
+    setprop("sim/multiplay/generic/float[5]", door_cargodown.getValue());
     # door cargoup
-    setprop("sim/multiplay/generic/float[5]", door_cargoup.getValue());
+    setprop("sim/multiplay/generic/float[6]", door_cargoup.getValue());
     # door airrefuel
-    setprop("sim/multiplay/generic/float[6]", door_fuelpr.getValue());
+    setprop("sim/multiplay/generic/float[7]", door_fuelpr.getValue());
     # door cockpit
-    setprop("sim/multiplay/generic/float[7]", door_cockpit.getValue());
+    setprop("sim/multiplay/generic/float[8]", door_cockpit.getValue());
     # door crew
-    setprop("sim/multiplay/generic/float[8]", door_crew.getValue());
+    setprop("sim/multiplay/generic/float[9]", door_crew.getValue());
     # door crewup
-    setprop("sim/multiplay/generic/float[9]", door_crewup.getValue());
-    
+    setprop("sim/multiplay/generic/float[10]", door_crewup.getValue());
+
     # gear meter agl
     var gearagl_mp = gear_magl.getValue();
     if (gearagl_mp != nil) {
-    setprop("sim/multiplay/generic/float[10]", gear_magl.getValue());
-    } else {
-    setprop("sim/multiplay/generic/float[10]", 0.0);
+        setprop("sim/multiplay/generic/float[11]", gear_magl.getValue());
     }
-    
+    else {
+        setprop("sim/multiplay/generic/float[11]", 0.0);
+    }
+
     # gear caster-angle-deg for mp front gear caster rotation
-    
     var gearcast_mp = gear_cast.getValue();
     if (gearcast_mp != nil) {
-    setprop("sim/multiplay/generic/float[11]", gear_cast.getValue());
-    } else {
-    setprop("sim/multiplay/generic/float[11]", 0.0);
+        setprop("sim/multiplay/generic/float[12]", gear_cast.getValue());
     }
-    
+    else {
+        setprop("sim/multiplay/generic/float[12]", 0.0);
+    }
+
     # Front gear spin A for mp
-    setprop("sim/multiplay/generic/float[17]", gear0_spin.getValue());
+    setprop("sim/multiplay/generic/float[18]", gear0_spin.getValue());
     # Left gear spin G for mp
-    setprop("sim/multiplay/generic/float[18]", gear1_spin.getValue());
+    setprop("sim/multiplay/generic/float[19]", gear1_spin.getValue());
     # Right gear spin D for mp
-    setprop("sim/multiplay/generic/float[19]", gear2_spin.getValue());  
-    
-    
+    setprop("sim/multiplay/generic/float[20]", gear2_spin.getValue());  
+
     # collective_left for particle effect 
-    setprop("sim/multiplay/generic/float[13]", collective_left.getValue());
-    
+    setprop("sim/multiplay/generic/float[14]", collective_left.getValue());
+
     # collective_right for particle effect 
-    setprop("sim/multiplay/generic/float[14]", collective_right.getValue());
-    
+    setprop("sim/multiplay/generic/float[15]", collective_right.getValue());
+
     # landing lights animation
-    setprop("sim/multiplay/generic/float[15]", light_position.getValue());
-    
+    setprop("sim/multiplay/generic/float[16]", light_position.getValue());
+
     # landing lights state
     setprop("sim/multiplay/generic/int[10]", l_light_state.getValue());
-    
+
     # pushback state
     var pbacks_mp = pback_state.getValue();
     if (pbacks_mp != nil) {
-    setprop("sim/multiplay/generic/int[11]", pback_state.getValue());
-    } else {
-    setprop("sim/multiplay/generic/int[11]", 0);
+        setprop("sim/multiplay/generic/int[11]", pback_state.getValue());
     }
-    
+    else {
+        setprop("sim/multiplay/generic/int[11]", 0);
+    }
+
     # paratrooper jump signal state
     #var ptroup_mp = ptroup_jump_state.getValue();
     #if (ptroup_mp != nil) {
@@ -960,26 +966,21 @@ var update_mp_generics = func {
     #} else {
     #setprop("sim/multiplay/generic/int[12]", 0);
     #}
-    
+
     # pushback position animation
     var pbackpos_mp = pback_pos.getValue();
     if (pbackpos_mp != nil) {
-    setprop("sim/multiplay/generic/float[16]", pback_pos.getValue());
-    } else {
-    setprop("sim/multiplay/generic/float[16]", 0);
+        setprop("sim/multiplay/generic/float[17]", pback_pos.getValue());
     }
-
-    
+    else {
+        setprop("sim/multiplay/generic/float[17]", 0);
+    }
 }
 
 # main() ============================================================
 var delta_time = props.globals.getNode("/sim/time/delta-realtime-sec", 1);
-var adf_rotation = props.globals.getNode("/instrumentation/adf/rotation-deg", 1);
-var hi_heading = props.globals.getNode("/instrumentation/heading-indicator/indicated-heading-deg", 1);
 
 var main_loop = func {
-    # adf_rotation.setDoubleValue(hi_heading.getValue());
-
     var dt = delta_time.getValue();
     #update_torque(dt);
     update_stall(dt);

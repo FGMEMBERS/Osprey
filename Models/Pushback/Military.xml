@@ -171,12 +171,12 @@
    <condition>
      <greater-than>
        <!-- <property>sim/model/pushback/position-norm</property> -->
-	   <property>sim/multiplay/generic/float[16]</property>
+	   <property>sim/multiplay/generic/float[17]</property>
        <value>0.99</value>
      </greater-than>
    </condition>
    <!-- <property>gear/gear[0]/caster-angle-deg</property> -->
-	<property>sim/multiplay/generic/float[11]</property>
+	<property>sim/multiplay/generic/float[12]</property>
    <!-- <factor>-35</factor> -->
    <factor>-1</factor>
    <center>
@@ -209,12 +209,12 @@
    <condition>
      <greater-than>
        <!-- <property>sim/model/pushback/position-norm</property> -->
-	   <property>sim/multiplay/generic/float[16]</property>
+	   <property>sim/multiplay/generic/float[17]</property>
        <value>0.99</value>
      </greater-than>
    </condition>
    <!-- <property>gear/gear[0]/caster-angle-deg</property> -->
-	<property>sim/multiplay/generic/float[11]</property>
+	<property>sim/multiplay/generic/float[12]</property>
    <!-- <factor>-35</factor> -->
    <factor>-1</factor>
    <center>
@@ -305,7 +305,7 @@
   <animation>
     <type>rotate</type>
     <!-- <property>sim/model/pushback/position-norm</property> -->
-	   <property>sim/multiplay/generic/float[16]</property>
+	   <property>sim/multiplay/generic/float[17]</property>
     <factor>-90</factor>
     <offset-deg>90</offset-deg>
     <center>
@@ -335,7 +335,7 @@
   <animation>
     <type>translate</type>
     <!-- <property>sim/model/pushback/position-norm</property> -->
-	   <property>sim/multiplay/generic/float[16]</property>
+	   <property>sim/multiplay/generic/float[17]</property>
     <interpolation>
       <entry><ind>1.000000</ind><dep>0.000000</dep></entry>
       <entry><ind>0.950000</ind><dep>1.961477</dep></entry>
@@ -369,7 +369,7 @@
   <animation>
     <type>translate</type>
     <!-- <property>sim/model/pushback/position-norm</property> -->
-	   <property>sim/multiplay/generic/float[16]</property>
+	   <property>sim/multiplay/generic/float[17]</property>
     <interpolation>
     <entry><ind>1.000000</ind><dep>0.000000</dep></entry>
     <entry><ind>0.950000</ind><dep>0.077067</dep></entry>

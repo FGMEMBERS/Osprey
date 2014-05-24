@@ -37,8 +37,6 @@
                 <wing_state type="int">0</wing_state>
                 <blade_folding type="float">0</blade_folding>
                 <wing_rotation type="float">0</wing_rotation>
-                <tilt type="float">0</tilt>
-                <animation_tilt type="float">0</animation_tilt>
                 <inputflaps type="float">0</inputflaps>
                 <inputtilt type="float">0</inputtilt>
                 <wingfoldincidence type="float">0</wingfoldincidence>
@@ -54,10 +52,14 @@
                     <left>
                         <elevator type="float">0</elevator>
                         <collective type="float">0</collective>
+                        <tilt type="float">0</tilt>
+                        <animation_tilt type="float">0</animation_tilt>
                     </left>
                     <right>
                         <elevator type="float">0</elevator>
                         <collective type="float">0</collective>
+                        <tilt type="float">0</tilt>
+                        <animation_tilt type="float">0</animation_tilt>
                     </right>
                 </rotor>
                 
@@ -117,21 +119,23 @@
                 <float n="1"/>
                 <float n="2"/>
                 <float n="3"/>
-                <float n="4"/> <!-- door mp - cargodoormix - down -->
-                <float n="5"/> <!-- door mp - cargodoorup -->
-                <float n="6"/> <!-- door mp - airrefuel -->
-                <float n="7"/> <!-- door mp - cockpit -->
-                <float n="8"/> <!-- door mp - crew -->
-                <float n="9"/> <!-- door mp - crewup -->
-                <float n="10"/> <!-- gear agl meter mp - rotor particles animation -->
-                <float n="11"/> <!-- front gear caster mp - gear[0]/caster-angle-deg rotation animation -->
-                <float n="13"/> <!-- collective left mp - rotor particles animation -->
-                <float n="14"/> <!-- collective right mp - rotor particles animation -->
-                <float n="15"/> <!-- landing lights animation mp - landing lights model position -->
-                <float n="16"/> <!-- pushback animation mp - position -->
-                <float n="17"/> <!-- Front gear A spin mp - gear[0]/rollspeed-ms -->
-                <float n="18"/> <!-- Left gear G spin mp - gear[1]/rollspeed-ms -->
-                <float n="19"/> <!-- Right gear D spin mp - gear[2]/rollspeed-ms -->
+                <float n="4"/>
+                <float n="5"/> <!-- door mp - cargodoormix - down -->
+                <float n="6"/> <!-- door mp - cargodoorup -->
+                <float n="7"/> <!-- door mp - airrefuel -->
+                <float n="8"/> <!-- door mp - cockpit -->
+                <float n="9"/> <!-- door mp - crew -->
+                <float n="10"/> <!-- door mp - crewup -->
+                <float n="11"/> <!-- gear agl meter mp - rotor particles animation -->
+                <float n="12"/> <!-- front gear caster mp - gear[0]/caster-angle-deg rotation animation -->
+                <!-- TODO 13 not defined? -->
+                <float n="14"/> <!-- collective left mp - rotor particles animation -->
+                <float n="15"/> <!-- collective right mp - rotor particles animation -->
+                <float n="16"/> <!-- landing lights animation mp - landing lights model position -->
+                <float n="17"/> <!-- pushback animation mp - position -->
+                <float n="18"/> <!-- Front gear A spin mp - gear[0]/rollspeed-ms -->
+                <float n="19"/> <!-- Left gear G spin mp - gear[1]/rollspeed-ms -->
+                <float n="20"/> <!-- Right gear D spin mp - gear[2]/rollspeed-ms -->
                 <int n="10"/> <!-- landing lights state mp -->
                 <int n="11"/> <!-- pushback state mp -->
                 <int n="12"/> <!-- paratrooper jump state mp -->

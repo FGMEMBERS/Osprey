@@ -30,7 +30,7 @@
 	<object-name>flash</object-name>
 	<type>rotate</type>
 	<!-- <property>instrumentation/doors/landinglightpos/position-norm</property> -->
-	<property>sim/multiplay/generic/float[15]</property>
+	<property>sim/multiplay/generic/float[16]</property>
     <factor> 0.100 </factor>
 	<interpolation>
       <entry><ind> 0.0 </ind><dep>    0 </dep></entry>
