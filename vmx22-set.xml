@@ -277,6 +277,12 @@ The Osprey can hover within a range of -10 degrees to 30 degrees. You can set th
 
         <menubar include="Dialogs/v22-menu.xml"/>
 
+        <systems>
+            <autopilot>
+                <path>Systems/tilt-rotors.xml</path>
+            </autopilot>
+        </systems>
+
     </sim>
 
     <input>

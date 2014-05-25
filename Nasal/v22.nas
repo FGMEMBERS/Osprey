@@ -56,8 +56,6 @@ var input_flaps = props.globals.getNode("controls/flight/flaps",1);
 var control_flaps = props.globals.getNode("sim/model/v22/inputflaps",1);
 var control_tilt = props.globals.getNode("sim/model/v22/inputtilt",1);
 var control_rotor_brake = props.globals.getNode("/controls/rotor/brake",1);
-#control_flaps.setValue(0); #debug
-#control_tilt.setValue(0); #debug
 var out_wing_ele = props.globals.getNode("sim/model/v22/wing/elevator");
 var out_wing_ail = props.globals.getNode("sim/model/v22/wing/aileron");
 var out_wing_rud = props.globals.getNode("sim/model/v22/wing/rudder");
@@ -107,11 +105,8 @@ var update_controls_and_tilt_loop = func(dt) {
     var ele = clamp(control_ele.getValue() + control_trim_ele.getValue(), -1, 1);
     var rud = clamp(control_rud.getValue() + control_trim_rud.getValue(), -1, 1);
 
-    var tilt = control_tilt.getValue();
     var thr = 1 - control_throttle.getValue();
     var act_tilt_avg = (actual_tilt_left.getValue() + actual_tilt_right.getValue()) / 2.0;
-    var act_tilt_left = actual_tilt_left.getValue();
-    var act_tilt_right = actual_tilt_right.getValue();
     var speed = airspeed_kt.getValue();
 
     # min_allowed_tilt : speed:   0 tilt: -10
@@ -126,19 +121,6 @@ var update_controls_and_tilt_loop = func(dt) {
     #                  : speed: 105 tilt:  90
     var min_allowed_tilt = interpolation(speed, 0, -10, 40, 0, 100 , 10, 185, 75, 200, 90);
     var max_allowed_tilt = interpolation(speed, 40, 30, 80, 60, 105, 90);
-
-    var new_tilt = clamp(tilt, min_allowed_tilt, max_allowed_tilt);
-    var inp_left = 0;
-    var inp_right = 0;
-    if (new_tilt != act_tilt_avg) {
-        interpolate(actual_tilt_left, new_tilt, abs(act_tilt_left - new_tilt) * 12 / 90);
-        interpolate(actual_tilt_right, new_tilt, abs(act_tilt_right - new_tilt) * 12 / 90);
-    }
-
-    if (wing_state.getValue() == 0) {
-        animation_tilt_left.setValue(act_tilt_left);
-        animation_tilt_right.setValue(act_tilt_right);
-    }
 
     target_rpm = clamp (target_rpm_helicopter + (target_rpm_airplane - target_rpm_helicopter) * (act_tilt_avg - 30) / 60,
         target_rpm_airplane,target_rpm_helicopter);
@@ -166,6 +148,8 @@ var update_controls_and_tilt_loop = func(dt) {
     if (wing_state.getValue() == 0) {
         out_wing_flap.setValue(flap * flap_control_factor * 0.3 + (1 - flap_control_factor) * min(1, 1 - act_tilt_avg / 90));
     }
+
+    ################################################################################
 
     var col_wing = thr * interpolation(speed, 0, 20, 300, 75); 
 

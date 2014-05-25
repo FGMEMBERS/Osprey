@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <!-- Move and limit the tilt of the left and right nacelles (the rotors)
+         within a certain range. This range is dependent on the speed of the
+         aircraft.
+    -->
+    <filter>
+        <name>Nacelles tilt limit</name>
+        <type>noise-spike</type>
+        <enable>
+            <condition>
+                <equals>
+                    <property>/sim/model/v22/wing_state</property>
+                    <value>0</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>/sim/model/v22/inputtilt</property>
+            <min>
+                <property>/sim/model/v22/min_allowed_tilt</property>
+            </min>
+            <max>
+                <property>/sim/model/v22/max_allowed_tilt</property>
+            </max>
+        </input>
+        <output>
+            <property>/sim/model/v22/rotor/left/tilt</property>
+            <property>/sim/model/v22/rotor/right/tilt</property>
+            <property>/sim/model/v22/rotor/left/animation_tilt</property>
+            <property>/sim/model/v22/rotor/right/animation_tilt</property>
+        </output>
+
+        <!-- 90 degrees in 16 seconds -->
+        <max-rate-of-change>5.625</max-rate-of-change>
+    </filter>
+
+</PropertyList>
