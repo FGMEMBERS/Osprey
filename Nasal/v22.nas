@@ -16,28 +16,27 @@ var sin = func(a) { math.sin(a * math.pi / 180.0) }
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
 var pow = func(v, w) { math.exp(math.ln(v) * w) }
 var npow = func(v, w) { math.exp(math.ln(abs(v)) * w) * (v < 0 ? -1 : 1) }
-var clamp = func(v, min = 0, max = 1) { v < min ? min : v > max ? max : v }
+var clamp = func(v, min=0, max=1) { v < min ? min : v > max ? max : v }
 var max = func(a, b) { a > b ? a : b }
 var min = func(a, b) { a < b ? a : b }
 var normatan = func(x) { math.atan2(x, 1) * 2 / math.pi }
-var interpol = func(x, x0, y0, x1, y1) { x < x0 ? y0 : x > x1 ? y1 : y0 + (y1-y0) * (x - x0) / (x1 - x0) }
-var interpolation = func (x, x0, y0, x1, y1 ,x2 = nil , y2 = nil, x3 = nil, y3 = nil, x4 = nil, y4 = nil, x5 = nil, y5 = nil) {
-    if ( x < x1 or ( x2 == nil)) {
+
+var interpol = func(x, x0, y0, x1, y1) { x < x0 ? y0 : x > x1 ? y1 : y0 + (y1 - y0) * (x - x0) / (x1 - x0) }
+var interpolation = func (x, x0, y0, x1, y1, x2=nil, y2=nil, x3=nil, y3=nil, x4=nil, y4=nil, x5=nil, y5=nil) {
+    if (x < x1 or x2 == nil) {
         interpol (x, x0, y0, x1, y1);
-    } else { 
-        if ( x < x2 or x3 == nil) {
-            interpol (x, x1, y1, x2, y2);
-        } else { 
-            if ( x < x3 or x4 == nil) {
-                interpol (x, x2, y2, x3, y3);
-            } else { 
-                if ( x < x4 or x5 == nil) {
-                    interpol (x, x3, y3, x4, y4);
-                } else {
-                    interpol (x, x4, y4, x5, y5);
-                }
-            }
-        }
+    }
+    elsif (x < x2 or x3 == nil) {
+        interpol (x, x1, y1, x2, y2);
+    }
+    elsif (x < x3 or x4 == nil) {
+        interpol (x, x2, y2, x3, y3);
+    }
+    elsif (x < x4 or x5 == nil) {
+        interpol (x, x3, y3, x4, y4);
+    }
+    else {
+        interpol (x, x4, y4, x5, y5);
     }
 }
 
@@ -46,16 +45,21 @@ var control_rotor_incidence_wing_fold = props.globals.getNode("sim/model/v22/win
 var control_ail = props.globals.getNode("/sim/model/v22/flight_computer/roll/out");
 var input_ail = props.globals.getNode("/controls/flight/aileron");
 var control_trim_ail = props.globals.getNode("/controls/flight/aileron-trim");
+
 var control_ele = props.globals.getNode("/sim/model/v22/flight_computer/pitch/out");
 var input_ele = props.globals.getNode("/controls/flight/elevator");
 var control_trim_ele = props.globals.getNode("/controls/flight/elevator-trim");
+
 var control_rud = props.globals.getNode("/controls/flight/rudder");
 var control_trim_rud = props.globals.getNode("/controls/flight/rudder-trim");
-var control_throttle = props.globals.getNode("/controls/engines/engine[0]/throttle");
+
 var input_flaps = props.globals.getNode("controls/flight/flaps",1);
 var control_flaps = props.globals.getNode("sim/model/v22/inputflaps",1);
+
+var control_throttle = props.globals.getNode("/controls/engines/engine[0]/throttle");
 var control_tilt = props.globals.getNode("sim/model/v22/inputtilt",1);
 var control_rotor_brake = props.globals.getNode("/controls/rotor/brake",1);
+
 var out_wing_ele = props.globals.getNode("sim/model/v22/wing/elevator");
 var out_wing_ail = props.globals.getNode("sim/model/v22/wing/aileron");
 var out_wing_rud = props.globals.getNode("sim/model/v22/wing/rudder");
@@ -71,10 +75,10 @@ var actual_tilt_left = props.globals.getNode("sim/model/v22/rotor/left/tilt",1);
 var actual_tilt_right = props.globals.getNode("sim/model/v22/rotor/right/tilt",1); #0 up, 90 forward, range -10 ... 90
 var animation_tilt_left = props.globals.getNode("sim/model/v22/rotor/left/animation_tilt",1);
 var animation_tilt_right = props.globals.getNode("sim/model/v22/rotor/right/animation_tilt",1);
+
 actual_tilt_left.setValue(0);
 actual_tilt_right.setValue(0);
-var airplane_control_factor = 0;
-var helicopter_control_factor = 1;
+
 var target_rpm_airplane = 333;
 var target_rpm_helicopter = 412;
 var target_rpm = target_rpm_helicopter;
@@ -110,19 +114,19 @@ var update_controls_and_tilt_loop = func(dt) {
     var speed = airspeed_kt.getValue();
 
     # min_allowed_tilt : speed:   0 tilt: -10
-    #                  : speed:  40 tilt:   0
+    #                  : speed:  60 tilt:  -5
     #                  : speed: 100 tilt:  10
-    #                  : speed: 185 tilt:  75
-    #                  : speed: 200 tilt:  90
+    #                  : speed: 185 tilt:  60
+    #                  : speed: 200 tilt:  87
     
     # max_allowed_tilt : speed:   0 tilt:  30
     #                  : speed:  40 tilt:  30
     #                  : speed:  80 tilt:  60
     #                  : speed: 105 tilt:  90
-    var min_allowed_tilt = interpolation(speed, 0, -10, 40, 0, 100 , 10, 185, 75, 200, 90);
+    var min_allowed_tilt = interpolation(speed, 0, -10, 60, -5, 100, 10, 185, 60, 200, 87);
     var max_allowed_tilt = interpolation(speed, 40, 30, 80, 60, 105, 90);
 
-    target_rpm = clamp (target_rpm_helicopter + (target_rpm_airplane - target_rpm_helicopter) * (act_tilt_avg - 30) / 60,
+    target_rpm = clamp(target_rpm_helicopter + (target_rpm_airplane - target_rpm_helicopter) * (act_tilt_avg - 30) / 60,
         target_rpm_airplane,target_rpm_helicopter);
     if (state.getValue() == 5) {
         target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
@@ -135,8 +139,8 @@ var update_controls_and_tilt_loop = func(dt) {
     # Below min_conv_mode_kias the conversion factor is 0, above max_conv_mode_kias it is 1
     var conv_factor = clamp((speed - min_conv_mode_kias) / (max_conv_mode_kias - min_conv_mode_kias), 0, 1);
 
-    airplane_control_factor = conv_factor;
-    helicopter_control_factor = 1 - conv_factor;
+    var airplane_control_factor = conv_factor;
+    var helicopter_control_factor = 1 - conv_factor;
     var flap_control_factor = clamp((speed - min_conv_mode_kias - flap_speed_offset) / (max_conv_mode_kias - min_conv_mode_kias + flap_speed_range), 0, 1);
 
     ################################################################################
@@ -222,6 +226,7 @@ var update_controls_and_tilt_loop = func(dt) {
     
     setprop("sim/model/v22/helicopter_control_factor", helicopter_control_factor);
     setprop("sim/model/v22/airplane_control_factor", airplane_control_factor);
+    setprop("sim/model/v22/flap_control_factor", flap_control_factor);
     setprop("sim/model/v22/min_allowed_tilt", min_allowed_tilt);
     setprop("sim/model/v22/max_allowed_tilt", max_allowed_tilt);
     setprop("sim/model/v22/speed", speed);
