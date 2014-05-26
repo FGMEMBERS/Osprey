@@ -207,7 +207,7 @@
 
         <systems>
             <autopilot>
-                <path>Systems/tilt-rotors.xml</path>
+                <path>Systems/servos.xml</path>
             </autopilot>
         </systems>
 
