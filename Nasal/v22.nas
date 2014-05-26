@@ -60,9 +60,6 @@ var control_throttle = props.globals.getNode("/controls/engines/engine[0]/thrott
 var control_tilt = props.globals.getNode("sim/model/v22/inputtilt",1);
 var control_rotor_brake = props.globals.getNode("/controls/rotor/brake",1);
 
-var out_wing_ele = props.globals.getNode("sim/model/v22/wing/elevator");
-var out_wing_ail = props.globals.getNode("sim/model/v22/wing/aileron");
-var out_wing_rud = props.globals.getNode("sim/model/v22/wing/rudder");
 var out_wing_flap = props.globals.getNode("sim/model/v22/wing/flap");
 var out_rotor_r_ele = props.globals.getNode("sim/model/v22/rotor/right/elevator");
 var out_rotor_r_col = props.globals.getNode("sim/model/v22/rotor/right/collective");
@@ -145,9 +142,9 @@ var update_controls_and_tilt_loop = func(dt) {
 
     ################################################################################
 
-    out_wing_ele.setValue(ele);
-    out_wing_ail.setValue(ail * airplane_control_factor); # * 0.15
-    out_wing_rud.setValue(rud * airplane_control_factor);
+    setprop("/controls/flight/fbw/elevator", ele);
+    setprop("/controls/flight/fbw/aileron", ail);
+    setprop("/controls/flight/fbw/rudder", rud);
 
     if (wing_state.getValue() == 0) {
         out_wing_flap.setValue(flap * flap_control_factor * 0.3 + (1 - flap_control_factor) * min(1, 1 - act_tilt_avg / 90));

@@ -5,6 +5,40 @@
     <!-- Move and limit the tilt of the left and right nacelles (the rotors)
          within a certain range. This range is dependent on the speed of the
          aircraft.
+
+         For example, if we consider 0 degrees when the rotors are tilted
+         horizontally and 90 degrees when they are vertical, then the
+         minimum tilt goes from 100 degrees at 0 knots to 95 degrees at
+         60 knots, to 80 degrees at 100 knots, to 30 degrees at 185 knots,
+         and to 3 degrees at 200 knots. The maximum tilt is 60 degrees
+         between 0 and 40 knots, decreases to 30 degrees at 80 knots, and
+         0 degrees (rotors horizontal) at 105 knots.
+
+         This range is called the "conversion corridor" and allows the
+         V-22 to operate as a helicopter or aircraft.
+
+            x
+            |          x
+         90 |
+            |
+         80 |                  x
+            |
+         70 |
+            |
+         60 x      x
+            |
+         50 |
+            |
+         40 |
+            |
+         30 |              x                    x
+            |
+         20 |
+            |
+         10 |
+            |                                      x
+            +- - - - - - - - - -x- - - - - - - - - x
+                  40  60  80  105             185
     -->
     <filter>
         <name>Nacelles tilt limit</name>
@@ -35,6 +69,66 @@
 
         <!-- 90 degrees in 16 seconds -->
         <max-rate-of-change>5.625</max-rate-of-change>
+    </filter>
+
+    <!-- Simulate the servo motors of the two ailerons by limiting the
+         rate of change of the two flight control surfaces. -->
+    <filter>
+        <name>Ailerons servos</name>
+        <type>noise-spike</type>
+        <input>
+            <property>/controls/flight/fbw/aileron</property>
+            <scale>
+                <property>/sim/model/v22/airplane_control_factor</property>
+            </scale>
+        </input>
+        <output>
+            <property>/sim/model/v22/wing/aileron</property>
+        </output>
+        <!-- TODO no output clamping yet -->
+
+        <!-- TODO Speed (full range in 2 seconds) is a guess! -->
+        <!-- range (1..-1 = 2) in 2 seconds -->
+        <max-rate-of-change>1</max-rate-of-change>
+    </filter>
+
+    <!-- Simulate the servo motors of the two elevators by limiting the
+         rate of change of the two flight control surfaces. -->
+    <filter>
+        <name>Elevators servos</name>
+        <type>noise-spike</type>
+        <input>
+            <property>/controls/flight/fbw/elevator</property>
+        </input>
+        <output>
+            <property>/sim/model/v22/wing/elevator</property>
+        </output>
+        <!-- TODO no output clamping yet -->
+
+        <!-- TODO Speed (full range in 1 second) is a guess! -->
+        <!-- range (1..-1 = 2) in 1 second -->
+        <max-rate-of-change>2</max-rate-of-change>
+    </filter>
+
+    <!-- Simulate the servo motors of the two rudders by limiting the
+         rate of change of the two flight control surfaces. -->
+    <filter>
+        <name>Rudders servos</name>
+        <type>noise-spike</type>
+        <input>
+            <property>/controls/flight/fbw/rudder</property>
+            <scale>
+                <property>/sim/model/v22/airplane_control_factor</property>
+            </scale>
+        </input>
+        <output>
+            <property>/sim/model/v22/wing/rudder</property>
+        </output>
+        <!-- TODO no output clamping yet -->
+
+        <!-- TODO Speed (full range in 1 second) is a guess! -->
+        <!-- range (1..-1 = 2) in 1 second -->
+        <max-rate-of-change>2</max-rate-of-change>
     </filter>
 
 </PropertyList>
