@@ -18,14 +18,20 @@
 
 <!--
      Empty weight: 33140 lbs
+
+     Original VMX-22 value: 50000
 -->
 <!-- version="YASIM_VERSION_32" -->
-<airplane mass="50000"> <!-- Original VMX-22 value: 50000 -->
+<airplane mass="33140">
 
     <approach speed="85" aoa="6">
         <control-setting axis="/sim/model/v22/solver_throttle" value="0.2"/>
         <control-setting axis="/sim/model/v22/rotor/left/tilt" value="90"/>
         <control-setting axis="/sim/model/v22/rotor/right/tilt" value="90"/>
+        <control-setting axis="/sim/model/v22/wing/flap" value="0.5"/>
+        <control-setting axis="/controls/gear/gear-down" value="1.0"/>
+        <solve-weight idx="0" weight="180"/>
+        <solve-weight idx="1" weight="180"/>
     </approach>
 
     <!--
@@ -40,6 +46,10 @@
         <control-setting axis="/sim/model/v22/solver_throttle" value="1.0"/>
         <control-setting axis="/sim/model/v22/rotor/left/tilt" value="90"/>
         <control-setting axis="/sim/model/v22/rotor/right/tilt" value="90"/>
+        <control-setting axis="/sim/model/v22/wing/flap" value="0.0"/>
+        <control-setting axis="/controls/gear/gear-down" value="0.0"/>
+        <solve-weight idx="0" weight="180"/>
+        <solve-weight idx="1" weight="180"/>
     </cruise>
 
     <!-- main == right rotor D (name=main for mp-protocol)-->
@@ -98,8 +108,7 @@
          
          Warning: I haven't modified max-power-engine and max-power-rotor-brake!
     -->
-    <rotorgear max-power-engine-real="4586"
-               max-power-engine="131720"
+    <rotorgear max-power-engine="131720"
                max-power-rotor-brake="4850"
                rotorgear-friction="30"
                engine-prop-factor="0.015"
@@ -358,9 +367,12 @@
             2*478 + 2*88 + 2*296 + 1*316 = 2040 gal (close to what [3], [5], and [6] say)
     -->
 
-    <!-- ballast corections overall plane--> 
-    <ballast x=" 4.25" y="+0.0" z="-2.5" mass=" 9500"/>
-    <ballast x="-8" y="+0.0" z="0.5" mass="-9800"/> 
+    <!--
+         Ballast corection CG x: 1.530
+
+         Original value VMX-22 CG: x:1.519
+    -->
+    <ballast x="8" y="0" z="0" mass="8500"/>
 
     <!-- engine weight: 971 lbs, add some lbs for hydraulics and ...-->
     <ballast x="1.91" yr="6" y="7" z="0.39" mass="1000"/>
@@ -380,7 +392,7 @@
     <!-- Load -->
     <weight x="0.20" y="0" z="-1.9" mass-prop="/sim/weight[3]/weight-lb"/>
 
-    <!-- pushback -->
+    <!-- Pushback -->
     <thruster x="7.105" y="0" z="-3.212" vx="1" vy="0" vz="0" thrust="5200">
         <control-input axis="/sim/model/pushback/target-speed-fps" control="THROTTLE" src0="-1" src1="1" dst0="-1" dst1="1"/>
     </thruster>
@@ -392,7 +404,7 @@
         <control-input axis="/controls/aerotow/find-aircraft" control="FINDAITOW"/>
     </hitch>-->
 
-    <!-- -->
+    <!-- Hitch -->
     <hitch name="aerotow" x="-3.1" y="0.0" z="-2.525" force-is-calculated-by-other="0">
         <tow length="30" weight-per-meter="0.035" elastic-constant="9000" break-force="80000" mp-auto-connect-period="0.0"/>
         <winch max-tow-length="100" min-tow-length="30" initial-tow-length="30"/>
