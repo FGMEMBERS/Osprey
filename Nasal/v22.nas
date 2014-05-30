@@ -42,14 +42,6 @@ var interpolation = func (x, x0, y0, x1, y1, x2=nil, y2=nil, x3=nil, y3=nil, x4=
 
 # controls 
 var control_rotor_incidence_wing_fold = props.globals.getNode("sim/model/v22/wingfoldincidence");
-var control_ail = props.globals.getNode("/controls/flight/aileron");
-var control_trim_ail = props.globals.getNode("/controls/flight/aileron-trim");
-
-var control_ele = props.globals.getNode("/controls/flight/elevator");
-var control_trim_ele = props.globals.getNode("/controls/flight/elevator-trim");
-
-var control_rud = props.globals.getNode("/controls/flight/rudder");
-var control_trim_rud = props.globals.getNode("/controls/flight/rudder-trim");
 
 var input_flaps = props.globals.getNode("controls/flight/flaps",1);
 var control_flaps = props.globals.getNode("sim/model/v22/inputflaps",1);
@@ -100,9 +92,9 @@ var update_controls_and_tilt_loop = func(dt) {
     flap = max(min(iflap, flap + maxflap_delta), flap - maxflap_delta);
     control_flaps.setValue(flap);
 
-    var ail = clamp(control_ail.getValue() + control_trim_ail.getValue(), -1, 1);
-    var ele = clamp(control_ele.getValue() + control_trim_ele.getValue(), -1, 1);
-    var rud = clamp(control_rud.getValue() + control_trim_rud.getValue(), -1, 1);
+    var ail = clamp(getprop("/controls/flight/aileron") + getprop("/controls/flight/aileron-trim"), -1, 1);
+    var ele = clamp(getprop("/controls/flight/elevator") + getprop("/controls/flight/elevator-trim"), -1, 1);
+    var rud = clamp(getprop("/controls/flight/rudder") + getprop("/controls/flight/rudder-trim"), -1, 1);
 
     var thr = 1 - control_throttle.getValue();
     var act_tilt_avg = (actual_tilt_left.getValue() + actual_tilt_right.getValue()) / 2.0;
@@ -224,7 +216,6 @@ var update_controls_and_tilt_loop = func(dt) {
     setprop("sim/model/v22/flap_control_factor", flap_control_factor);
     setprop("sim/model/v22/min_allowed_tilt", min_allowed_tilt);
     setprop("sim/model/v22/max_allowed_tilt", max_allowed_tilt);
-    setprop("sim/model/v22/speed", speed);
 }
 
 var set_tilt = func (delta = 0, target = nil) {
@@ -921,8 +912,6 @@ var main_loop = func {
 
 var crashed = 0;
 var variant = nil;
-var doors = nil;
-var config_dialog = nil;
 
 # Initialization
 setlistener("/sim/signals/fdm-initialized", func {
