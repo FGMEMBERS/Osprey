@@ -66,7 +66,6 @@
                 <engine_right type="float">0.0</engine_right>
                 <engine_left type="float">0.0</engine_left>
                 <rotor-step-deg type="float">-1.0</rotor-step-deg>
-                <solver_throttle type="float">0</solver_throttle>
                 <wing_rotation_speed type ="float">0</wing_rotation_speed>
                 <flap_speed type="float">0</flap_speed>
                 <blade_folding_speed type="float">0</blade_folding_speed>

@@ -928,7 +928,6 @@ var config_dialog = nil;
 setlistener("/sim/signals/fdm-initialized", func {
     #init_rotoranim();
     collective.setDoubleValue(1);
-    setprop ("/sim/model/v22/solver_throttle", 0);
     #settimer(update_controls_and_tilt_loop, 0);
 
     setlistener("/sim/signals/reinit", func(n) {

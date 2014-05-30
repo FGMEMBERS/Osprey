@@ -25,7 +25,6 @@
 <airplane mass="33140">
 
     <approach speed="85" aoa="6">
-        <control-setting axis="/sim/model/v22/solver_throttle" value="0.2"/>
         <control-setting axis="/sim/model/v22/rotor/left/tilt" value="90"/>
         <control-setting axis="/sim/model/v22/rotor/right/tilt" value="90"/>
         <control-setting axis="/sim/model/v22/wing/flap" value="0.5"/>
@@ -43,7 +42,6 @@
          Original value VMX-22 speed = 275
     -->
     <cruise speed="305" alt="15000">
-        <control-setting axis="/sim/model/v22/solver_throttle" value="1.0"/>
         <control-setting axis="/sim/model/v22/rotor/left/tilt" value="90"/>
         <control-setting axis="/sim/model/v22/rotor/right/tilt" value="90"/>
         <control-setting axis="/sim/model/v22/wing/flap" value="0.0"/>
@@ -124,15 +122,6 @@
                        src0="0.0" src1="2.0"
                        dst0="0.0" dst1="2.0"/>
     </rotorgear>
-
-    <!-- only for the solver -->
-    <!--
-<thruster vx="1" vy="0" vz="0" x="4.62" z="0.39" y="7.041" thrust="3514">
-    <control-input axis="/sim/model/v22/solver_throttle" control="THROTTLE"/>   
-</thruster>  
-<thruster vx="1" vy="0" vz="0" x="4.62" z="0.39" y="-7.041" thrust="3514">
-    <control-input axis="/sim/model/v22/solver_throttle" control="THROTTLE"/>   
-</thruster> -->
 
     <!-- fuselage -->
     <cockpit x="-1.88" y=".33" z="0.6"/>
