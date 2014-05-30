@@ -42,12 +42,10 @@ var interpolation = func (x, x0, y0, x1, y1, x2=nil, y2=nil, x3=nil, y3=nil, x4=
 
 # controls 
 var control_rotor_incidence_wing_fold = props.globals.getNode("sim/model/v22/wingfoldincidence");
-var control_ail = props.globals.getNode("/sim/model/v22/flight_computer/roll/out");
-var input_ail = props.globals.getNode("/controls/flight/aileron");
+var control_ail = props.globals.getNode("/controls/flight/aileron");
 var control_trim_ail = props.globals.getNode("/controls/flight/aileron-trim");
 
-var control_ele = props.globals.getNode("/sim/model/v22/flight_computer/pitch/out");
-var input_ele = props.globals.getNode("/controls/flight/elevator");
+var control_ele = props.globals.getNode("/controls/flight/elevator");
 var control_trim_ele = props.globals.getNode("/controls/flight/elevator-trim");
 
 var control_rud = props.globals.getNode("/controls/flight/rudder");
@@ -236,49 +234,6 @@ var set_tilt = func (delta = 0, target = nil) {
     control_tilt.setValue(value);
 }
 
-# flight computer
-var fc_roll=props.globals.getNode("sim/model/v22/flight_computer/roll",1);
-var roll=props.globals.getNode("orientation/roll-deg",1);
-var roll_rate=props.globals.getNode("orientation/roll-rate-degps",1);
-var fc_pitch=props.globals.getNode("sim/model/v22/flight_computer/pitch",1);
-var pitch=props.globals.getNode("orientation/pitch-deg",1);
-var pitch_rate=props.globals.getNode("orientation/pitch-rate-degps",1);
-var hdg=props.globals.getNode("orientation/heading-deg",1);
-var hdg_rate=props.globals.getNode("orientation/yaw-rate-degps",1);
-var sim_dt=1/props.globals.getNode("sim/model-hz",1).getValue();
-var freeze=props.globals.getNode("sim/freeze/clock",1);
-var flight_computer= func(fc, input, is_value, is_rate, dt) {
-    var out = input;
-    if (fc.getNode("enabled").getValue()) {
-        var act_value = is_value * fc.getNode("target_abs").getValue() + is_rate * fc.getNode("target_rate").getValue();
-        var delta = input-act_value;
-        var differential = delta - fc.getNode("last_delta").getValue();
-        fc.getNode("last_delta").setValue(delta);
-        var integral = fc.getNode("integral").getValue();
-        var imax = fc.getNode("max_i").getValue();
-        integral = clamp (integral + delta * dt,-imax,imax);
-        fc.getNode("integral").setValue(integral);
-        out = fc.getNode("p").getValue() * delta;
-        out+= fc.getNode("i").getValue() * integral;
-        out+= fc.getNode("d").getValue() * differential;
-        out = clamp(out, -1, 1);
-    }
-    fc.getNode("out").setValue(out);
-}
-
-var update_flight_computer= func {
-    #check for freeze
-    if (freeze.getValue()) {
-        return;
-    }
-    var rv=roll.getValue();
-    var sr=sin(rv);
-    var cr=cos(rv);
-    flight_computer(fc_roll, input_ail.getValue(),rv,roll_rate.getValue(),sim_dt);
-    flight_computer(fc_pitch,input_ele.getValue(),(cr>0?1:-1)*pitch.getValue(),pitch_rate.getValue()*cr+hdg_rate.getValue()*sr,sim_dt);
-}
-
-
 # timers ============================================================
 aircraft.timer.new("/sim/time/hobbs/helicopter", nil).start();
 
@@ -345,7 +300,6 @@ var pback_state = props.globals.getNode("sim/model/pushback/enabled", 1);
 
 # pushback positon ====================================
 var pback_pos = props.globals.getNode("sim/model/pushback/position-norm", 1);
-
 
 
 var torque = props.globals.getNode("rotors/gear/total-torque", 1);
@@ -695,9 +649,6 @@ var update_torque_sound_filtered = func(dt) {
 }
 
 
-
-
-
 # skid slide sound
 var Skid = {
     new : func(n) {
@@ -748,7 +699,6 @@ var update_slide = func {
 }
 
 
-
 # crash handler =====================================================
 #var load = nil;
 var crash = func {
@@ -787,8 +737,6 @@ var crash = func {
 }
 
 
-
-
 # "manual" rotor animation for flight data recorder replay ============
 var rotor_step = props.globals.getNode("sim/model/v22/rotor-step-deg", 1);
 var blade1_pos = props.globals.getNode("rotors/main/blade[0]/position-deg", 1);
@@ -812,14 +760,6 @@ var init_rotoranim = func {
         settimer(rotoranim_loop, 0.1);
     }
 }
-
-
-
-
-
-
-
-
 
 
 # view management ===================================================
@@ -986,12 +926,11 @@ var config_dialog = nil;
 
 # Initialization
 setlistener("/sim/signals/fdm-initialized", func {
-
     #init_rotoranim();
     collective.setDoubleValue(1);
     setprop ("/sim/model/v22/solver_throttle", 0);
     #settimer(update_controls_and_tilt_loop, 0);
-    
+
     setlistener("/sim/signals/reinit", func(n) {
         n.getBoolValue() and return;
         cprint("32;1", "reinit");
@@ -1015,10 +954,9 @@ setlistener("/sim/signals/fdm-initialized", func {
             crash(!n.getBoolValue())
         }
     });
-    
+
     setlistener("/rotors/main/blade/position-deg", func {
         update_rotor_brake();
-        update_flight_computer();
     });
 
     # the attitude indicator needs pressure

@@ -71,33 +71,6 @@
                 <flap_speed type="float">0</flap_speed>
                 <blade_folding_speed type="float">0</blade_folding_speed>
                 <animation_tilt_speed type="float">0</animation_tilt_speed>
-        
-                <flight_computer>
-                    <roll>
-                        <p type="float">1</p>
-                        <i type="float">0</i>
-                        <d type="float">1</d>
-                        <target_abs type="float">0.004</target_abs>
-                        <target_rate type="float">0.0015</target_rate>
-                        <max_i type="float">0.5</max_i>
-                        <out type="float">0</out>
-                        <enabled type="int">1</enabled>
-                        <last_delta type="float">0</last_delta>
-                        <integral type="float">0</integral>
-                    </roll>
-                    <pitch>
-                        <p type="float">1</p>
-                        <i type="float">0</i>
-                        <d type="float">130</d>
-                        <target_abs type="float">-0.01</target_abs>
-                        <target_rate type="float">0.0001</target_rate>
-                        <max_i type="float">0.5</max_i>
-                        <out type="float">0</out>
-                        <enabled type="int">1</enabled>
-                        <last_delta type="float">0</last_delta>
-                        <integral type="float">0</integral>
-                    </pitch>
-                </flight_computer>
             </v22>
         
             <!-- set for landing lights OFF (0 default) on startup <property>sim/model/lights/landing-lights/state</property> -->
