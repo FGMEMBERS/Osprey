@@ -60,9 +60,6 @@ var airspeed_kt = props.globals.getNode("/velocities/airspeed-kt");
 var rotor_pos = props.globals.getNode("rotors/main/blade[0]/position-deg",1);
 var actual_tilt_left = props.globals.getNode("sim/model/v22/rotor/left/tilt",1); #0 up, 90 forward, range -10 ... 90
 var actual_tilt_right = props.globals.getNode("sim/model/v22/rotor/right/tilt",1); #0 up, 90 forward, range -10 ... 90
-var animation_tilt_left = props.globals.getNode("sim/model/v22/rotor/left/animation_tilt",1);
-var animation_tilt_right = props.globals.getNode("sim/model/v22/rotor/right/animation_tilt",1);
-
 actual_tilt_left.setValue(0);
 actual_tilt_right.setValue(0);
 
@@ -86,15 +83,13 @@ var update_controls_and_tilt_loop = func(dt) {
         return;
     }
 
-    var flap = control_flaps.getValue();
-    var iflap = input_flaps.getValue();
-    var maxflap_delta = dt * 0.125;
-    flap = max(min(iflap, flap + maxflap_delta), flap - maxflap_delta);
-    control_flaps.setValue(flap);
-
     var ail = clamp(getprop("/controls/flight/aileron") + getprop("/controls/flight/aileron-trim"), -1, 1);
     var ele = clamp(getprop("/controls/flight/elevator") + getprop("/controls/flight/elevator-trim"), -1, 1);
     var rud = clamp(getprop("/controls/flight/rudder") + getprop("/controls/flight/rudder-trim"), -1, 1);
+
+    setprop("/controls/flight/fbw/elevator", ele);
+    setprop("/controls/flight/fbw/aileron", ail);
+    setprop("/controls/flight/fbw/rudder", rud);
 
     var thr = 1 - control_throttle.getValue();
     var act_tilt_avg = (actual_tilt_left.getValue() + actual_tilt_right.getValue()) / 2.0;
@@ -128,89 +123,69 @@ var update_controls_and_tilt_loop = func(dt) {
 
     var airplane_control_factor = conv_factor;
     var helicopter_control_factor = 1 - conv_factor;
-    var flap_control_factor = clamp((speed - min_conv_mode_kias - flap_speed_offset) / (max_conv_mode_kias - min_conv_mode_kias + flap_speed_range), 0, 1);
 
     ################################################################################
 
-    setprop("/controls/flight/fbw/elevator", ele);
-    setprop("/controls/flight/fbw/aileron", ail);
-    setprop("/controls/flight/fbw/rudder", rud);
+    var flap_control_factor = clamp((speed - min_conv_mode_kias - flap_speed_offset) / (max_conv_mode_kias - min_conv_mode_kias + flap_speed_range), 0, 1);
+
+    var flap = control_flaps.getValue();
+    var iflap = input_flaps.getValue();
+    var maxflap_delta = dt * 0.125;
+    flap = max(min(iflap, flap + maxflap_delta), flap - maxflap_delta);
+    control_flaps.setValue(flap);
 
     if (wing_state.getValue() == 0) {
-        out_wing_flap.setValue(flap * flap_control_factor * 0.3 + (1 - flap_control_factor) * min(1, 1 - act_tilt_avg / 90));
+        out_wing_flap.setValue(flap_control_factor * flap * 0.3 + (1 - flap_control_factor) * min(1, 1 - act_tilt_avg / 90));
     }
 
     ################################################################################
 
     var col_wing = thr * interpolation(speed, 0, 20, 300, 75); 
 
-    #calculate the rotor controls
-    var ele2ele = 10;
+    # Calculate the rotor controls
     var ail2col = 5;
-    var rud2ele = 12;
-    var ail2ele = 0;
-    var min_col =  2;
+    var min_col = 2;
     var max_col = 23;
 
     var col_tilt_correction = 1 / cos(clamp(act_tilt_avg, -10, 30));
 
     var col_rotor = min_col + thr * (max_col - min_col) * col_tilt_correction;
 
-    #set blades vertical if folded
+    # Set blades vertical if folded
     var h = control_rotor_incidence_wing_fold.getValue();
     col_rotor = 100 * h + col_rotor * (1-h);
     ail = ail * (1-h);
     ele = ele * (1-h);
     rud = rud * (1-h);
 
-    #rotor collective correction factor for rudder input
+    # Rotor collective correction factor for rudder input
     var rudright = interpolation(rud, -1, 1, 0, 0, 1, 0);
     var rudleft = interpolation(rud, -1, 0, 0, 0, 1, 1);
 
-    #rotor tilt correction factor to assume 0 rotor ele movement if 90 degrees tilt
-    var tiltrotcor = interpolation(act_tilt_avg, -10, 1, 0, 1, 80, 0, 90, 0);
-
-    #rotor tilt correction factor to reduce collective correction factor if engines tilt to 90 degrees
-    var speedtiltrotcor = interpolation(act_tilt_avg, -10, 1, 0, 1, 75, 1, 90, 0.1);
-
-    #rotor collective factor if 0 degrees tilt - seems to needs more collective input change to get rudder effect with increasing speed TEST
+    # Rotor collective factor if 0 degrees tilt - seems to needs more collective input change to get rudder effect with increasing speed TEST
     var tiltzerocor = interpolation(act_tilt_avg, -10, 1, 0, 1, 10, 0, 90, 0);
 
-    #rotor collective correction factor for speed
+    # Rotor collective correction factor for speed
     var speedcor0 = interpolation(speed, 0, 0, 10, 4, 20, 8, 50, 15, 110, 25, 400, 4);
     var speedcor1 = interpolation(speed, 0, 0, 10, 4, 50, 19, 110, 35, 400, 4);
-    #var speedcor = interpolation(speed, 0, 0, 10, 4, 50, 19, 110, 35, 400, 4);
     var speedcor = speedcor1 + (speedcor0 * tiltzerocor);
 
-    var rr_cor = (rudright * speedcor) * speedtiltrotcor;
-    var rl_cor = (rudleft * speedcor) * speedtiltrotcor;
-    #var rr_cor = 0;
-    #var rl_cor = 0;
+    # Rotor tilt correction factor to reduce collective correction factor if engines tilt to 90 degrees
+    var speedtiltrotcor = interpolation(act_tilt_avg, -10, 1, 0, 1, 75, 1, 90, 0.1);
 
-    #rotor collective
-    out_rotor_r_col.setValue( airplane_control_factor * col_wing +
-                              helicopter_control_factor * (col_rotor - ail * ail2col) + (rr_cor / 2) - (rl_cor / 2));
-    out_rotor_l_col.setValue( airplane_control_factor * col_wing +
-                              helicopter_control_factor * (col_rotor + ail * ail2col) + (rl_cor / 2) - (rr_cor / 2));
+    # Rotor collective
+    out_rotor_r_col.setValue(airplane_control_factor * col_wing + helicopter_control_factor * (col_rotor - ail * ail2col) + (rudright - rudleft) * speedcor * speedtiltrotcor / 2);
+    out_rotor_l_col.setValue(airplane_control_factor * col_wing + helicopter_control_factor * (col_rotor + ail * ail2col) + (rudleft - rudright) * speedcor * speedtiltrotcor / 2);
 
-    #print ("rl_cor  ", rl_cor , " rr_cor  ", rr_cor , " rud  " , rud);
+    ################################################################################
 
-    #orginal 
-    #out_rotor_r_col.setValue( airplane_control_factor * col_wing +
-    #                         helicopter_control_factor * (col_rotor - ail * ail2col) );
-    #out_rotor_l_col.setValue( airplane_control_factor * col_wing +
-    #                         helicopter_control_factor * (col_rotor + ail * ail2col) );
+    var ele2ele = 10;
+    var ail2ele = 0;
+    var rud2ele = 12;
 
-    #was marked out before
-    # out_rotor_r_ele.setValue( helicopter_control_factor * (ele * ele2ele - ( rud * rud2ele + ail * ail2ele)));
-    # out_rotor_l_ele.setValue( helicopter_control_factor * (ele * ele2ele + ( rud * rud2ele + ail * ail2ele)));
+    out_rotor_r_ele.setValue(helicopter_control_factor * (ele * ele2ele - (rud * rud2ele + ail * ail2ele)));
+    out_rotor_l_ele.setValue(helicopter_control_factor * (ele * ele2ele + (rud * rud2ele + ail * ail2ele)));
 
-    out_rotor_r_ele.setValue (tiltrotcor * ( helicopter_control_factor * (ele * ele2ele - ( rud * rud2ele + ail * ail2ele)) + (1-helicopter_control_factor) * (ele * ele2ele)));
-    out_rotor_l_ele.setValue (tiltrotcor * ( helicopter_control_factor * (ele * ele2ele + ( rud * rud2ele + ail * ail2ele)) + (1-helicopter_control_factor) * (ele * ele2ele)));
-    
-    #out_rotor_r_ele.setValue( helicopter_control_factor * (ele * ele2ele - ( rud * rud2ele + ail * ail2ele)) + (1-helicopter_control_factor) * (ele * ele2ele));
-    #out_rotor_l_ele.setValue( helicopter_control_factor * (ele * ele2ele + ( rud * rud2ele + ail * ail2ele)) + (1-helicopter_control_factor) * (ele * ele2ele));
-    
     setprop("sim/model/v22/helicopter_control_factor", helicopter_control_factor);
     setprop("sim/model/v22/airplane_control_factor", airplane_control_factor);
     setprop("sim/model/v22/flap_control_factor", flap_control_factor);
@@ -316,6 +291,9 @@ var max_rel_torque = props.globals.getNode("controls/rotor/maxreltorque", 1);
 # 13 -> 0
 var blade_folding = props.globals.getNode("sim/model/v22/blade_folding",1);
 var blade_incidence = props.globals.getNode("rotors/main/blade/incidence-deg",1);
+
+var animation_tilt_left = props.globals.getNode("sim/model/v22/rotor/left/animation_tilt",1);
+var animation_tilt_right = props.globals.getNode("sim/model/v22/rotor/right/animation_tilt",1);
 
 var update_wing_state = func {
     var ws = wing_state.getValue();
