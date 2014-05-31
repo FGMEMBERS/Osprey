@@ -29,7 +29,7 @@
             <value>Retracted</value>
             <condition>
                 <equals>
-                    <property>instrumentation/doors/airrefuel/position-norm</property>
+                    <property>/instrumentation/doors/airrefuel/position-norm</property>
                     <value>1</value>
                 </equals>
             </condition>
@@ -39,10 +39,16 @@
             <name>Wings</name>
             <value>Unfolded</value>
             <condition>
-                <equals>
-                    <property>sim/model/v22/wing_state</property>
-                    <value>0</value>
-                </equals>
+                <and>
+                    <equals>
+                        <property>/sim/model/v22/wing_state</property>
+                        <value>0</value>
+                    </equals>
+                    <equals>
+                        <property>/sim/model/v22/wingfoldincidence</property>
+                        <value>0</value>
+                    </equals>
+                </and>
             </condition>
         </item>
     </checklist>
