@@ -77,7 +77,7 @@
         <name>Ailerons servos</name>
         <type>noise-spike</type>
         <input>
-            <property>/controls/flight/fbw/aileron</property>
+            <property>/controls/flight/fbw/output/aileron</property>
             <scale>
                 <property>/sim/model/v22/airplane_control_factor</property>
             </scale>
@@ -98,7 +98,7 @@
         <name>Elevators servos</name>
         <type>noise-spike</type>
         <input>
-            <property>/controls/flight/fbw/elevator</property>
+            <property>/controls/flight/fbw/output/elevator</property>
         </input>
         <output>
             <property>/sim/model/v22/wing/elevator</property>
@@ -116,7 +116,7 @@
         <name>Rudders servos</name>
         <type>noise-spike</type>
         <input>
-            <property>/controls/flight/fbw/rudder</property>
+            <property>/controls/flight/fbw/output/rudder</property>
             <scale>
                 <property>/sim/model/v22/airplane_control_factor</property>
             </scale>

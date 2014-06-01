@@ -181,6 +181,9 @@
             <autopilot>
                 <path>Systems/servos.xml</path>
             </autopilot>
+            <autopilot>
+                <path>Systems/fbw.xml</path>
+            </autopilot>
         </systems>
 
     </sim>
@@ -198,6 +201,17 @@
             <beacon type="bool">false</beacon>
             <nav-lights type="bool">false</nav-lights>
         </lighting>
+
+        <flight>
+            <fbw>
+                <active>
+                    <roll-rate type="bool">true</roll-rate>
+                </active>
+                <settings>
+                    <roll-rate-limit>40</roll-rate-limit>
+                </settings>
+            </fbw>
+        </flight>
     </controls>
 
     <rotors>

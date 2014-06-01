@@ -87,9 +87,9 @@ var update_controls_and_tilt_loop = func(dt) {
     var ele = clamp(getprop("/controls/flight/elevator") + getprop("/controls/flight/elevator-trim"), -1, 1);
     var rud = clamp(getprop("/controls/flight/rudder") + getprop("/controls/flight/rudder-trim"), -1, 1);
 
-    setprop("/controls/flight/fbw/elevator", ele);
-    setprop("/controls/flight/fbw/aileron", ail);
-    setprop("/controls/flight/fbw/rudder", rud);
+    setprop("/controls/flight/fbw/output/elevator", ele);
+    setprop("/controls/flight/fbw/target/roll-rate", ail);
+    setprop("/controls/flight/fbw/output/rudder", rud);
 
     var thr = 1 - control_throttle.getValue();
     var act_tilt_avg = (actual_tilt_left.getValue() + actual_tilt_right.getValue()) / 2.0;
@@ -889,7 +889,6 @@ var main_loop = func {
 }
 
 var crashed = 0;
-var variant = nil;
 
 # Initialization
 setlistener("/sim/signals/fdm-initialized", func {
@@ -902,7 +901,6 @@ setlistener("/sim/signals/fdm-initialized", func {
         cprint("32;1", "reinit");
         #turbine_timer.stop();
         collective.setDoubleValue(1);
-        variant.scan();
         crashed = 0;
     });
 

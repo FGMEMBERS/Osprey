@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <!-- Following PID controllers and filters implement the Fly-By-Wire system.
+
+         To test the response of a PID controller, set <debug> to true, modify
+         <reference> to use a certain <value>, and then reload the autopilot
+         via the Debug menu in FlightGear. The controller should start tracking
+         the given <value>. Copy and paste the debug output to a file called
+         "debug-output" and extract the first 200 (for example) input values
+         and save those to another file called "pid-samples":
+
+            grep input debug-output | cut -d " " -f 5 | head -n 200 > pid-samples
+
+         Then start gnuplot and execute:
+
+            plot "pid-samples" with lines
+
+         General work flow is:
+
+         1) Pause FlightGear
+         2) Make some modifications to a controller
+         3) Reload the autopilot via the Debug menu
+         4) Unpause
+         5) Pause FlightGear again after a couple of seconds
+         6) Analyze the debug output
+    -->
+
+    <!-- Tracks a given roll rate. The target (-1 .. 1) is scaled by the
+         roll rate limit, which must be at least 20 deg/s, to give the
+         maximum roll rate.
+    -->
+    <pid-controller>
+        <name>FBW Roll Rate</name>
+        <debug>false</debug>
+        <enable>
+            <property>/controls/flight/fbw/active/roll-rate</property>
+        </enable>
+        <input>
+            <property>/orientation/roll-rate-degps</property>
+        </input>
+        <reference>
+            <property>/controls/flight/fbw/target/roll-rate</property>
+            <scale>
+                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+                <min>20</min>
+            </scale>
+        </reference>
+        <output>
+            <property>/controls/flight/fbw/output/aileron</property>
+        </output>
+        <config>
+            <!-- Response should be something like Docs/fbw-roll-rate.png -->
+            <Kp>0.016</Kp>
+            <Ti>1.0</Ti>
+            <Td>0.0002</Td>
+            <u_min>-1.0</u_min>
+            <u_max>1.0</u_max>
+        </config>
+    </pid-controller>
+
+    <!-- Connects the target roll rate directly to the ailerons servos,
+         bypassing the PID controller, giving the pilot direct unfiltered
+         control over the ailerons.
+    -->
+    <filter>
+        <name>Direct Mode Roll Rate</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <not>
+                    <property>/controls/flight/fbw/active/roll-rate</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/controls/flight/fbw/target/roll-rate</property>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/output/aileron</property>
+        </output>
+    </filter>
+
+</PropertyList>
