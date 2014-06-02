@@ -4,7 +4,7 @@
 
     <sim>
 
-        <description>Bell Boeing CV-22B Osprey</description>
+        <description>Bell Boeing CV-22 Osprey</description>
         <aero>cv22</aero>
 
         <weight n="3">
@@ -22,13 +22,13 @@
         <aircraft-operator>AFSOC</aircraft-operator>
 
         <help>
-            <title>Bell Boeing CV-22B Osprey</title>
+            <title>Bell Boeing CV-22 Osprey</title>
         </help>
 
         <menubar n="0">
             <default n="0">
                 <menu n="10">
-                    <label>CV-22B Osprey</label>
+                    <label>CV-22 Osprey</label>
                 </menu>
             </default>
         </menubar>

@@ -4,7 +4,7 @@
 
     <sim>
 
-        <description>Bell Boeing MV-22B Osprey</description>
+        <description>Bell Boeing MV-22 Osprey</description>
         <aero>mv22</aero>
 
         <weight n="3">
@@ -16,13 +16,13 @@
         <aircraft-operator>USMC</aircraft-operator>
 
         <help>
-            <title>Bell Boeing MV-22B Osprey</title>
+            <title>Bell Boeing MV-22 Osprey</title>
         </help>
 
         <menubar n="0">
             <default n="0">
                 <menu n="10">
-                    <label>MV-22B Osprey</label>
+                    <label>MV-22 Osprey</label>
                 </menu>
             </default>
         </menubar>
