@@ -88,7 +88,7 @@ var update_controls_and_tilt_loop = func(dt) {
     var rud = clamp(getprop("/controls/flight/rudder") + getprop("/controls/flight/rudder-trim"), -1, 1);
 
     setprop("/controls/flight/fbw/output/elevator", ele);
-    setprop("/controls/flight/fbw/target/roll-rate", ail);
+    setprop("/controls/flight/fbw/target/roll", ail);
     setprop("/controls/flight/fbw/output/rudder", rud);
 
     var thr = 1 - control_throttle.getValue();

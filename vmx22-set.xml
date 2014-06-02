@@ -206,9 +206,11 @@
             <fbw>
                 <active>
                     <roll-rate type="bool">true</roll-rate>
+                    <roll-hold type="bool">true</roll-hold>
                 </active>
                 <settings>
                     <roll-rate-limit>40</roll-rate-limit>
+                    <roll-hold-limit>30</roll-hold-limit>
                 </settings>
             </fbw>
         </flight>

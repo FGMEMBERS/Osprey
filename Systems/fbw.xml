@@ -27,25 +27,32 @@
          6) Analyze the debug output
     -->
 
-    <!-- Tracks a given roll rate. The target (-1 .. 1) is scaled by the
-         roll rate limit, which must be at least 20 deg/s, to give the
-         maximum roll rate.
+    <!-- Tracks a given roll rate. The target roll rate is limited to
+         be no greater than the roll rate limit.
     -->
     <pid-controller>
         <name>FBW Roll Rate</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/roll-rate</property>
+            <condition>
+                <or>
+                    <property>/controls/flight/fbw/active/roll-rate</property>
+                    <property>/controls/flight/fbw/active/roll-hold</property>
+                </or>
+            </condition>
         </enable>
         <input>
             <property>/orientation/roll-rate-degps</property>
         </input>
         <reference>
             <property>/controls/flight/fbw/target/roll-rate</property>
-            <scale>
+            <min>
                 <property>/controls/flight/fbw/settings/roll-rate-limit</property>
-                <min>20</min>
-            </scale>
+                <scale>-1.0</scale>
+            </min>
+            <max>
+                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+            </max>
         </reference>
         <output>
             <property>/controls/flight/fbw/output/aileron</property>
@@ -60,27 +67,104 @@
         </config>
     </pid-controller>
 
-    <!-- Connects the target roll rate directly to the ailerons servos,
-         bypassing the PID controller, giving the pilot direct unfiltered
+    <!-- Connects the stick directly to the ailerons servos, bypassing
+         any PID controllers, giving the pilot direct unfiltered
          control over the ailerons.
     -->
     <filter>
-        <name>Direct Mode Roll Rate</name>
+        <name>Direct Mode Stick Roll Rate</name>
         <type>gain</type>
         <gain>1.0</gain>
         <enable>
             <condition>
-                <not>
-                    <property>/controls/flight/fbw/active/roll-rate</property>
-                </not>
+                <and>
+                    <not>
+                        <property>/controls/flight/fbw/active/roll-rate</property>
+                    </not>
+                    <not>
+                        <property>/controls/flight/fbw/active/roll-hold</property>
+                    </not>
+                </and>
             </condition>
         </enable>
         <input>
-            <property>/controls/flight/fbw/target/roll-rate</property>
+            <property>/controls/flight/fbw/target/roll</property>
         </input>
         <output>
             <property>/controls/flight/fbw/output/aileron</property>
         </output>
     </filter>
+
+    <!-- Connects the stick to either the FBW target roll hold or target
+         roll rate.
+    -->
+    <filter>
+        <name>FBW Stick Roll</name>
+        <type>gain</type>
+        <gain>100.0</gain>
+        <enable>
+            <condition>
+                <or>
+                    <property>/controls/flight/fbw/active/roll-rate</property>
+                    <property>/controls/flight/fbw/active/roll-hold</property>
+                </or>
+            </condition>
+        </enable>
+        <input>
+            <property>/controls/flight/fbw/target/roll</property>
+        </input>
+        <output>
+            <condition>
+                <property>/controls/flight/fbw/active/roll-hold</property>
+            </condition>
+            <property>/controls/flight/fbw/target/roll-deg</property>
+        </output>
+        <output>
+            <condition>
+                <property>/controls/flight/fbw/active/roll-rate</property>
+            </condition>
+            <property>/controls/flight/fbw/target/roll-rate</property>
+        </output>
+    </filter>
+
+    <!-- Tracks a given roll. The roll is limited to be within the roll
+         hold limit so that the pilot can never make the aircraft bank
+         more than this limit allows. -->
+    <pid-controller>
+        <name>FBW Roll Hold</name>
+        <debug>false</debug>
+        <enable>
+            <property>/controls/flight/fbw/active/roll-hold</property>
+        </enable>
+        <input>
+            <property>/orientation/roll-deg</property>
+        </input>
+        <reference>
+            <property>/controls/flight/fbw/target/roll-deg</property>
+            <min>
+                <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                <scale>-1.0</scale>
+            </min>
+            <max>
+                <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+            </max>
+        </reference>
+        <output>
+            <property>/controls/flight/fbw/target/roll-rate</property>
+        </output>
+        <config>
+            <!-- TODO Response too quick, should have slower response and less overshoot -->
+            <Kp>2.0</Kp>
+            <Ti>3.5</Ti>
+            <Td>0.0</Td>
+            <u_min>
+                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+                <scale>-1.0</scale>
+            </u_min>
+            <u_max>
+                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+            </u_max>
+        </config>
+    </pid-controller>
 
 </PropertyList>
