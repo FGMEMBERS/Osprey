@@ -202,6 +202,11 @@
             <nav-lights type="bool">false</nav-lights>
         </lighting>
 
+        <gear>
+            <!-- Enable parking brake when starting FlightGear -->
+            <brake-parking type="double">1.0</brake-parking>
+        </gear>
+
         <flight>
             <fbw>
                 <active>
@@ -272,6 +277,7 @@
             <file>Aircraft/VMX22-Osprey/Nasal/tyresmoke.nas</file>
             <file>Aircraft/VMX22-Osprey/Nasal/immat.nas</file>
             <file>Aircraft/VMX22-Osprey/Nasal/liveries.nas</file>
+            <file>Aircraft/Generic/limits.nas</file>
         </v22>
         <doors>
             <file>Aircraft/VMX22-Osprey/Nasal/doors.nas</file>
@@ -290,5 +296,14 @@
             <tank n="7"><name>Optional MATS no. 3</name></tank>
         </fuel>
     </consumables>
+
+    <limits>
+        <!-- TODO Actual numbers unknown. Current copied from 777 -->
+        <max-gear-extension-speed>270</max-gear-extension-speed>
+
+        <!-- Source: http://www.globalsecurity.org/military/systems/aircraft/v-22-survive.htm -->
+        <max-positive-g>4.0</max-positive-g>
+        <max-negative-g>-4.0</max-negative-g>
+    </limits>
 
 </PropertyList>
