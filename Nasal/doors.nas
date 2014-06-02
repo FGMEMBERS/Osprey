@@ -78,6 +78,17 @@ var crew_lower_toggle = func {
 
 ################################################################################
 
+var gear_up = func {
+    if (getprop("/gear/gear[0]/wow") or getprop("/gear/gear[1]/wow") or getprop("/gear/gear[2]/wow")) {
+        gui.popupTip("Cannot move gear up while aircraft is on the ground");
+    }
+    else {
+        controls.gearDown(-1);
+    }
+}
+
+################################################################################
+
 var cockpit = aircraft.door.new("instrumentation/doors/cockpitdoor", 1.0, 0);
 var air_refuel = aircraft.door.new("instrumentation/doors/airrefuel", 4.0, 0);
 var landinglightpos = aircraft.door.new("instrumentation/doors/landinglightpos", 4.0, 0);

@@ -4,54 +4,54 @@
 
     <key n="100">
         <name>d</name>
-        <desc>Toggle crew door upper part open/close</desc>
+        <desc>Toggle Starboard Door Upper Part Open/Close</desc>
         <binding>
             <command>nasal</command>
-            <script>doors.crew_upper_toggle();</script>
+            <script>doors.crew_upper_toggle()</script>
         </binding>
     </key>
 
     <key n="68">
         <name>D</name>
-        <desc>Toggle crew door lower part open/close</desc>
+        <desc>Toggle Starboard Door Lower Part Open/Close</desc>
         <binding>
             <command>nasal</command>
-            <script>doors.crew_lower_toggle();</script>
-        </binding>
-    </key>
-
-    <key n="115">
-        <name>s</name>
-        <desc>Toggle cargo door lower part open/close</desc>
-        <binding>
-           <script>doors.cargo_lower_toggle();</script>
+            <script>doors.crew_lower_toggle()</script>
         </binding>
     </key>
 
     <key n="99">
         <name>c</name>
-        <desc>Toggle cargo door upper part open/close</desc>
+        <desc>Toggle Cargo Door Lower Part Open/Close</desc>
+        <binding>
+           <script>doors.cargo_lower_toggle()</script>
+        </binding>
+    </key>
+
+    <key n="115">
+        <name>s</name>
+        <desc>Toggle Cargo Door Upper Part Open/Close</desc>
         <binding>
            <command>nasal</command>
-           <script>doors.cargo_upper_toggle();</script>
+           <script>doors.cargo_upper_toggle()</script>
         </binding>
     </key>
 
     <key n="101">
         <name>e</name>
-        <desc>Toggle cockpit door open/close</desc>
+        <desc>Toggle Cockpit Door Open/Close</desc>
         <binding>
            <command>nasal</command>
-           <script>doors.cockpit.toggle();</script>
+           <script>doors.cockpit.toggle()</script>
         </binding>
     </key>
 
     <key n="102">
         <name>f</name>
-        <desc>Toggle air refueling probe</desc>
+        <desc>Toggle Air Refueling Probe</desc>
         <binding>
            <command>nasal</command>
-           <script>doors.air_refuel.toggle();</script>
+           <script>doors.air_refuel.toggle()</script>
         </binding>
     </key>
 
@@ -68,16 +68,16 @@
 
     <key n="108">
         <name>l</name>
-        <desc>Landing lights position</desc>
+        <desc>Landing Lights Position</desc>
         <binding>
            <command>nasal</command>
-           <script>doors.landinglightpos.toggle();</script>
+           <script>doors.landinglightpos.toggle()</script>
         </binding>
     </key>
 
     <key n="76">
         <name>L</name>
-        <desc>Landing lights on/off</desc>
+        <desc>Landing Lights On/Off</desc>
         <binding>
             <command>property-toggle</command>
             <property>sim/model/lights/landing-lights/state</property>
@@ -88,7 +88,7 @@
 
     <key n="15">
         <name>Ctrl-o</name>
-        <desc>Find aircraft for aerotow</desc>
+        <desc>Find Aircraft For Aerotow</desc>
         <binding>
           <command>property-assign</command>
           <property>controls/aerotow/find-aircraft</property>
@@ -105,7 +105,7 @@
 
     <key n="111">
         <name>o</name>
-        <desc>Lock aerotow hook</desc>
+        <desc>Lock Aerotow Hook</desc>
         <binding>
           <command>property-assign</command>
           <property>sim/hitches/aerotow/open</property>
@@ -115,7 +115,7 @@
 
     <key n="79">
         <name>O</name>
-        <desc>Open aerotow hook</desc>
+        <desc>Open Aerotow Hook</desc>
         <binding>
           <command>property-assign</command>
           <property>sim/hitches/aerotow/open</property>
@@ -125,17 +125,17 @@
 
     <key n="78">
         <name>N</name>
-        <desc>Fold wing back</desc>
+        <desc>Fold Wing</desc>
     </key>
 
     <key n="110">
         <name>n</name>
-        <desc>Unfold wing</desc>
+        <desc>Unfold Wing</desc>
     </key>
 
     <key n="123">
         <name>{</name>
-        <desc>Shutdown engines</desc>
+        <desc>Shutdown Engines</desc>
         <binding>
             <command>nasal</command>
             <script>v22.engines(0)</script>
@@ -144,7 +144,7 @@
 
     <key n="125">
         <name>}</name>
-        <desc>Start engines</desc>
+        <desc>Start Engines</desc>
         <binding>
             <command>nasal</command>
             <script>v22.engines(1)</script>
@@ -153,7 +153,7 @@
 
     <key n="109">
         <name>m</name>
-        <desc>Tilt rotors fwd</desc>
+        <desc>Tilt Rotors Fwd</desc>
         <repeatable>false</repeatable>
         <mod-alt>
             <binding>
@@ -165,9 +165,23 @@
 
     <key n="77">
         <name>M</name>
-        <desc>Tilt rotors aft</desc>
+        <desc>Tilt Rotors Aft</desc>
         <repeatable>false</repeatable>
     </key>
 
-</PropertyList>
+    <key n="103">
+        <name>g</name>
+        <desc>Gear Up</desc>
+        <binding>
+            <command>nasal</command>
+            <script>controls.gearDown(0)</script>
+        </binding>
+        <mod-up>
+            <binding>
+                <command>nasal</command>
+                <script>doors.gear_up()</script>
+            </binding>
+        </mod-up>
+    </key>
 
+</PropertyList>

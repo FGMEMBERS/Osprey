@@ -43,11 +43,11 @@
         <desc>Open/Close starboard door lower part</desc>
     </key>
     <key>
-        <name>c</name>
+        <name>s</name>
         <desc>Open/Close cargo door upper part</desc>
     </key>
     <key>
-        <name>s</name>
+        <name>c</name>
         <desc>Open/Close cargo door lower part</desc>
     </key>
     <key>
