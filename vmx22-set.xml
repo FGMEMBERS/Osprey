@@ -184,6 +184,9 @@
             <autopilot>
                 <path>Systems/fbw.xml</path>
             </autopilot>
+            <autopilot>
+                <path>Systems/autopilot.xml</path>
+            </autopilot>
         </systems>
 
     </sim>
@@ -215,7 +218,7 @@
                 </active>
                 <settings>
                     <roll-rate-limit>40</roll-rate-limit>
-                    <roll-hold-limit>30</roll-hold-limit>
+                    <roll-hold-limit>45</roll-hold-limit>
                 </settings>
             </fbw>
         </flight>

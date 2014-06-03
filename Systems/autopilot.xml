@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <filter>
+        <name>Wing Leveler</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <equals>
+                    <property>/autopilot/locks/heading</property>
+                    <value>wing-leveler</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <value>0.0</value>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/target/roll-deg</property>
+        </output>
+    </filter>
+
+</PropertyList>

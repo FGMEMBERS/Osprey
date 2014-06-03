@@ -38,6 +38,10 @@
                 <or>
                     <property>/controls/flight/fbw/active/roll-rate</property>
                     <property>/controls/flight/fbw/active/roll-hold</property>
+                    <equals>
+                        <property>/autopilot/locks/heading</property>
+                        <value>wing-leveler</value>
+                    </equals>
                 </or>
             </condition>
         </enable>
@@ -84,6 +88,12 @@
                     <not>
                         <property>/controls/flight/fbw/active/roll-hold</property>
                     </not>
+                    <not>
+                        <equals>
+                            <property>/autopilot/locks/heading</property>
+                            <value>wing-leveler</value>
+                        </equals>
+                    </not>
                 </and>
             </condition>
         </enable>
@@ -104,10 +114,18 @@
         <gain>100.0</gain>
         <enable>
             <condition>
-                <or>
-                    <property>/controls/flight/fbw/active/roll-rate</property>
-                    <property>/controls/flight/fbw/active/roll-hold</property>
-                </or>
+                <and>
+                    <or>
+                        <property>/controls/flight/fbw/active/roll-rate</property>
+                        <property>/controls/flight/fbw/active/roll-hold</property>
+                    </or>
+                    <not>
+                        <equals>
+                            <property>/autopilot/locks/heading</property>
+                            <value>wing-leveler</value>
+                        </equals>
+                    </not>
+                </and>
             </condition>
         </enable>
         <input>
@@ -134,7 +152,15 @@
         <name>FBW Roll Hold</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/roll-hold</property>
+            <condition>
+                <or>
+                    <property>/controls/flight/fbw/active/roll-hold</property>
+                    <equals>
+                        <property>/autopilot/locks/heading</property>
+                        <value>wing-leveler</value>
+                    </equals>
+                </or>
+            </condition>
         </enable>
         <input>
             <property>/orientation/roll-deg</property>
