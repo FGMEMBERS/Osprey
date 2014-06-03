@@ -215,10 +215,13 @@
                 <active>
                     <roll-rate type="bool">true</roll-rate>
                     <roll-hold type="bool">true</roll-hold>
+                    <pitch-rate type="bool">false</pitch-rate>
+                    <pitch-hold type="bool">false</pitch-hold>
                 </active>
                 <settings>
                     <roll-rate-limit>40</roll-rate-limit>
                     <roll-hold-limit>45</roll-hold-limit>
+                    <pitch-rate-limit>15</pitch-rate-limit>
                 </settings>
             </fbw>
         </flight>

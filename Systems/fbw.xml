@@ -183,4 +183,97 @@
         </output>
     </logic>
 
+    <!-- ================================================================== -->
+    <!-- Pitch Axis Modes                                                   -->
+    <!-- ================================================================== -->
+
+    <!-- Tracks a given pitch rate. The pitch rate can be no greater
+         than the pitch rate limit.
+    -->
+    <pid-controller>
+        <name>FBW Pitch Rate</name>
+        <debug>false</debug>
+        <enable>
+            <property>/controls/flight/fbw/active/pitch-rate</property>
+        </enable>
+        <input>
+            <property>/orientation/pitch-rate-degps</property>
+        </input>
+        <reference>
+            <property>/controls/flight/fbw/target/pitch-rate</property>
+            <max>
+                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+            </max>
+            <scale>-1.0</scale>
+        </reference>
+        <output>
+            <property>/controls/flight/fbw/output/elevator</property>
+        </output>
+        <config>
+            <Kp>-0.016</Kp>
+            <Ti>0.07</Ti>
+            <Td>0.0002</Td>
+            <beta>0.1</beta>
+            <u_min>-1.0</u_min>
+            <u_max>1.0</u_max>
+        </config>
+    </pid-controller>
+
+    <!-- Connects the stick directly to the elevator servos, bypassing
+         any PID controllers, giving the pilot direct unfiltered
+         control over the elevator.
+    -->
+    <filter>
+        <name>Direct Mode Stick Pitch Rate</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <not>
+                    <property>/controls/flight/fbw/active/pitch-rate</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/controls/flight/fbw/target/pitch</property>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/output/elevator</property>
+        </output>
+    </filter>
+
+    <!-- Connects the stick to either the FBW target pitch hold or target
+         pitch rate.
+    -->
+    <filter>
+        <name>FBW Stick Pitch</name>
+        <type>gain</type>
+        <gain>100.0</gain>
+        <enable>
+            <condition>
+                <and>
+                    <or>
+                        <property>/controls/flight/fbw/active/pitch-rate</property>
+                        <property>/controls/flight/fbw/active/pitch-hold</property>
+                    </or>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <property>/controls/flight/fbw/target/pitch</property>
+        </input>
+        <output>
+            <condition>
+                <property>/controls/flight/fbw/active/pitch-hold</property>
+            </condition>
+            <property>/controls/flight/fbw/target/pitch-deg</property>
+        </output>
+        <output>
+            <condition>
+                <property>/controls/flight/fbw/active/pitch-rate</property>
+            </condition>
+            <property>/controls/flight/fbw/target/pitch-rate</property>
+        </output>
+    </filter>
+
 </PropertyList>
