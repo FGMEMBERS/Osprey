@@ -27,6 +27,10 @@
          6) Analyze the debug output
     -->
 
+    <!-- ================================================================== -->
+    <!-- Roll Axis Modes                                                    -->
+    <!-- ================================================================== -->
+
     <!-- Tracks a given roll rate. The target roll rate is limited to
          be no greater than the roll rate limit.
     -->
@@ -34,16 +38,7 @@
         <name>FBW Roll Rate</name>
         <debug>false</debug>
         <enable>
-            <condition>
-                <or>
-                    <property>/controls/flight/fbw/active/roll-rate</property>
-                    <property>/controls/flight/fbw/active/roll-hold</property>
-                    <equals>
-                        <property>/autopilot/locks/heading</property>
-                        <value>wing-leveler</value>
-                    </equals>
-                </or>
-            </condition>
+            <property>/controls/flight/fbw/active/roll-rate</property>
         </enable>
         <input>
             <property>/orientation/roll-rate-degps</property>
@@ -81,20 +76,9 @@
         <gain>1.0</gain>
         <enable>
             <condition>
-                <and>
-                    <not>
-                        <property>/controls/flight/fbw/active/roll-rate</property>
-                    </not>
-                    <not>
-                        <property>/controls/flight/fbw/active/roll-hold</property>
-                    </not>
-                    <not>
-                        <equals>
-                            <property>/autopilot/locks/heading</property>
-                            <value>wing-leveler</value>
-                        </equals>
-                    </not>
-                </and>
+                <not>
+                    <property>/controls/flight/fbw/active/roll-rate</property>
+                </not>
             </condition>
         </enable>
         <input>
@@ -152,15 +136,7 @@
         <name>FBW Roll Hold</name>
         <debug>false</debug>
         <enable>
-            <condition>
-                <or>
-                    <property>/controls/flight/fbw/active/roll-hold</property>
-                    <equals>
-                        <property>/autopilot/locks/heading</property>
-                        <value>wing-leveler</value>
-                    </equals>
-                </or>
-            </condition>
+            <property>/controls/flight/fbw/active/roll-hold</property>
         </enable>
         <input>
             <property>/orientation/roll-deg</property>
@@ -192,5 +168,19 @@
             </u_max>
         </config>
     </pid-controller>
+
+    <!-- Enable FBW Roll Rate if FBW Roll Hold is enabled -->
+    <logic>
+        <name>Roll Hold Dependency Roll Rate</name>
+        <enable>
+            <property>/controls/flight/fbw/active/roll-hold</property>
+        </enable>
+        <input>
+            <true />
+        </input>
+        <output>
+            <property>/controls/flight/fbw/active/roll-rate</property>
+        </output>
+    </logic>
 
 </PropertyList>

@@ -22,4 +22,23 @@
         </output>
     </filter>
 
+    <!-- Enable FBW Roll Hold if Wing Leveler is enabled -->
+    <logic>
+        <name>Wing Leveler Dependency Roll Hold</name>
+        <enable>
+            <condition>
+                <equals>
+                    <property>/autopilot/locks/heading</property>
+                    <value>wing-leveler</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <true />
+        </input>
+        <output>
+            <property>/controls/flight/fbw/active/roll-hold</property>
+        </output>
+    </logic>
+
 </PropertyList>
