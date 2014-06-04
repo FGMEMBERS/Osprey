@@ -171,7 +171,7 @@
 
     <!-- Enable FBW Roll Rate if FBW Roll Hold is enabled -->
     <logic>
-        <name>Roll Hold Dependency Roll Rate</name>
+        <name>FBW Roll Hold Dependency FBW Roll Rate</name>
         <enable>
             <property>/controls/flight/fbw/active/roll-hold</property>
         </enable>
@@ -255,10 +255,18 @@
         <gain>100.0</gain>
         <enable>
             <condition>
-                <or>
-                    <property>/controls/flight/fbw/active/pitch-rate</property>
-                    <property>/controls/flight/fbw/active/pitch-hold</property>
-                </or>
+                <and>
+                    <or>
+                        <property>/controls/flight/fbw/active/pitch-rate</property>
+                        <property>/controls/flight/fbw/active/pitch-hold</property>
+                    </or>
+                    <not>
+                        <equals>
+                            <property>/autopilot/locks/altitude</property>
+                            <value>pitch-hold</value>
+                        </equals>
+                    </not>
+                </and>
             </condition>
         </enable>
         <input>
@@ -283,7 +291,7 @@
     -->
     <pid-controller>
         <name>FBW Pitch Hold</name>
-        <debug>true</debug>
+        <debug>false</debug>
         <enable>
             <property>/controls/flight/fbw/active/pitch-hold</property>
         </enable>
@@ -319,7 +327,7 @@
 
     <!-- Enable FBW Pitch Rate if FBW Pitch Hold is enabled -->
     <logic>
-        <name>Pitch Hold Dependency Pitch Rate</name>
+        <name>FBW Pitch Hold Dependency FBW Pitch Rate</name>
         <enable>
             <property>/controls/flight/fbw/active/pitch-hold</property>
         </enable>
