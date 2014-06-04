@@ -5,41 +5,40 @@
   <path>interior.ac</path>
 
   <animation>
-    <!-- Objets opaques -->
+    <!-- Opaque objects -->
     <object-name>interieur</object-name>
     <object-name>tour</object-name>
     <object-name>siege</object-name>
     <object-name>cosiege</object-name>
-	
+
 	<object-name>floor_front</object-name>
 	<object-name>floor_back</object-name>
 	<object-name>floorbeams</object-name>
-	
+
 	<object-name>crewdoor_housing</object-name>
-	
+
 	<object-name>cockpit_wall</object-name>
 	<object-name>co_wallfront</object-name>
 	<object-name>cockpit_door</object-name>
 	<object-name>frontwall</object-name>
 	<object-name>side_wallback</object-name>
 	<object-name>cadoor_frame</object-name>
-	
+
 	<object-name>panel_top</object-name>
 	<object-name>panel_center</object-name>
 	<object-name>panel_frame</object-name>
-	
 
-    <!-- Objets transparents -->
+    <!-- Transparent objects -->
     <object-name>intvitres</object-name>
   </animation>
 
-  <animation>
-    <type>shader</type>
-    <shader>chrome</shader>
-    <texture>shader.png</texture>
+  <animation>
+    <type>shader</type>
+    <shader>chrome</shader>
+    <texture>shader.png</texture>
     <object-name>intvitres</object-name>
   </animation>
-  
+
   <!-- vmx22 model prototype colors START 
   <animation>
     <type>material</type>
@@ -49,40 +48,40 @@
 	<object-name>cargowall</object-name>
 	<object-name>side_wallback</object-name>
   </animation>
-  
+
   <animation>
     <type>material</type>
 	<texture>floor.png</texture>
 	<object-name>floor_back</object-name>
   </animation>
   -->
-  
+
   <!-- <animation>
     <type>material</type>
 	<texture>cockpit_wall.png</texture>
 	<object-name>cockpit_wall</object-name>
   </animation>
-  
+
   <animation>
     <type>material</type>
 	<texture>cockpit_door.png</texture>
 	<object-name>cockpit_door</object-name>
   </animation>
-  
+
   <animation>
     <type>material</type>
 	<texture>seat_wall.png</texture>
 	<object-name>cargoseatwall</object-name>
   </animation>
-  
-  vmx22 model prototype colors END -->
-
+
+  vmx22 model prototype colors END -->
+
   <animation>
     <type>noshadow</type>
     <object-name>intvitres</object-name>
   </animation>
 
-  <!-- Planches de bord -->
+  <!-- Dashboard -->
   <model>
     <path>Aircraft/VMX22-Osprey/Models/Interior/Panel/panel.xml</path>
     <offsets>
@@ -95,7 +94,7 @@
     </offsets>
   </model>
 
-  <!-- Pilote -->
+  <!-- Pilot -->
   <model>
     <path>Aircraft/VMX22-Osprey/Models/Pilot/pilot.xml</path>
     <offsets>
@@ -105,7 +104,7 @@
     </offsets>
   </model>
 
-  <!-- Copilote -->
+  <!-- Co-pilot -->
   <model>
     <path>Aircraft/VMX22-Osprey/Models/Pilot/pilot.xml</path>
     <offsets>
@@ -116,4 +115,3 @@
   </model>
 
 </PropertyList>
-

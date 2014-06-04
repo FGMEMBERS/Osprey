@@ -5,7 +5,7 @@
   <chase-distance-m type="double" archive="y">-35.0</chase-distance-m>
 
   <view n="100">
-    <name>Co pilote</name>
+    <name>Co-pilot</name>
     <type>lookfrom</type>
     <internal archive="y">true</internal>
     <config>
