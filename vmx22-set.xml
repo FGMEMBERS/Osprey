@@ -215,13 +215,17 @@
                 <active>
                     <roll-rate type="bool">true</roll-rate>
                     <roll-hold type="bool">true</roll-hold>
-                    <pitch-rate type="bool">false</pitch-rate>
+
+                    <pitch-rate type="bool">true</pitch-rate>
                     <pitch-hold type="bool">false</pitch-hold>
                 </active>
                 <settings>
                     <roll-rate-limit>40</roll-rate-limit>
                     <roll-hold-limit>45</roll-hold-limit>
+
                     <pitch-rate-limit>15</pitch-rate-limit>
+                    <pitch-hold-min>-30</pitch-hold-min>
+                    <pitch-hold-max>20</pitch-hold-max><!-- Maximum AoA = 35 according to YASim .xml file -->
                 </settings>
             </fbw>
         </flight>

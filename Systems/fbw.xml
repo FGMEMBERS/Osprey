@@ -201,6 +201,10 @@
         </input>
         <reference>
             <property>/controls/flight/fbw/target/pitch-rate</property>
+            <min>
+                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <scale>-1.0</scale>
+            </min>
             <max>
                 <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
             </max>
@@ -251,12 +255,10 @@
         <gain>100.0</gain>
         <enable>
             <condition>
-                <and>
-                    <or>
-                        <property>/controls/flight/fbw/active/pitch-rate</property>
-                        <property>/controls/flight/fbw/active/pitch-hold</property>
-                    </or>
-                </and>
+                <or>
+                    <property>/controls/flight/fbw/active/pitch-rate</property>
+                    <property>/controls/flight/fbw/active/pitch-hold</property>
+                </or>
             </condition>
         </enable>
         <input>
@@ -275,5 +277,58 @@
             <property>/controls/flight/fbw/target/pitch-rate</property>
         </output>
     </filter>
+
+    <!-- Tracks a given pitch. The pitch is limited to be greater than
+         the minimum pitch limit and less than the maximum pitch limit.
+    -->
+    <pid-controller>
+        <name>FBW Pitch Hold</name>
+        <debug>true</debug>
+        <enable>
+            <property>/controls/flight/fbw/active/pitch-hold</property>
+        </enable>
+        <input>
+            <property>/orientation/pitch-deg</property>
+        </input>
+        <reference>
+            <property>/controls/flight/fbw/target/pitch-deg</property>
+            <min>
+                <property>/controls/flight/fbw/settings/pitch-hold-min</property>
+            </min>
+            <max>
+                <property>/controls/flight/fbw/settings/pitch-hold-max</property>
+            </max>
+        </reference>
+        <output>
+            <property>/controls/flight/fbw/target/pitch-rate</property>
+        </output>
+        <config>
+            <!-- Response should be something like Docs/fbw-pitch-hold.png -->
+            <Kp>-1.65</Kp>
+            <Ti>6.0</Ti>
+            <Td>0.0</Td>
+            <u_min>
+                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <scale>-1.0</scale>
+            </u_min>
+            <u_max>
+                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+            </u_max>
+        </config>
+    </pid-controller>
+
+    <!-- Enable FBW Pitch Rate if FBW Pitch Hold is enabled -->
+    <logic>
+        <name>Pitch Hold Dependency Pitch Rate</name>
+        <enable>
+            <property>/controls/flight/fbw/active/pitch-hold</property>
+        </enable>
+        <input>
+            <true />
+        </input>
+        <output>
+            <property>/controls/flight/fbw/active/pitch-rate</property>
+        </output>
+    </logic>
 
 </PropertyList>
