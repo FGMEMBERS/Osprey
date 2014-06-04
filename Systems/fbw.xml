@@ -73,7 +73,11 @@
     <filter>
         <name>Direct Mode Stick Roll Rate</name>
         <type>gain</type>
-        <gain>1.0</gain>
+        <gain>
+            <property>/controls/flight/fbw/settings/direct-roll-rate-gain</property>
+            <abs type="bool">true</abs>
+            <max>1.0</max>
+        </gain>
         <enable>
             <condition>
                 <not>
@@ -230,7 +234,11 @@
     <filter>
         <name>Direct Mode Stick Pitch Rate</name>
         <type>gain</type>
-        <gain>1.0</gain>
+        <gain>
+            <property>/controls/flight/fbw/settings/direct-pitch-rate-gain</property>
+            <abs type="bool">true</abs>
+            <max>1.0</max>
+        </gain>
         <enable>
             <condition>
                 <not>

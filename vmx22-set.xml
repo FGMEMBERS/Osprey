@@ -12,7 +12,7 @@
     
         <flight-model>yasim</flight-model>
 
-        <!-- Empty fuel tanks at start-up of FG -->
+        <!-- Empty fuel tanks at start-up of FlightGear -->
         <fuel-fraction>0.0</fuel-fraction>
         <max-payload>60500</max-payload>
 
@@ -224,8 +224,19 @@
                     <roll-hold-limit>45</roll-hold-limit>
 
                     <pitch-rate-limit>15</pitch-rate-limit>
-                    <pitch-hold-min>-30</pitch-hold-min>
+                    <pitch-hold-min>-40</pitch-hold-min>
                     <pitch-hold-max>20</pitch-hold-max><!-- Maximum AoA = 35 according to YASim .xml file -->
+
+                    <!-- Fixed gains used when using Direct Mode,
+                         which bypasses the Fly-By-Wire. Limited to be
+                         at most 1.0.
+
+                         direct-roll-rate-gain needs to be quite low
+                         because the ailerons can produce a very high
+                         roll rate.
+                    -->
+                    <direct-roll-rate-gain>0.3</direct-roll-rate-gain>
+                    <direct-pitch-rate-gain>0.8</direct-pitch-rate-gain>
                 </settings>
             </fbw>
         </flight>
