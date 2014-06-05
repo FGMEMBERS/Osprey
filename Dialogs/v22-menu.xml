@@ -40,14 +40,6 @@
             </item>
 
             <item>
-                <label>Immatriculation</label>
-                <binding>
-                    <command>nasal</command>
-                    <script>v22.immat_dialog.toggle()</script>
-                </binding>
-            </item>
-
-            <item>
                 <label>Find Aircraft to Tow</label>
                 <binding>
                     <command>property-assign</command>
@@ -92,4 +84,3 @@
     </default>
 
 </PropertyList>
-

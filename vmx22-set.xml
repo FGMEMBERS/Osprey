@@ -32,7 +32,6 @@
             </livery>
         
             <v22>
-                <immat>false</immat>
                 <state type="int">0</state>
                 <wing_state type="int">0</wing_state>
                 <blade_folding type="float">0</blade_folding>
@@ -296,7 +295,6 @@
             <file>Aircraft/VMX22-Osprey/Nasal/v22.nas</file>
             <!-- <file>Aircraft/VMX22-Osprey/Nasal/terrain_under.nas</file> -->
             <file>Aircraft/VMX22-Osprey/Nasal/tyresmoke.nas</file>
-            <file>Aircraft/VMX22-Osprey/Nasal/immat.nas</file>
             <file>Aircraft/VMX22-Osprey/Nasal/liveries.nas</file>
             <file>Aircraft/Generic/limits.nas</file>
         </v22>
