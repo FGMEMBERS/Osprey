@@ -256,7 +256,6 @@ var pback_pos = props.globals.getNode("sim/model/pushback/position-norm", 1);
 var torque = props.globals.getNode("rotors/gear/total-torque", 1);
 var collective = props.globals.getNode("controls/engines/engine[0]/throttle", 1);
 var turbine = props.globals.getNode("sim/model/v22/turbine-rpm-pct", 1);
-var torque_pct = props.globals.getNode("sim/model/v22/torque-pct", 1);
 var stall_right = props.globals.getNode("rotors/main/stall", 1);
 var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
 var stall_left = props.globals.getNode("rotors/tail/stall", 1);
@@ -444,14 +443,7 @@ var update_engine = func {
 }
 
 # torquemeter
-var torque_val = 0;
 torque.setDoubleValue(0);
-
-var update_torque = func(dt) {
-    var f = dt / (0.2 + dt);
-    torque_val = torque.getValue() * f + torque_val * (1 - f);
-    torque_pct.setDoubleValue(torque_val / 5300);
-}
 
 var update_rotor_brake = func {
     var rpm=rotor_rpm.getValue();
@@ -592,8 +584,6 @@ var update_stall = func(dt) {
 
 
 # modify sound by torque
-var torque_val = 0;
-
 var update_torque_sound_filtered = func(dt) {
     var t = torque.getValue();
     t = clamp(t * 0.000000025);
@@ -670,7 +660,6 @@ var crash = func {
         lighting.beacon_switch.setValue(0);
         lighting.navigation_switch.setValue(0);
         rotor.setValue(0);
-        torque_pct.setValue(torque_val = 0);
         stall_filtered.setValue(stall_val = 0);
         state.setValue(0);
 
@@ -836,7 +825,6 @@ var delta_time = props.globals.getNode("/sim/time/delta-realtime-sec", 1);
 
 var main_loop = func {
     var dt = delta_time.getValue();
-    #update_torque(dt);
     update_stall(dt);
     update_torque_sound_filtered(dt);
     #update_slide();
