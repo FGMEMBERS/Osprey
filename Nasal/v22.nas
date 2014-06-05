@@ -690,32 +690,6 @@ var crash = func {
     }
 }
 
-
-# "manual" rotor animation for flight data recorder replay ============
-var rotor_step = props.globals.getNode("sim/model/v22/rotor-step-deg", 1);
-var blade1_pos = props.globals.getNode("rotors/main/blade[0]/position-deg", 1);
-var blade2_pos = props.globals.getNode("rotors/main/blade[1]/position-deg", 1);
-var blade3_pos = props.globals.getNode("rotors/main/blade[2]/position-deg", 1);
-var rotorangle = 0;
-rotor_step.setValue(0); #debug
-var rotoranim_loop = func {
-    i = rotor_step.getValue();
-    if (i >= 0.0) {
-        blade1_pos.setValue(rotorangle);
-        blade2_pos.setValue(rotorangle + 120);
-        blade3_pos.setValue(rotorangle + 240);
-        rotorangle += i;
-        settimer(rotoranim_loop, 0.1);
-    }
-}
-
-var init_rotoranim = func {
-    if (rotor_step.getValue() >= 0.0) {
-        settimer(rotoranim_loop, 0.1);
-    }
-}
-
-
 # view management ===================================================
 
 var elapsedN = props.globals.getNode("/sim/time/elapsed-sec", 1);
@@ -877,7 +851,6 @@ var crashed = 0;
 
 # Initialization
 setlistener("/sim/signals/fdm-initialized", func {
-    #init_rotoranim();
     collective.setDoubleValue(1);
     #settimer(update_controls_and_tilt_loop, 0);
 
