@@ -95,19 +95,6 @@ var update_controls_and_tilt_loop = func(dt) {
     var act_tilt_avg = (actual_tilt_left.getValue() + actual_tilt_right.getValue()) / 2.0;
     var speed = airspeed_kt.getValue();
 
-    # min_allowed_tilt : speed:   0 tilt: -10
-    #                  : speed:  60 tilt:  -5
-    #                  : speed: 100 tilt:  10
-    #                  : speed: 185 tilt:  60
-    #                  : speed: 200 tilt:  87
-    
-    # max_allowed_tilt : speed:   0 tilt:  30
-    #                  : speed:  40 tilt:  30
-    #                  : speed:  80 tilt:  60
-    #                  : speed: 105 tilt:  90
-    var min_allowed_tilt = interpolation(speed, 0, -10, 60, -5, 100, 10, 185, 60, 200, 87);
-    var max_allowed_tilt = interpolation(speed, 40, 30, 80, 60, 105, 90);
-
     target_rpm = clamp(target_rpm_helicopter + (target_rpm_airplane - target_rpm_helicopter) * (act_tilt_avg - 30) / 60,
         target_rpm_airplane,target_rpm_helicopter);
     if (state.getValue() == 5) {
@@ -189,8 +176,6 @@ var update_controls_and_tilt_loop = func(dt) {
     setprop("sim/model/v22/helicopter_control_factor", helicopter_control_factor);
     setprop("sim/model/v22/airplane_control_factor", airplane_control_factor);
     setprop("sim/model/v22/flap_control_factor", flap_control_factor);
-    setprop("sim/model/v22/min_allowed_tilt", min_allowed_tilt);
-    setprop("sim/model/v22/max_allowed_tilt", max_allowed_tilt);
 }
 
 var set_tilt = func (delta = 0, target = nil) {

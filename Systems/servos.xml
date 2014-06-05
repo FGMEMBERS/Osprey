@@ -40,6 +40,47 @@
             +- - - - - - - - - -x- - - - - - - - - x
                   40  60  80  105             185
     -->
+
+    <filter>
+        <name>Nacelles minimum tilt</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <table>
+                    <property>/velocities/airspeed-kt</property>
+                    <entry><ind>0</ind><dep>-10</dep></entry>
+                    <entry><ind>60</ind><dep>-5</dep></entry>
+                    <entry><ind>100</ind><dep>10</dep></entry>
+                    <entry><ind>185</ind><dep>60</dep></entry>
+                    <entry><ind>200</ind><dep>87</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/sim/model/v22/min_allowed_tilt</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>Nacelles maximum tilt</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <table>
+                    <property>/velocities/airspeed-kt</property>
+                    <entry><ind>40</ind><dep>30</dep></entry>
+                    <entry><ind>80</ind><dep>60</dep></entry>
+                    <entry><ind>105</ind><dep>90</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/sim/model/v22/max_allowed_tilt</property>
+        </output>
+    </filter>
+
     <filter>
         <name>Nacelles tilt limit</name>
         <type>noise-spike</type>
@@ -92,10 +133,10 @@
         <max-rate-of-change>1</max-rate-of-change>
     </filter>
 
-    <!-- Simulate the servo motors of the two elevators by limiting the
-         rate of change of the two flight control surfaces. -->
+    <!-- Simulate the servo motors of the elevator by limiting the
+         rate of change of the flight control surface. -->
     <filter>
-        <name>Elevators servos</name>
+        <name>Elevator servos</name>
         <type>noise-spike</type>
         <input>
             <property>/controls/flight/fbw/output/elevator</property>
