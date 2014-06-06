@@ -335,63 +335,63 @@ var update_wing_state = func {
 # 4 engine accel
 # 5 engine sound loop
 
-
 var update_state = func {
     var s = state.getValue();
     var new_state = arg[0];
-    if (new_state == (s+1)) {
-        state.setValue(new_state);
-        if (new_state == (1)) {
-            max_rel_torque.setValue(0);
-            target_rel_rpm.setValue(0);
-            settimer(func { update_state(2) }, 7.5);
-            interpolate(engine1, 0.30, 7.5);
-        } else {
-            if (new_state == (2)) {
-                settimer(func { update_state(3) }, 7.5);
-                rotor.setValue(1);
-                # max_rel_torque.setValue(0.01);
-                # target_rel_rpm.setValue(0.002);
-                interpolate(engine1, 0.25, 2);
-                interpolate(engine2, 0.30, 7.5);
-                if (rotor_rpm.getValue() > 100) {
-                #rotor is running at high rpm, so accel. engine faster
-                    max_rel_torque.setValue(0.6);
-                    target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
-                    interpolate(engine1, 1.0, 10);
-                }
-            } else { 
-                if (new_state == (3)) {
-                    if (rotor_rpm.getValue() > 100) {
-                        #rotor is running at high rpm, so accel. engine faster
-                        max_rel_torque.setValue(1);
-                        target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
-                        state.setValue(5);
-                        interpolate(engine1, 1.0, 5);
-                        interpolate(engine2, 1.0, 10);
-                    } else {
-                        settimer(func { update_state(4) }, 2);
-                        interpolate(engine2, 0.25, 2);
-                    }
-                } else {
-                    if (new_state == (4)) {
-                        if (wing_state.getValue() != 0) {
-                            state.setValue(new_state-1); # keep old state
-                            settimer(func { update_state(4) }, 1);#check again later
-                        } else {
-                            settimer(func { update_state(5) }, 30);
-                            max_rel_torque.setValue(0.35);
-                            target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
-                        }
-                    } else {
-                            if (new_state == (5)) {
-                            max_rel_torque.setValue(1);
-                            target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
-                        }
-                    }
-                }
-            }
+
+    if (new_state != s+1) {
+        return;
+    }
+
+    state.setValue(new_state);
+    if (new_state == 1) {
+        max_rel_torque.setValue(0);
+        target_rel_rpm.setValue(0);
+        settimer(func { update_state(2) }, 7.5);
+        interpolate(engine1, 0.30, 7.5);
+    }
+    elsif (new_state == 2) {
+        settimer(func { update_state(3) }, 7.5);
+        rotor.setValue(1);
+        # max_rel_torque.setValue(0.01);
+        # target_rel_rpm.setValue(0.002);
+        interpolate(engine1, 0.25, 2);
+        interpolate(engine2, 0.30, 7.5);
+        if (rotor_rpm.getValue() > 100) {
+            # Rotor is running at high rpm, so accel. engine faster
+            max_rel_torque.setValue(0.6);
+            target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
+            interpolate(engine1, 1.0, 10);
         }
+     }
+     elsif (new_state == 3) {
+        if (rotor_rpm.getValue() > 100) {
+            # Rotor is running at high rpm, so accel. engine faster
+            max_rel_torque.setValue(1);
+            target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
+            state.setValue(5);
+            interpolate(engine1, 1.0, 5);
+            interpolate(engine2, 1.0, 10);
+        }
+        else {
+            settimer(func { update_state(4) }, 2);
+            interpolate(engine2, 0.25, 2);
+        }
+    }
+    elsif (new_state == 4) {
+        if (wing_state.getValue() != 0) {
+            state.setValue(new_state-1); # keep old state
+            settimer(func { update_state(4) }, 1); # check again later
+        }
+        else {
+            settimer(func { update_state(5) }, 30);
+            max_rel_torque.setValue(0.35);
+            target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
+        }
+    }
+    elsif (new_state == 5) {
+        max_rel_torque.setValue(1);
+        target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
     }
 }
 
