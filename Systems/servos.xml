@@ -119,17 +119,15 @@
         <type>noise-spike</type>
         <input>
             <property>/controls/flight/fbw/output/aileron</property>
-            <scale>
-                <property>/sim/model/v22/airplane_control_factor</property>
-            </scale>
         </input>
         <output>
             <property>/sim/model/v22/wing/aileron</property>
         </output>
-        <!-- TODO no output clamping yet -->
+        <min>-0.5</min>
+        <max>0.5</max>
 
         <!-- TODO Speed (full range in 2 seconds) is a guess! -->
-        <!-- range (1..-1 = 2) in 2 seconds -->
+        <!-- range (-1..1 = 2) in 2 seconds -->
         <max-rate-of-change>1</max-rate-of-change>
     </filter>
 
@@ -144,10 +142,11 @@
         <output>
             <property>/sim/model/v22/wing/elevator</property>
         </output>
-        <!-- TODO no output clamping yet -->
+        <min>-1.0</min>
+        <max>1.0</max>
 
         <!-- TODO Speed (full range in 1 second) is a guess! -->
-        <!-- range (1..-1 = 2) in 1 second -->
+        <!-- range (-1..1 = 2) in 1 second -->
         <max-rate-of-change>2</max-rate-of-change>
     </filter>
 
@@ -158,17 +157,15 @@
         <type>noise-spike</type>
         <input>
             <property>/controls/flight/fbw/output/rudder</property>
-            <scale>
-                <property>/sim/model/v22/airplane_control_factor</property>
-            </scale>
         </input>
         <output>
             <property>/sim/model/v22/wing/rudder</property>
         </output>
-        <!-- TODO no output clamping yet -->
+        <min>-1.0</min>
+        <max>1.0</max>
 
         <!-- TODO Speed (full range in 1 second) is a guess! -->
-        <!-- range (1..-1 = 2) in 1 second -->
+        <!-- range (-1..1 = 2) in 1 second -->
         <max-rate-of-change>2</max-rate-of-change>
     </filter>
 
