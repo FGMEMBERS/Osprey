@@ -4,6 +4,12 @@
 
     <!-- Following PID controllers and filters implement the Fly-By-Wire system.
 
+         "Airbusification" of the Bell Boeing V-22
+         The actual V-22 uses a displacement controller to command the deflection
+         of the control surfaces. Since I do not have a clear picture of how to
+         provide flight envelope protection, the Fly-By-Wire system as
+         implemented below pretends the V-22 uses a sidestick controller.
+
          To test the response of a PID controller, set <debug> to true, modify
          <reference> to use a certain <value>, and then reload the autopilot
          via the Debug menu in FlightGear. The controller should start tracking

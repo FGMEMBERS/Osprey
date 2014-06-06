@@ -2,6 +2,12 @@
 
 <!-- VMX22 Osprey simulation config -->
 
+<!--
+     Sources:
+        [1]  http://books.google.com/books?id=DbUhEnlI3OkC&pg=PA129
+        [2]  http://www.globalsecurity.org/military/systems/aircraft/v-22-survive.htm
+-->
+
 <PropertyList>
 
     <sim include="Nasal/views.xml">
@@ -219,12 +225,27 @@
                     <pitch-hold type="bool">false</pitch-hold>
                 </active>
                 <settings>
-                    <roll-rate-limit>40</roll-rate-limit>
+                    <!-- 60 deg/ps due to roll-rate feedback, limited by
+                         transient design limit of the interconnect
+                         drive shaft load.
+
+                         When performing a roll, the RPM of the downward
+                         moving rotor increases, while the RPM of the other
+                         rotor decreases. This difference increases the
+                         torque transmitted through the interconnect drive
+                         shaft. By using DCP (Differential Collective Pitch)
+                         this load can be minimized, allowing a greater
+                         maximum roll rate. For details, see [1]
+                    -->
+                    <roll-rate-limit>60</roll-rate-limit>
+
                     <roll-hold-limit>45</roll-hold-limit>
 
                     <pitch-rate-limit>15</pitch-rate-limit>
                     <pitch-hold-min>-40</pitch-hold-min>
-                    <pitch-hold-max>20</pitch-hold-max><!-- Maximum AoA = 35 according to YASim .xml file -->
+
+                    <!-- Maximum AoA = 35 according to YASim .xml file -->
+                    <pitch-hold-max>35</pitch-hold-max>
 
                     <!-- Fixed gains used when using Direct Mode,
                          which bypasses the Fly-By-Wire. Limited to be
@@ -320,9 +341,9 @@
         <!-- TODO Actual numbers unknown. Current copied from 777 -->
         <max-gear-extension-speed>270</max-gear-extension-speed>
 
-        <!-- Source: http://www.globalsecurity.org/military/systems/aircraft/v-22-survive.htm -->
+        <!-- Sources: [1] and [2] -->
         <max-positive-g>4.0</max-positive-g>
-        <max-negative-g>-4.0</max-negative-g>
+        <max-negative-g>-1.0</max-negative-g>
     </limits>
 
 </PropertyList>
