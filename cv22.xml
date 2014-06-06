@@ -12,6 +12,7 @@
         [8]  http://www.rolls-royce.com/defence/products/tactical_aircraft/ae_1107/
         [9]  http://www.globalsecurity.org/military/systems/aircraft/v-22-fuel.htm
         [10] http://www.fas.org/man/dod-101/sys/ac/docs/99-033.pdf
+        [11] http://trace.tennessee.edu/cgi/viewcontent.cgi?article=3171&context=utk_gradthes
 -->
 
 <!--
@@ -193,8 +194,10 @@
     <fuselage ax="1.57" ay="-7.041" az="2.550" bx="1.77" by="-7.041" bz="-1.83" width="1.2" taper="0.45" midpoint="0.5" cx="0.0" cy="0" cz="0.0" idrag="0"/>
     <fuselage ax="2.20" ay="-7.041" az="1.800" bx="2.20" by="-7.041" bz="-1.83" width="1.0" taper="0.65" midpoint="0.5" cx="0.0" cy="0" cz="0.0" idrag="0"/>-->
 
-    <!-- main wing -->
-    <wing x="0.90" y="0.4" z="0.30" chord="2.65" chord_real="2.65" taper="1.0" length_real="6.1" length="6.1" dihedral="1.8" incidence="3.5" camber="0.2" sweep="-8">
+    <!-- Main wing has a forward sweep of 6 degrees and a dihedral of
+         3.5 degrees according to [11].
+    -->
+    <wing x="0.90" y="0.4" z="0.30" chord="2.65" chord_real="2.65" taper="1.0" length_real="6.1" length="6.1" dihedral="3.5" incidence="3.5" camber="0.2" sweep="-6">
         <stall width="8" aoa="35" peak="1.5"/>
         <flap0 drag="1.6" end="0.5" lift="2" start="0.02"/>
         <flap1 drag="1.6" end="0.97" lift="2" start="0.5"/>
