@@ -31,6 +31,10 @@
          4) Unpause
          5) Pause FlightGear again after a couple of seconds
          6) Analyze the debug output
+
+         Sources:
+            [1]  http://trace.tennessee.edu/cgi/viewcontent.cgi?article=3171&context=utk_gradthes
+            [2]  http://www.bellhelicopter.com/MungoBlobs/126/268/V-22%20Guidebook%202013_update_PREVIEW_LR2.pdf
     -->
 
     <!-- ================================================================== -->
@@ -361,5 +365,140 @@
             <u_max>1.0</u_max>
         </config>
     </pid-controller>
+
+    <!-- ================================================================== -->
+    <!-- Longitudinal and Lateral VTOL Modes                                -->
+    <!-- ================================================================== -->
+
+    <!-- Differential Collective Pitch (DCP) rolls the aircraft by
+         increasing the collective pitch of the two proprotors differently [2].
+
+         DCP depends on the tilt angle of the nacelles, the mast torque,
+         and the airspeed [1].
+    -->
+
+    <filter>
+        <name>FBW DCP Nacelles Tilt Factor</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <!-- 1.0 if nacelles are tilted at most 30 degrees from
+                     vertical axis (or 60 degrees from horizontal axis)
+
+                     0.0 if nacelles are horizontal (90 degrees from
+                     vertical axis)
+
+                     Sources: [1] (slide 15, page 4)
+                --> 
+                <table>
+                    <property>/sim/model/v22/rotor/left/tilt</property>
+                    <entry><ind>30</ind><dep>1.0</dep></entry>
+                    <entry><ind>90</ind><dep>0.0</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/output/dcp-tilt</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>FBW DCP Airspeed Factor</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <!-- 1.0 if speed <= 40 kts, 0.0 if speed >= 60 kts
+
+                     Sources: [1] (slide 15, page 4)
+                -->
+                <table>
+                    <property>/velocities/airspeed-kt</property>
+                    <entry><ind>40</ind><dep>1.0</dep></entry>
+                    <entry><ind>60</ind><dep>0.0</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/output/dcp-airspeed</property>
+        </output>
+    </filter>
+
+    <!-- Lateral Swashplate Gearing (LSG) provides lateral movement [2].
+
+         LSG depends on tilt angle of the nacelles and the airspeed [1].
+    -->
+
+    <filter>
+        <name>FBW LSG Nacelles Tilt Factor</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <table>
+                    <!-- 1.0 for tilt angle >= 80 degrees (10 degrees
+                         from vertical axis)
+
+                         0.0 for tilt angles <= 75 degrees (15 degrees
+                         from vertical axis)
+
+                         Sources: [1] (slide 15, page 4)
+                    -->
+                    <property>/sim/model/v22/rotor/left/tilt</property>
+                    <entry><ind>10</ind><dep>1.0</dep></entry>
+                    <entry><ind>15</ind><dep>0.0</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/output/lsg-tilt</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>FBW LSG Airspeed Factor</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <!-- 1.0 if speed <= 40 kts, 0.0 if speed >= 60 kts
+
+                     Sources: [1] (slide 15, page 4)
+                -->
+                <table>
+                    <property>/velocities/airspeed-kt</property>
+                    <entry><ind>40</ind><dep>1.0</dep></entry>
+                    <entry><ind>60</ind><dep>0.0</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/output/lsg-airspeed</property>
+        </output>
+    </filter>
+
+    <!-- Factor controlling the forward or aft movement via cyclic
+         longitudinal control by tilting both swashplates forward or aft.
+    -->
+    <filter>
+        <name>FBW LST Factor</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <table>
+                    <!-- Sources: [1] (slide 14, page 3) -->
+                    <property>/sim/model/v22/rotor/left/tilt</property>
+                    <entry><ind>15</ind><dep>1.0</dep></entry>
+                    <entry><ind>29</ind><dep>0.9</dep></entry>
+                    <entry><ind>90</ind><dep>0.0</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/output/lst</property>
+        </output>
+    </filter>
 
 </PropertyList>
