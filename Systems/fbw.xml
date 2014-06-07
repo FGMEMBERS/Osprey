@@ -37,41 +37,6 @@
     <!-- Roll Axis Modes                                                    -->
     <!-- ================================================================== -->
 
-    <!-- Tracks a given roll rate. The target roll rate is limited to
-         be no greater than the roll rate limit.
-    -->
-    <pid-controller>
-        <name>FBW Roll Rate</name>
-        <debug>false</debug>
-        <enable>
-            <property>/controls/flight/fbw/active/roll-rate</property>
-        </enable>
-        <input>
-            <property>/orientation/roll-rate-degps</property>
-        </input>
-        <reference>
-            <property>/controls/flight/fbw/target/roll-rate</property>
-            <min>
-                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
-                <scale>-1.0</scale>
-            </min>
-            <max>
-                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
-            </max>
-        </reference>
-        <output>
-            <property>/controls/flight/fbw/output/aileron</property>
-        </output>
-        <config>
-            <!-- Response should be something like Docs/fbw-roll-rate.png -->
-            <Kp>0.016</Kp>
-            <Ti>1.0</Ti>
-            <Td>0.0002</Td>
-            <u_min>-1.0</u_min>
-            <u_max>1.0</u_max>
-        </config>
-    </pid-controller>
-
     <!-- Connects the stick directly to the ailerons servos, bypassing
          any PID controllers, giving the pilot direct unfiltered
          control over the ailerons.
@@ -141,7 +106,10 @@
 
     <!-- Tracks a given roll. The roll is limited to be within the roll
          hold limit so that the pilot can never make the aircraft bank
-         more than this limit allows. -->
+         more than this limit allows.
+
+         Stage #1 for Roll Hold.
+    -->
     <pid-controller>
         <name>FBW Roll Hold</name>
         <debug>false</debug>
@@ -193,45 +161,46 @@
         </output>
     </logic>
 
-    <!-- ================================================================== -->
-    <!-- Pitch Axis Modes                                                   -->
-    <!-- ================================================================== -->
+    <!-- Tracks a given roll rate. The target roll rate is limited to
+         be no greater than the roll rate limit.
 
-    <!-- Tracks a given pitch rate. The pitch rate can be no greater
-         than the pitch rate limit.
+         Also acts as stage #2 for Roll Hold.
     -->
     <pid-controller>
-        <name>FBW Pitch Rate</name>
+        <name>FBW Roll Rate</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/pitch-rate</property>
+            <property>/controls/flight/fbw/active/roll-rate</property>
         </enable>
         <input>
-            <property>/orientation/pitch-rate-degps</property>
+            <property>/orientation/roll-rate-degps</property>
         </input>
         <reference>
-            <property>/controls/flight/fbw/target/pitch-rate</property>
+            <property>/controls/flight/fbw/target/roll-rate</property>
             <min>
-                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
                 <scale>-1.0</scale>
             </min>
             <max>
-                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
             </max>
-            <scale>-1.0</scale>
         </reference>
         <output>
-            <property>/controls/flight/fbw/output/elevator</property>
+            <property>/controls/flight/fbw/output/aileron</property>
         </output>
         <config>
-            <Kp>-0.016</Kp>
-            <Ti>0.07</Ti>
+            <!-- Response should be something like Docs/fbw-roll-rate.png -->
+            <Kp>0.016</Kp>
+            <Ti>1.0</Ti>
             <Td>0.0002</Td>
-            <beta>0.1</beta>
             <u_min>-1.0</u_min>
             <u_max>1.0</u_max>
         </config>
     </pid-controller>
+
+    <!-- ================================================================== -->
+    <!-- Pitch Axis Modes                                                   -->
+    <!-- ================================================================== -->
 
     <!-- Connects the stick directly to the elevator servos, bypassing
          any PID controllers, giving the pilot direct unfiltered
@@ -302,6 +271,8 @@
 
     <!-- Tracks a given pitch. The pitch is limited to be greater than
          the minimum pitch limit and less than the maximum pitch limit.
+
+         Stage #1 for Pitch Hold.
     -->
     <pid-controller>
         <name>FBW Pitch Hold</name>
@@ -352,5 +323,43 @@
             <property>/controls/flight/fbw/active/pitch-rate</property>
         </output>
     </logic>
+
+    <!-- Tracks a given pitch rate. The pitch rate can be no greater
+         than the pitch rate limit.
+
+         Also acts as stage #2 for Pitch Hold.
+    -->
+    <pid-controller>
+        <name>FBW Pitch Rate</name>
+        <debug>false</debug>
+        <enable>
+            <property>/controls/flight/fbw/active/pitch-rate</property>
+        </enable>
+        <input>
+            <property>/orientation/pitch-rate-degps</property>
+        </input>
+        <reference>
+            <property>/controls/flight/fbw/target/pitch-rate</property>
+            <min>
+                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <scale>-1.0</scale>
+            </min>
+            <max>
+                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+            </max>
+            <scale>-1.0</scale>
+        </reference>
+        <output>
+            <property>/controls/flight/fbw/output/elevator</property>
+        </output>
+        <config>
+            <Kp>-0.016</Kp>
+            <Ti>0.07</Ti>
+            <Td>0.0002</Td>
+            <beta>0.1</beta>
+            <u_min>-1.0</u_min>
+            <u_max>1.0</u_max>
+        </config>
+    </pid-controller>
 
 </PropertyList>
