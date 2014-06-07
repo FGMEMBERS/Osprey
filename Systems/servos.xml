@@ -42,7 +42,7 @@
     -->
 
     <filter>
-        <name>Nacelles minimum tilt</name>
+        <name>Nacelles Minimum Tilt</name>
         <type>gain</type>
         <gain>1.0</gain>
         <input>
@@ -63,7 +63,7 @@
     </filter>
 
     <filter>
-        <name>Nacelles maximum tilt</name>
+        <name>Nacelles Maximum Tilt</name>
         <type>gain</type>
         <gain>1.0</gain>
         <input>
@@ -81,8 +81,11 @@
         </output>
     </filter>
 
+    <!-- Simulates the moving of the nacelles. The allowed range
+         is limited by the speed of the aircraft.
+    -->
     <filter>
-        <name>Nacelles tilt limit</name>
+        <name>Nacelles Tilt Limit</name>
         <type>noise-spike</type>
         <enable>
             <condition>
@@ -115,7 +118,7 @@
     <!-- Simulate the servo motors of the two ailerons by limiting the
          rate of change of the two flight control surfaces. -->
     <filter>
-        <name>Ailerons servos</name>
+        <name>Ailerons Servos</name>
         <type>noise-spike</type>
         <input>
             <property>/controls/flight/fbw/output/aileron</property>
@@ -126,12 +129,17 @@
                  the ailerons are not very effective at low speeds.
 
                  Scaling by a factor makes sure that the ailerons are
-                 neutral, which looks better.
-
-                 TODO Change scale to be 1.0 above 60 KTS and 0 below 40 KTS
+                 neutral at low speeds, which looks better.
             -->
             <scale>
-                <property>/sim/model/v22/airplane_control_factor</property>
+                <expression>
+                    <!-- 0.0 if speed <= 40 kts, 1.0 if speed >= 60 kts -->
+                    <table>
+                        <property>/velocities/airspeed-kt</property>
+                        <entry><ind>40</ind><dep>0.0</dep></entry>
+                        <entry><ind>60</ind><dep>1.0</dep></entry>
+                    </table>
+                </expression>
             </scale>
         </input>
         <output>
@@ -148,7 +156,7 @@
     <!-- Simulate the servo motors of the elevator by limiting the
          rate of change of the flight control surface. -->
     <filter>
-        <name>Elevator servos</name>
+        <name>Elevator Servos</name>
         <type>noise-spike</type>
         <input>
             <property>/controls/flight/fbw/output/elevator</property>
@@ -167,7 +175,7 @@
     <!-- Simulate the servo motors of the two rudders by limiting the
          rate of change of the two flight control surfaces. -->
     <filter>
-        <name>Rudders servos</name>
+        <name>Rudders Servos</name>
         <type>noise-spike</type>
         <input>
             <property>/controls/flight/fbw/output/rudder</property>
