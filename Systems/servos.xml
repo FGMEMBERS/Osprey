@@ -119,6 +119,20 @@
         <type>noise-spike</type>
         <input>
             <property>/controls/flight/fbw/output/aileron</property>
+
+            <!-- Since the ailerons are driven by a PID controller
+                 which controls the roll rate, the controller will
+                 cause maximum deflection during low speeds, because
+                 the ailerons are not very effective at low speeds.
+
+                 Scaling by a factor makes sure that the ailerons are
+                 neutral, which looks better.
+
+                 TODO Change scale to be 1.0 above 60 KTS and 0 below 40 KTS
+            -->
+            <scale>
+                <property>/sim/model/v22/airplane_control_factor</property>
+            </scale>
         </input>
         <output>
             <property>/sim/model/v22/wing/aileron</property>
