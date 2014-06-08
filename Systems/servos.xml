@@ -8,7 +8,7 @@
 
          For example, if we consider 0 degrees when the rotors are tilted
          horizontally and 90 degrees when they are vertical, then the
-         minimum tilt goes from 100 degrees at 0 knots to 95 degrees at
+         minimum tilt goes from 97.5 degrees at 0 knots to 95 degrees at
          60 knots, to 80 degrees at 100 knots, to 30 degrees at 185 knots,
          and to 3 degrees at 200 knots. The maximum tilt is 60 degrees
          between 0 and 40 knots, decreases to 30 degrees at 80 knots, and
@@ -49,7 +49,7 @@
             <expression>
                 <table>
                     <property>/velocities/airspeed-kt</property>
-                    <entry><ind>0</ind><dep>-10</dep></entry>
+                    <entry><ind>0</ind><dep>-7.5</dep></entry>
                     <entry><ind>60</ind><dep>-5</dep></entry>
                     <entry><ind>100</ind><dep>10</dep></entry>
                     <entry><ind>185</ind><dep>60</dep></entry>
