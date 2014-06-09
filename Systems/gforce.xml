@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <!-- Following PID controllers and filters implement the g force limits
+         for the Fly-By-Wire system.
+
+         Sources:
+            [1]  http://books.google.com/books?id=DbUhEnlI3OkC&pg=PA129
+    -->
+
+    <!-- ================================================================== -->
+    <!-- G Force Limits                                                     -->
+    <!-- ================================================================== -->
+
+    <!-- The flight envelope is limited by the flight control system in
+         order to not exceed the maximum structural load. This maximum
+         load (g's) differs between VTOL mode and airplane mode.
+
+         From [1] several data points can be estimated:
+
+         VTOL (maximum and minimum):
+
+              0 1.7
+             60 1.9
+             90 2.05
+            120 2.3
+            150 2.7
+            160 3.0
+
+            180 -0.5
+            195 0.0
+
+         Airplane (maximum and minimum):
+         
+            120 0.9
+            150 1.4
+            180 1.9
+            210 2.4
+            240 3.1
+            270 4.0
+
+            270 -1.0
+            340 0.0
+
+         With enough data points you can use curve fitting to get the
+         coefficients of a polynomial that minimizes the squared error.
+
+         Basically, you can construct a function that tries to go through
+         the given data points. For example, using numpy you can create
+         a function f(x) that will represent the maximum load for airplane
+         mode as a function of the airspeed:
+
+            from numpy import polyfit
+
+            xd = [120, 150, 180, 210, 240, 270]
+            yd = [0.9, 1.4, 1.9, 2.4, 3.1, 4.0]
+
+            p = polyfit(xd, yd, 2)
+            f = lambda x: p[0] * x**2 + p[1] * x + p[2]
+
+        See also:
+            - http://docs.scipy.org/doc/numpy/reference/generated/numpy.polyfit.html
+            - https://www.gnu.org/software/octave/doc/interpreter/Polynomial-Interpolation.html
+    -->
+
+    <filter>
+        <name>G Force Limit Maximum VTOL</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <!-- g <= (0.000055*x^2 + -0.0013*x + 1.72 <= 3.0) -->
+                <sum>
+                    <product>
+                        <value>0.000055</value>
+                        <pow>
+                            <property>/velocities/airspeed-kt</property>
+                            <value>2</value>
+                        </pow>
+                    </product>
+                    <product>
+                        <value>-0.0013</value>
+                        <property>/velocities/airspeed-kt</property>
+                    </product>
+                    <value>1.72</value>
+                </sum>
+            </expression>
+            <max>3.0</max>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/limits/gforce-vtol-maximum</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>G Force Limit Minimum VTOL</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <!-- g >= (0.0 >= 0.5/15*(x - 195) >= -0.5) -->
+                <product>
+                    <div>
+                        <value>0.5</value>
+                        <value>15</value>
+                    </div>
+                    <difference>
+                        <property>/velocities/airspeed-kt</property>
+                        <value>195</value>
+                    </difference>
+                </product>
+            </expression>
+            <min>-0.5</min>
+            <max>0.0</max>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/limits/gforce-vtol-minimum</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>G Force Limit Maximum Airplane</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <!-- g <= (0.000056*x^2 + -0.0016*x + 0.33 <= 4.0) -->
+                <sum>
+                    <product>
+                        <value>0.000056</value>
+                        <pow>
+                            <property>/velocities/airspeed-kt</property>
+                            <value>2</value>
+                        </pow>
+                    </product>
+                    <product>
+                        <value>-0.0016</value>
+                        <property>/velocities/airspeed-kt</property>
+                    </product>
+                    <value>0.33</value>
+                </sum>
+            </expression>
+            <max>4.0</max>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/limits/gforce-airplane-maximum</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>G Force Limit Minimum Airplane</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <!-- g >= (0.0 >= 1/70*(x - 340) >= -1.0) -->
+                <product>
+                    <div>
+                        <value>1</value>
+                        <value>70</value>
+                    </div>
+                    <difference>
+                        <property>/velocities/airspeed-kt</property>
+                        <value>340</value>
+                    </difference>
+                </product>
+            </expression>
+            <min>-1.0</min>
+            <max>0.0</max>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/limits/gforce-airplane-minimum</property>
+        </output>
+    </filter>
+
+</PropertyList>
