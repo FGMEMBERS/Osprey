@@ -108,9 +108,9 @@
         </output>
     </filter>
 
-    <!-- Tracks a given roll. The roll is limited to be within the roll
-         hold limit so that the pilot can never make the aircraft bank
-         more than this limit allows.
+    <!-- Tracks a bank angle (phi). The roll is limited to be within the
+         roll hold limit so that the pilot can never make the aircraft
+         bank more than this limit allows.
 
          Stage #1 for Roll Hold.
     -->
@@ -165,7 +165,7 @@
         </output>
     </logic>
 
-    <!-- Tracks a given roll rate. The target roll rate is limited to
+    <!-- Tracks a given roll rate (p). The target roll rate is limited to
          be no greater than the roll rate limit.
 
          Also acts as stage #2 for Roll Hold.
@@ -273,8 +273,8 @@
         </output>
     </filter>
 
-    <!-- Tracks a given pitch. The pitch is limited to be greater than
-         the minimum pitch limit and less than the maximum pitch limit.
+    <!-- Tracks a pitch angle (theta). The pitch is limited to be greater
+         than the minimum pitch limit and less than the maximum pitch limit.
 
          Stage #1 for Pitch Hold.
     -->
@@ -328,7 +328,7 @@
         </output>
     </logic>
 
-    <!-- Tracks a given pitch rate. The pitch rate can be no greater
+    <!-- Tracks a given pitch rate (q). The pitch rate can be no greater
          than the pitch rate limit.
 
          Also acts as stage #2 for Pitch Hold.
@@ -372,6 +372,8 @@
 
     <!-- Differential Collective Pitch (DCP) rolls the aircraft by
          increasing the collective pitch of the two proprotors differently [2].
+         (Remember that the nacelles are pointing upwards between 97.5
+         and 75 degrees)
 
          DCP depends on the tilt angle of the nacelles, the mast torque,
          and the airspeed [1].
