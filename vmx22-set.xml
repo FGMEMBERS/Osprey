@@ -4,8 +4,9 @@
 
 <!--
      Sources:
-        [1]  http://books.google.com/books?id=DbUhEnlI3OkC&pg=PA129
+        [1]  http://books.google.com/books?id=DbUhEnlI3OkC&pg=PA129 (page 113 and 129)
         [2]  http://www.globalsecurity.org/military/systems/aircraft/v-22-survive.htm
+        [3]  http://www.boeing.com/ospreynews/2011/issue_02/final_2011_2012_guidebook.pdf (general characteristics, page 44)
 -->
 
 <PropertyList>
@@ -20,6 +21,8 @@
 
         <!-- Empty fuel tanks at start-up of FlightGear -->
         <fuel-fraction>0.0</fuel-fraction>
+
+        <!-- Sources: [3] -->
         <max-payload>60500</max-payload>
 
         <startup>
@@ -187,6 +190,9 @@
                 <path>Systems/servos.xml</path>
             </autopilot>
             <autopilot>
+                <path>Systems/gforce.xml</path>
+            </autopilot>
+            <autopilot>
                 <path>Systems/fbw.xml</path>
             </autopilot>
             <autopilot>
@@ -338,7 +344,16 @@
     </consumables>
 
     <limits>
-        <!-- TODO Actual numbers unknown. Current copied from 777 -->
+        <mass-and-balance>
+            <!-- Sources: [3] -->
+            <maximum-takeoff-mass-lbs>60500</maximum-takeoff-mass-lbs>
+        </mass-and-balance>
+
+        <!-- Design requirements require envelope of speeds up to
+             345 knots according to [1] -->
+        <vne>345</vne>
+
+        <!-- TODO Actual number unknown. Current copied from 777 -->
         <max-gear-extension-speed>270</max-gear-extension-speed>
 
         <!-- Sources: [1] and [2] -->
