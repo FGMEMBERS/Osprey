@@ -455,7 +455,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/dcp-tilt</property>
+            <property>/controls/flight/fbw/output/vtol/dcp-tilt</property>
         </output>
     </filter>
 
@@ -477,7 +477,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/dcp-airspeed</property>
+            <property>/controls/flight/fbw/output/vtol/dcp-airspeed</property>
         </output>
     </filter>
 
@@ -508,7 +508,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/lsg-tilt</property>
+            <property>/controls/flight/fbw/output/vtol/lsg-tilt</property>
         </output>
     </filter>
 
@@ -530,7 +530,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/lsg-airspeed</property>
+            <property>/controls/flight/fbw/output/vtol/lsg-airspeed</property>
         </output>
     </filter>
 
@@ -553,7 +553,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/lst</property>
+            <property>/controls/flight/fbw/output/vtol/lst</property>
         </output>
     </filter>
 
