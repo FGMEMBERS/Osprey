@@ -173,6 +173,23 @@
         <type>gain</type>
         <gain>1.0</gain>
         <input>
+            <condition>
+                <less-than>
+                    <expression>
+                        <difference>
+                            <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                            <abs>
+                                <property>/orientation/roll-deg</property>
+                            </abs>
+                        </difference>
+                    </expression>
+
+                    <!-- Enable roll rate limiting if distance to bank
+                         angle limit is less than or equal to this value.
+                    -->
+                    <value>15.0</value>
+                </less-than>
+            </condition>
             <property>/controls/flight/fbw/target/roll-rate</property>
             <min>
                 <expression>
@@ -193,6 +210,9 @@
                     </difference>
                 </expression>
             </max>
+        </input>
+        <input>
+            <property>/controls/flight/fbw/target/roll-rate</property>
         </input>
         <output>
             <property>/controls/flight/fbw/target/roll-rate-bank-limited</property>
