@@ -165,6 +165,40 @@
         </output>
     </logic>
 
+    <!-- Reduces the target roll rate if the current bank angle is close
+         to the limit.
+    -->
+    <filter>
+        <name>FBW Roll Rate Bank Angle Limiter</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <property>/controls/flight/fbw/target/roll-rate</property>
+            <min>
+                <expression>
+                    <difference>
+                        <product>
+                            <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                            <value>-1.0</value>
+                        </product>
+                        <property>/orientation/roll-deg</property>
+                    </difference>
+                </expression>
+            </min>
+            <max>
+                <expression>
+                    <difference>
+                        <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                        <property>/orientation/roll-deg</property>
+                    </difference>
+                </expression>
+            </max>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/target/roll-rate-bank-limited</property>
+        </output>
+    </filter>
+
     <!-- Tracks a given roll rate (p). The target roll rate is limited to
          be no greater than the roll rate limit.
 
@@ -180,7 +214,7 @@
             <property>/orientation/roll-rate-degps</property>
         </input>
         <reference>
-            <property>/controls/flight/fbw/target/roll-rate</property>
+            <property>/controls/flight/fbw/target/roll-rate-bank-limited</property>
             <min>
                 <property>/controls/flight/fbw/settings/roll-rate-limit</property>
                 <scale>-1.0</scale>
