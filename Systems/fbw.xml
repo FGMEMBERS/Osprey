@@ -165,8 +165,42 @@
         </output>
     </logic>
 
+    <!-- Set active/roll-rate-bank-angle to true if the current roll
+         is close to the bank angle limit, set to false otherwise.
+         Depending on whether the output of this logic element is
+         true or false, the bank angle limiter filter will modify the
+         roll rate signal or not (letting it go through unfiltered).
+    -->
+    <logic>
+        <name>FBW Roll Rate Bank Angle Limiter On/Off Switcher</name>
+        <input>
+            <less-than>
+                <expression>
+                    <abs>
+                        <difference>
+                            <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                            <abs>
+                                <property>/orientation/roll-deg</property>
+                            </abs>
+                        </difference>
+                    </abs>
+                </expression>
+
+                <!-- Enable roll rate limiting if distance to bank
+                     angle limit is less than or equal to this value.
+                -->
+                <value>15.0</value>
+            </less-than>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/active/roll-rate-bank-angle</property>
+        </output>
+    </logic>
+
     <!-- Reduces the target roll rate if the current bank angle is close
-         to the limit.
+         to the limit and the aircraft is moving away from the center.
+         If the pilot tries to roll back to the center position (phi = 0),
+         then let the signal go through unfiltered.
     -->
     <filter>
         <name>FBW Roll Rate Bank Angle Limiter</name>
@@ -174,44 +208,101 @@
         <gain>1.0</gain>
         <input>
             <condition>
-                <less-than>
-                    <expression>
-                        <difference>
-                            <property>/controls/flight/fbw/settings/roll-hold-limit</property>
-                            <abs>
-                                <property>/orientation/roll-deg</property>
-                            </abs>
-                        </difference>
-                    </expression>
+                <and>
+                    <!-- Only enable limiter if close to the bank angle limit -->
+                    <property>/controls/flight/fbw/active/roll-rate-bank-angle</property>
 
-                    <!-- Enable roll rate limiting if distance to bank
-                         angle limit is less than or equal to this value.
-                    -->
-                    <value>15.0</value>
-                </less-than>
+                    <!-- Only enable limiter if moving away from the center (phi = 0) -->
+                    <greater-than>
+                        <property>/orientation/roll-deg</property>
+                        <value>0.0</value>
+                    </greater-than>
+                    <greater-than>
+                        <property>/controls/flight/fbw/target/roll-rate</property>
+                        <value>0.0</value>
+                    </greater-than>
+                </and>
             </condition>
             <property>/controls/flight/fbw/target/roll-rate</property>
-            <min>
-                <expression>
-                    <difference>
-                        <product>
-                            <property>/controls/flight/fbw/settings/roll-hold-limit</property>
-                            <value>-1.0</value>
-                        </product>
-                        <property>/orientation/roll-deg</property>
-                    </difference>
-                </expression>
-            </min>
             <max>
+                <!-- f(x) = sin(x * 1/2*pi / 15) * 20
+
+                     The top of the sine is at (15, 20). The input is the
+                     difference (error) between the bank angle limit and
+                     actual roll (phi).
+                -->
                 <expression>
-                    <difference>
-                        <property>/controls/flight/fbw/settings/roll-hold-limit</property>
-                        <property>/orientation/roll-deg</property>
-                    </difference>
+                    <product>
+                        <sin>
+                            <product>
+                                <difference>
+                                    <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                                    <property>/orientation/roll-deg</property>
+                                </difference>
+                                <div>
+                                    <value>1.5707963267948966</value> <!-- rad(1/2*pi) = deg(90) -->
+                                    <value>15.0</value> <!-- x-coord of positive top -->
+                                </div>
+                            </product>
+                        </sin>
+                        <value>20.0</value> <!-- y-coord of positive top -->
+                    </product>
                 </expression>
             </max>
         </input>
         <input>
+            <condition>
+                <and>
+                    <!-- Only enable limiter if close to the bank angle limit -->
+                    <property>/controls/flight/fbw/active/roll-rate-bank-angle</property>
+
+                    <!-- Only enable limiter if moving away from the center (phi = 0) -->
+                    <less-than>
+                        <property>/orientation/roll-deg</property>
+                        <value>0.0</value>
+                    </less-than>
+                    <less-than>
+                        <property>/controls/flight/fbw/target/roll-rate</property>
+                        <value>0.0</value>
+                    </less-than>
+                </and>
+            </condition>
+            <property>/controls/flight/fbw/target/roll-rate</property>
+            <min>
+                <!-- f(x) = sin(x * 1/2*pi / 15) * 20
+
+                     The negative top of the sine is at (-15, -20). The
+                     input is the difference (error) between the bank
+                     angle limit and actual roll (phi).
+                -->
+                <expression>
+                    <product>
+                        <sin>
+                            <product>
+                                <difference>
+                                    <product>
+                                        <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                                        <value>-1.0</value>
+                                    </product>
+                                    <property>/orientation/roll-deg</property>
+                                </difference>
+                                <div>
+                                    <value>1.5707963267948966</value> <!-- rad(1/2*pi) = deg(90) -->
+                                    <value>15.0</value> <!-- absolute x-coord of negative top -->
+                                </div>
+                            </product>
+                        </sin>
+                        <value>20.0</value> <!-- absolute y-coord of negative top -->
+                    </product>
+                </expression>
+            </min>
+        </input>
+        <input>
+            <!-- If the above conditions do not apply (aircraft rolls
+                 back to the center or is too far away from the bank angle
+                 limit), then we want to directly pass through the roll
+                 rate, unfiltered.
+            -->
             <property>/controls/flight/fbw/target/roll-rate</property>
         </input>
         <output>
