@@ -5,17 +5,11 @@
 #     [1] http://www.bellhelicopter.com/MungoBlobs/126/268/V-22%20Guidebook%202013_update_PREVIEW_LR2.pdf
 #     (conversion corridor, page 57 on slide 29)
 
-if (!contains(globals, "cprint")) {
-    globals.cprint = func {};
-}
-
 var optarg = aircraft.optarg;
 var makeNode = aircraft.makeNode;
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
-var pow = func(v, w) { math.exp(math.ln(v) * w) }
-var npow = func(v, w) { math.exp(math.ln(abs(v)) * w) * (v < 0 ? -1 : 1) }
 var clamp = func(v, min=0, max=1) { v < min ? min : v > max ? max : v }
 var max = func(a, b) { a > b ? a : b }
 var min = func(a, b) { a < b ? a : b }
@@ -51,10 +45,10 @@ var control_tilt = props.globals.getNode("sim/model/v22/inputtilt",1);
 var control_rotor_brake = props.globals.getNode("/controls/rotor/brake",1);
 
 var out_wing_flap = props.globals.getNode("sim/model/v22/wing/flap");
-var out_rotor_r_ele = props.globals.getNode("sim/model/v22/rotor/right/elevator");
-var out_rotor_r_col = props.globals.getNode("sim/model/v22/rotor/right/collective");
 var out_rotor_l_ele = props.globals.getNode("sim/model/v22/rotor/left/elevator");
+var out_rotor_r_ele = props.globals.getNode("sim/model/v22/rotor/right/elevator");
 var out_rotor_l_col = props.globals.getNode("sim/model/v22/rotor/left/collective");
+var out_rotor_r_col = props.globals.getNode("sim/model/v22/rotor/right/collective");
 
 var airspeed_kt = props.globals.getNode("/velocities/airspeed-kt");
 var rotor_pos = props.globals.getNode("rotors/main/blade[0]/position-deg",1);
@@ -64,7 +58,7 @@ actual_tilt_left.setValue(0);
 actual_tilt_right.setValue(0);
 
 var target_rpm_airplane = 333;
-var target_rpm_helicopter = 412;
+var target_rpm_helicopter = 397;
 var target_rpm = target_rpm_helicopter;
 
 # [1] actually describes the lower bound as "40 to 80 knots" (KTAS) and the
@@ -625,9 +619,6 @@ var Skid = {
         var f = clamp((me.frictionN.getValue() - 0.5) * 2);
         var c = clamp(me.compressionN.getValue() * 2);
         me.volumeN.setDoubleValue(s * f * c * 2);
-        #if (!me.self) {
-        #   cprint("33;1", sprintf("S=%0.3f  F=%0.3f  C=%0.3f  >>  %0.3f", s, f, c, s * f * c));
-        #}
     },
 };
 
@@ -844,14 +835,12 @@ setlistener("/sim/signals/fdm-initialized", func {
 
     setlistener("/sim/signals/reinit", func(n) {
         n.getBoolValue() and return;
-        cprint("32;1", "reinit");
         #turbine_timer.stop();
         collective.setDoubleValue(1);
         crashed = 0;
     });
 
     setlistener("sim/crashed", func(n) {
-        cprint("31;1", "crashed ", n.getValue());
         #turbine_timer.stop();
         if (n.getBoolValue()) {
             crash(crashed = 1);
@@ -859,7 +848,6 @@ setlistener("/sim/signals/fdm-initialized", func {
     });
 
     setlistener("/sim/freeze/replay-state", func(n) {
-        cprint("33;1", n.getValue() ? "replay" : "pause");
         if (crashed) {
             crash(!n.getBoolValue())
         }
