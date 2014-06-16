@@ -467,8 +467,8 @@
   
   
   <animation>
-    <type>material</type> <!--
-    <object-name>fuselage</object-name>
+    <type>material</type>
+    <object-name>fuselage</object-name><!--
     <object-name>profondeur</object-name>
     <object-name>antenne</object-name>
     <object-name>porteAG</object-name>
@@ -478,7 +478,7 @@
     <object-name>roueG</object-name>
     <object-name>roueA</object-name>
     <object-name>roueD</object-name>
-    <!-- <object-name>derive</object-name>
+    <!-- <object-name>derive</object-name> -->
     <object-name>directionG</object-name>
     <object-name>directionD</object-name>
     <object-name>aile</object-name>
@@ -486,8 +486,8 @@
     <object-name>aileronG</object-name>
     <object-name>voletD</object-name>
     <object-name>voletG</object-name>
-    <object-name>moteurD</object-name>
-    <object-name>moteurG</object-name> 
+    <!-- <object-name>moteurD</object-name>
+    <object-name>moteurG</object-name>
     <object-name>piedpaleG1</object-name>
     <object-name>piedpaleG2</object-name>
     <object-name>piedpaleG3</object-name>
@@ -502,7 +502,7 @@
     <object-name>paleG3</object-name>
     <object-name>bolD</object-name>
     <object-name>bolG</object-name>
-     <object-name>trous</object-name>
+    <object-name>trous</object-name>
     <object-name>trousG</object-name>
     <object-name>trousD</object-name>
 
