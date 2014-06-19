@@ -68,8 +68,8 @@
            incidence-stall-half-sonic-speed="55.0" lift-factor-stall="0.45" stall-change-over="11" drag-factor-stall="4.0"
            cyclic-factor="0.8" rotor-correction-factor="1.7" balance="1" downwashfactor="0.3" phi0="95">
         <control-input axis="/sim/model/v22/rotor/right/tilt" control="TILTPITCH" src0="-180.0" src1="180.0" dst0="1.0" dst1="-1.0"/>
-        <!-- <control-input axis="/sim/model/v22/wing_rotation" control="TILTROLL" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/> -->
         <control-input axis="/sim/model/v22/rotor/right/elevator" control="CYCLICELE" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>
+        <control-input axis="/sim/model/v22/rotor/right/aileron" control="CYCLICAIL" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>
         <control-input axis="/sim/model/v22/rotor/right/collective" control="COLLECTIVE" src0="-180.0" src1="180.0" dst0="-1" dst1="1.0"/>
     </rotor>
 
@@ -87,8 +87,8 @@
            incidence-stall-half-sonic-speed="55.0" lift-factor-stall="0.45" stall-change-over="11" drag-factor-stall="4.0"
            cyclic-factor="0.8" rotor-correction-factor="1.7" balance="1" downwashfactor="0.3" phi0="95">
         <control-input axis="/sim/model/v22/rotor/left/tilt" control="TILTPITCH" src0="-180.0" src1="180.0" dst0="1.0" dst1="-1.0"/>
-        <!-- <control-input axis="/sim/model/v22/wing_rotation" control="TILTROLL" src0="-90.0" src1="90.0" dst0="1.0" dst1="-1.0"/> -->
         <control-input axis="/sim/model/v22/rotor/left/elevator" control="CYCLICELE" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>  
+        <control-input axis="/sim/model/v22/rotor/left/aileron" control="CYCLICAIL" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>  
         <control-input axis="/sim/model/v22/rotor/left/collective" control="COLLECTIVE" src0="-180.0" src1="180.0" dst0="-1" dst1="1.0"/>
     </rotor>
 

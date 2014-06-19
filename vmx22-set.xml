@@ -225,10 +225,12 @@
             <fbw>
                 <active>
                     <roll-rate type="bool">true</roll-rate>
-                    <roll-hold type="bool">true</roll-hold>
+                    <roll-hold type="bool">false</roll-hold>
 
                     <pitch-rate type="bool">true</pitch-rate>
                     <pitch-hold type="bool">false</pitch-hold>
+
+                    <yaw-rate type="bool">true</yaw-rate>
                 </active>
                 <settings>
                     <!-- 60 deg/ps due to roll-rate feedback, limited by
@@ -250,6 +252,8 @@
                     <pitch-rate-limit>15</pitch-rate-limit>
                     <pitch-hold-min>-40</pitch-hold-min>
 
+                    <yaw-rate-limit>25</yaw-rate-limit>
+
                     <!-- Maximum AoA = 35 according to YASim .xml file -->
                     <pitch-hold-max>35</pitch-hold-max>
 
@@ -263,6 +267,11 @@
                     -->
                     <direct-roll-rate-gain>0.3</direct-roll-rate-gain>
                     <direct-pitch-rate-gain>0.8</direct-pitch-rate-gain>
+
+                    <vtol>
+                        <direct-roll-rate-gain>2.5</direct-roll-rate-gain>
+                        <direct-yaw-rate-gain>2.0</direct-yaw-rate-gain>
+                    </vtol>
                 </settings>
             </fbw>
         </flight>

@@ -178,7 +178,7 @@
         <name>Rudders Servos</name>
         <type>noise-spike</type>
         <input>
-            <property>/controls/flight/fbw/output/rudder</property>
+            <property>/controls/flight/fbw/target/yaw</property>
         </input>
         <output>
             <property>/sim/model/v22/wing/rudder</property>

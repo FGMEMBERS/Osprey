@@ -45,8 +45,6 @@ var control_tilt = props.globals.getNode("sim/model/v22/inputtilt",1);
 var control_rotor_brake = props.globals.getNode("/controls/rotor/brake",1);
 
 var out_wing_flap = props.globals.getNode("sim/model/v22/wing/flap");
-var out_rotor_l_ele = props.globals.getNode("sim/model/v22/rotor/left/elevator");
-var out_rotor_r_ele = props.globals.getNode("sim/model/v22/rotor/right/elevator");
 var out_rotor_l_col = props.globals.getNode("sim/model/v22/rotor/left/collective");
 var out_rotor_r_col = props.globals.getNode("sim/model/v22/rotor/right/collective");
 
@@ -83,7 +81,7 @@ var update_controls_and_tilt_loop = func(dt) {
 
     setprop("/controls/flight/fbw/target/pitch", ele);
     setprop("/controls/flight/fbw/target/roll", ail);
-    setprop("/controls/flight/fbw/output/rudder", rud);
+    setprop("/controls/flight/fbw/target/yaw", rud);
 
     var thr = 1 - control_throttle.getValue();
     var act_tilt_avg = (actual_tilt_left.getValue() + actual_tilt_right.getValue()) / 2.0;
@@ -124,48 +122,25 @@ var update_controls_and_tilt_loop = func(dt) {
     var col_wing = thr * interpolation(speed, 0, 20, 300, 75); 
 
     # Calculate the rotor controls
-    var ail2col = 5;
+    var ail2col = 5 * getprop("/controls/flight/fbw/output/vtol/dcp-tilt") * getprop("/controls/flight/fbw/output/vtol/dcp-airspeed");
     var min_col = 2;
     var max_col = 23;
 
     var col_tilt_correction = 1 / cos(clamp(act_tilt_avg, -10, 30));
-
     var col_rotor = min_col + thr * (max_col - min_col) * col_tilt_correction;
 
     # Set blades vertical if folded
     var h = control_rotor_incidence_wing_fold.getValue();
     col_rotor = 100 * h + col_rotor * (1-h);
-    ail = ail * (1-h);
+    ail = getprop("/controls/flight/fbw/output/vtol/aileron") * (1-h);
     ele = ele * (1-h);
     rud = rud * (1-h);
 
-    # Rotor collective correction factor for rudder input
-    var rudright = interpolation(rud, -1, 1, 0, 0, 1, 0);
-    var rudleft = interpolation(rud, -1, 0, 0, 0, 1, 1);
-
-    # Rotor collective factor if 0 degrees tilt - seems to needs more collective input change to get rudder effect with increasing speed TEST
-    var tiltzerocor = interpolation(act_tilt_avg, -10, 1, 0, 1, 10, 0, 90, 0);
-
-    # Rotor collective correction factor for speed
-    var speedcor0 = interpolation(speed, 0, 0, 10, 4, 20, 8, 50, 15, 110, 25, 400, 4);
-    var speedcor1 = interpolation(speed, 0, 0, 10, 4, 50, 19, 110, 35, 400, 4);
-    var speedcor = speedcor1 + (speedcor0 * tiltzerocor);
-
-    # Rotor tilt correction factor to reduce collective correction factor if engines tilt to 90 degrees
-    var speedtiltrotcor = interpolation(act_tilt_avg, -10, 1, 0, 1, 75, 1, 90, 0.1);
-
     # Rotor collective
-    out_rotor_r_col.setValue(airplane_control_factor * col_wing + helicopter_control_factor * (col_rotor - ail * ail2col) + (rudright - rudleft) * speedcor * speedtiltrotcor / 2);
-    out_rotor_l_col.setValue(airplane_control_factor * col_wing + helicopter_control_factor * (col_rotor + ail * ail2col) + (rudleft - rudright) * speedcor * speedtiltrotcor / 2);
+    out_rotor_r_col.setValue(airplane_control_factor * col_wing + helicopter_control_factor * (col_rotor - ail * ail2col));
+    out_rotor_l_col.setValue(airplane_control_factor * col_wing + helicopter_control_factor * (col_rotor + ail * ail2col));
 
     ################################################################################
-
-    var ele2ele = 10;
-    var ail2ele = 0;
-    var rud2ele = 12;
-
-    out_rotor_r_ele.setValue(helicopter_control_factor * (ele * ele2ele - (rud * rud2ele + ail * ail2ele)));
-    out_rotor_l_ele.setValue(helicopter_control_factor * (ele * ele2ele + (rud * rud2ele + ail * ail2ele)));
 
     setprop("sim/model/v22/helicopter_control_factor", helicopter_control_factor);
     setprop("sim/model/v22/airplane_control_factor", airplane_control_factor);

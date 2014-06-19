@@ -313,7 +313,7 @@
     <!-- Tracks a given roll rate (p). The target roll rate is limited to
          be no greater than the roll rate limit.
 
-         Also acts as stage #2 for Roll Hold.
+         Also acts as stage #2 for FBW Roll Hold.
     -->
     <pid-controller>
         <name>FBW Roll Rate</name>
@@ -476,7 +476,7 @@
     <!-- Tracks a given pitch rate (q). The pitch rate can be no greater
          than the pitch rate limit.
 
-         Also acts as stage #2 for Pitch Hold.
+         Also acts as stage #2 for FBW Pitch Hold.
     -->
     <pid-controller>
         <name>FBW Pitch Rate</name>
@@ -512,7 +512,7 @@
     </pid-controller>
 
     <!-- ================================================================== -->
-    <!-- Longitudinal and Lateral VTOL Modes                                -->
+    <!-- Longitudinal and Lateral VTOL Factors                              -->
     <!-- ================================================================== -->
 
     <!-- Differential Collective Pitch (DCP) rolls the aircraft by
@@ -627,6 +627,7 @@
 
     <!-- Factor controlling the forward or aft movement via cyclic
          longitudinal control by tilting both swashplates forward or aft.
+         Known as Longitudinal Swashplate Tilting (LST).
     -->
     <filter>
         <name>FBW LST Factor</name>
@@ -644,7 +645,175 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/vtol/lst</property>
+            <property>/controls/flight/fbw/output/vtol/lst-tilt</property>
+        </output>
+    </filter>
+
+    <!-- ================================================================== -->
+    <!-- Longitudinal and Lateral VTOL Modes                                -->
+    <!-- ================================================================== -->
+
+    <filter>
+        <name>Direct Mode VTOL Stick Roll</name>
+        <type>gain</type>
+        <gain>
+            <property>/controls/flight/fbw/settings/vtol/direct-roll-rate-gain</property>
+            <abs type="bool">true</abs>
+            <max>1.0</max>
+        </gain>
+        <enable>
+            <condition>
+                <not>
+                    <property>/controls/flight/fbw/active/roll-rate</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/controls/flight/fbw/target/roll</property>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/output/vtol/aileron</property>
+        </output>
+    </filter>
+
+    <!-- TODO No FBW VTOL Stick Roll yet -->
+
+    <!-- Tracks a given roll rate (p) using DCP. The target roll rate is
+         limited to be no greater than the roll rate limit.
+
+         Also acts as stage #2 for FBW Roll Hold.
+    -->
+    <pid-controller>
+        <name>FBW VTOL Roll Rate</name>
+        <debug>false</debug>
+        <enable>
+            <property>/controls/flight/fbw/active/roll-rate</property>
+        </enable>
+        <input>
+            <property>/orientation/roll-rate-degps</property>
+        </input>
+        <reference>
+            <property>/controls/flight/fbw/target/roll-rate-bank-limited</property>
+            <min>
+                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+                <scale>-1.0</scale>
+            </min>
+            <max>
+                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+            </max>
+        </reference>
+        <output>
+            <property>/controls/flight/fbw/output/vtol/aileron</property>
+        </output>
+        <config>
+            <Kp>0.015</Kp>
+            <Ti>1.0</Ti>
+            <Td>0.0</Td>
+            <u_min>-1.0</u_min>
+            <u_max>1.0</u_max>
+        </config>
+    </pid-controller>
+
+    <!-- Connects the stick directly to the swashplates, bypassing
+         any PID controllers, giving the pilot direct unfiltered
+         control over the swashplates.
+    -->
+    <filter>
+        <name>Direct Mode Pedals Yaw Rate</name>
+        <type>gain</type>
+        <gain>
+            <property>/controls/flight/fbw/settings/vtol/direct-yaw-rate-gain</property>
+            <abs type="bool">true</abs>
+            <max>5.0</max>
+        </gain>
+        <enable>
+            <condition>
+                <not>
+                    <property>/controls/flight/fbw/active/yaw-rate</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/controls/flight/fbw/target/yaw</property>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/output/vtol/rudder</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>FBW VTOL Pedals Yaw</name>
+        <type>gain</type>
+        <gain>40.0</gain>
+        <enable>
+            <property>/controls/flight/fbw/active/yaw-rate</property>
+        </enable>
+        <input>
+            <property>/controls/flight/fbw/target/yaw</property>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/target/yaw-rate</property>
+        </output>
+    </filter>
+
+    <!-- Tracks the given yaw rate (r) using LST -->
+    <pid-controller>
+        <name>FBW VTOL Yaw Rate</name>
+        <debug>false</debug>
+        <enable>
+            <property>/controls/flight/fbw/active/yaw-rate</property>
+        </enable>
+        <input>
+            <property>/orientation/yaw-rate-degps</property>
+        </input>
+        <reference>
+            <property>/controls/flight/fbw/target/yaw-rate</property>
+            <min>
+                <property>/controls/flight/fbw/settings/yaw-rate-limit</property>
+                <scale>-1.0</scale>
+            </min>
+            <max>
+                <property>/controls/flight/fbw/settings/yaw-rate-limit</property>
+            </max>
+        </reference>
+        <output>
+            <property>/controls/flight/fbw/output/vtol/rudder</property>
+        </output>
+        <config>
+            <Kp>0.95</Kp>
+            <Ti>0.5</Ti>
+            <Td>0.0</Td>
+            <u_min>-4.0</u_min>
+            <u_max>4.0</u_max>
+        </config>
+    </pid-controller>
+
+    <filter>
+        <name>FBW Left Nacelle Swashplate Tilt</name>
+        <type>gain</type>
+        <gain>
+            <property>/controls/flight/fbw/output/vtol/lst-tilt</property>
+        </gain>
+        <input>
+            <property>/controls/flight/fbw/output/vtol/rudder</property>
+        </input>
+        <output>
+            <property>/sim/model/v22/rotor/left/elevator</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>FBW Right Nacelle Swashplate Tilt</name>
+        <type>gain</type>
+        <gain>
+            <property>/controls/flight/fbw/output/vtol/lst-tilt</property>
+            <scale>-1.0</scale>
+        </gain>
+        <input>
+            <property>/controls/flight/fbw/output/vtol/rudder</property>
+        </input>
+        <output>
+            <property>/sim/model/v22/rotor/right/elevator</property>
         </output>
     </filter>
 
