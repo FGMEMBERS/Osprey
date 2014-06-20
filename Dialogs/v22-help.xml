@@ -48,7 +48,11 @@
     </key>
     <key>
         <name>c</name>
-        <desc>Open/Close cargo door lower part</desc>
+        <desc>Open loading ramp</desc>
+    </key>
+    <key>
+        <name>C</name>
+        <desc>Close loading ramp</desc>
     </key>
     <key>
         <name>f</name>

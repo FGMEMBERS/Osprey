@@ -20,11 +20,23 @@
         </binding>
     </key>
 
+    <key n="67">
+        <name>C</name>
+        <desc>Close Loading Ramp</desc>
+        <mod-shift>
+            <binding>
+                <command>nasal</command>
+                <script>doors.loading_ramp_close()</script>
+            </binding>
+        </mod-shift>
+    </key>
+
     <key n="99">
         <name>c</name>
-        <desc>Toggle Cargo Door Lower Part Open/Close</desc>
+        <desc>Open Loading Ramp</desc>
         <binding>
-           <script>doors.cargo_lower_toggle()</script>
+            <command>nasal</command>
+            <script>doors.loading_ramp_open()</script>
         </binding>
     </key>
 

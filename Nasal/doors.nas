@@ -12,7 +12,7 @@ var cargo_upper_toggle = func {
             cargo_upper_state = 0;
         }
         else {
-            gui.popupTip("Close loading ramp first", 3);
+            gui.popupTip("Cabin crew: Close loading ramp first", 3);
         }
     }
     else {
@@ -21,19 +21,38 @@ var cargo_upper_toggle = func {
     }
 }
 
-var cargo_lower_toggle = func {
-    if (cargo_lower_state) {
-        cargo_lower.close();
-        cargo_lower_state = 0;
-    }
-    else {
-        if (cargo_upper_state) {
-            cargo_lower.open();
+# Position of the loading ramp when it is horizontal.
+# 0 is fully closed, 1 is fully open.
+var loading_ramp_horizontal_pos = 0.44;
+
+# Position when the loading ramp is fully opened. Keep it a bit lower
+# than 1.0 because otherwise it will touch or go through the ground.
+var loading_ramp_max_pos = 0.9;
+
+var loading_ramp_open = func {
+    if (cargo_upper_state) {
+        if (cargo_lower_state == 0) {
+            cargo_lower.move(loading_ramp_horizontal_pos);
             cargo_lower_state = 1;
         }
-        else {
-            gui.popupTip("Open cargo door first", 3);
+        elsif (cargo_lower_state == 1) {
+            cargo_lower.move(loading_ramp_max_pos);
+            cargo_lower_state = 2;
         }
+    }
+    else {
+        gui.popupTip("Cabin crew: Open cargo door first", 3);
+    }
+}
+
+var loading_ramp_close = func {
+    if (cargo_lower_state == 2) {
+        cargo_lower.move(loading_ramp_horizontal_pos);
+        cargo_lower_state = 1;
+    }
+    elsif (cargo_lower_state == 1) {
+        cargo_lower.close();
+        cargo_lower_state = 0;
     }
 }
 
@@ -51,7 +70,7 @@ var crew_upper_toggle = func {
             crew_upper_state = 0;
         }
         else {
-            gui.popupTip("Close lower starboard door first", 3);
+            gui.popupTip("Cabin crew: Close lower starboard door first", 3);
         }
     }
     else {
@@ -71,7 +90,7 @@ var crew_lower_toggle = func {
             crew_lower_state = 1;
         }
         else {
-            gui.popupTip("Open upper starboard door first");
+            gui.popupTip("Cabin crew: Open upper starboard door first");
         }
     }
 }
@@ -80,7 +99,7 @@ var crew_lower_toggle = func {
 
 var gear_up = func {
     if (getprop("/gear/gear[0]/wow") or getprop("/gear/gear[1]/wow") or getprop("/gear/gear[2]/wow")) {
-        gui.popupTip("Cannot move gear up while aircraft is on the ground");
+        gui.popupTip("Co-pilot: Cannot move gear up while aircraft is on the ground");
     }
     else {
         controls.gearDown(-1);
