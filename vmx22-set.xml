@@ -273,6 +273,11 @@
                         <direct-yaw-rate-gain>2.0</direct-yaw-rate-gain>
                     </vtol>
                 </settings>
+                <output>
+                    <vtol>
+                        <elevator type="double">0.0</elevator>
+                    </vtol>
+                </output>
             </fbw>
         </flight>
     </controls>

@@ -795,7 +795,12 @@
             <property>/controls/flight/fbw/output/vtol/lst-tilt</property>
         </gain>
         <input>
-            <property>/controls/flight/fbw/output/vtol/rudder</property>
+            <expression>
+                <sum>
+                    <property>/controls/flight/fbw/output/vtol/rudder</property>
+                    <property>/controls/flight/fbw/output/vtol/elevator</property>
+                </sum>
+            </expression>
         </input>
         <output>
             <property>/sim/model/v22/rotor/left/elevator</property>
@@ -807,10 +812,17 @@
         <type>gain</type>
         <gain>
             <property>/controls/flight/fbw/output/vtol/lst-tilt</property>
-            <scale>-1.0</scale>
         </gain>
         <input>
-            <property>/controls/flight/fbw/output/vtol/rudder</property>
+            <expression>
+                <sum>
+                    <product>
+                        <property>/controls/flight/fbw/output/vtol/rudder</property>
+                        <value>-1.0</value>
+                    </product>
+                    <property>/controls/flight/fbw/output/vtol/elevator</property>
+                </sum>
+            </expression>
         </input>
         <output>
             <property>/sim/model/v22/rotor/right/elevator</property>
