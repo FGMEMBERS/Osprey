@@ -126,10 +126,12 @@
         <reference>
             <property>/controls/flight/fbw/target/roll-deg</property>
             <min>
+                <!-- TODO Does not use bank-angle-hard-limit yet -->
                 <property>/controls/flight/fbw/settings/roll-hold-limit</property>
                 <scale>-1.0</scale>
             </min>
             <max>
+                <!-- TODO Does not use bank-angle-hard-limit yet -->
                 <property>/controls/flight/fbw/settings/roll-hold-limit</property>
             </max>
         </reference>
@@ -174,23 +176,26 @@
     <logic>
         <name>FBW Roll Rate Bank Angle Limiter On/Off Switcher</name>
         <input>
-            <less-than>
-                <expression>
-                    <abs>
-                        <difference>
-                            <property>/controls/flight/fbw/settings/roll-hold-limit</property>
-                            <abs>
-                                <property>/orientation/roll-deg</property>
-                            </abs>
-                        </difference>
-                    </abs>
-                </expression>
+            <and>
+                <property>/controls/flight/fbw/active/bank-angle-hard-limit</property>
+                <less-than>
+                    <expression>
+                        <abs>
+                            <difference>
+                                <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                                <abs>
+                                    <property>/orientation/roll-deg</property>
+                                </abs>
+                            </difference>
+                        </abs>
+                    </expression>
 
-                <!-- Enable roll rate limiting if distance to bank
-                     angle limit is less than or equal to this value.
-                -->
-                <value>15.0</value>
-            </less-than>
+                    <!-- Enable roll rate limiting if distance to bank
+                         angle limit is less than or equal to this value.
+                    -->
+                    <value>15.0</value>
+                </less-than>
+            </and>
         </input>
         <output>
             <property>/controls/flight/fbw/active/roll-rate-bank-angle</property>

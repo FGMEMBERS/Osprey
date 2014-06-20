@@ -231,6 +231,8 @@
                     <pitch-hold type="bool">false</pitch-hold>
 
                     <yaw-rate type="bool">true</yaw-rate>
+
+                    <bank-angle-hard-limit type="bool">true</bank-angle-hard-limit>
                 </active>
                 <settings>
                     <!-- 60 deg/ps due to roll-rate feedback, limited by
