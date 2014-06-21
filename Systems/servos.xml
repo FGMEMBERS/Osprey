@@ -122,7 +122,9 @@
         <type>noise-spike</type>
         <input>
             <property>/controls/flight/fbw/output/aileron</property>
-
+            <condition>
+                <property>/controls/flight/fbw/active/roll-rate</property>
+            </condition>
             <!-- Since the ailerons are driven by a PID controller
                  which controls the roll rate, the controller will
                  cause maximum deflection during low speeds, because
@@ -141,6 +143,9 @@
                     </table>
                 </expression>
             </scale>
+        </input>
+        <input>
+            <property>/controls/flight/fbw/output/aileron</property>
         </input>
         <output>
             <property>/sim/model/v22/wing/aileron</property>
