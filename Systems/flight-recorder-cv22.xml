@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+ 
+    <replay-config type="int">0</replay-config>
+
+    <config n="0" include="flight-recorder.xml">
+        <name type="string">Bell Boeing CV-22 Flight Recorder</name>
+
+        <signals include="/Aircraft/Generic/flightrecorder/components/tanks.xml">
+            <count type="int">10</count>
+        </signals>
+    </config>
+
+</PropertyList>

@@ -89,10 +89,15 @@
         <type>noise-spike</type>
         <enable>
             <condition>
-                <equals>
-                    <property>/sim/model/v22/wing_state</property>
-                    <value>0</value>
-                </equals>
+                <and>
+                    <equals>
+                        <property>/sim/model/v22/wing_state</property>
+                        <value>0</value>
+                    </equals>
+                    <not>
+                        <property>/sim/freeze/replay-state</property>
+                    </not>
+                </and>
             </condition>
         </enable>
         <input>

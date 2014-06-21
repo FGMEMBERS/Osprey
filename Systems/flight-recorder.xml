@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+    <!-- Generic components -->
+    <signals include="/Aircraft/Generic/flightrecorder/components/position.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/controls.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/environment.xml"/>
+    <signals include="/Aircraft/Generic/flightrecorder/components/surfaces.xml"/>
+
+    <signals include="/Aircraft/Generic/flightrecorder/components/gear-retractable.xml">
+        <count type="int">3</count>
+    </signals>
+
+    <!-- Right rotor -->
+    <signals include="/Aircraft/Generic/flightrecorder/components/rotor.xml">
+        <prefix type="string">/rotors/main</prefix>
+    </signals>
+
+    <!-- Left rotor -->
+    <signals include="/Aircraft/Generic/flightrecorder/components/rotor.xml">
+        <prefix type="string">/rotors/tail</prefix>
+    </signals>
+
+    <signals>
+        <signal>
+            <type>float</type>
+            <property type="string">/controls/engines/engine[0]/throttle</property>
+        </signal>
+
+        <!-- Lighting -->
+        <signal>
+           <type>bool</type>
+           <property type="string">/controls/lighting/nav-lights</property>
+        </signal>
+        <signal>
+            <type>bool</type>
+            <property type="string">/controls/lighting/beacon</property>
+        </signal>
+
+        <!-- Blades right rotor -->
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/main/blade[0]/flap-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/main/blade[0]/incidence-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/main/blade[0]/position-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/main/blade[1]/flap-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/main/blade[1]/incidence-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/main/blade[1]/position-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/main/blade[2]/flap-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/main/blade[2]/incidence-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/main/blade[2]/position-deg</property>
+        </signal>
+
+        <!-- Blades left rotor -->
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/tail/blade[0]/flap-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/tail/blade[0]/incidence-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/tail/blade[0]/position-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/tail/blade[1]/flap-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/tail/blade[1]/incidence-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/tail/blade[1]/position-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/tail/blade[2]/flap-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/tail/blade[2]/incidence-deg</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/rotors/tail/blade[2]/position-deg</property>
+        </signal>
+
+        <signal>
+            <type>float</type>
+            <property type="string">/sim/model/v22/wingfoldincidence</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/sim/model/v22/rotor/left/tilt</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/sim/model/v22/rotor/right/tilt</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/sim/model/v22/rotor/left/animation_tilt</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/sim/model/v22/rotor/right/animation_tilt</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/sim/model/v22/state</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/sim/model/v22/wing_state</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/sim/model/v22/wing_rotation</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/controls/engines/engine[0]/magnetos</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/sim/model/v22/blade_folding</property>
+        </signal>
+
+        <!-- Gear -->
+        <signal>
+            <type>float</type>
+            <property type="string">/position/gear-agl-m</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/gear/gear[0]/caster-angle-deg</property>
+        </signal>
+
+        <!-- position.xml defines the following two signals, but uses
+             <interpolation>, which is apparently enough to make the flight
+             recorder not record these two signals.
+        -->
+        <signal>
+            <type>double</type>
+            <property type="string">/position/longitude-deg</property>
+        </signal>
+        <signal>
+            <type>double</type>
+            <property type="string">/position/latitude-deg</property>
+        </signal>
+
+        <!-- Doors -->
+        <signal>
+            <type>float</type>
+            <property type="string">/instrumentation/doors/cargodoor/position-norm</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/instrumentation/doors/cargodoorup/position-norm</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/instrumentation/doors/cockpitdoor/position-norm</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/instrumentation/doors/crew/position-norm</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/instrumentation/doors/crewup/position-norm</property>
+        </signal>
+
+        <!-- Aerial refueling probe -->
+        <signal>
+            <type>float</type>
+            <property type="string">/instrumentation/doors/airrefuel/position-norm</property>
+        </signal>
+    </signals>
+
+</PropertyList>

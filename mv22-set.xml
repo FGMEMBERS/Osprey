@@ -27,6 +27,8 @@
             </default>
         </menubar>
 
+        <flight-recorder include="Systems/flight-recorder-mv22.xml"/>
+
     </sim>
 
 </PropertyList>

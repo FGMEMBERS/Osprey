@@ -33,6 +33,8 @@
             </default>
         </menubar>
 
+        <flight-recorder include="Systems/flight-recorder-cv22.xml"/>
+
     </sim>
 
     <consumables>
