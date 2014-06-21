@@ -154,14 +154,6 @@ var set_tilt = func (delta = 0, target = nil) {
     control_tilt.setValue(value);
 }
 
-# timers ============================================================
-aircraft.timer.new("/sim/time/hobbs/helicopter", nil).start();
-
-# strobes ===========================================================
-var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
-aircraft.light.new("sim/model/v22/lighting/strobe-top", [0.05, 1.00], strobe_switch);
-aircraft.light.new("sim/model/v22/lighting/strobe-bottom", [0.05, 1.03], strobe_switch);
-
 # engines/rotor/wing =====================================================
 var state = props.globals.getNode("sim/model/v22/state", 1);
 var wing_state = props.globals.getNode("sim/model/v22/wing_state", 1);
@@ -170,7 +162,6 @@ var engine1 = props.globals.getNode("sim/model/v22/engine_right", 1);
 var engine2 = props.globals.getNode("sim/model/v22/engine_left", 1);
 var rotor = props.globals.getNode("controls/engines/engine/magnetos", 1);
 var rotor_rpm = props.globals.getNode("rotors/main/rpm", 1);
-
 
 # MP door/airrefuel ======================================================
 # door cargodown - cargodoormix
@@ -622,7 +613,6 @@ var crash = func {
         setprop("rotors/main/blade[1]/incidence-deg", -20);
         setprop("rotors/main/blade[2]/incidence-deg", -50);
         setprop("rotors/tail/rpm", 0);
-        strobe_switch.setValue(0);
         lighting.beacon_switch.setValue(0);
         lighting.navigation_switch.setValue(0);
         rotor.setValue(0);
@@ -637,7 +627,6 @@ var crash = func {
             setprop("rotors/main/blade[" ~ i ~ "]/flap-deg", 0);
             setprop("rotors/main/blade[" ~ i ~ "]/incidence-deg", 0);
         }
-        strobe_switch.setValue(1);
         lighting.beacon_switch.setValue(1);
         lighting.navigation_switch.setValue(1);
         rotor.setValue(1);
