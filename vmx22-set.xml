@@ -13,9 +13,9 @@
 
     <sim include="Nasal/views.xml">
 
-        <author>BARANGER Emmanuel (3D), Maik Justus (FDM), Oliver Thurau (3D upgrade and FDM / XML upgrade)</author>
+        <author>onox (FBW, Systems), Emmanuel Baranger (3D), Maik Justus (FDM), Oliver Thurau (3D upgrade and FDM / XML upgrade)</author>
         <status>alpha</status>
-        <aircraft-version>0.59-28.08.2010</aircraft-version>
+        <aircraft-version>0.60-22.06.2014</aircraft-version>
     
         <flight-model>yasim</flight-model>
 
@@ -230,7 +230,7 @@
                     <pitch-rate type="bool">true</pitch-rate>
                     <pitch-hold type="bool">false</pitch-hold>
 
-                    <yaw-rate type="bool">true</yaw-rate>
+                    <yaw-rate type="bool">false</yaw-rate>
 
                     <bank-angle-hard-limit type="bool">true</bank-angle-hard-limit>
                 </active>
