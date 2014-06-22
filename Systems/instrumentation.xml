@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+    <radar>
+        <range type="int">20</range>
+        <minimized type="bool">true</minimized>
+    </radar>
+
+</PropertyList>

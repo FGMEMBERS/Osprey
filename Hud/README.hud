@@ -1,0 +1,86 @@
+------------------------------------------------------------------------------
+Head Up Display for Flightgear VM(X)22 Osprey
+By Stefan Gofferje (2012)
+License: GnuGPL V3
+------------------------------------------------------------------------------
+
+Changes
+=======
+
+V0.3, 05JAN12
+-------------
+- Changed altimeter tape. If altitude AGL is less than 500ft, the altimeter tape
+switches from displaying altitude MSL to displaying altitude AGL
+
+V0.2, 02JAN12
+-------------
+- Moved nacelle tilt dial to the left, below KIAS tape
+- Added VSI gauge to altimeter tape
+- Added VSI label below altimeter tape
+- Added elev. trim gauge to speed tape
+
+V0.1, 01JAN12
+-------------
+Initial version
+
+------------------------------------------------------------------------------
+
+
+Items
+-----
+The HUD is a variant of the NTPS HUD. I have made a few changes to make it more
+suitable for the Osprey:
+a) Activated all the helo stuff, like vector display, energy worm, etc.
+b) Created a dial (left, below the KIAS tape) which show the tilt of the
+engine nacelles (the FG Osprey tends to be very unstable if nacelles are tilted
+backwards while in hover or slow flight)
+c) Created a gauge (above the compass, the smaller triangle) which shows the
+course to the next waypoint from the autopilot waypoint list
+d) Created a VSI gauge, added to the altimeter tape
+e) Created a VSI label below the altimeter tape
+f) Created an elev. trim gauge, added to the speed tape
+
+The HUD also works for the FG stock V22 Osprey. Please read the note below.
+
+Install
+-------
+Unzip into $FG_ROOT/Aircraft/vmx22/
+
+Copy the following text to the <sim/> section of your vmx22-set.xml.
+NOTICE: If you use this HUD for the v22, you have to adjust the paths in
+Hud/hud.xml, otherwise it doesn't work.
+
+  <hud>
+    <path n="1">Aircraft/VMX22-Osprey/Hud/hud.xml</path>
+    <visibility n="1">true</visibility>
+    <palette>
+      <color n="0">
+      <alpha type="float">0.85</alpha>
+      <antialiased type="bool">true</antialiased>
+      <brightness type="float">0.85</brightness>
+      <transparent type="bool">true</transparent>
+      <red type="float">0.38</red>
+      <green type="float">1.0</green>
+      <blue type="float">0.22</blue>
+      </color>
+      <color n="1">
+      <alpha type="float">0.85</alpha>
+      <antialiased type="bool">true</antialiased>
+      <brightness type="float">0.85</brightness>
+      <transparent type="bool">true</transparent>
+      <red type="float">1.0</red>
+      <green type="float">0.2</green>
+      <blue type="float">0.0</blue>
+      </color>
+    </palette>
+  </hud>
+
+This HUD also supports radar. To activate radar, please copy the following code
+at the end of your vmx22-set.xml, just before </PropertyList>.
+
+  <instrumentation>
+    <radar>
+      <range type="int">20</range>
+      <minimized type="bool">true</minimized>
+    </radar>
+  </instrumentation>

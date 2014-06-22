@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<label>
+		<width>60</width>
+		<height>10</height>
+		<box>true</box>
+		<format>TX</format>
+		<halign>center</halign>
+		<condition>
+			<equals>
+				<property>/instrumentation/comm/ptt</property>
+				<value>1</value>
+			</equals>
+		</condition>
+	</label>
+	
+</PropertyList>
