@@ -29,16 +29,11 @@
     <!-- Enable FBW Roll Hold if A/P Wing Leveler is enabled -->
     <logic>
         <name>A/P Wing Leveler Dependency FBW Roll Hold</name>
-        <enable>
-            <condition>
-                <equals>
-                    <property>/autopilot/locks/heading</property>
-                    <value>wing-leveler</value>
-                </equals>
-            </condition>
-        </enable>
         <input>
-            <true />
+            <equals>
+                <property>/autopilot/locks/heading</property>
+                <value>wing-leveler</value>
+            </equals>
         </input>
         <output>
             <property>/controls/flight/fbw/active/roll-hold</property>
@@ -72,16 +67,11 @@
     <!-- Enable FBW Pitch Hold if A/P Pitch Hold is enabled -->
     <logic>
         <name>A/P Pitch Hold Dependency FBW Pitch Hold</name>
-        <enable>
-            <condition>
-                <equals>
-                    <property>/autopilot/locks/altitude</property>
-                    <value>pitch-hold</value>
-                </equals>
-            </condition>
-        </enable>
         <input>
-            <true />
+            <equals>
+                <property>/autopilot/locks/altitude</property>
+                <value>pitch-hold</value>
+            </equals>
         </input>
         <output>
             <property>/controls/flight/fbw/active/pitch-hold</property>
