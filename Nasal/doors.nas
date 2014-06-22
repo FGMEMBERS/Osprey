@@ -12,7 +12,7 @@ var cargo_upper_toggle = func {
             cargo_upper_state = 0;
         }
         else {
-            gui.popupTip("Cabin crew: Close loading ramp first", 3);
+            setprop("/sim/messages/copilot", "Close loading ramp first");
         }
     }
     else {
@@ -41,7 +41,7 @@ var loading_ramp_open = func {
         }
     }
     else {
-        gui.popupTip("Cabin crew: Open cargo door first", 3);
+        setprop("/sim/messages/copilot", "Open cargo door first");
     }
 }
 
@@ -70,7 +70,7 @@ var crew_upper_toggle = func {
             crew_upper_state = 0;
         }
         else {
-            gui.popupTip("Cabin crew: Close lower starboard door first", 3);
+            setprop("/sim/messages/copilot", "Close lower starboard door first");
         }
     }
     else {
@@ -90,7 +90,7 @@ var crew_lower_toggle = func {
             crew_lower_state = 1;
         }
         else {
-            gui.popupTip("Cabin crew: Open upper starboard door first");
+            setprop("/sim/messages/copilot", "Open upper starboard door first");
         }
     }
 }
@@ -99,7 +99,7 @@ var crew_lower_toggle = func {
 
 var gear_up = func {
     if (getprop("/gear/gear[0]/wow") or getprop("/gear/gear[1]/wow") or getprop("/gear/gear[2]/wow")) {
-        gui.popupTip("Co-pilot: Cannot move gear up while aircraft is on the ground");
+        setprop("/sim/messages/copilot", "Cannot move gear up while aircraft is on the ground");
     }
     else {
         controls.gearDown(-1);
