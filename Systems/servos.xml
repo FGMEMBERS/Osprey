@@ -116,8 +116,8 @@
             <property>/sim/model/v22/rotor/right/animation_tilt</property>
         </output>
 
-        <!-- 90 degrees in 16 seconds -->
-        <max-rate-of-change>5.625</max-rate-of-change>
+        <!-- 90 degrees in 12 seconds -->
+        <max-rate-of-change>7.5</max-rate-of-change>
     </filter>
 
     <!-- Simulate the servo motors of the two ailerons by limiting the
