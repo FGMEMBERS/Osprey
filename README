@@ -1,0 +1,54 @@
+# Fly-By-Wire #
+
+Properties located in /controls/flight/fbw/. Boolean values can be toggled by holding Ctrl
+button while click on the property. If you hold Shift while clicking on a property, it will
+display the property on the screen.
+
+## Modes ##
+
+Ctrl + left mouse click to toggle various FBW modes:
+
+active/
+    bank-angle-hard-limit       (controls hard bank angle limit)
+    pitch-hold                  (true if and only if enabling Pitch Hold in Autopilot Settings window)
+    pitch-rate                  (always true if pitch-hold is true)
+    roll-hold                   (true if and only if enabling Wings Level in Autopilot Settings window)
+    roll-rate                   (always true if roll-hold is true)
+    roll-rate-bank-angle        (read only, automatically becomes true if close to bank limit)
+    yaw-rate                    (currently only used for VTOL)
+
+## Settings ##
+
+settings/
+    direct-pitch-rate-gain      (factor used if active/pitch-rate is false, max 1.0)
+    direct-roll-rate-gain       (factor used if active/roll-rate is false, max 1.0)
+    pitch-hold-max              (used if active/pitch-hold is true)
+    pitch-hold-min              (used if active/pitch-hold is true)
+    pitch-rate-limit            (used if active/pitch-rate is true)
+    roll-hold-limit             (used if active/roll-hold is true)
+    roll-rate-limit             (used if active/roll-rate is true)
+    yaw-rate-limit              (used if active/yaw-rate is true)
+
+    vtol/
+        direct-roll-rate-gain   (factor used if active/roll-rate is false)
+        direct-yaw-rate-gain    (factor used if active/yaw-rate is false
+
+## VTOL factors ##
+
+Following properties are read-only factors (between 0 and 1). If both
+dcp-* values are 1.0 then DCP is fully effective, etc.
+
+output/vtol/
+    dcp-airspeed
+    dcp-tilt
+    lsg-airspeed
+    lsg-tilt
+    lst-tilt
+
+# Lighting #
+
+Ctrl + left mouse click to toggle various lights:
+
+/controls/lighting/
+    beacon
+    nav-lights
