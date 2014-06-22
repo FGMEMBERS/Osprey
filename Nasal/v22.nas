@@ -83,7 +83,7 @@ var update_controls_and_tilt_loop = func(dt) {
     setprop("/controls/flight/fbw/target/roll", ail);
     setprop("/controls/flight/fbw/target/yaw", rud);
 
-    var thr = 1 - control_throttle.getValue();
+    var thr = control_throttle.getValue();
     var act_tilt_avg = (actual_tilt_left.getValue() + actual_tilt_right.getValue()) / 2.0;
     var speed = airspeed_kt.getValue();
 
@@ -795,6 +795,7 @@ var crashed = 0;
 # Initialization
 setlistener("/sim/signals/fdm-initialized", func {
     collective.setDoubleValue(1);
+    control_throttle.setValue(0);
     #settimer(update_controls_and_tilt_loop, 0);
 
     setlistener("/sim/signals/reinit", func(n) {
