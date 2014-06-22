@@ -26,7 +26,6 @@
 
 	<object-name>panel_top</object-name>
 	<object-name>panel_center</object-name>
-	<object-name>panel_frame</object-name>
 
     <!-- Transparent objects -->
     <object-name>intvitres</object-name>
