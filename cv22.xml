@@ -211,16 +211,7 @@
 
     <!-- 
     <wing x="1.91" y="0.6" z="0.39" chord="2.35" chord_real="2.35" taper="1.0" length_real="5.4" length="5.4" dihedral="3" incidence="3.5" camber="0.2" sweep="-8">
-        <stall width="8" aoa="35" peak="1.5"/>
-        <flap0 drag="1.6" end="0.5" lift="2" start="0.02"/>
-        <flap1 drag="1.6" end="0.97" lift="2" start="0.5"/>
-        <control-input control="FLAP0" axis="/sim/model/v22/wing/flap"/>
-        <control-input control="FLAP1" axis="/sim/model/v22/wing/flap"/>
-        <control-input control="FLAP1" split="true" axis="sim/model/v22/wing/aileron"/>
-        <control-output prop="/surface-positions/flap-pos-norm" control="FLAP0"/>
-        <control-output prop="/surface-positions/left-aileron-pos-norm" side="left" control="FLAP1"/>
-        <control-output prop="/surface-positions/right-aileron-pos-norm" side="right" control="FLAP1"/>
-    </wing> -->
+    -->
 
     <!-- Vertical wing - rudder -->
     <vstab x="-7.90" y="2.52" z="-1.39" taper=".4" length="3.20" chord="2.72" sweep="15" incidence="0">
@@ -236,21 +227,6 @@
         <control-input control="FLAP0" axis="/sim/model/v22/wing/rudder" invert="true"/>
         <control-output prop="/surface-positions/rudder-pos-norm" control="FLAP0" min="1" max="-1"/>
     </vstab>
-    <!-- orginal
-    <vstab x="-7.90" y="2.52" z="-1.39" taper=".4" length="3.20" chord="2.72" sweep="15" incidence="0">
-        <stall aoa="16" width="4" peak="1.5"/>
-        <flap0 drag="1.2" end="1" lift="1.4" start="0.4"/>
-        <control-input control="FLAP0" axis="/sim/model/v22/wing/rudder" invert="true"/>
-        <control-output prop="/surface-positions/rudder-pos-norm" control="FLAP0" min="1" max="-1"/>
-    </vstab>
-
-    <vstab x="-7.90" y="-2.52" z="-1.39" taper=".4" length="3.20" chord="2.72" sweep="15" incidence="0">
-        <stall aoa="16" width="4" peak="1.5"/>
-        <flap0 drag="1.2" end="1" lift="1.4" start="0.4"/>
-        <control-input control="FLAP0" axis="/sim/model/v22/wing/rudder" invert="true"/>
-        <control-output prop="/surface-positions/rudder-pos-norm" control="FLAP0" min="1" max="-1"/>
-    </vstab>
-    -->
 
     <mstab x="-8.40" y="0.0" z="-0.45" taper="1.0" length="2.50" chord="2.30" sweep="0" incidence="-0.5">
         <stall aoa="16" width="4" peak="1.5"/>
