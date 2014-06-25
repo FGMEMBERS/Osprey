@@ -391,11 +391,12 @@
         </mass-and-balance>
 
         <!-- Design requirements require envelope of speeds up to
-             345 knots according to [1] -->
+             345 KTAS according to [1].
+        -->
         <vne>345</vne>
 
-        <!-- TODO Actual number unknown. Current copied from 777 -->
-        <max-gear-extension-speed>270</max-gear-extension-speed>
+        <!-- 140 KCAS according to [4] -->
+        <max-gear-extension-speed>140</max-gear-extension-speed>
 
         <!-- Sources: [1] and [2] -->
         <max-positive-g>4.0</max-positive-g>
