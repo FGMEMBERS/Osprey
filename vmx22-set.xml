@@ -298,6 +298,7 @@
                     <vtol>
                         <direct-roll-rate-gain>2.5</direct-roll-rate-gain>
                         <direct-yaw-rate-gain>2.0</direct-yaw-rate-gain>
+                        <direct-pitch-rate-gain>2.5</direct-pitch-rate-gain>
                     </vtol>
                 </settings>
                 <output>

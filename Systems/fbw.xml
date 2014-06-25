@@ -664,7 +664,7 @@
         <gain>
             <property>/controls/flight/fbw/settings/vtol/direct-roll-rate-gain</property>
             <abs type="bool">true</abs>
-            <max>1.0</max>
+            <max>5.0</max>
         </gain>
         <enable>
             <condition>
@@ -719,7 +719,7 @@
         </config>
     </pid-controller>
 
-    <!-- Connects the stick directly to the swashplates, bypassing
+    <!-- Connects the pedals directly to the swashplates, bypassing
          any PID controllers, giving the pilot direct unfiltered
          control over the swashplates.
     -->
@@ -792,6 +792,33 @@
             <u_max>4.0</u_max>
         </config>
     </pid-controller>
+
+    <!-- Connects the stick directly to the swashplates, bypassing
+         any PID controllers, giving the pilot direct unfiltered
+         control over the swashplates.
+    -->
+    <filter>
+        <name>Direct Mode VTOL Stick Pitch</name>
+        <type>gain</type>
+        <gain>
+            <property>/controls/flight/fbw/settings/vtol/direct-pitch-rate-gain</property>
+            <abs type="bool">true</abs>
+            <max>5.0</max>
+        </gain>
+        <!-- <enable>
+            <condition>
+                <not>
+                    <property>/controls/flight/fbw/active/pitch-rate</property>
+                </not>
+            </condition>
+        </enable> -->
+        <input>
+            <property>/controls/flight/fbw/target/pitch</property>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/output/vtol/elevator</property>
+        </output>
+    </filter>
 
     <filter>
         <name>FBW Left Nacelle Swashplate Tilt</name>
