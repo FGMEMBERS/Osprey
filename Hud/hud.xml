@@ -8,12 +8,12 @@
  <enable3d>true</enable3d>
 
   <import>
-	  <path>Aircraft/VMX22-Osprey/Hud/Sets/coordinates.xml</path>
+	  <path>Huds/Sets/coordinates.xml</path>
 	  <y-offset>190</y-offset>
   </import>
 
   <import>
-	  <path>Aircraft/VMX22-Osprey/Hud/Sets/autopilot.xml</path>
+      <path>Huds/Sets/autopilot.xml</path>
 	  <x-offset>-90</x-offset>
 	  <y-offset>160</y-offset>
   </import>
@@ -25,7 +25,7 @@
   </import>
 
   <import>
-	  <path>Aircraft/VMX22-Osprey/Hud/Sets/gps.xml</path>
+      <path>Huds/Sets/gps.xml</path>
 	  <x-offset>-300</x-offset>
 	  <y-offset>160</y-offset>
   </import>
@@ -73,7 +73,7 @@
  <tape>
   <name>Gyrocompass</name>
   <input>
-   <property>/orientation/heading-deg</property>
+   <property>/orientation/heading-magnetic-deg</property>
    <factor>0.1</factor>
   </input>
 
@@ -134,7 +134,7 @@
   <!--option>bottom</option>
   <pointer-width>7</pointer-width-->
   <input>
-   <property>/orientation/heading-deg</property>
+   <property>/orientation/heading-magnetic-deg</property>
   </input>
  </label>
 
