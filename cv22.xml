@@ -235,7 +235,7 @@
         <control-output prop="/surface-positions/elevator-pos-norm" control="FLAP0"/>
     </mstab>
 
-    <!-- front gear -->
+    <!-- Front gear -->
     <gear x="7.105" y="0" z="-3.212" compression="0.4" spring="0.65" damp="0.4">
         <control-input axis="/controls/gear/brake-right" control="BRAKE" split="true"/>
         <control-input axis="/controls/gear/brake-left" control="BRAKE" split="true"/>
@@ -247,7 +247,7 @@
         <control-output control="EXTEND" prop="/gear/gear[0]/position-norm"/>
     </gear>
 
-    <!-- left gear -->
+    <!-- Left gear -->
     <gear x="-1.118" y="2.101" z="-3.258" compression="0.4" spring="0.65" damp="0.4">
         <control-input axis="/controls/gear/brake-left" control="BRAKE" split="true"/>
         <control-input axis="/controls/gear/brake-parking" control="BRAKE" split="true"/>
@@ -257,7 +257,7 @@
         <control-output control="EXTEND" prop="/gear/gear[1]/position-norm"/>
     </gear>
 
-    <!-- right gear -->
+    <!-- Right gear -->
     <gear x="-1.118" y="-2.101" z="-3.258" compression="0.4" spring="0.65" damp="0.4">
         <control-input axis="/controls/gear/brake-right" control="BRAKE" split="true"/>
         <control-input axis="/controls/gear/brake-parking" control="BRAKE" split="true"/>
@@ -292,48 +292,51 @@
     <gear x=" 1.40" y="+7.241" z="-1.87" skid="1" compression="0.10" spring="0.8" sfric="0.7" dfric="0.6" ignored-by-solver="1"/>
 
     <!-- Forward sponson tanks
-         2x 478 gal or 3250 lbs
+         2x 478 gal or 2x 3250 lbs
     -->
     <tank x="1.6" y="+1.4" z="-2.1" jet="true" capacity="3250"/>
     <tank x="1.6" y="-1.4" z="-2.1" jet="true" capacity="3250"/>
 
     <!-- Wing feeder tanks
-         2x 88 gal or 600 lbs
+         2x 88 gal or 2x 600 lbs
+
+         Maximum capacity is 640 lbs, but required to stay at 600 lbs.
     -->
     <tank x="1.9" y="+5.8" z="0.3" jet="true" capacity="600"/>
     <tank x="1.9" y="-5.8" z="0.3" jet="true" capacity="600"/>
 
     <!-- Aft sponson tank
-         1x 316 gal or 2150 lbs
+         1x 305 gal or 1x 2075 lbs
     -->
-    <tank x="-1.9" y="-1.4" z="-2.1" jet="true" capacity="2150"/>
+    <tank x="-1.9" y="-1.4" z="-2.1" jet="true" capacity="2075"/>
 
     <!-- Optional MATS tanks
          480 gal or 3264 lbs each ([3], [5] and [6])
          or 800 gal or 5450 lbs [9]
          or 4000 lbs [10]
 
-         Not sure about the x and y coordinates. For now I'm assuming
-         two in the front and one in the back.
+         Not sure about the y and z coordinates of the two forward
+         tanks. For now I'm assuming the two tanks are on top of
+         each other.
     -->
-    <tank x="1.2" y="0" z="-1.5" jet="true" capacity="3264"/>
-    <tank x="1.2" y="0" z="-0.6" jet="true" capacity="3264"/>
-    <tank x="0.0" y="0" z="-1.5" jet="true" capacity="3264"/>
+    <tank x="1.2" y="0" z="-1.5" jet="true" capacity="2350"/>
+    <tank x="1.2" y="0" z="-0.6" jet="true" capacity="2350"/>
+    <tank x="0.0" y="0" z="-1.5" jet="true" capacity="2200"/>
 
     <!-- Wing auxilliary tanks
-         2x 296 gal (8 * 74) or 2000 lbs (8 * 500)
+         2x 296 gal (8 * 74) or 2x 2015 lbs (8 * 504)
     -->
-    <tank x="1.5" y="+3.6" z="0.1" jet="true" capacity="2000"/>
-    <tank x="1.5" y="-3.6" z="0.1" jet="true" capacity="2000"/>
+    <tank x="1.5" y="+3.6" z="0.1" jet="true" capacity="2015"/>
+    <tank x="1.5" y="-3.6" z="0.1" jet="true" capacity="2015"/>
 
     <!--
          If we assume CV-22B has two additional wing auxilliary tanks ([9], [10]), we get for MV-22B:
-            2*478 + 2*88 + 1*316 = 1448 gal (instead of the 1721 gal mentioned by [5] and [6])
+            2*478 + 2*88 + 1*305 = 1437 gal (instead of the 1721 gal mentioned by [5] and [6])
          If we instead assume CV-22B has just the one additional sponson (aft) tank,
          we get for MV-22B:
             2*478 + 2*88 + 2*296 = 1724 gal (close to what [5] and [6] say)
          and for the CV-22B:
-            2*478 + 2*88 + 2*296 + 1*316 = 2040 gal (close to what [3], [5], and [6] say)
+            2*478 + 2*88 + 2*296 + 1*305 = 2029 gal (close to what [3], [5], and [6] say)
     -->
 
     <!--
@@ -343,11 +346,11 @@
     -->
     <ballast x="8" y="0" z="0" mass="8500"/>
 
-    <!-- engine weight: 971 lbs, add some lbs for hydraulics and ...-->
+    <!-- Engine weight: 971 lbs, add some lbs for hydraulics and ... -->
     <ballast x="1.91" yr="6" y="7" z="0.39" mass="1000"/>
     <ballast x="1.91" yr="-6" y="-7" z="0.39" mass="1000"/>
 
-    <!-- gear weight: 230 lbs, add some lbs for hydraulics and ...-->
+    <!-- Gear weight: 230 lbs, add some lbs for hydraulics and ... -->
     <ballast x="7.10" yr="0" y="0.0" z="-2.20" mass="180"/>
     <ballast x="-1.10" yr="6" y="2.1" z="-2.40" mass="230"/>
     <ballast x="-1.10" yr="-6" y="-2.1" z="-2.40" mass="230"/>
@@ -368,12 +371,11 @@
         <control-input axis="/sim/model/pushback/target-speed-fps" control="THROTTLE" src0="-1" src1="1" dst0="-1" dst1="1"/>
     </thruster>
 
-    <!-- hitch 
+    <!--
     <hitch name="aerotow" x="-3.1" y="0.0" z="-2.525" force-is-calculated-by-other="1">
         <tow length="10" weight-per-meter="0.035" elastic-constant="9000" break-force="80000" mp-auto-connect-period="0.0"/>
         <winch max-tow-length="30" min-tow-length="20" initial-tow-length="30"/>
-        <control-input axis="/controls/aerotow/find-aircraft" control="FINDAITOW"/>
-    </hitch>-->
+    -->
 
     <!-- Hitch -->
     <hitch name="aerotow" x="-3.1" y="0.0" z="-2.525" force-is-calculated-by-other="0">
