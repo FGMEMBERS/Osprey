@@ -154,6 +154,27 @@ var set_tilt = func (delta = 0, target = nil) {
     control_tilt.setValue(value);
 }
 
+var tilt_rate = 0.0;
+
+var set_tilt_rate = func (v) {
+    if (v != 0) {
+        # Increase or decrease tilt rate
+        tilt_rate += v;
+    }
+    else {
+        tilt_rate = 0.0;
+    }
+
+    # Keep tilt rate within -8 .. 8 deg/s
+    tilt_rate = clamp(tilt_rate, -8, 8);
+
+    # Set target tilt position so that the nacelles tilt in the correct way
+    if (tilt_rate != 0) {
+        set_tilt(tilt_rate > 0 ? 90 : -10, 0);
+    }
+    setprop("/controls/flight/fbw/target/tilt-rate", tilt_rate);
+}
+
 # engines/rotor/wing =====================================================
 var state = props.globals.getNode("sim/model/v22/state", 1);
 var wing_state = props.globals.getNode("sim/model/v22/wing_state", 1);
@@ -437,7 +458,7 @@ var update_rotor_brake = func {
     control_rotor_brake.setValue(brake);
 }
 
-controls.adjMixture = func(v) set_tilt(v > 0 ? 10 : -10);
+controls.adjMixture = func(v) set_tilt_rate(v > 0 ? 1.0 : -1.0);
 controls.adjPropeller = func(v) wing_fold(v > 0);
 
 

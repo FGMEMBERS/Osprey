@@ -81,6 +81,34 @@
         </output>
     </filter>
 
+    <!-- Simulates the servos of the tilting mechanism. Without this
+         filter, changes of the requested tilt rate (controlled via
+         the nacelles control wheel on the TCL) would be instantaneous.
+    -->
+    <filter>
+        <name>Nacelles Servos</name>
+        <type>noise-spike</type>
+        <input>
+            <property>/controls/flight/fbw/target/tilt-rate</property>
+            <abs type="bool">true</abs>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/output/tilt-rate</property>
+        </output>
+
+        <!-- Tilt rate is always positive because it is used as the
+             maximum rate of change in the Nacelles Tilt Limit filter.
+             The input property of that filter controls the direction
+             of the tilt movement.
+        -->
+        <min>0.0</min>
+        <max>8.0</max>
+
+        <!-- TODO Speed (full range in 0.5 seconds) is a guess! -->
+        <!-- From 0 to 8 deg/s in 0.5 second -->
+        <max-rate-of-change>16.0</max-rate-of-change>
+    </filter>
+
     <!-- Simulates the moving of the nacelles. The allowed range
          is limited by the speed of the aircraft.
     -->
@@ -116,8 +144,12 @@
             <property>/sim/model/v22/rotor/right/animation_tilt</property>
         </output>
 
-        <!-- 90 degrees in 12 seconds -->
-        <max-rate-of-change>7.5</max-rate-of-change>
+        <!-- Tilt rate can be at most 8 deg/s, which is roughly 90 degrees
+             in 12 seconds.
+        -->
+        <max-rate-of-change>
+            <property>/controls/flight/fbw/output/tilt-rate</property>
+        </max-rate-of-change>
     </filter>
 
     <!-- Simulate the servo motors of the two ailerons by limiting the
@@ -155,6 +187,8 @@
         <output>
             <property>/sim/model/v22/wing/aileron</property>
         </output>
+
+        <!-- Range is relative. 0.0 means current position of flaps -->
         <min>-0.5</min>
         <max>0.5</max>
 

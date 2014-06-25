@@ -170,7 +170,7 @@
         <mod-alt>
             <binding>
                 <command>nasal</command>
-                <script>v22.set_tilt(0,0)</script>
+                <script>v22.set_tilt_rate(0)</script>
             </binding>
         </mod-alt>
     </key>

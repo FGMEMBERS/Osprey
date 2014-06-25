@@ -12,15 +12,15 @@
     </key>
     <key>
         <name>m</name>
-        <desc>Tilt rotors forward by 10 degrees</desc>
+        <desc>Increase tilt rate of nacelles</desc>
     </key>
     <key>
         <name>M</name>
-        <desc>Tilt rotors backward by 10 degrees</desc>
+        <desc>Decrease tilt rate of nacelles</desc>
     </key>
     <key>
         <name>Alt-m</name>
-        <desc>Tilt rotors vertical</desc>
+        <desc>Set tilt rate of nacelles to zero</desc>
     </key>
     <key>
         <name>n</name>

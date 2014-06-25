@@ -305,6 +305,9 @@
                         <elevator type="double">0.0</elevator>
                     </vtol>
                 </output>
+                <target>
+                    <tilt-rate type="double">0.0</tilt-rate>
+                </target>
             </fbw>
         </flight>
     </controls>
