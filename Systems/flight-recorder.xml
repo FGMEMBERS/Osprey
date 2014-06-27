@@ -136,6 +136,22 @@
         </signal>
         <signal>
             <type>float</type>
+            <property type="string">/sim/model/v22/rotor/left/collective</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/sim/model/v22/rotor/right/collective</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/sim/model/v22/rotor/left/elevator</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/sim/model/v22/rotor/right/elevator</property>
+        </signal>
+        <signal>
+            <type>float</type>
             <property type="string">/sim/model/v22/state</property>
         </signal>
         <signal>
