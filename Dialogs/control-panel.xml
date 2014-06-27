@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+    <name>control-panel</name>
+    <layout>vbox</layout>
+    <width>250</width>
+    <resizable>false</resizable>
+
+    <group>
+        <layout>hbox</layout>
+
+        <empty><stretch>true</stretch></empty>
+        <text>
+            <label>Control Panel</label>
+        </text>
+        <empty><stretch>true</stretch></empty>
+
+        <button>
+            <legend/>
+            <keynum>27</keynum>
+            <pref-width>16</pref-width>
+            <pref-height>16</pref-height>
+            <border>2</border>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>vbox</layout>
+        <text>
+            <label>Engines</label>
+        </text>
+
+        <group>
+            <layout>hbox</layout>
+
+            <button>
+                <legend>Start</legend>
+                <enable>
+                    <equals>
+                        <property>/sim/model/v22/state</property>
+                        <value>0</value>
+                    </equals>
+                </enable>
+                <binding>
+                    <command>nasal</command>
+                    <script>v22.engines(1)</script>
+                </binding>
+            </button>
+
+            <button>
+                <legend>Stop</legend>
+                <enable>
+                    <greater-than>
+                        <property>/sim/model/v22/state</property>
+                        <value>0</value>
+                    </greater-than>
+                </enable>
+                <binding>
+                    <command>nasal</command>
+                    <script>v22.engines(0)</script>
+                </binding>
+            </button>
+        </group>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>vbox</layout>
+        <padding>6</padding>
+        <text>
+            <label>Lighting</label>
+        </text>
+
+        <group>
+            <layout>vbox</layout>
+
+            <checkbox>
+                <halign>left</halign>
+                <label>Beacon</label>
+                <property>/controls/lighting/beacon</property>
+                <live>true</live>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-toggle</command>
+                </binding>
+            </checkbox>
+
+            <checkbox>
+                <halign>left</halign>
+                <label>Navigation</label>
+                <property>/controls/lighting/nav-lights</property>
+                <live>true</live>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-toggle</command>
+                </binding>
+            </checkbox>
+        </group>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>vbox</layout>
+        <padding>6</padding>
+        <text>
+            <label>Doors</label>
+        </text>
+
+        <group>
+            <layout>table</layout>
+            <halign>center</halign>
+
+            <text>
+                <row>0</row>
+                <col>0</col>
+                <label>Cockpit:</label>
+                <halign>right</halign>
+            </text>
+            <button>
+                <row>0</row>
+                <col>1</col>
+                <colspan>2</colspan>
+                <halign>left</halign>
+                <legend>Open/Close</legend>
+                <binding>
+                    <command>nasal</command>
+                    <script>doors.cockpit.toggle()</script>
+                </binding>
+            </button>
+
+            <text>
+                <row>1</row>
+                <col>0</col>
+                <label>Starboard upper:</label>
+                <halign>right</halign>
+            </text>
+            <button>
+                <row>1</row>
+                <col>1</col>
+                <colspan>2</colspan>
+                <halign>left</halign>
+                <legend>Open/Close</legend>
+                <binding>
+                    <command>nasal</command>
+                    <script>doors.crew_upper_toggle()</script>
+                </binding>
+            </button>
+
+            <text>
+                <row>2</row>
+                <col>0</col>
+                <label>Starboard lower:</label>
+                <halign>right</halign>
+            </text>
+            <button>
+                <row>2</row>
+                <col>1</col>
+                <colspan>2</colspan>
+                <halign>left</halign>
+                <legend>Open/Close</legend>
+                <binding>
+                    <command>nasal</command>
+                    <script>doors.crew_lower_toggle()</script>
+                </binding>
+            </button>
+
+            <text>
+                <row>3</row>
+                <col>0</col>
+                <label>Cargo:</label>
+                <halign>right</halign>
+            </text>
+            <button>
+                <row>3</row>
+                <col>1</col>
+                <colspan>2</colspan>
+                <halign>left</halign>
+                <legend>Open/Close</legend>
+                <binding>
+                    <command>nasal</command>
+                    <script>doors.cargo_upper_toggle()</script>
+                </binding>
+            </button>
+
+            <text>
+                <row>4</row>
+                <col>0</col>
+                <label>Loading ramp:</label>
+                <halign>right</halign>
+            </text>
+            <button>
+                <row>4</row>
+                <col>1</col>
+                <halign>left</halign>
+                <legend>Open</legend>
+                <enable>
+                    <less-than>
+                        <property>/instrumentation/doors/cargodoor/position-norm</property>
+
+                        <!-- Needs to be equal to doors.loading_ramp_max_pos -->
+                        <value>0.9</value>
+                    </less-than>
+                </enable>
+                <binding>
+                    <command>nasal</command>
+                    <script>doors.loading_ramp_open()</script>
+                </binding>
+            </button>
+            <button>
+                <row>4</row>
+                <col>2</col>
+                <halign>left</halign>
+                <legend>Close</legend>
+                <enable>
+                    <greater-than>
+                        <property>/instrumentation/doors/cargodoor/position-norm</property>
+                        <value>0.0</value>
+                    </greater-than>
+                </enable>
+                <binding>
+                    <command>nasal</command>
+                    <script>doors.loading_ramp_close()</script>
+                </binding>
+            </button>
+        </group>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>vbox</layout>
+        <padding>6</padding>
+        <text>
+            <label>Aerial refueling</label>
+        </text>
+        
+        <group>
+            <layout>vbox</layout>
+
+            <checkbox>
+                <halign>left</halign>
+                <label>Probe retracted</label>
+                <property>/instrumentation/doors/airrefuel</property>
+                <live>true</live>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>nasal</command>
+                    <script>doors.air_refuel.toggle()</script>
+                </binding>
+            </checkbox>
+        </group>
+   </group>
+   
+   <hrule/>
+   
+   <group>
+        <layout>hbox</layout>
+        <default-padding>6</default-padding>
+        
+        <empty><stretch>true</stretch></empty>
+        
+        <button>
+            <legend>Close</legend>
+            <default>true</default>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+   </group>
+
+</PropertyList>
