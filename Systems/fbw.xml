@@ -685,8 +685,6 @@
         </output>
     </filter>
 
-    <!-- TODO No FBW VTOL Stick Roll yet -->
-
     <!-- Tracks a given roll rate (p) using DCP. The target roll rate is
          limited to be no greater than the roll rate limit.
 
@@ -809,13 +807,13 @@
             <abs type="bool">true</abs>
             <max>5.0</max>
         </gain>
-        <!-- <enable>
+        <enable>
             <condition>
                 <not>
                     <property>/controls/flight/fbw/active/pitch-rate</property>
                 </not>
             </condition>
-        </enable> -->
+        </enable>
         <input>
             <property>/controls/flight/fbw/target/pitch</property>
         </input>
@@ -823,6 +821,44 @@
             <property>/controls/flight/fbw/output/vtol/elevator</property>
         </output>
     </filter>
+
+    <!-- Tracks a given pitch rate (q). The pitch rate can be no greater
+         than the pitch rate limit.
+
+         Also acts as stage #2 for FBW Pitch Hold.
+    -->
+    <pid-controller>
+        <name>FBW VTOL Pitch Rate</name>
+        <debug>false</debug>
+        <enable>
+            <property>/controls/flight/fbw/active/pitch-rate</property>
+        </enable>
+        <input>
+            <property>/orientation/pitch-rate-degps</property>
+        </input>
+        <reference>
+            <property>/controls/flight/fbw/target/pitch-rate</property>
+            <min>
+                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <scale>-1.0</scale>
+            </min>
+            <max>
+                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+            </max>
+            <scale>-1.0</scale>
+        </reference>
+        <output>
+            <property>/controls/flight/fbw/output/vtol/elevator</property>
+        </output>
+        <config>
+            <Kp>-0.016</Kp>
+            <Ti>0.07</Ti>
+            <Td>0.0002</Td>
+            <beta>0.1</beta>
+            <u_min>-1.0</u_min>
+            <u_max>1.0</u_max>
+        </config>
+    </pid-controller>
 
     <filter>
         <name>FBW Left Nacelle Swashplate Tilt</name>
