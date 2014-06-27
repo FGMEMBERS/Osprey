@@ -46,7 +46,6 @@
                 <blade_folding type="float">0</blade_folding>
                 <wing_rotation type="float">0</wing_rotation>
                 <inputflaps type="float">0</inputflaps>
-                <inputtilt type="float">0</inputtilt>
                 <wingfoldincidence type="float">0</wingfoldincidence>
 
                 <wing>
@@ -229,6 +228,7 @@
 
     <input>
         <keyboard include="Nasal/v22-keyboard.xml"/>
+        <mice include="mice.xml"/>
     </input>
 
     <controls>
@@ -303,6 +303,7 @@
                 </settings>
                 <target>
                     <tilt-rate type="double">0.0</tilt-rate>
+                    <tilt type="float">0</tilt>
                 </target>
             </fbw>
         </flight>

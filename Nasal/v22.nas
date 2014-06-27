@@ -41,7 +41,6 @@ var input_flaps = props.globals.getNode("controls/flight/flaps",1);
 var control_flaps = props.globals.getNode("sim/model/v22/inputflaps",1);
 
 var control_throttle = props.globals.getNode("/controls/engines/engine[0]/throttle");
-var control_tilt = props.globals.getNode("sim/model/v22/inputtilt",1);
 var control_rotor_brake = props.globals.getNode("/controls/rotor/brake",1);
 
 var out_wing_flap = props.globals.getNode("sim/model/v22/wing/flap");
@@ -147,33 +146,36 @@ var update_controls_and_tilt_loop = func(dt) {
     setprop("sim/model/v22/flap_control_factor", flap_control_factor);
 }
 
-var set_tilt = func (delta = 0, target = nil) {
+var set_tilt = func (value = 0) {
     if (props.globals.getNode("sim/crashed",1).getBoolValue()) {return; }
-    var value = delta + (target == nil ? control_tilt.getValue() : target);
-    value = clamp(value ,-10 ,90);
-    control_tilt.setValue(value);
+    setprop("/controls/flight/fbw/target/tilt", clamp(value, -10, 90));
 }
 
-var tilt_rate = 0.0;
-
 var set_tilt_rate = func (v) {
+    var tilt_rate = getprop("/controls/flight/fbw/target/tilt-rate");
+
     if (v != 0) {
         # Increase or decrease tilt rate
         tilt_rate += v;
     }
     else {
+        # Reset tilt rate to zero
         tilt_rate = 0.0;
     }
 
     # Keep tilt rate within -8 .. 8 deg/s
-    tilt_rate = clamp(tilt_rate, -8, 8);
-
-    # Set target tilt position so that the nacelles tilt in the correct way
-    if (tilt_rate != 0) {
-        set_tilt(tilt_rate > 0 ? 90 : -10, 0);
-    }
-    setprop("/controls/flight/fbw/target/tilt-rate", tilt_rate);
+    setprop("/controls/flight/fbw/target/tilt-rate", clamp(tilt_rate, -8, 8));
 }
+
+# Set the target tilt depending on the desired tilt rate
+# so that the nacelles move in the correct direction.
+setlistener("/controls/flight/fbw/target/tilt-rate", func(n) {
+    var tilt_rate = n.getValue();
+
+    if (tilt_rate != 0) {
+        set_tilt(tilt_rate > 0 ? 90 : -10);
+    }
+}, runtime=0);
 
 # engines/rotor/wing =====================================================
 var state = props.globals.getNode("sim/model/v22/state", 1);
@@ -301,7 +303,7 @@ var update_wing_state = func {
             interpolate(blade_folding, 0, 3.5);
         }
         if (new_state == 13) {
-            set_tilt(0,0);
+            set_tilt(0);
             interpolate(control_rotor_incidence_wing_fold, 0 , 1);
             wing_state.setValue(0);
         }

@@ -148,7 +148,7 @@
             </condition>
         </enable>
         <input>
-            <property>/sim/model/v22/inputtilt</property>
+            <property>/controls/flight/fbw/target/tilt</property>
             <min>
                 <property>/sim/model/v22/min_allowed_tilt</property>
             </min>
