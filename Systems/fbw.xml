@@ -125,15 +125,19 @@
         </input>
         <reference>
             <property>/controls/flight/fbw/target/roll-deg</property>
+            <condition>
+                <property>/controls/flight/fbw/active/bank-angle-hard-limit</property>
+            </condition>
             <min>
-                <!-- TODO Does not use bank-angle-hard-limit yet -->
                 <property>/controls/flight/fbw/settings/roll-hold-limit</property>
                 <scale>-1.0</scale>
             </min>
             <max>
-                <!-- TODO Does not use bank-angle-hard-limit yet -->
                 <property>/controls/flight/fbw/settings/roll-hold-limit</property>
             </max>
+        </reference>
+        <reference>
+            <property>/controls/flight/fbw/target/roll-deg</property>
         </reference>
         <output>
             <property>/controls/flight/fbw/target/roll-rate</property>
