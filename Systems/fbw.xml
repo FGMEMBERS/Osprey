@@ -412,6 +412,7 @@
         </enable>
         <input>
             <property>/controls/flight/fbw/target/pitch</property>
+            <scale>-1.0</scale>
         </input>
         <output>
             <condition>
@@ -455,7 +456,7 @@
         </output>
         <config>
             <!-- Response should be something like Docs/fbw-pitch-hold.png -->
-            <Kp>-1.65</Kp>
+            <Kp>1.65</Kp>
             <Ti>6.0</Ti>
             <Td>0.0</Td>
             <u_min>
@@ -505,7 +506,6 @@
             <max>
                 <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
             </max>
-            <scale>-1.0</scale>
         </reference>
         <output>
             <property>/controls/flight/fbw/output/elevator</property>
@@ -731,7 +731,7 @@
         <gain>
             <property>/controls/flight/fbw/settings/vtol/direct-yaw-rate-gain</property>
             <abs type="bool">true</abs>
-            <max>5.0</max>
+            <max>4.0</max>
         </gain>
         <enable>
             <condition>
@@ -845,18 +845,17 @@
             <max>
                 <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
             </max>
-            <scale>-1.0</scale>
         </reference>
         <output>
             <property>/controls/flight/fbw/output/vtol/elevator</property>
         </output>
         <config>
-            <Kp>-0.016</Kp>
-            <Ti>0.07</Ti>
-            <Td>0.0002</Td>
-            <beta>0.1</beta>
-            <u_min>-1.0</u_min>
-            <u_max>1.0</u_max>
+            <!-- Old values: Kp = -0.016 Ti = 0.07 Td = 0.0002 beta = 0.1 -->
+            <Kp>-0.40</Kp>
+            <Ti>0.3</Ti>
+            <Td>0.0000001</Td>
+            <u_min>-4.0</u_min>
+            <u_max>4.0</u_max>
         </config>
     </pid-controller>
 
