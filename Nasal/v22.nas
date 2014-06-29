@@ -53,6 +53,7 @@ var flap_speed_offset = -10;
 var flap_speed_range = 40;
 
 var dialog_control_panel = gui.Dialog.new("sim/gui/dialogs/control-panel/dialog", "Aircraft/VMX22-Osprey/Dialogs/control-panel.xml");
+var dialog_control_panel_fbw = gui.Dialog.new("sim/gui/dialogs/control-panel-fbw/dialog", "Aircraft/VMX22-Osprey/Dialogs/control-panel-fbw.xml");
 
 var update_controls_and_tilt_loop = func(dt) {
     if (props.globals.getNode("sim/crashed",1).getBoolValue()) {

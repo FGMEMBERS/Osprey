@@ -88,6 +88,14 @@
                     <dialog-name>control-panel</dialog-name>
                 </binding>
             </item>
+
+            <item>
+                <label>Control Panel FBW</label>
+                <binding>
+                    <command>dialog-show</command>
+                    <dialog-name>control-panel-fbw</dialog-name>
+                </binding>
+            </item>
         </menu>
     </default>
 

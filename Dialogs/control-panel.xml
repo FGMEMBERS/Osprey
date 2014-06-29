@@ -120,7 +120,7 @@
 
         <group>
             <layout>table</layout>
-            <halign>center</halign>
+            <halign>left</halign>
 
             <text>
                 <row>0</row>
@@ -245,7 +245,7 @@
         <text>
             <label>Aerial refueling</label>
         </text>
-        
+
         <group>
             <layout>vbox</layout>
 
@@ -263,11 +263,11 @@
                 </binding>
             </checkbox>
         </group>
-   </group>
-   
-   <hrule/>
-   
-   <group>
+    </group>
+
+    <hrule/>
+
+    <group>
         <layout>hbox</layout>
         <default-padding>6</default-padding>
         
@@ -280,6 +280,6 @@
                 <command>dialog-close</command>
             </binding>
         </button>
-   </group>
+    </group>
 
 </PropertyList>

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+    <name>control-panel-fbw</name>
+    <layout>vbox</layout>
+    <width>250</width>
+    <resizable>false</resizable>
+
+    <group>
+        <layout>hbox</layout>
+
+        <empty><stretch>true</stretch></empty>
+        <text>
+            <label>Control Panel FBW</label>
+        </text>
+        <empty><stretch>true</stretch></empty>
+
+        <button>
+            <legend/>
+            <keynum>27</keynum>
+            <pref-width>16</pref-width>
+            <pref-height>16</pref-height>
+            <border>2</border>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>vbox</layout>
+        <padding>6</padding>
+        <text>
+            <label>FBW</label>
+        </text>
+
+        <group>
+            <layout>table</layout>
+            <halign>left</halign>
+
+            <checkbox>
+                <row>0</row>
+                <col>0</col>
+                <colspan>2</colspan>
+                <halign>left</halign>
+                <label>Roll Rate</label>
+                <property>/controls/flight/fbw/active/roll-rate</property>
+                <live>true</live>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-toggle</command>
+                </binding>
+            </checkbox>
+
+            <text>
+                <row>1</row>
+                <col>0</col>
+                <label>Roll Rate Limit:</label>
+                <halign>right</halign>
+                <enable>
+                    <property>/controls/flight/fbw/active/roll-rate</property>
+                </enable>
+            </text>
+            <input>
+                <row>1</row>
+                <col>1</col>
+                <name>roll-rate-limit</name>
+                <enable>
+                    <property>/controls/flight/fbw/active/roll-rate</property>
+                </enable>
+                <label>deg/s</label>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>roll-rate-limit</object-name>
+                </binding>
+            </input>
+
+            <checkbox>
+                <row>2</row>
+                <col>0</col>
+                <colspan>3</colspan>
+                <halign>left</halign>
+                <label>Bank Angle Hard Limit</label>
+                <enable>
+                    <property>/controls/flight/fbw/active/roll-rate</property>
+                </enable>
+                <property>/controls/flight/fbw/active/bank-angle-hard-limit</property>
+                <live>true</live>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-toggle</command>
+                </binding>
+            </checkbox>
+
+            <text>
+                <row>3</row>
+                <col>0</col>
+                <label>Roll Hold Limit:</label>
+                <halign>right</halign>
+                <enable>
+                    <property>/controls/flight/fbw/active/bank-angle-hard-limit</property>
+                    <property>/controls/flight/fbw/active/roll-rate</property>
+                </enable>
+            </text>
+            <input>
+                <row>3</row>
+                <col>1</col>
+                <name>roll-hold-limit</name>
+                <enable>
+                    <property>/controls/flight/fbw/active/bank-angle-hard-limit</property>
+                    <property>/controls/flight/fbw/active/roll-rate</property>
+                </enable>
+                <label>deg</label>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>roll-hold-limit</object-name>
+                </binding>
+            </input>
+
+            <checkbox>
+                <row>4</row>
+                <col>0</col>
+                <colspan>2</colspan>
+                <halign>left</halign>
+                <label>Pitch Rate</label>
+                <property>/controls/flight/fbw/active/pitch-rate</property>
+                <live>true</live>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-toggle</command>
+                </binding>
+            </checkbox>
+
+            <text>
+                <row>5</row>
+                <col>0</col>
+                <label>Pitch Rate Limit:</label>
+                <halign>right</halign>
+                <enable>
+                    <property>/controls/flight/fbw/active/pitch-rate</property>
+                </enable>
+            </text>
+            <input>
+                <row>5</row>
+                <col>1</col>
+                <name>pitch-rate-limit</name>
+                <enable>
+                    <property>/controls/flight/fbw/active/pitch-rate</property>
+                </enable>
+                <label>deg/s</label>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>pitch-rate-limit</object-name>
+                </binding>
+            </input>
+
+            <text>
+                <row>6</row>
+                <col>0</col>
+                <label>Pitch Hold Max:</label>
+                <halign>right</halign>
+            </text>
+            <input>
+                <row>6</row>
+                <col>1</col>
+                <name>pitch-hold-max</name>
+                <label>deg</label>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/controls/flight/fbw/settings/pitch-hold-max</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>pitch-hold-max</object-name>
+                </binding>
+            </input>
+
+            <text>
+                <row>7</row>
+                <col>0</col>
+                <label>Pitch Hold Min:</label>
+                <halign>right</halign>
+            </text>
+            <input>
+                <row>7</row>
+                <col>1</col>
+                <name>pitch-hold-min</name>
+                <label>deg</label>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/controls/flight/fbw/settings/pitch-hold-min</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>pitch-hold-min</object-name>
+                </binding>
+            </input>
+        </group>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>vbox</layout>
+        <padding>6</padding>
+        <text>
+            <label>Direct Mode APLN</label>
+        </text>
+
+        <group>
+            <layout>table</layout>
+            <halign>left</halign>
+
+            <text>
+                <row>0</row>
+                <col>0</col>
+                <label>Roll Rate Gain:</label>
+                <halign>right</halign>
+            </text>
+            <input>
+                <row>0</row>
+                <col>1</col>
+                <name>roll-rate-gain</name>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/controls/flight/fbw/settings/direct-roll-rate-gain</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>roll-rate-gain</object-name>
+                </binding>
+            </input>
+
+            <text>
+                <row>1</row>
+                <col>0</col>
+                <label>Pitch Rate Gain:</label>
+                <halign>right</halign>
+            </text>
+            <input>
+                <row>1</row>
+                <col>1</col>
+                <name>pitch-rate-gain</name>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/controls/flight/fbw/settings/direct-pitch-rate-gain</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>pitch-rate-gain</object-name>
+                </binding>
+            </input>
+        </group>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>vbox</layout>
+        <padding>6</padding>
+        <text>
+            <label>Direct Mode VTOL</label>
+        </text>
+
+        <group>
+            <layout>table</layout>
+            <halign>left</halign>
+
+            <text>
+                <row>0</row>
+                <col>0</col>
+                <label>Roll Rate Gain:</label>
+                <halign>right</halign>
+            </text>
+            <input>
+                <row>0</row>
+                <col>1</col>
+                <name>vtol-roll-rate-gain</name>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/controls/flight/fbw/settings/vtol/direct-roll-rate-gain</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>vtol-roll-rate-gain</object-name>
+                </binding>
+            </input>
+
+            <text>
+                <row>1</row>
+                <col>0</col>
+                <label>Pitch Rate Gain:</label>
+                <halign>right</halign>
+            </text>
+            <input>
+                <row>1</row>
+                <col>1</col>
+                <name>vtol-pitch-rate-gain</name>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/controls/flight/fbw/settings/vtol/direct-pitch-rate-gain</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>vtol-pitch-rate-gain</object-name>
+                </binding>
+            </input>
+        </group>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>hbox</layout>
+        <default-padding>6</default-padding>
+        
+        <empty><stretch>true</stretch></empty>
+        
+        <button>
+            <legend>Close</legend>
+            <default>true</default>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+    </group>
+
+</PropertyList>
