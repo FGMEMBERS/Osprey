@@ -179,7 +179,7 @@
         <input>
             <property>/controls/flight/fbw/output/aileron</property>
             <condition>
-                <property>/controls/flight/fbw/active/roll-rate</property>
+                <property>/controls/flight/fbw/active/roll-rate-in-air</property>
             </condition>
             <!-- Since the ailerons are driven by a PID controller
                  which controls the roll rate, the controller will

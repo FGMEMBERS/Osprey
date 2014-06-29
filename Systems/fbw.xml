@@ -37,6 +37,50 @@
             [2]  http://www.bellhelicopter.com/MungoBlobs/126/268/V-22%20Guidebook%202013_update_PREVIEW_LR2.pdf
     -->
 
+    <!-- Enable FBW if logic considers aircraft to be in the air -->
+    <logic>
+        <name>FBW On/Off Switcher</name>
+        <input>
+            <not>
+                <and>
+                    <property>/gear/gear[1]/wow</property>
+                    <property>/gear/gear[2]/wow</property>
+                </and>
+            </not>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/active/in-air</property>
+        </output>
+    </logic>
+
+    <!-- Enable FBW Roll Hold if active/roll-hold is true and aircraft is in the air -->
+    <logic>
+        <name>FBW Roll Hold On/Off Switcher</name>
+        <input>
+            <and>
+                <property>/controls/flight/fbw/active/roll-hold</property>
+                <property>/controls/flight/fbw/active/in-air</property>
+            </and>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/active/roll-hold-in-air</property>
+        </output>
+    </logic>
+
+    <!-- Enable FBW Roll Rate if active/roll-rate is true and aircraft is in the air -->
+    <logic>
+        <name>FBW Roll Rate On/Off Switcher</name>
+        <input>
+            <and>
+                <property>/controls/flight/fbw/active/roll-rate</property>
+                <property>/controls/flight/fbw/active/in-air</property>
+            </and>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/active/roll-rate-in-air</property>
+        </output>
+    </logic>
+
     <!-- ================================================================== -->
     <!-- Roll Axis Modes                                                    -->
     <!-- ================================================================== -->
@@ -56,7 +100,7 @@
         <enable>
             <condition>
                 <not>
-                    <property>/controls/flight/fbw/active/roll-rate</property>
+                    <property>/controls/flight/fbw/active/roll-rate-in-air</property>
                 </not>
             </condition>
         </enable>
@@ -79,8 +123,8 @@
             <condition>
                 <and>
                     <or>
-                        <property>/controls/flight/fbw/active/roll-rate</property>
-                        <property>/controls/flight/fbw/active/roll-hold</property>
+                        <property>/controls/flight/fbw/active/roll-rate-in-air</property>
+                        <property>/controls/flight/fbw/active/roll-hold-in-air</property>
                     </or>
                     <not>
                         <equals>
@@ -96,13 +140,13 @@
         </input>
         <output>
             <condition>
-                <property>/controls/flight/fbw/active/roll-hold</property>
+                <property>/controls/flight/fbw/active/roll-hold-in-air</property>
             </condition>
             <property>/controls/flight/fbw/target/roll-deg</property>
         </output>
         <output>
             <condition>
-                <property>/controls/flight/fbw/active/roll-rate</property>
+                <property>/controls/flight/fbw/active/roll-rate-in-air</property>
             </condition>
             <property>/controls/flight/fbw/target/roll-rate</property>
         </output>
@@ -118,7 +162,7 @@
         <name>FBW Roll Hold</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/roll-hold</property>
+            <property>/controls/flight/fbw/active/roll-hold-in-air</property>
         </enable>
         <input>
             <property>/orientation/roll-deg</property>
@@ -328,7 +372,7 @@
         <name>FBW Roll Rate</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/roll-rate</property>
+            <property>/controls/flight/fbw/active/roll-rate-in-air</property>
         </enable>
         <input>
             <property>/orientation/roll-rate-degps</property>
@@ -673,7 +717,7 @@
         <enable>
             <condition>
                 <not>
-                    <property>/controls/flight/fbw/active/roll-rate</property>
+                    <property>/controls/flight/fbw/active/roll-rate-in-air</property>
                 </not>
             </condition>
         </enable>
@@ -694,7 +738,7 @@
         <name>FBW VTOL Roll Rate</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/roll-rate</property>
+            <property>/controls/flight/fbw/active/roll-rate-in-air</property>
         </enable>
         <input>
             <property>/orientation/roll-rate-degps</property>

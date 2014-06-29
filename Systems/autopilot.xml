@@ -12,10 +12,13 @@
         <gain>1.0</gain>
         <enable>
             <condition>
-                <equals>
-                    <property>/autopilot/locks/heading</property>
-                    <value>wing-leveler</value>
-                </equals>
+                <and>
+                    <equals>
+                        <property>/autopilot/locks/heading</property>
+                        <value>wing-leveler</value>
+                    </equals>
+                    <property>/controls/flight/fbw/active/in-air</property>
+                </and>
             </condition>
         </enable>
         <input>
