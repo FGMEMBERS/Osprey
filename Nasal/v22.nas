@@ -16,23 +16,6 @@ var min = func(a, b) { a < b ? a : b }
 var normatan = func(x) { math.atan2(x, 1) * 2 / math.pi }
 
 var interpol = func(x, x0, y0, x1, y1) { x < x0 ? y0 : x > x1 ? y1 : y0 + (y1 - y0) * (x - x0) / (x1 - x0) }
-var interpolation = func (x, x0, y0, x1, y1, x2=nil, y2=nil, x3=nil, y3=nil, x4=nil, y4=nil, x5=nil, y5=nil) {
-    if (x < x1 or x2 == nil) {
-        interpol (x, x0, y0, x1, y1);
-    }
-    elsif (x < x2 or x3 == nil) {
-        interpol (x, x1, y1, x2, y2);
-    }
-    elsif (x < x3 or x4 == nil) {
-        interpol (x, x2, y2, x3, y3);
-    }
-    elsif (x < x4 or x5 == nil) {
-        interpol (x, x3, y3, x4, y4);
-    }
-    else {
-        interpol (x, x4, y4, x5, y5);
-    }
-}
 
 # controls 
 var control_rotor_incidence_wing_fold = props.globals.getNode("sim/model/v22/wingfoldincidence");
@@ -84,7 +67,6 @@ var update_controls_and_tilt_loop = func(dt) {
     setprop("/controls/flight/fbw/target/roll", ail);
     setprop("/controls/flight/fbw/target/yaw", rud);
 
-    var thr = control_throttle.getValue();
     var act_tilt_avg = (actual_tilt_left.getValue() + actual_tilt_right.getValue()) / 2.0;
     var speed = airspeed_kt.getValue();
 
@@ -120,7 +102,8 @@ var update_controls_and_tilt_loop = func(dt) {
 
     ################################################################################
 
-    var col_wing = thr * interpolation(speed, 0, 20, 300, 75); 
+    var thr = control_throttle.getValue();
+    var col_wing = thr * interpol(speed, 0, 20, 300, 75); 
 
     # Calculate the rotor controls
     var ail2col = 5 * getprop("/controls/flight/fbw/output/vtol/dcp-tilt") * getprop("/controls/flight/fbw/output/vtol/dcp-airspeed");
@@ -134,18 +117,10 @@ var update_controls_and_tilt_loop = func(dt) {
     var h = control_rotor_incidence_wing_fold.getValue();
     col_rotor = 100 * h + col_rotor * (1-h);
     ail = getprop("/controls/flight/fbw/output/vtol/aileron") * (1-h);
-    ele = ele * (1-h);
-    rud = rud * (1-h);
 
     # Rotor collective
     out_rotor_r_col.setValue(airplane_control_factor * col_wing + helicopter_control_factor * (col_rotor - ail * ail2col));
     out_rotor_l_col.setValue(airplane_control_factor * col_wing + helicopter_control_factor * (col_rotor + ail * ail2col));
-
-    ################################################################################
-
-    setprop("sim/model/v22/helicopter_control_factor", helicopter_control_factor);
-    setprop("sim/model/v22/airplane_control_factor", airplane_control_factor);
-    setprop("sim/model/v22/flap_control_factor", flap_control_factor);
 }
 
 var set_tilt = func (value = 0) {
