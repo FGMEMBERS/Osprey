@@ -60,14 +60,6 @@ var update_controls_and_tilt_loop = func(dt) {
         return;
     }
 
-    var ail = clamp(getprop("/controls/flight/aileron") + getprop("/controls/flight/aileron-trim"), -1, 1);
-    var ele = clamp(getprop("/controls/flight/elevator") + getprop("/controls/flight/elevator-trim"), -1, 1);
-    var rud = clamp(getprop("/controls/flight/rudder") + getprop("/controls/flight/rudder-trim"), -1, 1);
-
-    setprop("/controls/flight/fbw/target/pitch", ele);
-    setprop("/controls/flight/fbw/target/roll", ail);
-    setprop("/controls/flight/fbw/target/yaw", rud);
-
     var act_tilt_avg = (actual_tilt_left.getValue() + actual_tilt_right.getValue()) / 2.0;
     var speed = airspeed_kt.getValue();
 
