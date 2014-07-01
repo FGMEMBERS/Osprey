@@ -17,7 +17,7 @@
                         <property>/autopilot/locks/heading</property>
                         <value>wing-leveler</value>
                     </equals>
-                    <property>/controls/flight/fbw/active/in-air</property>
+                    <property>/controls/flight/fbw/active/roll-axis-unconstrained</property>
                 </and>
             </condition>
         </enable>

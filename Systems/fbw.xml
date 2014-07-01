@@ -37,9 +37,11 @@
             [2]  http://www.bellhelicopter.com/MungoBlobs/126/268/V-22%20Guidebook%202013_update_PREVIEW_LR2.pdf
     -->
 
-    <!-- Enable FBW if logic considers aircraft to be in the air -->
+    <!-- Enable FBW for roll axis modes if ground contact logic detects
+         aircraft's roll axis (x) is unconstrained.
+    -->
     <logic>
-        <name>FBW On/Off Switcher</name>
+        <name>FBW Roll Axis On/Off Switcher</name>
         <input>
             <not>
                 <and>
@@ -49,7 +51,7 @@
             </not>
         </input>
         <output>
-            <property>/controls/flight/fbw/active/in-air</property>
+            <property>/controls/flight/fbw/active/roll-axis-unconstrained</property>
         </output>
     </logic>
 
@@ -59,7 +61,7 @@
         <input>
             <and>
                 <property>/controls/flight/fbw/active/roll-hold</property>
-                <property>/controls/flight/fbw/active/in-air</property>
+                <property>/controls/flight/fbw/active/roll-axis-unconstrained</property>
             </and>
         </input>
         <output>
@@ -73,7 +75,7 @@
         <input>
             <and>
                 <property>/controls/flight/fbw/active/roll-rate</property>
-                <property>/controls/flight/fbw/active/in-air</property>
+                <property>/controls/flight/fbw/active/roll-axis-unconstrained</property>
             </and>
         </input>
         <output>
