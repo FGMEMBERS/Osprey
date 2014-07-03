@@ -35,7 +35,7 @@ var rotor_pos = props.globals.getNode("rotors/main/blade[0]/position-deg",1);
 
 # Because YASim does not support folding the blades, it is necessary to
 # use a separate property for the 3D model. Otherwise, the blades will
-# break when you try to fold the wing. When the wings are being stowed,
+# break when you try to stow the wing. When the wing is being stowed,
 # the tilt property stays at 0 degrees to keep YASim happy, while
 # animation_tilt gradually changes to 90 degrees to tilt the nacelles
 # of the 3D model when the wing is rotating.
