@@ -30,8 +30,10 @@ settings/
     yaw-rate-limit              (used if active/yaw-rate is true)
 
     vtol/
+        direct-pitch-rate-gain  (factor used if active/pitch-rate is false)
         direct-roll-rate-gain   (factor used if active/roll-rate is false)
         direct-yaw-rate-gain    (factor used if active/yaw-rate is false
+        direct-lateral-move-gain
 
 ## VTOL factors ##
 
@@ -44,6 +46,7 @@ output/vtol/
     lsg-airspeed
     lsg-tilt
     lst-tilt
+    dst-tilt
 
 # Lighting #
 

@@ -1,6 +1,6 @@
 - Use moving average filter for ground contact logic
 - Use ground contact logic for enabling/disabling FBW pitch modes
-- Add Differential Swashplate Tilt (DST) factor for VTOL rudder input
+- Add Differential Swashplate Tilt (DST) factors for VTOL rudder input
 - Add g force protection to Pitch Rate controller (min. and max. functions have already been added)
 - Implement lateral cyclic movement for VTOL aileron input using the LSG factors
 - Phase out collective pitch commanded by the TCL when in APLN mode
@@ -54,3 +54,4 @@
 - Limit mast torque to 100% without interim power and 109% with interim power
 - Adjust YASim FDM to work with YASIM_VERSION_32 in FlightGear 3.2
 - Add missions from guide book
+- Add dual control
