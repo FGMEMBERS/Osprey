@@ -59,14 +59,10 @@
                     <left>
                         <elevator type="float">0</elevator>
                         <collective type="float">0</collective>
-                        <tilt type="float">0</tilt>
-                        <animation_tilt type="float">0</animation_tilt>
                     </left>
                     <right>
                         <elevator type="float">0</elevator>
                         <collective type="float">0</collective>
-                        <tilt type="float">0</tilt>
-                        <animation_tilt type="float">0</animation_tilt>
                     </right>
                 </rotor>
                 
@@ -77,6 +73,8 @@
                 <flap_speed type="float">0</flap_speed>
                 <blade_folding_speed type="float">0</blade_folding_speed>
                 <animation_tilt_speed type="float">0</animation_tilt_speed>
+                <tilt type="float">0</tilt>
+                <animation_tilt type="float">0</animation_tilt>
             </v22>
         
             <!-- set for landing lights OFF (0 default) on startup <property>sim/model/lights/landing-lights/state</property> -->

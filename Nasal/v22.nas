@@ -32,10 +32,18 @@ var out_rotor_r_col = props.globals.getNode("sim/model/v22/rotor/right/collectiv
 
 var airspeed_kt = props.globals.getNode("/velocities/airspeed-kt");
 var rotor_pos = props.globals.getNode("rotors/main/blade[0]/position-deg",1);
-var actual_tilt_left = props.globals.getNode("sim/model/v22/rotor/left/tilt",1); #0 up, 90 forward, range -10 ... 90
-var actual_tilt_right = props.globals.getNode("sim/model/v22/rotor/right/tilt",1); #0 up, 90 forward, range -10 ... 90
-actual_tilt_left.setValue(0);
-actual_tilt_right.setValue(0);
+
+# Because YASim does not support folding the blades, it is necessary to
+# use a separate property for the 3D model. Otherwise, the blades will
+# break when you try to fold the wing. When the wings are being stowed,
+# the tilt property stays at 0 degrees to keep YASim happy, while
+# animation_tilt gradually changes to 90 degrees to tilt the nacelles
+# of the 3D model when the wing is rotating.
+var animation_tilt = props.globals.getNode("sim/model/v22/animation_tilt",1);
+
+# 0 = vertical, 90 = horizontal, range -7.5 ... 90
+var actual_tilt = props.globals.getNode("sim/model/v22/tilt",1);
+actual_tilt.setValue(0);
 
 var target_rpm_airplane = 333;
 var target_rpm_helicopter = 397;
@@ -60,7 +68,7 @@ var update_controls_and_tilt_loop = func(dt) {
         return;
     }
 
-    var act_tilt_avg = (actual_tilt_left.getValue() + actual_tilt_right.getValue()) / 2.0;
+    var act_tilt_avg = actual_tilt.getValue();
     var speed = airspeed_kt.getValue();
 
     target_rpm = clamp(target_rpm_helicopter + (target_rpm_airplane - target_rpm_helicopter) * (act_tilt_avg - 30) / 60,
@@ -229,20 +237,15 @@ var max_rel_torque = props.globals.getNode("controls/rotor/maxreltorque", 1);
 var blade_folding = props.globals.getNode("sim/model/v22/blade_folding",1);
 var blade_incidence = props.globals.getNode("rotors/main/blade/incidence-deg",1);
 
-var animation_tilt_left = props.globals.getNode("sim/model/v22/rotor/left/animation_tilt",1);
-var animation_tilt_right = props.globals.getNode("sim/model/v22/rotor/right/animation_tilt",1);
-
 var update_wing_state = func {
     var ws = wing_state.getValue();
     var new_state = arg[0];
     if (new_state == (ws+1)) {
         wing_state.setValue(new_state);
         if (new_state == 1) {
-            var animation_tilt_avg = (animation_tilt_left.getValue() + animation_tilt_right.getValue()) / 2;
-            var delta = abs(animation_tilt_avg-0);
+            var delta = abs(animation_tilt.getValue() - 0);
             settimer(func { update_wing_state(2) }, max(1.2 , delta/9+0.5));
-            interpolate(animation_tilt_left, 0, delta/9);
-            interpolate(animation_tilt_right, 0, delta/9);
+            interpolate(animation_tilt, 0, delta/9);
             interpolate(out_wing_flap, 0, 5.5);
             interpolate(control_rotor_incidence_wing_fold, 1 , 1);
         }
@@ -252,8 +255,7 @@ var update_wing_state = func {
         }
         if (new_state == 3) {
             settimer(func { update_wing_state(4) }, 12);
-            interpolate(animation_tilt_left, 90, 9);
-            interpolate(animation_tilt_right, 90, 9);
+            interpolate(animation_tilt, 90, 9);
             interpolate(wing_rotation, 90, 11.5);
         }
         if (new_state == 4) {
@@ -264,8 +266,7 @@ var update_wing_state = func {
             # interpolate(animation_tilt, 90, 2.5, 0, 11);
             interpolate(wing_rotation, 0, 11.5);
             # interpolate(out_wing_flap, 0, 7, 1, 12.5);
-            settimer(func { interpolate(animation_tilt_left, 0, 8.5); }, 2.5);
-            settimer(func { interpolate(animation_tilt_right, 0, 8.5); }, 2.5);
+            settimer(func { interpolate(animation_tilt, 0, 8.5); }, 2.5);
             settimer(func { interpolate(out_wing_flap, 1, 5.5);}, 7);
         }
         if (new_state == 12) {
@@ -388,10 +389,12 @@ var wing_fold = func {
 
 var update_engine = func {
     if (state.getValue() > 3 ) {
-        interpolate (engine1,  clamp( rotor_rpm.getValue() / 412 ,
-                                0.25, target_rel_rpm.getValue() ), 0.25 );
-        interpolate (engine2,  clamp( rotor_rpm.getValue() / 412 ,
-                                0.25, target_rel_rpm.getValue() ), 0.20 );
+        interpolate(engine1,
+            clamp(rotor_rpm.getValue() / target_rpm_helicopter, 0.25, target_rel_rpm.getValue()),
+            0.25);
+        interpolate(engine2,
+            clamp(rotor_rpm.getValue() / target_rpm_helicopter, 0.25, target_rel_rpm.getValue()),
+            0.20);
     }
 }
 
@@ -401,30 +404,33 @@ torque.setDoubleValue(0);
 var update_rotor_brake = func {
     var rpm=rotor_rpm.getValue();
     var brake=0;
-    if ((state.getValue()==0) and (rpm < 250)) {
+    if (state.getValue() == 0 and rpm < 250) {
         var target = 95;
         var low = 25;
         var lrange = 5;
         var srange = 5;
         var pos = rotor_pos.getValue();
-        if (rpm > low )
-        {
+        if (rpm > low) {
             brake = (rpm-low + lrange * 0.25) / lrange;
             brake = clamp(brake, 0, 0.3);
-        } else
-        {
+        }
+        else {
             var delta = target - pos;
-            if (delta> 180) {delta = delta-360;}
-            if (delta<-180) {delta = delta+360;}
-            if ((delta > 0) and ((rpm-2) > delta*0.1 )) {
-                brake = rpm-2-delta*0.1;
+            if (delta > 180) {
+                delta = delta - 360;
+            }
+            if (delta < -180) {
+                delta = delta + 360;
+            }
+            if (delta > 0 and rpm - 2 > delta * 0.1) {
+                brake = rpm - 2 - delta * 0.1;
             }
             else {
                 if (rpm * 3.5 < low) {
-                    brake = (srange-abs(delta))/srange;
+                    brake = (srange - abs(delta)) / srange;
                 }
             }
-            brake = clamp (brake, 0,1);
+            brake = clamp(brake, 0, 1);
         }
     }
     control_rotor_brake.setValue(brake);
@@ -490,14 +496,13 @@ var update_sound = func(dt) {
     flap_speed.setValue(fpsf);
     last_flap = fp;
 
-    var animation_tilt_avg = (animation_tilt_left.getValue() + animation_tilt_right.getValue()) / 2;
-    var at = animation_tilt_avg;
-    var ats = abs (at - last_animation_tilt);
-    if (dt > 0.00001){
-        ats=ats/dt;
+    var at = animation_tilt.getValue();
+    var ats = abs(at - last_animation_tilt);
+    if (dt > 0.00001) {
+        ats = ats / dt;
     }
     else {
-        ats=ats*120;
+        ats = ats * 120;
     }
     f = dt / (0.05 + dt);
     var atsf = ats * f + animation_tilt_speed.getValue() * (1 - f);
@@ -614,8 +619,8 @@ var crash = func {
 
     } else {
         # uncrash (for replay)
-        setprop("rotors/tail/rpm", 412);
-        setprop("rotors/main/rpm", 412);
+        setprop("rotors/tail/rpm", target_rpm_helicopter);
+        setprop("rotors/main/rpm", target_rpm_helicopter);
         for (i = 0; i < 4; i += 1) {
             setprop("rotors/main/blade[" ~ i ~ "]/flap-deg", 0);
             setprop("rotors/main/blade[" ~ i ~ "]/incidence-deg", 0);
@@ -686,8 +691,7 @@ dynamic_view.register(func {
 
 var update_mp_generics = func {
     setprop("sim/multiplay/generic/float[0]", blade_folding.getValue());
-    setprop("sim/multiplay/generic/float[1]", animation_tilt_left.getValue());
-    setprop("sim/multiplay/generic/float[2]", animation_tilt_right.getValue());
+    setprop("sim/multiplay/generic/float[1]", animation_tilt.getValue());
     setprop("sim/multiplay/generic/float[3]", wing_rotation.getValue());
     setprop("sim/multiplay/generic/float[4]", blade_incidence.getValue());
 

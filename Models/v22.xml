@@ -143,13 +143,11 @@
   <nasal>
     <load>
       var self = cmdarg();
-      var animation_tilt_left = self.getNode("sim/model/v22/rotor/left/animation_tilt",1);
-      var animation_tilt_right = self.getNode("sim/model/v22/rotor/right/animation_tilt",1);
+      var animation_tilt = self.getNode("sim/model/v22/animation_tilt",1);
       var blade_folding = self.getNode("sim/model/v22/blade_folding",1);
       var wing_rotation = self.getNode("sim/model/v22/wing_rotation", 1);
       var blade_folding_mp = self.getNode("sim/multiplay/generic/float[0]", 1);
-      var animation_tilt_mp_left = self.getNode("sim/multiplay/generic/float[1]", 1);
-      var animation_tilt_mp_right = self.getNode("sim/multiplay/generic/float[2]", 1);
+      var animation_tilt_mp = self.getNode("sim/multiplay/generic/float[1]", 1);
       var wing_rotation_mp = self.getNode("sim/multiplay/generic/float[3]", 1);
       var blade_incidence_mp = self.getNode("sim/multiplay/generic/float[4]", 1);
 	
@@ -166,27 +164,21 @@
                  if (v == nil) v = 0.0;
                  blade_folding.setDoubleValue(v);
 
-                 v = animation_tilt_mp_left.getValue();
+                 v = animation_tilt_mp.getValue();
                  if (v == nil) {
-                    v = 0.0;
+                     v = 0.0;
                  }
-                 animation_tilt_left.setDoubleValue(v);
-
-                 v = animation_tilt_mp_right.getValue();
-                 if (v == nil) {
-                    v = 0.0;
-                 }
-                 animation_tilt_right.setDoubleValue(v);
+                 animation_tilt.setDoubleValue(v);
 
                  v = wing_rotation_mp.getValue();
                  if (v == nil) {
-                    v = 0.0;
+                     v = 0.0;
                  }
                  wing_rotation.setDoubleValue(v);
 
                  v = blade_incidence_mp.getValue();
                  if (v == nil) {
-                    v = 0.0;
+                     v = 0.0;
                  }
                  blade_incidence0.setDoubleValue(v);
                  blade_incidence1.setDoubleValue(v);
@@ -1165,7 +1157,7 @@
   <animation>
     <type>rotate</type>
     <object-name>EngineLeft</object-name>
-    <property>sim/model/v22/rotor/left/animation_tilt</property>
+    <property>sim/model/v22/animation_tilt</property>
     <factor>1</factor>
     <center>
       <x-m> -1.570 </x-m>
@@ -1183,7 +1175,7 @@
   <animation>
     <type>rotate</type>
     <object-name>EngineRight</object-name>
-    <property>sim/model/v22/rotor/right/animation_tilt</property>
+    <property>sim/model/v22/animation_tilt</property>
     <factor>1</factor>
     <center>
       <x-m> -1.570 </x-m>
@@ -1202,7 +1194,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nhydr_G</object-name>
-    <property>sim/model/v22/rotor/left/animation_tilt</property>
+    <property>sim/model/v22/animation_tilt</property>
 	<offset-deg>-90</offset-deg>
     <factor>1</factor>
     <center>
@@ -1222,7 +1214,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nacur_G</object-name>
-    <property>sim/model/v22/rotor/left/animation_tilt</property>
+    <property>sim/model/v22/animation_tilt</property>
 	<!-- <offset-deg>-90</offset-deg> -->
     <factor>1</factor>
 	<interpolation>
@@ -1249,7 +1241,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nacur_G_ext</object-name>
-    <property>sim/model/v22/rotor/left/animation_tilt</property>
+    <property>sim/model/v22/animation_tilt</property>
 	<!-- <offset-deg>-90</offset-deg> -->
     <factor>1</factor>
 	<interpolation>
@@ -1278,7 +1270,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nacur_D</object-name>
-    <property>sim/model/v22/rotor/right/animation_tilt</property>
+    <property>sim/model/v22/animation_tilt</property>
 	<!-- <offset-deg>-90</offset-deg> -->
     <factor>1</factor>
 	<interpolation>
@@ -1305,7 +1297,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nacur_D_ext</object-name>
-    <property>sim/model/v22/rotor/right/animation_tilt</property>
+    <property>sim/model/v22/animation_tilt</property>
 	<!-- <offset-deg>-90</offset-deg> -->
     <factor>1</factor>
 	<interpolation>

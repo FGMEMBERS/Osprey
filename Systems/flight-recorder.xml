@@ -120,19 +120,11 @@
         </signal>
         <signal>
             <type>float</type>
-            <property type="string">/sim/model/v22/rotor/left/tilt</property>
+            <property type="string">/sim/model/v22/tilt</property>
         </signal>
         <signal>
             <type>float</type>
-            <property type="string">/sim/model/v22/rotor/right/tilt</property>
-        </signal>
-        <signal>
-            <type>float</type>
-            <property type="string">/sim/model/v22/rotor/left/animation_tilt</property>
-        </signal>
-        <signal>
-            <type>float</type>
-            <property type="string">/sim/model/v22/rotor/right/animation_tilt</property>
+            <property type="string">/sim/model/v22/animation_tilt</property>
         </signal>
         <signal>
             <type>float</type>

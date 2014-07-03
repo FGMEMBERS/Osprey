@@ -24,8 +24,7 @@
 <airplane mass="33140">
 
     <approach speed="85" aoa="6">
-        <control-setting axis="/sim/model/v22/rotor/left/tilt" value="90"/>
-        <control-setting axis="/sim/model/v22/rotor/right/tilt" value="90"/>
+        <control-setting axis="/sim/model/v22/tilt" value="90"/>
         <control-setting axis="/sim/model/v22/wing/flap" value="0.5"/>
         <control-setting axis="/controls/gear/gear-down" value="1.0"/>
         <solve-weight idx="0" weight="180"/>
@@ -42,8 +41,7 @@
          Original value VMX-22 speed = 275
     -->
     <cruise speed="305" alt="15000">
-        <control-setting axis="/sim/model/v22/rotor/left/tilt" value="90"/>
-        <control-setting axis="/sim/model/v22/rotor/right/tilt" value="90"/>
+        <control-setting axis="/sim/model/v22/tilt" value="90"/>
         <control-setting axis="/sim/model/v22/wing/flap" value="0.0"/>
         <control-setting axis="/controls/gear/gear-down" value="0.0"/>
         <solve-weight idx="0" weight="180"/>
@@ -60,14 +58,14 @@
            mintiltpitch="-180"  maxtiltpitch="180" tiltcenterx="1.75" tiltcentery="-2.1" tiltcenterz="0.30"
            
            mintiltroll="-90" maxtiltroll="90" 
-           diameter="11.58" numblades="3" weightperblade="675" twist="-47.5" chord="0.81" rpm="412" relbladecenter="0.5" dynamic="1"
+           diameter="11.58" numblades="3" weightperblade="675" twist="-47.5" chord="0.81" rpm="397" relbladecenter="0.5" dynamic="1"
            rellenflaphinge="0.13" delta3="-0.26" delta=".25" pitch-a="10" pitch-b="15" flapmin="-15" flapmax="15" flap0="-2" flap0factor="0"
            notorque="0" dragfactor="0.30" translift-ve="20" translift-maxfactor="1.3" ground-effect-constant="0.1" taper="1"
            number-of-segments="8" number-of-parts="8" rel-len-where-incidence-is-measured="0.6" rel-len-blade-start="0.16"
            airfoil-lift-coefficient="3.15" airfoil-drag-coefficient0="0.38" airfoil-drag-coefficient1="5.5" incidence-stall-zero-speed="65"
            incidence-stall-half-sonic-speed="55.0" lift-factor-stall="0.45" stall-change-over="11" drag-factor-stall="4.0"
            cyclic-factor="0.8" rotor-correction-factor="1.7" balance="1" downwashfactor="0.3" phi0="95">
-        <control-input axis="/sim/model/v22/rotor/right/tilt" control="TILTPITCH" src0="-180.0" src1="180.0" dst0="1.0" dst1="-1.0"/>
+        <control-input axis="/sim/model/v22/tilt" control="TILTPITCH" src0="-180.0" src1="180.0" dst0="1.0" dst1="-1.0"/>
         <control-input axis="/sim/model/v22/rotor/right/elevator" control="CYCLICELE" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>
         <control-input axis="/sim/model/v22/rotor/right/aileron" control="CYCLICAIL" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>
         <control-input axis="/sim/model/v22/rotor/right/collective" control="COLLECTIVE" src0="-180.0" src1="180.0" dst0="-1" dst1="1.0"/>
@@ -79,14 +77,14 @@
            mintiltpitch="-180"  maxtiltpitch="180" tiltcenterx="1.75" tiltcentery="2.1" tiltcenterz="0.30"
            
            mintiltroll="-90" maxtiltroll="90" 
-           diameter="11.58" numblades="3" weightperblade="675" twist="-47.5" chord="0.81" rpm="412" relbladecenter="0.5" dynamic="1"
+           diameter="11.58" numblades="3" weightperblade="675" twist="-47.5" chord="0.81" rpm="397" relbladecenter="0.5" dynamic="1"
            rellenflaphinge="0.13" delta3="-0.26" delta=".25" pitch-a="10" pitch-b="15" flapmin="-15" flapmax="15" flap0="-2" flap0factor="0"
            notorque="0" dragfactor="0.30" translift-ve="20" translift-maxfactor="1.3" ground-effect-constant="0.1" taper="1"
            number-of-segments="8" number-of-parts="8" rel-len-where-incidence-is-measured="0.6" rel-len-blade-start="0.16"
            airfoil-lift-coefficient="3.15" airfoil-drag-coefficient0="0.38" airfoil-drag-coefficient1="5.5" incidence-stall-zero-speed="65"
            incidence-stall-half-sonic-speed="55.0" lift-factor-stall="0.45" stall-change-over="11" drag-factor-stall="4.0"
            cyclic-factor="0.8" rotor-correction-factor="1.7" balance="1" downwashfactor="0.3" phi0="95">
-        <control-input axis="/sim/model/v22/rotor/left/tilt" control="TILTPITCH" src0="-180.0" src1="180.0" dst0="1.0" dst1="-1.0"/>
+        <control-input axis="/sim/model/v22/tilt" control="TILTPITCH" src0="-180.0" src1="180.0" dst0="1.0" dst1="-1.0"/>
         <control-input axis="/sim/model/v22/rotor/left/elevator" control="CYCLICELE" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>  
         <control-input axis="/sim/model/v22/rotor/left/aileron" control="CYCLICAIL" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>  
         <control-input axis="/sim/model/v22/rotor/left/collective" control="COLLECTIVE" src0="-180.0" src1="180.0" dst0="-1" dst1="1.0"/>

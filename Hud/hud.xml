@@ -412,7 +412,7 @@
    <width>35</width>
    <height>35</height>
    <input>
-     <property>/sim/model/v22/rotor/left/tilt</property>
+     <property>/sim/model/v22/tilt</property>
    </input>
    <radius>17.5</radius>
    <divisions>8</divisions>

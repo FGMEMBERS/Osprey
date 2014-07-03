@@ -662,7 +662,7 @@
                      Sources: [1] (slide 15, page 4)
                 --> 
                 <table>
-                    <property>/sim/model/v22/rotor/left/tilt</property>
+                    <property>/sim/model/v22/tilt</property>
                     <entry><ind>30</ind><dep>1.0</dep></entry>
                     <entry><ind>90</ind><dep>0.0</dep></entry>
                 </table>
@@ -715,7 +715,7 @@
 
                          Sources: [1] (slide 15, page 4)
                     -->
-                    <property>/sim/model/v22/rotor/left/tilt</property>
+                    <property>/sim/model/v22/tilt</property>
                     <entry><ind>10</ind><dep>1.0</dep></entry>
                     <entry><ind>15</ind><dep>0.0</dep></entry>
                 </table>
@@ -760,7 +760,7 @@
             <expression>
                 <table>
                     <!-- Sources: [1] (slide 14, page 3) -->
-                    <property>/sim/model/v22/rotor/left/tilt</property>
+                    <property>/sim/model/v22/tilt</property>
                     <entry><ind>15</ind><dep>1.0</dep></entry>
                     <entry><ind>29</ind><dep>0.9</dep></entry>
                     <entry><ind>90</ind><dep>0.0</dep></entry>
