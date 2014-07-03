@@ -297,6 +297,7 @@
                         <direct-roll-rate-gain type="double">2.5</direct-roll-rate-gain>
                         <direct-yaw-rate-gain type="double">2.0</direct-yaw-rate-gain>
                         <direct-pitch-rate-gain type="double">2.5</direct-pitch-rate-gain>
+                        <direct-lateral-move-gain type="double">2.5</direct-lateral-move-gain>
                     </vtol>
                 </settings>
                 <target>

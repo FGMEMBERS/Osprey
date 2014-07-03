@@ -862,7 +862,7 @@
 
     <!-- Connects the pedals directly to the swashplates, bypassing
          any PID controllers, giving the pilot direct unfiltered
-         control over the swashplates.
+         control over the swashplates for yaw rotation.
     -->
     <filter>
         <name>Direct Mode Pedals Yaw Rate</name>
@@ -936,7 +936,8 @@
 
     <!-- Connects the stick directly to the swashplates, bypassing
          any PID controllers, giving the pilot direct unfiltered
-         control over the swashplates.
+         control over the swashplates for longitudinal movement and
+         pitch rotation.
     -->
     <filter>
         <name>Direct Mode VTOL Stick Pitch</name>
@@ -1042,6 +1043,52 @@
         </input>
         <output>
             <property>/sim/model/v22/rotor/right/elevator</property>
+        </output>
+    </filter>
+
+    <!-- Connects the stick directly to the swashplates, bypassing
+         any PID controllers, giving the pilot direct unfiltered
+         control over the swashplates for lateral movement.
+    -->
+    <filter>
+        <name>Direct Mode VTOL Stick Lateral Movement</name>
+        <type>gain</type>
+        <gain>
+            <property>/controls/flight/fbw/settings/vtol/direct-lateral-move-gain</property>
+            <abs type="bool">true</abs>
+            <max>5.0</max>
+        </gain>
+        <!-- <enable>
+            <condition>
+                <not>
+                    <property>/controls/flight/fbw/active/lateral-move</property>
+                </not>
+            </condition>
+        </enable> -->
+        <input>
+            <property>/controls/flight/fbw/target/roll</property>
+        </input>
+        <output>
+            <property>/controls/flight/fbw/output/vtol/lateral</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>FBW Nacelles Lateral Tilt</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <product>
+                    <property>/controls/flight/fbw/output/vtol/lsg-tilt</property>
+                    <property>/controls/flight/fbw/output/vtol/lsg-airspeed</property>
+                    <property>/controls/flight/fbw/output/vtol/lateral</property>
+                </product>
+            </expression>
+        </input>
+        <output>
+            <property>/sim/model/v22/rotor/left/aileron</property>
+            <property>/sim/model/v22/rotor/right/aileron</property>
         </output>
     </filter>
 
