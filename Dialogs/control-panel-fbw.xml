@@ -317,6 +317,44 @@
                     <object-name>vtol-pitch-rate-gain</object-name>
                 </binding>
             </input>
+
+            <text>
+                <row>2</row>
+                <col>0</col>
+                <label>Yaw Rate Gain:</label>
+                <halign>right</halign>
+            </text>
+            <input>
+                <row>2</row>
+                <col>1</col>
+                <name>vtol-yaw-rate-gain</name>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/controls/flight/fbw/settings/vtol/direct-yaw-rate-gain</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>vtol-yaw-rate-gain</object-name>
+                </binding>
+            </input>
+
+            <text>
+                <row>3</row>
+                <col>0</col>
+                <label>Lateral Move Gain:</label>
+                <halign>right</halign>
+            </text>
+            <input>
+                <row>3</row>
+                <col>1</col>
+                <name>vtol-lateral-move-gain</name>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/controls/flight/fbw/settings/vtol/direct-lateral-move-gain</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>vtol-lateral-move-gain</object-name>
+                </binding>
+            </input>
         </group>
     </group>
 
