@@ -240,13 +240,13 @@
     <option>right</option>
     <option>notext</option>
     <major-divisions>0</major-divisions>
-    <minor-divisions>500</minor-divisions>
+    <minor-divisions>1000</minor-divisions>
     <enable-pointer>true</enable-pointer>
     <pointer-type>fixed</pointer-type>
     <input>
-      <property>/velocities/vertical-speed-fps</property>
-      <max>1250</max>
-      <min>-1250</min>
+      <property>/instrumentation/vertical-speed-indicator/indicated-speed-fpm</property>
+      <max>5000</max>
+      <min>-5000</min>
     </input>
   </gauge>
 
@@ -263,7 +263,7 @@
   <pointer-width>10</pointer-width>
   <pointer-length>5</pointer-length>
   <input>
-      <property>/velocities/vertical-speed-fps</property>
+      <property>/instrumentation/vertical-speed-indicator/indicated-speed-fpm</property>
    <factor>1</factor>
   </input>
  </label>
