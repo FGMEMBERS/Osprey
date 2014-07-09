@@ -257,10 +257,9 @@
             <property>/controls/flight/fbw/target/roll-rate</property>
         </output>
         <config>
-            <!-- TODO Response too quick, should have slower response and less overshoot -->
-            <Kp>2.0</Kp>
-            <Ti>3.5</Ti>
-            <Td>0.0</Td>
+            <Kp>0.73</Kp>
+            <Ti>3.75</Ti>
+            <Td>0.014</Td>
             <u_min>
                 <property>/controls/flight/fbw/settings/roll-rate-limit</property>
                 <scale>-1.0</scale>
