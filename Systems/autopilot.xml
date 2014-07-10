@@ -29,14 +29,85 @@
         </output>
     </filter>
 
-    <!-- Enable FBW Roll Hold if A/P Wing Leveler is enabled -->
+    <!-- This filter computes the heading bug error relative to the
+         magnetic heading set in the A/P. It is positive if the current
+         magnetic heading of the aircraft is to the left of the requested
+         heading and negative if the current heading is to the right.
+    -->
+    <filter>
+        <name>A/P Magnetic Heading Bug Error Computer</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <property>/autopilot/settings/heading-bug-deg</property>
+            <offset>
+                <property>/orientation/heading-magnetic-deg</property>
+                <scale>-1.0</scale>
+            </offset>
+        </input>
+        <output>
+            <property>/v22/afcs/internal/heading-magnetic-bug-error-deg</property>
+        </output>
+        <period>
+            <min>-180</min>
+            <max>180</max>
+        </period>
+    </filter>
+
+    <!-- Tracks a given magnetic heading. By using the computed heading
+         bug error relative to the given magnetic heading, the A/P will
+         turn the aircraft left or right depending on which turn is the
+         shortest.
+    -->
+    <pi-simple-controller>
+        <name>A/P Magnetic Heading Hold</name>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <equals>
+                    <property>/autopilot/locks/heading</property>
+                    <value>dg-heading-hold</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/afcs/internal/heading-magnetic-bug-error-deg</property>
+        </input>
+        <reference>
+            <value>0</value>
+        </reference>
+        <output>
+            <property>/controls/flight/fbw/target/roll-deg</property>
+        </output>
+        <config>
+            <Kp>-1.75</Kp>
+            <Ki>0.0</Ki>
+            <u_min>
+                <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                <scale>-1.0</scale>
+            </u_min>
+            <u_max>
+                <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+            </u_max>
+        </config>
+    </pi-simple-controller>
+
+    <!-- Enable FBW Roll Hold if A/P Wing Leveler or A/P Magnetic
+         Heading Hold is enabled.
+    -->
     <logic>
         <name>A/P Wing Leveler Dependency FBW Roll Hold</name>
         <input>
-            <equals>
-                <property>/autopilot/locks/heading</property>
-                <value>wing-leveler</value>
-            </equals>
+            <or>
+                <equals>
+                    <property>/autopilot/locks/heading</property>
+                    <value>wing-leveler</value>
+                </equals>
+                <equals>
+                    <property>/autopilot/locks/heading</property>
+                    <value>dg-heading-hold</value>
+                </equals>
+            </or>
         </input>
         <output>
             <property>/controls/flight/fbw/active/roll-hold</property>
