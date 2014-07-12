@@ -368,6 +368,9 @@
         <doors>
             <file>Aircraft/VMX22-Osprey/Nasal/doors.nas</file>
         </doors>
+        <aar>
+            <file>Aircraft/Generic/aar.nas</file>
+        </aar>
     </nasal>
 
     <consumables>
@@ -403,5 +406,20 @@
     </limits>
     
     <instrumentation include="Systems/instrumentation.xml"/>
+
+    <systems>
+        <refuel>
+            <type>probe</type>
+            <serviceable type="bool">false</serviceable>
+
+            <!-- Maximum rate of fuel in lbs/min. Actual value is unknown -->
+            <max-fuel-transfer-lbs-min>6000</max-fuel-transfer-lbs-min>
+
+            <!-- Offset of the probe from the aircraft model's origin -->
+            <offset-x-m>0</offset-x-m>
+            <offset-y-m>0</offset-y-m>
+            <offset-z-m>0</offset-z-m>
+        </refuel>
+    </systems>
 
 </PropertyList>

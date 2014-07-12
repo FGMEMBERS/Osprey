@@ -191,7 +191,6 @@ var gear1_spin = props.globals.getNode("gear/gear[1]/rollspeed-ms", 1);
 # MP Right gear-spin ====================================
 var gear2_spin = props.globals.getNode("gear/gear[2]/rollspeed-ms", 1);
 
-
 # MP sim/model/v22/rotor/left/collective for rotor particle
 var collective_left = props.globals.getNode("sim/model/v22/rotor/left/collective", 1);
 
@@ -770,6 +769,9 @@ var update_mp_generics = func {
     else {
         setprop("sim/multiplay/generic/float[17]", 0);
     }
+
+    # Allow refuel only if fuel probe is extended
+    setprop("/systems/refuel/serviceable", door_fuelpr.getValue() == 0.0);
 }
 
 # main() ============================================================

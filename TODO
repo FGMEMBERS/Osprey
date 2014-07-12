@@ -41,7 +41,7 @@
 - Add accurate V-22 checklists
 - Add accurate V-22 sounds (buttons, doors, loading ramp, APU, rotors (in cockpit and outside), etc.)
 - Add minigun to MV-22
-- Support aerial refueling with KC-135
+- Support aerial refueling
 - Add aerial refueling capability for other aircraft (F-18)
 - Simulate low oxygen at high altitudes, when not wearing oxygen masks:
     - Black out (permanent if too long) of pilot, co-pilot, and crew
