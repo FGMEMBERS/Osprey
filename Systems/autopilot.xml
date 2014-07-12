@@ -38,30 +38,6 @@
         <name>A/P Magnetic Heading Bug Error Computer</name>
         <type>gain</type>
         <gain>1.0</gain>
-        <input>
-            <property>/autopilot/settings/heading-bug-deg</property>
-            <offset>
-                <property>/orientation/heading-magnetic-deg</property>
-                <scale>-1.0</scale>
-            </offset>
-        </input>
-        <output>
-            <property>/v22/afcs/internal/heading-magnetic-bug-error-deg</property>
-        </output>
-        <period>
-            <min>-180</min>
-            <max>180</max>
-        </period>
-    </filter>
-
-    <!-- Tracks a given magnetic heading. By using the computed heading
-         bug error relative to the given magnetic heading, the A/P will
-         turn the aircraft left or right depending on which turn is the
-         shortest.
-    -->
-    <pi-simple-controller>
-        <name>A/P Magnetic Heading Hold</name>
-        <debug>false</debug>
         <enable>
             <condition>
                 <equals>
@@ -71,7 +47,133 @@
             </condition>
         </enable>
         <input>
-            <property>/v22/afcs/internal/heading-magnetic-bug-error-deg</property>
+            <property>/autopilot/settings/heading-bug-deg</property>
+            <offset>
+                <property>/orientation/heading-magnetic-deg</property>
+                <scale>-1.0</scale>
+            </offset>
+        </input>
+        <output>
+            <property>/v22/afcs/internal/heading-bug-error-deg</property>
+        </output>
+        <period>
+            <min>-180</min>
+            <max>180</max>
+        </period>
+    </filter>
+
+    <!-- Computes the GPS track heading bug error relative to the true 
+         heading set in the A/P. This filter basically works the same
+         way as the filter above using the magnetic heading.
+    -->
+    <filter>
+        <name>A/P GPS Track True Heading Bug Error Computer</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <and>
+                    <property>/autopilot/settings/gps-driving-true-heading</property>
+                    <equals>
+                        <property>/autopilot/locks/heading</property>
+                        <value>true-heading-hold</value>
+                    </equals>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <property>/autopilot/settings/true-heading-deg</property>
+            <offset>
+                <property>/instrumentation/gps/indicated-track-true-deg</property>
+                <scale>-1.0</scale>
+            </offset>
+        </input>
+        <output>
+            <property>/v22/afcs/internal/heading-bug-error-deg</property>
+        </output>
+        <period>
+            <min>-180</min>
+            <max>180</max>
+        </period>
+    </filter>
+
+    <!-- A filter to compute the Kp that is used by the A/P Heading Hold
+         PI controller. While APLN mode can safely use a large value to
+         get a quick response, for VTOL mode a value very close to zero
+         needs to be used to prevent oscillations.
+    -->
+    <filter>
+        <name>A/P Heading Hold Kp Computer</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <table>
+                    <property>/sim/model/v22/tilt</property>
+                    <entry><ind>15</ind><dep>-0.15</dep></entry>
+                    <entry><ind>90</ind><dep>-1.75</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/afcs/internal/heading-kp</property>
+        </output>
+    </filter>
+
+    <!-- A filter to compute the maximum roll degree allowed
+         by the A/P Heading Hold controller. If the airspeed is
+         very low, the aircraft will be in VTOL mode and rolling
+         too much will result in losing too much altitude.
+    -->
+    <filter>
+        <name>A/P Maximum Heading Roll Hold Computer</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <table>
+                    <property>/velocities/airspeed-kt</property>
+                    <entry><ind>40</ind><dep>10</dep></entry>
+                    <entry><ind>80</ind><dep>25</dep></entry>
+                    <entry><ind>110</ind><dep>45</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/afcs/internal/maximum-heading-roll-deg</property>
+        </output>
+        <max>
+            <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+        </max>
+    </filter>
+
+    <!-- Tracks a given magnetic heading or GPS track. By using the
+         computed heading bug error relative to the given heading, the
+         A/P will turn the aircraft left or right depending on which
+         turn is the shortest.
+    -->
+    <pi-simple-controller>
+        <name>A/P Heading Hold</name>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <or>
+                    <equals>
+                        <property>/autopilot/locks/heading</property>
+                        <value>dg-heading-hold</value>
+                    </equals>
+                    <and>
+                        <property>/autopilot/settings/gps-driving-true-heading</property>
+                        <equals>
+                            <property>/autopilot/locks/heading</property>
+                            <value>true-heading-hold</value>
+                        </equals>
+                    </and>
+                </or>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/afcs/internal/heading-bug-error-deg</property>
         </input>
         <reference>
             <value>0</value>
@@ -80,23 +182,25 @@
             <property>/controls/flight/fbw/target/roll-deg</property>
         </output>
         <config>
-            <Kp>-1.75</Kp>
+            <Kp>
+                <property>/v22/afcs/internal/heading-kp</property>
+            </Kp>
             <Ki>0.0</Ki>
             <u_min>
-                <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                <property>/v22/afcs/internal/maximum-heading-roll-deg</property>
                 <scale>-1.0</scale>
             </u_min>
             <u_max>
-                <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                <property>/v22/afcs/internal/maximum-heading-roll-deg</property>
             </u_max>
         </config>
     </pi-simple-controller>
 
-    <!-- Enable FBW Roll Hold if A/P Wing Leveler or A/P Magnetic
-         Heading Hold is enabled.
+    <!-- Enable FBW Roll Hold if one of the A/P Roll Axis modes
+         are enabled.
     -->
     <logic>
-        <name>A/P Wing Leveler Dependency FBW Roll Hold</name>
+        <name>A/P Roll Axis Modes Dependency FBW Roll Hold</name>
         <input>
             <or>
                 <equals>
@@ -107,6 +211,13 @@
                     <property>/autopilot/locks/heading</property>
                     <value>dg-heading-hold</value>
                 </equals>
+                <and>
+                    <property>/autopilot/settings/gps-driving-true-heading</property>
+                    <equals>
+                        <property>/autopilot/locks/heading</property>
+                        <value>true-heading-hold</value>
+                    </equals>
+                </and>
             </or>
         </input>
         <output>

@@ -197,16 +197,7 @@
                         <property>/controls/flight/fbw/active/roll-hold-in-air</property>
                     </or>
                     <not>
-                        <or>
-                            <equals>
-                                <property>/autopilot/locks/heading</property>
-                                <value>wing-leveler</value>
-                            </equals>
-                            <equals>
-                                <property>/autopilot/locks/heading</property>
-                                <value>dg-heading-hold</value>
-                            </equals>
-                        </or>
+                        <property>/controls/flight/fbw/active/roll-hold</property> 
                     </not>
                 </and>
             </condition>
