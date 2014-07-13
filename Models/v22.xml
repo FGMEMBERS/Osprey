@@ -1880,7 +1880,7 @@
     <type>rotate</type>
     <object-name>profondeur</object-name>
     <property>surface-positions/elevator-pos-norm</property>
-    <factor>15</factor>
+    <factor>30</factor>
     <center>
       <x-m>  8.515 </x-m>
       <y-m>  0.000 </y-m>
@@ -1898,7 +1898,7 @@
     <type>rotate</type>
     <object-name>directionG</object-name>
     <property>surface-positions/rudder-pos-norm</property>
-    <factor>30</factor>
+    <factor>20</factor>
     <center>
       <x-m>  8.689 </x-m>
       <y-m> -2.515 </y-m>
@@ -1915,7 +1915,7 @@
     <type>rotate</type>
     <object-name>directionD</object-name>
     <property>surface-positions/rudder-pos-norm</property>
-    <factor>30</factor>
+    <factor>20</factor>
     <center>
       <x-m> 8.689 </x-m>
       <y-m> 2.515 </y-m>

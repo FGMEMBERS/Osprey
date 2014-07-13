@@ -205,9 +205,20 @@
             <property>/sim/model/v22/wing/aileron</property>
         </output>
 
-        <!-- Range is relative. 0.0 means current position of flaps -->
+        <!-- Range is relative to the current position of the flaps.
+             0.0 means current position of flaps. Min and max should be
+             equal because they reflect the ratio of right aileron to
+             left aileron deflection.
+
+             Range flaperons:
+                - APLN: -40 ..  20 degrees
+                - VTOL: -90 .. -73 degrees
+
+             Due to limitations of YASim, the two flaperons cannot be
+             controlled individually, so range cannot be properly restricted.
+        -->
         <min>-0.5</min>
-        <max>0.5</max>
+        <max> 0.5</max>
 
         <!-- TODO Speed (full range in 2 seconds) is a guess! -->
         <!-- range (-1..1 = 2) in 2 seconds -->
@@ -225,8 +236,12 @@
         <output>
             <property>/sim/model/v22/wing/elevator</property>
         </output>
-        <min>-1.0</min>
-        <max>1.0</max>
+
+        <!-- Range: -20 .. 30 degrees. Note that the surface is inverted
+             in the FDM so min represents the up and max represents down.
+        -->
+        <min>-1.00</min>
+        <max> 0.67</max>
 
         <!-- TODO Speed (full range in 1 second) is a guess! -->
         <!-- range (-1..1 = 2) in 1 second -->
@@ -244,8 +259,10 @@
         <output>
             <property>/sim/model/v22/wing/rudder</property>
         </output>
+
+        <!-- Range: -20 .. 20 degrees -->
         <min>-1.0</min>
-        <max>1.0</max>
+        <max> 1.0</max>
 
         <!-- TODO Speed (full range in 1 second) is a guess! -->
         <!-- range (-1..1 = 2) in 1 second -->
