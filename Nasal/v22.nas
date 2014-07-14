@@ -104,7 +104,7 @@ var update_controls_and_tilt_loop = func(dt) {
     ################################################################################
 
     var thr = control_throttle.getValue();
-    var col_wing = thr * interpol(speed, 0, 20, 300, 75); 
+    var col_wing = thr * interpol(speed, 0, 20, 200, 75); 
 
     # Calculate the rotor controls
     var ail2col = 5 * getprop("/controls/flight/fbw/output/vtol/dcp-tilt") * getprop("/controls/flight/fbw/output/vtol/dcp-airspeed");
