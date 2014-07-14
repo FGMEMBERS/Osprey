@@ -97,6 +97,78 @@
         </period>
     </filter>
 
+    <!-- Enable A/P NAV1 Localizer if localizer is in range and NAV1
+         mode selected in A/P.
+    -->
+    <logic>
+        <name>A/P NAV1 Localizer On/Off Switcher</name>
+        <input>
+            <and>
+                <equals>
+                    <property>/autopilot/locks/heading</property>
+                    <value>nav1-hold</value>
+                </equals>
+                <property>/instrumentation/nav[0]/nav-loc</property>
+                <property>/instrumentation/nav[0]/in-range</property>
+            </and>
+        </input>
+        <output>
+            <property>/v22/afcs/active/loc-hold</property>
+        </output>
+    </logic>
+
+    <!-- Enable A/P Heading Hold if one of the A/P heading modes has
+         been selected.
+    -->
+    <logic>
+        <name>A/P Heading On/Off Switcher</name>
+        <input>
+            <or>
+                <equals>
+                    <property>/autopilot/locks/heading</property>
+                    <value>dg-heading-hold</value>
+                </equals>
+                <and>
+                    <property>/autopilot/settings/gps-driving-true-heading</property>
+                    <equals>
+                        <property>/autopilot/locks/heading</property>
+                        <value>true-heading-hold</value>
+                    </equals>
+                </and>
+                <property>/v22/afcs/active/loc-hold</property>
+            </or>
+        </input>
+        <output>
+            <property>/v22/afcs/active/heading-hold</property>
+        </output>
+    </logic>
+
+    <!-- Computes the heading bug error relative to the true heading
+         of the NAV1 localizer.
+    -->
+    <filter>
+        <name>A/P NAV1 Localizer Heading Bug Error Computer</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <property>/v22/afcs/active/loc-hold</property>
+        </enable>
+        <input>
+            <property>/instrumentation/nav[0]/radials/target-auto-hdg-deg</property>
+            <offset>
+                <property>/orientation/heading-deg</property>
+                <scale>-1.0</scale>
+            </offset>
+        </input>
+        <output>
+            <property>/v22/afcs/internal/heading-bug-error-deg</property>
+        </output>
+        <period>
+            <min>-180</min>
+            <max>180</max>
+        </period>
+    </filter>
+
     <!-- A filter to compute the Kp that is used by the A/P Heading Hold
          PI controller. While APLN mode can safely use a large value to
          get a quick response, for VTOL mode a value very close to zero
@@ -156,21 +228,7 @@
         <name>A/P Heading Hold</name>
         <debug>false</debug>
         <enable>
-            <condition>
-                <or>
-                    <equals>
-                        <property>/autopilot/locks/heading</property>
-                        <value>dg-heading-hold</value>
-                    </equals>
-                    <and>
-                        <property>/autopilot/settings/gps-driving-true-heading</property>
-                        <equals>
-                            <property>/autopilot/locks/heading</property>
-                            <value>true-heading-hold</value>
-                        </equals>
-                    </and>
-                </or>
-            </condition>
+            <property>/v22/afcs/active/heading-hold</property>
         </enable>
         <input>
             <property>/v22/afcs/internal/heading-bug-error-deg</property>
@@ -207,17 +265,7 @@
                     <property>/autopilot/locks/heading</property>
                     <value>wing-leveler</value>
                 </equals>
-                <equals>
-                    <property>/autopilot/locks/heading</property>
-                    <value>dg-heading-hold</value>
-                </equals>
-                <and>
-                    <property>/autopilot/settings/gps-driving-true-heading</property>
-                    <equals>
-                        <property>/autopilot/locks/heading</property>
-                        <value>true-heading-hold</value>
-                    </equals>
-                </and>
+                <property>/v22/afcs/active/heading-hold</property>
             </or>
         </input>
         <output>
