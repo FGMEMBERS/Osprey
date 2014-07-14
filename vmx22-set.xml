@@ -365,6 +365,9 @@
             <file>Aircraft/VMX22-Osprey/Nasal/liveries.nas</file>
             <file>Aircraft/Generic/limits.nas</file>
         </v22>
+        <afcs>
+            <file>Aircraft/VMX22-Osprey/Nasal/afcs.nas</file>
+        </afcs>
         <doors>
             <file>Aircraft/VMX22-Osprey/Nasal/doors.nas</file>
         </doors>

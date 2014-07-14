@@ -824,6 +824,9 @@ setlistener("/sim/signals/fdm-initialized", func {
     # the attitude indicator needs pressure
     # settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
 
+    var afcs_loop_timer = maketimer(0.5, afcs.main_loop);
+    afcs_loop_timer.start();
+
     var main_loop_timer = maketimer(0.0, main_loop);
     main_loop_timer.start();
 });
