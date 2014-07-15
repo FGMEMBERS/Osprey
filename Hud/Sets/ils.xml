@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <!-- heading -->
+
+    <label>
+        <width>60</width>
+        <height>10</height>
+        <box>true</box>
+        <format>LOC</format>
+        <halign>left</halign>
+        <condition>
+            <equals>
+                <property>/autopilot/locks/heading</property>
+                <value>nav1-hold</value>
+            </equals>
+        </condition>
+    </label>
+
+    <!-- altitude -->
+
+    <label>
+        <x>60</x>
+        <width>60</width>
+        <height>10</height>
+        <box>true</box>
+        <format>G/S</format>
+        <halign>left</halign>
+        <condition>
+            <equals>
+                <property>/autopilot/locks/altitude</property>
+                <value>gs1-hold</value>
+            </equals>
+        </condition>
+    </label>
+
+</PropertyList>

@@ -18,6 +18,12 @@
 	  <y-offset>160</y-offset>
   </import>
 
+    <import>
+        <path>Aircraft/VMX22-Osprey/Hud/Sets/ils.xml</path>
+	    <x-offset>-90</x-offset>
+	    <y-offset>160</y-offset>
+    </import>
+
   <import>
 	  <path>Aircraft/VMX22-Osprey/Hud/Sets/fgcom.xml</path>
 	  <x-offset>-30</x-offset>
