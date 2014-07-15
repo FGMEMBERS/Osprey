@@ -55,7 +55,7 @@
             </not>
         </input>
         <output>
-            <property>/controls/flight/fbw/active/roll-axis-unconstrained</property>
+            <property>/v22/pfcs/active/roll-axis-unconstrained</property>
         </output>
     </logic>
 
@@ -64,12 +64,12 @@
         <name>FBW Roll Hold On/Off Switcher</name>
         <input>
             <and>
-                <property>/controls/flight/fbw/active/roll-hold</property>
-                <property>/controls/flight/fbw/active/roll-axis-unconstrained</property>
+                <property>/v22/pfcs/active/roll-hold</property>
+                <property>/v22/pfcs/active/roll-axis-unconstrained</property>
             </and>
         </input>
         <output>
-            <property>/controls/flight/fbw/active/roll-hold-in-air</property>
+            <property>/v22/pfcs/active/roll-hold-in-air</property>
         </output>
     </logic>
 
@@ -78,12 +78,12 @@
         <name>FBW Roll Rate On/Off Switcher</name>
         <input>
             <and>
-                <property>/controls/flight/fbw/active/roll-rate</property>
-                <property>/controls/flight/fbw/active/roll-axis-unconstrained</property>
+                <property>/v22/pfcs/active/roll-rate</property>
+                <property>/v22/pfcs/active/roll-axis-unconstrained</property>
             </and>
         </input>
         <output>
-            <property>/controls/flight/fbw/active/roll-rate-in-air</property>
+            <property>/v22/pfcs/active/roll-rate-in-air</property>
         </output>
     </logic>
 
@@ -104,7 +104,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/target/roll</property>
+            <property>/v22/pfcs/target/roll</property>
         </output>
 
         <min>-1.0</min>
@@ -124,7 +124,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/target/pitch</property>
+            <property>/v22/pfcs/target/pitch</property>
         </output>
 
         <min>-1.0</min>
@@ -144,7 +144,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/target/yaw</property>
+            <property>/v22/pfcs/target/yaw</property>
         </output>
 
         <min>-1.0</min>
@@ -163,22 +163,22 @@
         <name>Direct Mode Stick Roll Rate</name>
         <type>gain</type>
         <gain>
-            <property>/controls/flight/fbw/settings/direct-roll-rate-gain</property>
+            <property>/v22/pfcs/settings/direct-roll-rate-gain</property>
             <abs type="bool">true</abs>
             <max>1.0</max>
         </gain>
         <enable>
             <condition>
                 <not>
-                    <property>/controls/flight/fbw/active/roll-rate-in-air</property>
+                    <property>/v22/pfcs/active/roll-rate-in-air</property>
                 </not>
             </condition>
         </enable>
         <input>
-            <property>/controls/flight/fbw/target/roll</property>
+            <property>/v22/pfcs/target/roll</property>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/aileron</property>
+            <property>/v22/pfcs/output/aileron</property>
         </output>
     </filter>
 
@@ -192,21 +192,21 @@
         <enable>
             <condition>
                 <and>
-                    <property>/controls/flight/fbw/active/roll-rate-in-air</property>
+                    <property>/v22/pfcs/active/roll-rate-in-air</property>
                     <not>
-                        <property>/controls/flight/fbw/active/roll-hold-in-air</property>
+                        <property>/v22/pfcs/active/roll-hold-in-air</property>
                     </not>
                 </and>
             </condition>
         </enable>
         <input>
-            <property>/controls/flight/fbw/target/roll</property>
+            <property>/v22/pfcs/target/roll</property>
         </input>
         <output>
             <condition>
-                <property>/controls/flight/fbw/active/roll-rate-in-air</property>
+                <property>/v22/pfcs/active/roll-rate-in-air</property>
             </condition>
-            <property>/controls/flight/fbw/target/roll-rate</property>
+            <property>/v22/pfcs/target/roll-rate</property>
         </output>
     </filter>
 
@@ -220,40 +220,40 @@
         <name>FBW Roll Hold</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/roll-hold-in-air</property>
+            <property>/v22/pfcs/active/roll-hold-in-air</property>
         </enable>
         <input>
             <property>/orientation/roll-deg</property>
         </input>
         <reference>
-            <property>/controls/flight/fbw/target/roll-deg</property>
+            <property>/v22/pfcs/target/roll-deg</property>
             <condition>
-                <property>/controls/flight/fbw/active/bank-angle-hard-limit</property>
+                <property>/v22/pfcs/active/bank-angle-hard-limit</property>
             </condition>
             <min>
-                <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                <property>/v22/pfcs/settings/roll-hold-limit</property>
                 <scale>-1.0</scale>
             </min>
             <max>
-                <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                <property>/v22/pfcs/settings/roll-hold-limit</property>
             </max>
         </reference>
         <reference>
-            <property>/controls/flight/fbw/target/roll-deg</property>
+            <property>/v22/pfcs/target/roll-deg</property>
         </reference>
         <output>
-            <property>/controls/flight/fbw/target/roll-rate</property>
+            <property>/v22/pfcs/target/roll-rate</property>
         </output>
         <config>
             <Kp>0.73</Kp>
             <Ti>3.75</Ti>
             <Td>0.014</Td>
             <u_min>
-                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+                <property>/v22/pfcs/settings/roll-rate-limit</property>
                 <scale>-1.0</scale>
             </u_min>
             <u_max>
-                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+                <property>/v22/pfcs/settings/roll-rate-limit</property>
             </u_max>
         </config>
     </pid-controller>
@@ -262,13 +262,13 @@
     <logic>
         <name>FBW Roll Hold Dependency FBW Roll Rate</name>
         <enable>
-            <property>/controls/flight/fbw/active/roll-hold</property>
+            <property>/v22/pfcs/active/roll-hold</property>
         </enable>
         <input>
             <true />
         </input>
         <output>
-            <property>/controls/flight/fbw/active/roll-rate</property>
+            <property>/v22/pfcs/active/roll-rate</property>
         </output>
     </logic>
 
@@ -282,12 +282,12 @@
         <name>FBW Roll Rate Bank Angle Limiter On/Off Switcher</name>
         <input>
             <and>
-                <property>/controls/flight/fbw/active/bank-angle-hard-limit</property>
+                <property>/v22/pfcs/active/bank-angle-hard-limit</property>
                 <less-than>
                     <expression>
                         <abs>
                             <difference>
-                                <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                                <property>/v22/pfcs/settings/roll-hold-limit</property>
                                 <abs>
                                     <property>/orientation/roll-deg</property>
                                 </abs>
@@ -303,7 +303,7 @@
             </and>
         </input>
         <output>
-            <property>/controls/flight/fbw/active/roll-rate-bank-angle</property>
+            <property>/v22/pfcs/active/roll-rate-bank-angle</property>
         </output>
     </logic>
 
@@ -320,7 +320,7 @@
             <condition>
                 <and>
                     <!-- Only enable limiter if close to the bank angle limit -->
-                    <property>/controls/flight/fbw/active/roll-rate-bank-angle</property>
+                    <property>/v22/pfcs/active/roll-rate-bank-angle</property>
 
                     <!-- Only enable limiter if moving away from the center (phi = 0) -->
                     <greater-than>
@@ -328,12 +328,12 @@
                         <value>0.0</value>
                     </greater-than>
                     <greater-than>
-                        <property>/controls/flight/fbw/target/roll-rate</property>
+                        <property>/v22/pfcs/target/roll-rate</property>
                         <value>0.0</value>
                     </greater-than>
                 </and>
             </condition>
-            <property>/controls/flight/fbw/target/roll-rate</property>
+            <property>/v22/pfcs/target/roll-rate</property>
             <max>
                 <!-- f(x) = sin(x * 1/2*pi / 15) * 20
 
@@ -346,7 +346,7 @@
                         <sin>
                             <product>
                                 <difference>
-                                    <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                                    <property>/v22/pfcs/settings/roll-hold-limit</property>
                                     <property>/orientation/roll-deg</property>
                                 </difference>
                                 <div>
@@ -364,7 +364,7 @@
             <condition>
                 <and>
                     <!-- Only enable limiter if close to the bank angle limit -->
-                    <property>/controls/flight/fbw/active/roll-rate-bank-angle</property>
+                    <property>/v22/pfcs/active/roll-rate-bank-angle</property>
 
                     <!-- Only enable limiter if moving away from the center (phi = 0) -->
                     <less-than>
@@ -372,12 +372,12 @@
                         <value>0.0</value>
                     </less-than>
                     <less-than>
-                        <property>/controls/flight/fbw/target/roll-rate</property>
+                        <property>/v22/pfcs/target/roll-rate</property>
                         <value>0.0</value>
                     </less-than>
                 </and>
             </condition>
-            <property>/controls/flight/fbw/target/roll-rate</property>
+            <property>/v22/pfcs/target/roll-rate</property>
             <min>
                 <!-- f(x) = sin(x * 1/2*pi / 15) * 20
 
@@ -391,7 +391,7 @@
                             <product>
                                 <difference>
                                     <product>
-                                        <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                                        <property>/v22/pfcs/settings/roll-hold-limit</property>
                                         <value>-1.0</value>
                                     </product>
                                     <property>/orientation/roll-deg</property>
@@ -413,10 +413,10 @@
                  limit), then we want to directly pass through the roll
                  rate, unfiltered.
             -->
-            <property>/controls/flight/fbw/target/roll-rate</property>
+            <property>/v22/pfcs/target/roll-rate</property>
         </input>
         <output>
-            <property>/controls/flight/fbw/target/roll-rate-bank-limited</property>
+            <property>/v22/pfcs/target/roll-rate-bank-limited</property>
         </output>
     </filter>
 
@@ -429,23 +429,23 @@
         <name>FBW Roll Rate</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/roll-rate-in-air</property>
+            <property>/v22/pfcs/active/roll-rate-in-air</property>
         </enable>
         <input>
             <property>/orientation/roll-rate-degps</property>
         </input>
         <reference>
-            <property>/controls/flight/fbw/target/roll-rate-bank-limited</property>
+            <property>/v22/pfcs/target/roll-rate-bank-limited</property>
             <min>
-                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+                <property>/v22/pfcs/settings/roll-rate-limit</property>
                 <scale>-1.0</scale>
             </min>
             <max>
-                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+                <property>/v22/pfcs/settings/roll-rate-limit</property>
             </max>
         </reference>
         <output>
-            <property>/controls/flight/fbw/output/aileron</property>
+            <property>/v22/pfcs/output/aileron</property>
         </output>
         <config>
             <!-- Response should be something like Docs/fbw-roll-rate.png -->
@@ -469,22 +469,22 @@
         <name>Direct Mode Stick Pitch Rate</name>
         <type>gain</type>
         <gain>
-            <property>/controls/flight/fbw/settings/direct-pitch-rate-gain</property>
+            <property>/v22/pfcs/settings/direct-pitch-rate-gain</property>
             <abs type="bool">true</abs>
             <max>1.0</max>
         </gain>
         <enable>
             <condition>
                 <not>
-                    <property>/controls/flight/fbw/active/pitch-rate</property>
+                    <property>/v22/pfcs/active/pitch-rate</property>
                 </not>
             </condition>
         </enable>
         <input>
-            <property>/controls/flight/fbw/target/pitch</property>
+            <property>/v22/pfcs/target/pitch</property>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/elevator</property>
+            <property>/v22/pfcs/output/elevator</property>
         </output>
     </filter>
 
@@ -498,22 +498,22 @@
         <enable>
             <condition>
                 <and>
-                    <property>/controls/flight/fbw/active/pitch-rate</property>
+                    <property>/v22/pfcs/active/pitch-rate</property>
                     <not>
-                        <property>/controls/flight/fbw/active/pitch-hold</property>
+                        <property>/v22/pfcs/active/pitch-hold</property>
                     </not>
                 </and>
             </condition>
         </enable>
         <input>
-            <property>/controls/flight/fbw/target/pitch</property>
+            <property>/v22/pfcs/target/pitch</property>
             <scale>-1.0</scale>
         </input>
         <output>
             <condition>
-                <property>/controls/flight/fbw/active/pitch-rate</property>
+                <property>/v22/pfcs/active/pitch-rate</property>
             </condition>
-            <property>/controls/flight/fbw/target/pitch-rate</property>
+            <property>/v22/pfcs/target/pitch-rate</property>
         </output>
     </filter>
 
@@ -526,22 +526,22 @@
         <name>FBW Pitch Hold</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/pitch-hold</property>
+            <property>/v22/pfcs/active/pitch-hold</property>
         </enable>
         <input>
             <property>/orientation/pitch-deg</property>
         </input>
         <reference>
-            <property>/controls/flight/fbw/target/pitch-deg</property>
+            <property>/v22/pfcs/target/pitch-deg</property>
             <min>
-                <property>/controls/flight/fbw/settings/pitch-hold-min</property>
+                <property>/v22/pfcs/settings/pitch-hold-min</property>
             </min>
             <max>
-                <property>/controls/flight/fbw/settings/pitch-hold-max</property>
+                <property>/v22/pfcs/settings/pitch-hold-max</property>
             </max>
         </reference>
         <output>
-            <property>/controls/flight/fbw/target/pitch-rate</property>
+            <property>/v22/pfcs/target/pitch-rate</property>
         </output>
         <config>
             <!-- Response should be something like Docs/fbw-pitch-hold.png -->
@@ -549,11 +549,11 @@
             <Ti>6.0</Ti>
             <Td>0.0</Td>
             <u_min>
-                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <property>/v22/pfcs/settings/pitch-rate-limit</property>
                 <scale>-1.0</scale>
             </u_min>
             <u_max>
-                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <property>/v22/pfcs/settings/pitch-rate-limit</property>
             </u_max>
         </config>
     </pid-controller>
@@ -562,13 +562,13 @@
     <logic>
         <name>FBW Pitch Hold Dependency FBW Pitch Rate</name>
         <enable>
-            <property>/controls/flight/fbw/active/pitch-hold</property>
+            <property>/v22/pfcs/active/pitch-hold</property>
         </enable>
         <input>
             <true />
         </input>
         <output>
-            <property>/controls/flight/fbw/active/pitch-rate</property>
+            <property>/v22/pfcs/active/pitch-rate</property>
         </output>
     </logic>
 
@@ -581,23 +581,23 @@
         <name>FBW Pitch Rate</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/pitch-rate</property>
+            <property>/v22/pfcs/active/pitch-rate</property>
         </enable>
         <input>
             <property>/orientation/pitch-rate-degps</property>
         </input>
         <reference>
-            <property>/controls/flight/fbw/target/pitch-rate</property>
+            <property>/v22/pfcs/target/pitch-rate</property>
             <min>
-                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <property>/v22/pfcs/settings/pitch-rate-limit</property>
                 <scale>-1.0</scale>
             </min>
             <max>
-                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <property>/v22/pfcs/settings/pitch-rate-limit</property>
             </max>
         </reference>
         <output>
-            <property>/controls/flight/fbw/output/elevator</property>
+            <property>/v22/pfcs/output/elevator</property>
         </output>
         <config>
             <Kp>-0.016</Kp>
@@ -644,7 +644,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/vtol/dcp-tilt</property>
+            <property>/v22/pfcs/output/vtol/dcp-tilt</property>
         </output>
     </filter>
 
@@ -666,7 +666,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/vtol/dcp-airspeed</property>
+            <property>/v22/pfcs/output/vtol/dcp-airspeed</property>
         </output>
     </filter>
 
@@ -697,7 +697,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/vtol/lsg-tilt</property>
+            <property>/v22/pfcs/output/vtol/lsg-tilt</property>
         </output>
     </filter>
 
@@ -719,7 +719,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/vtol/lsg-airspeed</property>
+            <property>/v22/pfcs/output/vtol/lsg-airspeed</property>
         </output>
     </filter>
 
@@ -743,7 +743,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/vtol/lst-tilt</property>
+            <property>/v22/pfcs/output/vtol/lst-tilt</property>
         </output>
     </filter>
 
@@ -766,7 +766,7 @@
             </expression>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/vtol/dst-tilt</property>
+            <property>/v22/pfcs/output/vtol/dst-tilt</property>
         </output>
     </filter>
 
@@ -780,22 +780,22 @@
         <name>Direct Mode VTOL Stick Roll</name>
         <type>gain</type>
         <gain>
-            <property>/controls/flight/fbw/settings/vtol/direct-roll-rate-gain</property>
+            <property>/v22/pfcs/settings/vtol/direct-roll-rate-gain</property>
             <abs type="bool">true</abs>
             <max>5.0</max>
         </gain>
         <enable>
             <condition>
                 <not>
-                    <property>/controls/flight/fbw/active/roll-rate-in-air</property>
+                    <property>/v22/pfcs/active/roll-rate-in-air</property>
                 </not>
             </condition>
         </enable>
         <input>
-            <property>/controls/flight/fbw/target/roll</property>
+            <property>/v22/pfcs/target/roll</property>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/vtol/aileron</property>
+            <property>/v22/pfcs/output/vtol/aileron</property>
         </output>
     </filter>
 
@@ -808,23 +808,23 @@
         <name>FBW VTOL Roll Rate</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/roll-rate-in-air</property>
+            <property>/v22/pfcs/active/roll-rate-in-air</property>
         </enable>
         <input>
             <property>/orientation/roll-rate-degps</property>
         </input>
         <reference>
-            <property>/controls/flight/fbw/target/roll-rate-bank-limited</property>
+            <property>/v22/pfcs/target/roll-rate-bank-limited</property>
             <min>
-                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+                <property>/v22/pfcs/settings/roll-rate-limit</property>
                 <scale>-1.0</scale>
             </min>
             <max>
-                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+                <property>/v22/pfcs/settings/roll-rate-limit</property>
             </max>
         </reference>
         <output>
-            <property>/controls/flight/fbw/output/vtol/aileron</property>
+            <property>/v22/pfcs/output/vtol/aileron</property>
         </output>
         <config>
             <Kp>0.015</Kp>
@@ -843,22 +843,22 @@
         <name>Direct Mode VTOL Pedals Yaw Rate</name>
         <type>gain</type>
         <gain>
-            <property>/controls/flight/fbw/settings/vtol/direct-yaw-rate-gain</property>
+            <property>/v22/pfcs/settings/vtol/direct-yaw-rate-gain</property>
             <abs type="bool">true</abs>
             <max>4.0</max>
         </gain>
         <enable>
             <condition>
                 <not>
-                    <property>/controls/flight/fbw/active/yaw-rate</property>
+                    <property>/v22/pfcs/active/yaw-rate</property>
                 </not>
             </condition>
         </enable>
         <input>
-            <property>/controls/flight/fbw/target/yaw</property>
+            <property>/v22/pfcs/target/yaw</property>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/vtol/rudder</property>
+            <property>/v22/pfcs/output/vtol/rudder</property>
         </output>
     </filter>
 
@@ -867,13 +867,13 @@
         <type>gain</type>
         <gain>40.0</gain>
         <enable>
-            <property>/controls/flight/fbw/active/yaw-rate</property>
+            <property>/v22/pfcs/active/yaw-rate</property>
         </enable>
         <input>
-            <property>/controls/flight/fbw/target/yaw</property>
+            <property>/v22/pfcs/target/yaw</property>
         </input>
         <output>
-            <property>/controls/flight/fbw/target/yaw-rate</property>
+            <property>/v22/pfcs/target/yaw-rate</property>
         </output>
     </filter>
 
@@ -882,23 +882,23 @@
         <name>FBW VTOL Yaw Rate</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/yaw-rate</property>
+            <property>/v22/pfcs/active/yaw-rate</property>
         </enable>
         <input>
             <property>/orientation/yaw-rate-degps</property>
         </input>
         <reference>
-            <property>/controls/flight/fbw/target/yaw-rate</property>
+            <property>/v22/pfcs/target/yaw-rate</property>
             <min>
-                <property>/controls/flight/fbw/settings/yaw-rate-limit</property>
+                <property>/v22/pfcs/settings/yaw-rate-limit</property>
                 <scale>-1.0</scale>
             </min>
             <max>
-                <property>/controls/flight/fbw/settings/yaw-rate-limit</property>
+                <property>/v22/pfcs/settings/yaw-rate-limit</property>
             </max>
         </reference>
         <output>
-            <property>/controls/flight/fbw/output/vtol/rudder</property>
+            <property>/v22/pfcs/output/vtol/rudder</property>
         </output>
         <config>
             <Kp>0.95</Kp>
@@ -918,22 +918,22 @@
         <name>Direct Mode VTOL Stick Pitch</name>
         <type>gain</type>
         <gain>
-            <property>/controls/flight/fbw/settings/vtol/direct-pitch-rate-gain</property>
+            <property>/v22/pfcs/settings/vtol/direct-pitch-rate-gain</property>
             <abs type="bool">true</abs>
             <max>5.0</max>
         </gain>
         <enable>
             <condition>
                 <not>
-                    <property>/controls/flight/fbw/active/pitch-rate</property>
+                    <property>/v22/pfcs/active/pitch-rate</property>
                 </not>
             </condition>
         </enable>
         <input>
-            <property>/controls/flight/fbw/target/pitch</property>
+            <property>/v22/pfcs/target/pitch</property>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/vtol/elevator</property>
+            <property>/v22/pfcs/output/vtol/elevator</property>
         </output>
     </filter>
 
@@ -946,23 +946,23 @@
         <name>FBW VTOL Pitch Rate</name>
         <debug>false</debug>
         <enable>
-            <property>/controls/flight/fbw/active/pitch-rate</property>
+            <property>/v22/pfcs/active/pitch-rate</property>
         </enable>
         <input>
             <property>/orientation/pitch-rate-degps</property>
         </input>
         <reference>
-            <property>/controls/flight/fbw/target/pitch-rate</property>
+            <property>/v22/pfcs/target/pitch-rate</property>
             <min>
-                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <property>/v22/pfcs/settings/pitch-rate-limit</property>
                 <scale>-1.0</scale>
             </min>
             <max>
-                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <property>/v22/pfcs/settings/pitch-rate-limit</property>
             </max>
         </reference>
         <output>
-            <property>/controls/flight/fbw/output/vtol/elevator</property>
+            <property>/v22/pfcs/output/vtol/elevator</property>
         </output>
         <config>
             <!-- Old values: Kp = -0.016 Ti = 0.07 Td = 0.0002 beta = 0.1 -->
@@ -982,12 +982,12 @@
             <expression>
                 <sum>
                     <product>
-                        <property>/controls/flight/fbw/output/vtol/rudder</property>
-                        <property>/controls/flight/fbw/output/vtol/dst-tilt</property>
+                        <property>/v22/pfcs/output/vtol/rudder</property>
+                        <property>/v22/pfcs/output/vtol/dst-tilt</property>
                     </product>
                     <product>
-                        <property>/controls/flight/fbw/output/vtol/elevator</property>
-                        <property>/controls/flight/fbw/output/vtol/lst-tilt</property>
+                        <property>/v22/pfcs/output/vtol/elevator</property>
+                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
                     </product>
                 </sum>
             </expression>
@@ -1005,13 +1005,13 @@
             <expression>
                 <sum>
                     <product>
-                        <property>/controls/flight/fbw/output/vtol/rudder</property>
-                        <property>/controls/flight/fbw/output/vtol/dst-tilt</property>
+                        <property>/v22/pfcs/output/vtol/rudder</property>
+                        <property>/v22/pfcs/output/vtol/dst-tilt</property>
                         <value>-1.0</value>
                     </product>
                     <product>
-                        <property>/controls/flight/fbw/output/vtol/elevator</property>
-                        <property>/controls/flight/fbw/output/vtol/lst-tilt</property>
+                        <property>/v22/pfcs/output/vtol/elevator</property>
+                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
                     </product>
                 </sum>
             </expression>
@@ -1029,22 +1029,22 @@
         <name>Direct Mode VTOL Stick Lateral Movement</name>
         <type>gain</type>
         <gain>
-            <property>/controls/flight/fbw/settings/vtol/direct-lateral-move-gain</property>
+            <property>/v22/pfcs/settings/vtol/direct-lateral-move-gain</property>
             <abs type="bool">true</abs>
             <max>5.0</max>
         </gain>
         <!-- <enable>
             <condition>
                 <not>
-                    <property>/controls/flight/fbw/active/lateral-move</property>
+                    <property>/v22/pfcs/active/lateral-move</property>
                 </not>
             </condition>
         </enable> -->
         <input>
-            <property>/controls/flight/fbw/target/roll</property>
+            <property>/v22/pfcs/target/roll</property>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/vtol/lateral</property>
+            <property>/v22/pfcs/output/vtol/lateral</property>
         </output>
     </filter>
 
@@ -1055,9 +1055,9 @@
         <input>
             <expression>
                 <product>
-                    <property>/controls/flight/fbw/output/vtol/lsg-tilt</property>
-                    <property>/controls/flight/fbw/output/vtol/lsg-airspeed</property>
-                    <property>/controls/flight/fbw/output/vtol/lateral</property>
+                    <property>/v22/pfcs/output/vtol/lsg-tilt</property>
+                    <property>/v22/pfcs/output/vtol/lsg-airspeed</property>
+                    <property>/v22/pfcs/output/vtol/lateral</property>
                 </product>
             </expression>
         </input>

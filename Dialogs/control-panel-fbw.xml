@@ -47,7 +47,7 @@
                 <colspan>2</colspan>
                 <halign>left</halign>
                 <label>Roll Rate</label>
-                <property>/controls/flight/fbw/active/roll-rate</property>
+                <property>/v22/pfcs/active/roll-rate</property>
                 <live>true</live>
                 <binding>
                     <command>dialog-apply</command>
@@ -63,7 +63,7 @@
                 <label>Roll Rate Limit:</label>
                 <halign>right</halign>
                 <enable>
-                    <property>/controls/flight/fbw/active/roll-rate</property>
+                    <property>/v22/pfcs/active/roll-rate</property>
                 </enable>
             </text>
             <input>
@@ -71,12 +71,12 @@
                 <col>1</col>
                 <name>roll-rate-limit</name>
                 <enable>
-                    <property>/controls/flight/fbw/active/roll-rate</property>
+                    <property>/v22/pfcs/active/roll-rate</property>
                 </enable>
                 <label>deg/s</label>
                 <halign>left</halign>
                 <live>true</live>
-                <property>/controls/flight/fbw/settings/roll-rate-limit</property>
+                <property>/v22/pfcs/settings/roll-rate-limit</property>
                 <binding>
                     <command>dialog-apply</command>
                     <object-name>roll-rate-limit</object-name>
@@ -90,9 +90,9 @@
                 <halign>left</halign>
                 <label>Bank Angle Hard Limit</label>
                 <enable>
-                    <property>/controls/flight/fbw/active/roll-rate</property>
+                    <property>/v22/pfcs/active/roll-rate</property>
                 </enable>
-                <property>/controls/flight/fbw/active/bank-angle-hard-limit</property>
+                <property>/v22/pfcs/active/bank-angle-hard-limit</property>
                 <live>true</live>
                 <binding>
                     <command>dialog-apply</command>
@@ -108,8 +108,8 @@
                 <label>Roll Hold Limit:</label>
                 <halign>right</halign>
                 <enable>
-                    <property>/controls/flight/fbw/active/bank-angle-hard-limit</property>
-                    <property>/controls/flight/fbw/active/roll-rate</property>
+                    <property>/v22/pfcs/active/bank-angle-hard-limit</property>
+                    <property>/v22/pfcs/active/roll-rate</property>
                 </enable>
             </text>
             <input>
@@ -117,13 +117,13 @@
                 <col>1</col>
                 <name>roll-hold-limit</name>
                 <enable>
-                    <property>/controls/flight/fbw/active/bank-angle-hard-limit</property>
-                    <property>/controls/flight/fbw/active/roll-rate</property>
+                    <property>/v22/pfcs/active/bank-angle-hard-limit</property>
+                    <property>/v22/pfcs/active/roll-rate</property>
                 </enable>
                 <label>deg</label>
                 <halign>left</halign>
                 <live>true</live>
-                <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+                <property>/v22/pfcs/settings/roll-hold-limit</property>
                 <binding>
                     <command>dialog-apply</command>
                     <object-name>roll-hold-limit</object-name>
@@ -136,7 +136,7 @@
                 <colspan>2</colspan>
                 <halign>left</halign>
                 <label>Pitch Rate</label>
-                <property>/controls/flight/fbw/active/pitch-rate</property>
+                <property>/v22/pfcs/active/pitch-rate</property>
                 <live>true</live>
                 <binding>
                     <command>dialog-apply</command>
@@ -152,7 +152,7 @@
                 <label>Pitch Rate Limit:</label>
                 <halign>right</halign>
                 <enable>
-                    <property>/controls/flight/fbw/active/pitch-rate</property>
+                    <property>/v22/pfcs/active/pitch-rate</property>
                 </enable>
             </text>
             <input>
@@ -160,12 +160,12 @@
                 <col>1</col>
                 <name>pitch-rate-limit</name>
                 <enable>
-                    <property>/controls/flight/fbw/active/pitch-rate</property>
+                    <property>/v22/pfcs/active/pitch-rate</property>
                 </enable>
                 <label>deg/s</label>
                 <halign>left</halign>
                 <live>true</live>
-                <property>/controls/flight/fbw/settings/pitch-rate-limit</property>
+                <property>/v22/pfcs/settings/pitch-rate-limit</property>
                 <binding>
                     <command>dialog-apply</command>
                     <object-name>pitch-rate-limit</object-name>
@@ -185,7 +185,7 @@
                 <label>deg</label>
                 <halign>left</halign>
                 <live>true</live>
-                <property>/controls/flight/fbw/settings/pitch-hold-max</property>
+                <property>/v22/pfcs/settings/pitch-hold-max</property>
                 <binding>
                     <command>dialog-apply</command>
                     <object-name>pitch-hold-max</object-name>
@@ -205,7 +205,7 @@
                 <label>deg</label>
                 <halign>left</halign>
                 <live>true</live>
-                <property>/controls/flight/fbw/settings/pitch-hold-min</property>
+                <property>/v22/pfcs/settings/pitch-hold-min</property>
                 <binding>
                     <command>dialog-apply</command>
                     <object-name>pitch-hold-min</object-name>
@@ -239,7 +239,7 @@
                 <name>roll-rate-gain</name>
                 <halign>left</halign>
                 <live>true</live>
-                <property>/controls/flight/fbw/settings/direct-roll-rate-gain</property>
+                <property>/v22/pfcs/settings/direct-roll-rate-gain</property>
                 <binding>
                     <command>dialog-apply</command>
                     <object-name>roll-rate-gain</object-name>
@@ -258,7 +258,7 @@
                 <name>pitch-rate-gain</name>
                 <halign>left</halign>
                 <live>true</live>
-                <property>/controls/flight/fbw/settings/direct-pitch-rate-gain</property>
+                <property>/v22/pfcs/settings/direct-pitch-rate-gain</property>
                 <binding>
                     <command>dialog-apply</command>
                     <object-name>pitch-rate-gain</object-name>
@@ -292,7 +292,7 @@
                 <name>vtol-roll-rate-gain</name>
                 <halign>left</halign>
                 <live>true</live>
-                <property>/controls/flight/fbw/settings/vtol/direct-roll-rate-gain</property>
+                <property>/v22/pfcs/settings/vtol/direct-roll-rate-gain</property>
                 <binding>
                     <command>dialog-apply</command>
                     <object-name>vtol-roll-rate-gain</object-name>
@@ -311,7 +311,7 @@
                 <name>vtol-pitch-rate-gain</name>
                 <halign>left</halign>
                 <live>true</live>
-                <property>/controls/flight/fbw/settings/vtol/direct-pitch-rate-gain</property>
+                <property>/v22/pfcs/settings/vtol/direct-pitch-rate-gain</property>
                 <binding>
                     <command>dialog-apply</command>
                     <object-name>vtol-pitch-rate-gain</object-name>
@@ -330,7 +330,7 @@
                 <name>vtol-yaw-rate-gain</name>
                 <halign>left</halign>
                 <live>true</live>
-                <property>/controls/flight/fbw/settings/vtol/direct-yaw-rate-gain</property>
+                <property>/v22/pfcs/settings/vtol/direct-yaw-rate-gain</property>
                 <binding>
                     <command>dialog-apply</command>
                     <object-name>vtol-yaw-rate-gain</object-name>
@@ -349,7 +349,7 @@
                 <name>vtol-lateral-move-gain</name>
                 <halign>left</halign>
                 <live>true</live>
-                <property>/controls/flight/fbw/settings/vtol/direct-lateral-move-gain</property>
+                <property>/v22/pfcs/settings/vtol/direct-lateral-move-gain</property>
                 <binding>
                     <command>dialog-apply</command>
                     <object-name>vtol-lateral-move-gain</object-name>

@@ -243,70 +243,70 @@
             <!-- Enable parking brake when starting FlightGear -->
             <brake-parking type="double">1.0</brake-parking>
         </gear>
-
-        <flight>
-            <fbw>
-                <active>
-                    <roll-rate type="bool">true</roll-rate>
-                    <roll-hold type="bool">false</roll-hold>
-
-                    <pitch-rate type="bool">true</pitch-rate>
-                    <pitch-hold type="bool">false</pitch-hold>
-
-                    <yaw-rate type="bool">false</yaw-rate>
-
-                    <bank-angle-hard-limit type="bool">true</bank-angle-hard-limit>
-                </active>
-                <settings>
-                    <!-- 60 deg/ps due to roll-rate feedback, limited by
-                         transient design limit of the interconnect
-                         drive shaft load.
-
-                         When performing a roll, the RPM of the downward
-                         moving rotor increases, while the RPM of the other
-                         rotor decreases. This difference increases the
-                         torque transmitted through the interconnect drive
-                         shaft. By using DCP (Differential Collective Pitch)
-                         this load can be minimized, allowing a greater
-                         maximum roll rate. For details, see [1]
-                    -->
-                    <roll-rate-limit type="double">60</roll-rate-limit>
-
-                    <roll-hold-limit type="double">45</roll-hold-limit>
-
-                    <pitch-rate-limit type="double">15</pitch-rate-limit>
-                    <pitch-hold-min type="double">-40</pitch-hold-min>
-
-                    <yaw-rate-limit type="double">25</yaw-rate-limit>
-
-                    <!-- Maximum AoA = 35 according to YASim .xml file -->
-                    <pitch-hold-max type="double">35</pitch-hold-max>
-
-                    <!-- Fixed gains used when using Direct Mode,
-                         which bypasses the Fly-By-Wire. Limited to be
-                         at most 1.0.
-
-                         direct-roll-rate-gain needs to be quite low
-                         because the ailerons can produce a very high
-                         roll rate.
-                    -->
-                    <direct-roll-rate-gain type="double">0.3</direct-roll-rate-gain>
-                    <direct-pitch-rate-gain type="double">0.8</direct-pitch-rate-gain>
-
-                    <vtol>
-                        <direct-roll-rate-gain type="double">2.5</direct-roll-rate-gain>
-                        <direct-yaw-rate-gain type="double">2.0</direct-yaw-rate-gain>
-                        <direct-pitch-rate-gain type="double">2.5</direct-pitch-rate-gain>
-                        <direct-lateral-move-gain type="double">2.5</direct-lateral-move-gain>
-                    </vtol>
-                </settings>
-                <target>
-                    <tilt-rate type="double">0.0</tilt-rate>
-                    <tilt type="double">0</tilt>
-                </target>
-            </fbw>
-        </flight>
     </controls>
+
+    <v22>
+        <pfcs>
+            <active>
+                <roll-rate type="bool">true</roll-rate>
+                <roll-hold type="bool">false</roll-hold>
+
+                <pitch-rate type="bool">true</pitch-rate>
+                <pitch-hold type="bool">false</pitch-hold>
+
+                <yaw-rate type="bool">false</yaw-rate>
+
+                <bank-angle-hard-limit type="bool">true</bank-angle-hard-limit>
+            </active>
+            <settings>
+                <!-- 60 deg/ps due to roll-rate feedback, limited by
+                     transient design limit of the interconnect
+                     drive shaft load.
+
+                     When performing a roll, the RPM of the downward
+                     moving rotor increases, while the RPM of the other
+                     rotor decreases. This difference increases the
+                     torque transmitted through the interconnect drive
+                     shaft. By using DCP (Differential Collective Pitch)
+                     this load can be minimized, allowing a greater
+                     maximum roll rate. For details, see [1]
+                -->
+                <roll-rate-limit type="double">60</roll-rate-limit>
+
+                <roll-hold-limit type="double">45</roll-hold-limit>
+
+                <pitch-rate-limit type="double">15</pitch-rate-limit>
+                <pitch-hold-min type="double">-40</pitch-hold-min>
+
+                <yaw-rate-limit type="double">25</yaw-rate-limit>
+
+                <!-- Maximum AoA = 35 according to YASim .xml file -->
+                <pitch-hold-max type="double">35</pitch-hold-max>
+
+                <!-- Fixed gains used when using Direct Mode,
+                     which bypasses the Fly-By-Wire. Limited to be
+                     at most 1.0.
+
+                     direct-roll-rate-gain needs to be quite low
+                     because the ailerons can produce a very high
+                     roll rate.
+                -->
+                <direct-roll-rate-gain type="double">0.3</direct-roll-rate-gain>
+                <direct-pitch-rate-gain type="double">0.8</direct-pitch-rate-gain>
+
+                <vtol>
+                    <direct-roll-rate-gain type="double">2.5</direct-roll-rate-gain>
+                    <direct-yaw-rate-gain type="double">2.0</direct-yaw-rate-gain>
+                    <direct-pitch-rate-gain type="double">2.5</direct-pitch-rate-gain>
+                    <direct-lateral-move-gain type="double">2.5</direct-lateral-move-gain>
+                </vtol>
+            </settings>
+            <target>
+                <tilt-rate type="double">0.0</tilt-rate>
+                <tilt type="double">0</tilt>
+            </target>
+        </pfcs>
+    </v22>
 
     <rotors>
         <main>

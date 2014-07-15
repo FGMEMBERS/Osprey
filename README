@@ -1,6 +1,6 @@
 # Fly-By-Wire #
 
-Properties located in /controls/flight/fbw/. Boolean values can be toggled by holding Ctrl
+Properties located in /v22/pfcs/. Boolean values can be toggled by holding Ctrl
 button while click on the property. If you hold Shift while clicking on a property, it will
 display the property on the screen.
 

@@ -14,7 +14,7 @@
             <button n="3">
                 <binding>
                     <command>property-adjust</command>
-                    <property>/controls/flight/fbw/target/tilt-rate</property>
+                    <property>/v22/pfcs/target/tilt-rate</property>
                     <step type="double">1.0</step>
                     <max type="double">8.0</max>
                 </binding>
@@ -23,7 +23,7 @@
             <button n="4">
                 <binding>
                     <command>property-adjust</command>
-                    <property>/controls/flight/fbw/target/tilt-rate</property>
+                    <property>/v22/pfcs/target/tilt-rate</property>
                     <step type="double">-1.0</step>
                     <min type="double">-8.0</min>
                 </binding>

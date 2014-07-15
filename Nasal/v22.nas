@@ -107,7 +107,7 @@ var update_controls_and_tilt_loop = func(dt) {
     var col_wing = thr * interpol(speed, 0, 20, 200, 75); 
 
     # Calculate the rotor controls
-    var ail2col = 5 * getprop("/controls/flight/fbw/output/vtol/dcp-tilt") * getprop("/controls/flight/fbw/output/vtol/dcp-airspeed");
+    var ail2col = 5 * getprop("/v22/pfcs/output/vtol/dcp-tilt") * getprop("/v22/pfcs/output/vtol/dcp-airspeed");
     var min_col = 2;
     var max_col = 23;
 
@@ -117,7 +117,7 @@ var update_controls_and_tilt_loop = func(dt) {
     # Set blades vertical if folded
     var h = control_rotor_incidence_wing_fold.getValue();
     col_rotor = 100 * h + col_rotor * (1-h);
-    ail = getprop("/controls/flight/fbw/output/vtol/aileron") * (1-h);
+    ail = getprop("/v22/pfcs/output/vtol/aileron") * (1-h);
 
     # Rotor collective
     out_rotor_r_col.setValue(airplane_control_factor * col_wing + helicopter_control_factor * (col_rotor - ail * ail2col));
@@ -126,11 +126,11 @@ var update_controls_and_tilt_loop = func(dt) {
 
 var set_tilt = func (value = 0) {
     if (props.globals.getNode("sim/crashed",1).getBoolValue()) {return; }
-    setprop("/controls/flight/fbw/target/tilt", clamp(value, -10, 90));
+    setprop("/v22/pfcs/target/tilt", clamp(value, -10, 90));
 }
 
 var set_tilt_rate = func (v) {
-    var tilt_rate = getprop("/controls/flight/fbw/target/tilt-rate");
+    var tilt_rate = getprop("/v22/pfcs/target/tilt-rate");
 
     if (v != 0) {
         # Increase or decrease tilt rate
@@ -142,12 +142,12 @@ var set_tilt_rate = func (v) {
     }
 
     # Keep tilt rate within -8 .. 8 deg/s
-    setprop("/controls/flight/fbw/target/tilt-rate", clamp(tilt_rate, -8, 8));
+    setprop("/v22/pfcs/target/tilt-rate", clamp(tilt_rate, -8, 8));
 }
 
 # Set the target tilt depending on the desired tilt rate
 # so that the nacelles move in the correct direction.
-setlistener("/controls/flight/fbw/target/tilt-rate", func(n) {
+setlistener("/v22/pfcs/target/tilt-rate", func(n) {
     var tilt_rate = n.getValue();
 
     if (tilt_rate != 0) {

@@ -89,7 +89,7 @@
             <max>3.0</max>
         </input>
         <output>
-            <property>/controls/flight/fbw/limits/gforce-vtol-maximum</property>
+            <property>/v22/pfcs/limits/gforce-vtol-maximum</property>
         </output>
     </filter>
 
@@ -115,7 +115,7 @@
             <max>0.0</max>
         </input>
         <output>
-            <property>/controls/flight/fbw/limits/gforce-vtol-minimum</property>
+            <property>/v22/pfcs/limits/gforce-vtol-minimum</property>
         </output>
     </filter>
 
@@ -144,7 +144,7 @@
             <max>4.0</max>
         </input>
         <output>
-            <property>/controls/flight/fbw/limits/gforce-airplane-maximum</property>
+            <property>/v22/pfcs/limits/gforce-airplane-maximum</property>
         </output>
     </filter>
 
@@ -170,7 +170,7 @@
             <max>0.0</max>
         </input>
         <output>
-            <property>/controls/flight/fbw/limits/gforce-airplane-minimum</property>
+            <property>/v22/pfcs/limits/gforce-airplane-minimum</property>
         </output>
     </filter>
 

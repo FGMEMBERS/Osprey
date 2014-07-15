@@ -89,11 +89,11 @@
         <name>Nacelles Servos</name>
         <type>noise-spike</type>
         <input>
-            <property>/controls/flight/fbw/target/tilt-rate</property>
+            <property>/v22/pfcs/target/tilt-rate</property>
             <abs type="bool">true</abs>
         </input>
         <output>
-            <property>/controls/flight/fbw/output/tilt-rate</property>
+            <property>/v22/pfcs/output/tilt-rate</property>
         </output>
 
         <!-- Set minimum tilt rate to 8 deg/s if nacelles need to tilt
@@ -148,7 +148,7 @@
             </condition>
         </enable>
         <input>
-            <property>/controls/flight/fbw/target/tilt</property>
+            <property>/v22/pfcs/target/tilt</property>
             <min>
                 <property>/sim/model/v22/min_allowed_tilt</property>
             </min>
@@ -165,7 +165,7 @@
              in 12 seconds.
         -->
         <max-rate-of-change>
-            <property>/controls/flight/fbw/output/tilt-rate</property>
+            <property>/v22/pfcs/output/tilt-rate</property>
         </max-rate-of-change>
     </filter>
 
@@ -175,9 +175,9 @@
         <name>Ailerons Servos</name>
         <type>noise-spike</type>
         <input>
-            <property>/controls/flight/fbw/output/aileron</property>
+            <property>/v22/pfcs/output/aileron</property>
             <condition>
-                <property>/controls/flight/fbw/active/roll-rate-in-air</property>
+                <property>/v22/pfcs/active/roll-rate-in-air</property>
             </condition>
             <!-- Since the ailerons are driven by a PID controller
                  which controls the roll rate, the controller will
@@ -199,7 +199,7 @@
             </scale>
         </input>
         <input>
-            <property>/controls/flight/fbw/output/aileron</property>
+            <property>/v22/pfcs/output/aileron</property>
         </input>
         <output>
             <property>/sim/model/v22/wing/aileron</property>
@@ -231,7 +231,7 @@
         <name>Elevator Servos</name>
         <type>noise-spike</type>
         <input>
-            <property>/controls/flight/fbw/output/elevator</property>
+            <property>/v22/pfcs/output/elevator</property>
         </input>
         <output>
             <property>/sim/model/v22/wing/elevator</property>
@@ -254,7 +254,7 @@
         <name>Rudders Servos</name>
         <type>noise-spike</type>
         <input>
-            <property>/controls/flight/fbw/target/yaw</property>
+            <property>/v22/pfcs/target/yaw</property>
         </input>
         <output>
             <property>/sim/model/v22/wing/rudder</property>

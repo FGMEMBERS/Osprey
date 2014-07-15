@@ -20,7 +20,7 @@
                         <property>/autopilot/locks/heading</property>
                         <value>wing-leveler</value>
                     </equals>
-                    <property>/controls/flight/fbw/active/roll-axis-unconstrained</property>
+                    <property>/v22/pfcs/active/roll-axis-unconstrained</property>
                 </and>
             </condition>
         </enable>
@@ -28,7 +28,7 @@
             <value>0.0</value>
         </input>
         <output>
-            <property>/controls/flight/fbw/target/roll-deg</property>
+            <property>/v22/pfcs/target/roll-deg</property>
         </output>
     </filter>
 
@@ -218,7 +218,7 @@
             <property>/v22/afcs/internal/maximum-heading-roll-deg</property>
         </output>
         <max>
-            <property>/controls/flight/fbw/settings/roll-hold-limit</property>
+            <property>/v22/pfcs/settings/roll-hold-limit</property>
         </max>
     </filter>
 
@@ -240,7 +240,7 @@
             <value>0</value>
         </reference>
         <output>
-            <property>/controls/flight/fbw/target/roll-deg</property>
+            <property>/v22/pfcs/target/roll-deg</property>
         </output>
         <config>
             <Kp>
@@ -272,7 +272,7 @@
             </or>
         </input>
         <output>
-            <property>/controls/flight/fbw/active/roll-hold</property>
+            <property>/v22/pfcs/active/roll-hold</property>
         </output>
     </logic>
 
@@ -296,7 +296,7 @@
             <property>/autopilot/settings/target-pitch-deg</property>
         </input>
         <output>
-            <property>/controls/flight/fbw/target/pitch-deg</property>
+            <property>/v22/pfcs/target/pitch-deg</property>
         </output>
     </filter>
 
@@ -334,17 +334,17 @@
             <property>/instrumentation/nav[0]/gs-rate-of-climb</property>
         </reference>
         <output>
-            <property>/controls/flight/fbw/target/pitch-deg</property>
+            <property>/v22/pfcs/target/pitch-deg</property>
         </output>
         <config>
             <Kp>0.52</Kp>
             <Ti>3.0</Ti>
             <Td>0.0</Td>
             <u_min>
-                <property>/controls/flight/fbw/settings/pitch-hold-min</property>
+                <property>/v22/pfcs/settings/pitch-hold-min</property>
             </u_min>
             <u_max>
-                <property>/controls/flight/fbw/settings/pitch-hold-max</property>
+                <property>/v22/pfcs/settings/pitch-hold-max</property>
             </u_max>
         </config>
     </pid-controller>
@@ -362,7 +362,7 @@
             </or>
         </input>
         <output>
-            <property>/controls/flight/fbw/active/pitch-hold</property>
+            <property>/v22/pfcs/active/pitch-hold</property>
         </output>
     </logic>
 
