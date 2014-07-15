@@ -272,6 +272,26 @@
         </output>
     </logic>
 
+    <!-- Use FBW Roll Rate if and only if using sidestick controller
+         when FBW Roll Hold is disabled.
+    -->
+    <logic>
+        <name>FBW Sidestick Controller Dependency FBW Roll Rate</name>
+        <enable>
+            <condition>
+                <not>
+                    <property>/v22/pfcs/active/roll-hold</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/pfcs/active/sidestick-controller</property>
+        </input>
+        <output>
+            <property>/v22/pfcs/active/roll-rate</property>
+        </output>
+    </logic>
+
     <!-- Set active/roll-rate-bank-angle to true if the current roll
          is close to the bank angle limit, set to false otherwise.
          Depending on whether the output of this logic element is
@@ -566,6 +586,26 @@
         </enable>
         <input>
             <true />
+        </input>
+        <output>
+            <property>/v22/pfcs/active/pitch-rate</property>
+        </output>
+    </logic>
+
+    <!-- Use FBW Pitch Rate if and only if using sidestick controller
+         when FBW Pitch Hold is disabled.
+    -->
+    <logic>
+        <name>FBW Sidestick Controller Dependency FBW Pitch Rate</name>
+        <enable>
+            <condition>
+                <not>
+                    <property>/v22/pfcs/active/pitch-hold</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/pfcs/active/sidestick-controller</property>
         </input>
         <output>
             <property>/v22/pfcs/active/pitch-rate</property>

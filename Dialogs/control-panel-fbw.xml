@@ -33,10 +33,7 @@
     <group>
         <layout>vbox</layout>
         <padding>6</padding>
-        <text>
-            <label>FBW</label>
-        </text>
-
+        
         <group>
             <layout>table</layout>
             <halign>left</halign>
@@ -46,8 +43,8 @@
                 <col>0</col>
                 <colspan>2</colspan>
                 <halign>left</halign>
-                <label>Roll Rate</label>
-                <property>/v22/pfcs/active/roll-rate</property>
+                <label>Sidestick controller</label>
+                <property>/v22/pfcs/active/sidestick-controller</property>
                 <live>true</live>
                 <binding>
                     <command>dialog-apply</command>
@@ -56,23 +53,32 @@
                     <command>property-toggle</command>
                 </binding>
             </checkbox>
+        </group>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>vbox</layout>
+        <padding>6</padding>
+        <text>
+            <label>FBW</label>
+        </text>
+
+        <group>
+            <layout>table</layout>
+            <halign>left</halign>
 
             <text>
                 <row>1</row>
                 <col>0</col>
                 <label>Roll Rate Limit:</label>
                 <halign>right</halign>
-                <enable>
-                    <property>/v22/pfcs/active/roll-rate</property>
-                </enable>
             </text>
             <input>
                 <row>1</row>
                 <col>1</col>
                 <name>roll-rate-limit</name>
-                <enable>
-                    <property>/v22/pfcs/active/roll-rate</property>
-                </enable>
                 <label>deg/s</label>
                 <halign>left</halign>
                 <live>true</live>
@@ -83,15 +89,32 @@
                 </binding>
             </input>
 
-            <checkbox>
+            <text>
                 <row>2</row>
+                <col>0</col>
+                <label>Pitch Rate Limit:</label>
+                <halign>right</halign>
+            </text>
+            <input>
+                <row>2</row>
+                <col>1</col>
+                <name>pitch-rate-limit</name>
+                <label>deg/s</label>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/v22/pfcs/settings/pitch-rate-limit</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>pitch-rate-limit</object-name>
+                </binding>
+            </input>
+
+            <checkbox>
+                <row>3</row>
                 <col>0</col>
                 <colspan>3</colspan>
                 <halign>left</halign>
                 <label>Bank Angle Hard Limit</label>
-                <enable>
-                    <property>/v22/pfcs/active/roll-rate</property>
-                </enable>
                 <property>/v22/pfcs/active/bank-angle-hard-limit</property>
                 <live>true</live>
                 <binding>
@@ -103,22 +126,20 @@
             </checkbox>
 
             <text>
-                <row>3</row>
+                <row>4</row>
                 <col>0</col>
                 <label>Roll Hold Limit:</label>
                 <halign>right</halign>
                 <enable>
                     <property>/v22/pfcs/active/bank-angle-hard-limit</property>
-                    <property>/v22/pfcs/active/roll-rate</property>
                 </enable>
             </text>
             <input>
-                <row>3</row>
+                <row>4</row>
                 <col>1</col>
                 <name>roll-hold-limit</name>
                 <enable>
                     <property>/v22/pfcs/active/bank-angle-hard-limit</property>
-                    <property>/v22/pfcs/active/roll-rate</property>
                 </enable>
                 <label>deg</label>
                 <halign>left</halign>
@@ -130,56 +151,14 @@
                 </binding>
             </input>
 
-            <checkbox>
-                <row>4</row>
-                <col>0</col>
-                <colspan>2</colspan>
-                <halign>left</halign>
-                <label>Pitch Rate</label>
-                <property>/v22/pfcs/active/pitch-rate</property>
-                <live>true</live>
-                <binding>
-                    <command>dialog-apply</command>
-                </binding>
-                <binding>
-                    <command>property-toggle</command>
-                </binding>
-            </checkbox>
-
             <text>
                 <row>5</row>
-                <col>0</col>
-                <label>Pitch Rate Limit:</label>
-                <halign>right</halign>
-                <enable>
-                    <property>/v22/pfcs/active/pitch-rate</property>
-                </enable>
-            </text>
-            <input>
-                <row>5</row>
-                <col>1</col>
-                <name>pitch-rate-limit</name>
-                <enable>
-                    <property>/v22/pfcs/active/pitch-rate</property>
-                </enable>
-                <label>deg/s</label>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/pfcs/settings/pitch-rate-limit</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>pitch-rate-limit</object-name>
-                </binding>
-            </input>
-
-            <text>
-                <row>6</row>
                 <col>0</col>
                 <label>Pitch Hold Max:</label>
                 <halign>right</halign>
             </text>
             <input>
-                <row>6</row>
+                <row>5</row>
                 <col>1</col>
                 <name>pitch-hold-max</name>
                 <label>deg</label>
@@ -193,13 +172,13 @@
             </input>
 
             <text>
-                <row>7</row>
+                <row>6</row>
                 <col>0</col>
                 <label>Pitch Hold Min:</label>
                 <halign>right</halign>
             </text>
             <input>
-                <row>7</row>
+                <row>6</row>
                 <col>1</col>
                 <name>pitch-hold-min</name>
                 <label>deg</label>

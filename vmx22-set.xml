@@ -248,10 +248,9 @@
     <v22>
         <pfcs>
             <active>
-                <roll-rate type="bool">true</roll-rate>
-                <roll-hold type="bool">false</roll-hold>
+                <sidestick-controller type="bool">true</sidestick-controller>
 
-                <pitch-rate type="bool">true</pitch-rate>
+                <roll-hold type="bool">false</roll-hold>
                 <pitch-hold type="bool">false</pitch-hold>
 
                 <yaw-rate type="bool">false</yaw-rate>
