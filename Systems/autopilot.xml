@@ -323,7 +323,7 @@
     <!-- Tracks the glideslope of the current NAV1 signal -->
     <pid-controller>
         <name>A/P NAV1 Glideslope Hold</name>
-        <debug>true</debug>
+        <debug>false</debug>
         <enable>
             <property>/v22/afcs/active/gs-hold</property>
         </enable>

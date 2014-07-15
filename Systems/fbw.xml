@@ -192,12 +192,9 @@
         <enable>
             <condition>
                 <and>
-                    <or>
-                        <property>/controls/flight/fbw/active/roll-rate-in-air</property>
-                        <property>/controls/flight/fbw/active/roll-hold-in-air</property>
-                    </or>
+                    <property>/controls/flight/fbw/active/roll-rate-in-air</property>
                     <not>
-                        <property>/controls/flight/fbw/active/roll-hold</property> 
+                        <property>/controls/flight/fbw/active/roll-hold-in-air</property>
                     </not>
                 </and>
             </condition>
@@ -205,12 +202,6 @@
         <input>
             <property>/controls/flight/fbw/target/roll</property>
         </input>
-        <output>
-            <condition>
-                <property>/controls/flight/fbw/active/roll-hold-in-air</property>
-            </condition>
-            <property>/controls/flight/fbw/target/roll-deg</property>
-        </output>
         <output>
             <condition>
                 <property>/controls/flight/fbw/active/roll-rate-in-air</property>
