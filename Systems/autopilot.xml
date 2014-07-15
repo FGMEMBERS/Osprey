@@ -321,17 +321,75 @@
     </logic>
 
     <!-- Tracks the glideslope of the current NAV1 signal -->
-    <pid-controller>
-        <name>A/P NAV1 Glideslope Hold</name>
-        <debug>false</debug>
+    <filter>
+        <name>A/P NAV1 Glideslope</name>
+        <type>gain</type>
+        <gain>1.0</gain>
         <enable>
             <property>/v22/afcs/active/gs-hold</property>
+        </enable>
+        <input>
+            <property>/instrumentation/nav[0]/gs-rate-of-climb</property>
+        </input>
+        <output>
+            <property>/v22/afcs/target/vs-fps</property>
+        </output>
+    </filter>
+
+    <!-- Tracks the vertical speed (in fpm) set in the A/P -->
+    <filter>
+        <name>A/P V/S Hold</name>
+        <type>gain</type>
+
+        <!-- Multiply by 1/60 to convert from fpm to fps -->
+        <gain>0.01666666</gain>
+
+        <enable>
+            <condition>
+                <equals>
+                    <property>/autopilot/locks/altitude</property>
+                    <value>vertical-speed-hold</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>/autopilot/settings/vertical-speed-fpm</property>
+        </input>
+        <output>
+            <property>/v22/afcs/target/vs-fps</property>
+        </output>
+    </filter>
+
+    <logic>
+        <name>A/P Vertical Speed On/Off Switcher</name>
+        <input>
+            <or>
+                <equals>
+                    <property>/autopilot/locks/altitude</property>
+                    <value>vertical-speed-hold</value>
+                </equals>
+                <property>/v22/afcs/active/gs-hold</property>
+            </or>
+        </input>
+        <output>
+            <property>/v22/afcs/active/vs-hold</property>
+        </output>
+    </logic>
+
+    <!-- Tracks a given vertical speed (in fps), set by the pilot
+         or by the NAV1 glideslope signal.
+    -->
+    <pid-controller>
+        <name>A/P Vertical Speed Hold</name>
+        <debug>false</debug>
+        <enable>
+            <property>/v22/afcs/active/vs-hold</property>
         </enable>
         <input>
             <property>/velocities/vertical-speed-fps</property>
         </input>
         <reference>
-            <property>/instrumentation/nav[0]/gs-rate-of-climb</property>
+            <property>/v22/afcs/target/vs-fps</property>
         </reference>
         <output>
             <property>/v22/pfcs/target/pitch-deg</property>
@@ -349,16 +407,18 @@
         </config>
     </pid-controller>
 
-    <!-- Enable FBW Pitch Hold if A/P Pitch Hold is enabled -->
+    <!-- Enable FBW Pitch Hold if A/P Pitch Hold or A/P VS Hold is
+         enabled.
+    -->
     <logic>
-        <name>A/P Pitch Hold Dependency FBW Pitch Hold</name>
+        <name>A/P Pitch Hold and Vertical Speed Hold Dependency FBW Pitch Hold</name>
         <input>
             <or>
                 <equals>
                     <property>/autopilot/locks/altitude</property>
                     <value>pitch-hold</value>
                 </equals>
-                <property>/v22/afcs/active/gs-hold</property>
+                <property>/v22/afcs/active/vs-hold</property>
             </or>
         </input>
         <output>
