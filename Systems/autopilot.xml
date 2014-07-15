@@ -300,6 +300,35 @@
         </output>
     </filter>
 
+    <!-- Tracks a given altitude -->
+    <pi-simple-controller>
+        <name>A/P Altitude Hold</name>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <equals>
+                    <property>/autopilot/locks/altitude</property>
+                    <value>altitude-hold</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>/position/altitude-ft</property>
+        </input>
+        <reference>
+            <property>/autopilot/settings/target-altitude-ft</property>
+        </reference>
+        <output>
+            <property>/v22/afcs/target/vs-fps</property>
+        </output>
+        <config>
+            <Kp>0.15</Kp>
+            <Ki>0.01</Ki>
+            <u_min>-40.0</u_min>
+            <u_max>40.0</u_max>
+        </config>
+    </pi-simple-controller>
+
     <!-- Enable A/P NAV1 Glideslope if glideslope is in range and NAV1
          mode selected in A/P.
     -->
@@ -367,6 +396,10 @@
                 <equals>
                     <property>/autopilot/locks/altitude</property>
                     <value>vertical-speed-hold</value>
+                </equals>
+                <equals>
+                    <property>/autopilot/locks/altitude</property>
+                    <value>altitude-hold</value>
                 </equals>
                 <property>/v22/afcs/active/gs-hold</property>
             </or>
