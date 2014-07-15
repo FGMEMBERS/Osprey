@@ -6,6 +6,9 @@
     <!-- Roll Axis Modes                                                    -->
     <!-- ================================================================== -->
 
+    <!-- Filter which sets the desired roll angle to zero in order to
+         level the wings.
+    -->
     <filter>
         <name>A/P Wing Leveler</name>
         <type>gain</type>
@@ -297,14 +300,66 @@
         </output>
     </filter>
 
+    <!-- Enable A/P NAV1 Glideslope if glideslope is in range and NAV1
+         mode selected in A/P.
+    -->
+    <logic>
+        <name>A/P NAV1 Glideslope On/Off Switcher</name>
+        <input>
+            <and>
+                <equals>
+                    <property>/autopilot/locks/altitude</property>
+                    <value>gs1-hold</value>
+                </equals>
+                <property>/instrumentation/nav[0]/has-gs</property>
+                <property>/instrumentation/nav[0]/gs-in-range</property>
+            </and>
+        </input>
+        <output>
+            <property>/v22/afcs/active/gs-hold</property>
+        </output>
+    </logic>
+
+    <!-- Tracks the glideslope of the current NAV1 signal -->
+    <pid-controller>
+        <name>A/P NAV1 Glideslope Hold</name>
+        <debug>true</debug>
+        <enable>
+            <property>/v22/afcs/active/gs-hold</property>
+        </enable>
+        <input>
+            <property>/velocities/vertical-speed-fps</property>
+        </input>
+        <reference>
+            <property>/instrumentation/nav[0]/gs-rate-of-climb</property>
+        </reference>
+        <output>
+            <property>/controls/flight/fbw/target/pitch-deg</property>
+        </output>
+        <config>
+            <Kp>0.52</Kp>
+            <Ti>3.0</Ti>
+            <Td>0.0</Td>
+            <u_min>
+                <property>/controls/flight/fbw/settings/pitch-hold-min</property>
+            </u_min>
+            <u_max>
+                <property>/controls/flight/fbw/settings/pitch-hold-max</property>
+            </u_max>
+        </config>
+    </pid-controller>
+
     <!-- Enable FBW Pitch Hold if A/P Pitch Hold is enabled -->
     <logic>
         <name>A/P Pitch Hold Dependency FBW Pitch Hold</name>
         <input>
-            <equals>
-                <property>/autopilot/locks/altitude</property>
-                <value>pitch-hold</value>
-            </equals>
+            <or>
+                <equals>
+                    <property>/autopilot/locks/altitude</property>
+                    <value>pitch-hold</value>
+                </equals>
+                <property>/v22/afcs/active/gs-hold</property>
+            </or>
         </input>
         <output>
             <property>/controls/flight/fbw/active/pitch-hold</property>

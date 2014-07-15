@@ -507,15 +507,9 @@
         <enable>
             <condition>
                 <and>
-                    <or>
-                        <property>/controls/flight/fbw/active/pitch-rate</property>
-                        <property>/controls/flight/fbw/active/pitch-hold</property>
-                    </or>
+                    <property>/controls/flight/fbw/active/pitch-rate</property>
                     <not>
-                        <equals>
-                            <property>/autopilot/locks/altitude</property>
-                            <value>pitch-hold</value>
-                        </equals>
+                        <property>/controls/flight/fbw/active/pitch-hold</property>
                     </not>
                 </and>
             </condition>
@@ -524,12 +518,6 @@
             <property>/controls/flight/fbw/target/pitch</property>
             <scale>-1.0</scale>
         </input>
-        <output>
-            <condition>
-                <property>/controls/flight/fbw/active/pitch-hold</property>
-            </condition>
-            <property>/controls/flight/fbw/target/pitch-deg</property>
-        </output>
         <output>
             <condition>
                 <property>/controls/flight/fbw/active/pitch-rate</property>
@@ -861,7 +849,7 @@
          control over the swashplates for yaw rotation.
     -->
     <filter>
-        <name>Direct Mode Pedals Yaw Rate</name>
+        <name>Direct Mode VTOL Pedals Yaw Rate</name>
         <type>gain</type>
         <gain>
             <property>/controls/flight/fbw/settings/vtol/direct-yaw-rate-gain</property>
