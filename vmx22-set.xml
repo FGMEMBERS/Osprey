@@ -370,6 +370,9 @@
         <doors>
             <file>Aircraft/VMX22-Osprey/Nasal/doors.nas</file>
         </doors>
+        <dialogs>
+            <file>Aircraft/VMX22-Osprey/Nasal/dialogs.nas</file>
+        </dialogs>
         <aar>
             <file>Aircraft/Generic/aar.nas</file>
         </aar>
@@ -423,5 +426,15 @@
             <offset-z-m>0</offset-z-m>
         </refuel>
     </systems>
+
+    <autopilot>
+        <settings>
+            <true-heading-deg type="double">300</true-heading-deg>
+            <heading-bug-deg type="double">300</heading-bug-deg>
+            <target-speed-kt type="double">200</target-speed-kt>
+            <target-altitude-ft type="double">10000</target-altitude-ft>
+            <target-agl-ft type="double">50</target-agl-ft>
+        </settings>
+    </autopilot>
 
 </PropertyList>

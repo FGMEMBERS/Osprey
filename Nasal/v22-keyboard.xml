@@ -196,4 +196,13 @@
         </mod-up>
     </key>
 
+    <key n="267">
+        <name>F11</name>
+        <desc>Pop up autopilot dialog</desc>
+        <binding>
+            <command>nasal</command>
+            <script>dialogs.autopilot.open()</script>
+        </binding>
+    </key>
+
 </PropertyList>
