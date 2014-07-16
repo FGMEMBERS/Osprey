@@ -4,7 +4,7 @@
 
     <key n="100">
         <name>d</name>
-        <desc>Toggle Starboard Door Upper Part Open/Close</desc>
+        <desc>Toggle starboard door upper part open/close</desc>
         <binding>
             <command>nasal</command>
             <script>doors.crew_upper_toggle()</script>
@@ -13,7 +13,7 @@
 
     <key n="68">
         <name>D</name>
-        <desc>Toggle Starboard Door Lower Part Open/Close</desc>
+        <desc>Toggle starboard door lower part open/close</desc>
         <binding>
             <command>nasal</command>
             <script>doors.crew_lower_toggle()</script>
@@ -22,7 +22,7 @@
 
     <key n="67">
         <name>C</name>
-        <desc>Close Loading Ramp</desc>
+        <desc>Close loading ramp</desc>
         <mod-shift>
             <binding>
                 <command>nasal</command>
@@ -33,7 +33,7 @@
 
     <key n="99">
         <name>c</name>
-        <desc>Open Loading Ramp</desc>
+        <desc>Open loading ramp</desc>
         <binding>
             <command>nasal</command>
             <script>doors.loading_ramp_open()</script>
@@ -42,7 +42,7 @@
 
     <key n="115">
         <name>s</name>
-        <desc>Toggle Cargo Door Upper Part Open/Close</desc>
+        <desc>Toggle cargo door upper part open/close</desc>
         <binding>
            <command>nasal</command>
            <script>doors.cargo_upper_toggle()</script>
@@ -51,7 +51,7 @@
 
     <key n="101">
         <name>e</name>
-        <desc>Toggle Cockpit Door Open/Close</desc>
+        <desc>Toggle cockpit door open/close</desc>
         <binding>
            <command>nasal</command>
            <script>doors.cockpit.toggle()</script>
@@ -60,7 +60,7 @@
 
     <key n="102">
         <name>f</name>
-        <desc>Toggle Air Refueling Probe</desc>
+        <desc>Toggle air refueling probe</desc>
         <binding>
            <command>nasal</command>
            <script>doors.air_refuel.toggle()</script>
@@ -80,7 +80,7 @@
 
     <key n="108">
         <name>l</name>
-        <desc>Landing Lights Position</desc>
+        <desc>Landing lights position</desc>
         <binding>
            <command>nasal</command>
            <script>doors.landinglightpos.toggle()</script>
@@ -89,7 +89,7 @@
 
     <key n="76">
         <name>L</name>
-        <desc>Landing Lights On/Off</desc>
+        <desc>Landing lights on/off</desc>
         <binding>
             <command>property-toggle</command>
             <property>sim/model/lights/landing-lights/state</property>
@@ -100,7 +100,7 @@
 
     <key n="15">
         <name>Ctrl-o</name>
-        <desc>Find Aircraft For Aerotow</desc>
+        <desc>Find aircraft for aerotow</desc>
         <binding>
           <command>property-assign</command>
           <property>controls/aerotow/find-aircraft</property>
@@ -117,7 +117,7 @@
 
     <key n="111">
         <name>o</name>
-        <desc>Lock Aerotow Hook</desc>
+        <desc>Lock aerotow hook</desc>
         <binding>
           <command>property-assign</command>
           <property>sim/hitches/aerotow/open</property>
@@ -127,7 +127,7 @@
 
     <key n="79">
         <name>O</name>
-        <desc>Open Aerotow Hook</desc>
+        <desc>Open aerotow hook</desc>
         <binding>
           <command>property-assign</command>
           <property>sim/hitches/aerotow/open</property>
@@ -137,17 +137,17 @@
 
     <key n="78">
         <name>N</name>
-        <desc>Fold Wing</desc>
+        <desc>Fold wing</desc>
     </key>
 
     <key n="110">
         <name>n</name>
-        <desc>Unfold Wing</desc>
+        <desc>Unfold wing</desc>
     </key>
 
     <key n="123">
         <name>{</name>
-        <desc>Shutdown Engines</desc>
+        <desc>Shutdown engines</desc>
         <binding>
             <command>nasal</command>
             <script>v22.engines(0)</script>
@@ -156,7 +156,7 @@
 
     <key n="125">
         <name>}</name>
-        <desc>Start Engines</desc>
+        <desc>Start engines</desc>
         <binding>
             <command>nasal</command>
             <script>v22.engines(1)</script>
@@ -165,7 +165,7 @@
 
     <key n="109">
         <name>m</name>
-        <desc>Tilt Rotors Fwd</desc>
+        <desc>Tilt rotors fwd</desc>
         <repeatable>false</repeatable>
         <mod-alt>
             <binding>
@@ -177,13 +177,13 @@
 
     <key n="77">
         <name>M</name>
-        <desc>Tilt Rotors Aft</desc>
+        <desc>Tilt rotors aft</desc>
         <repeatable>false</repeatable>
     </key>
 
     <key n="103">
         <name>g</name>
-        <desc>Gear Up</desc>
+        <desc>Gear up</desc>
         <binding>
             <command>nasal</command>
             <script>controls.gearDown(0)</script>
@@ -202,6 +202,40 @@
         <binding>
             <command>nasal</command>
             <script>dialogs.autopilot.open()</script>
+        </binding>
+    </key>
+
+    <key n="14">
+        <name>Ctrl-N</name>
+        <desc>Toggle autopilot NAV1 lock</desc>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var node = props.globals.getNode("/v22/afcs/locks/heading", 1);
+                if (node.getValue() == "nav1-hold") {
+                    node.setValue("");
+                }
+                else {
+                    node.setValue("nav1-hold");
+                }
+            </script>
+        </binding>
+    </key>
+
+    <key n="7">
+        <name>Ctrl-G</name>
+        <desc>Toggle autopilot glide slope lock</desc>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var node = props.globals.getNode("/v22/afcs/locks/altitude", 1);
+                if (node.getValue() == "gs1-hold") {
+                    node.setValue("");
+                }
+                else {
+                    node.setValue("gs1-hold");
+                }
+            </script>
         </binding>
     </key>
 
