@@ -74,7 +74,7 @@
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/autopilot/locks/heading", "")</script>
+                    <script>setprop("/v22/afcs/locks/heading", "")</script>
                 </binding>
             </button>
             <button>
@@ -83,14 +83,11 @@
                 <visible>
                     <and>
                         <equals>
-                            <property>/autopilot/locks/heading</property>
+                            <property>/v22/afcs/locks/heading</property>
                             <value>nav1-hold</value>
                         </equals>
                         <not>
-                            <and>
-                                <property>/instrumentation/nav[0]/nav-loc</property>
-                                <property>/instrumentation/nav[0]/in-range</property>
-                            </and>
+                            <property>/v22/afcs/active/loc-hold</property>
                         </not>
                     </and>
                 </visible>
@@ -98,7 +95,7 @@
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/autopilot/locks/heading", "")</script>
+                    <script>setprop("/v22/afcs/locks/heading", "")</script>
                 </binding>
             </button>
             <button>
@@ -107,7 +104,7 @@
                 <visible>
                     <not>
                         <equals>
-                            <property>/autopilot/locks/heading</property>
+                            <property>/v22/afcs/locks/heading</property>
                             <value>nav1-hold</value>
                         </equals>
                     </not>
@@ -116,7 +113,7 @@
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/autopilot/locks/heading", "nav1-hold")</script>
+                    <script>setprop("/v22/afcs/locks/heading", "nav1-hold")</script>
                 </binding>
             </button>
             <text>
@@ -160,7 +157,7 @@
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/autopilot/locks/altitude", "")</script>
+                    <script>setprop("/v22/afcs/locks/altitude", "")</script>
                 </binding>
             </button>
             <button>
@@ -169,14 +166,11 @@
                 <visible>
                     <and>
                         <equals>
-                            <property>/autopilot/locks/altitude</property>
+                            <property>/v22/afcs/locks/altitude</property>
                             <value>gs1-hold</value>
                         </equals>
                         <not>
-                            <and>
-                                <property>/instrumentation/nav[0]/has-gs</property>
-                                <property>/instrumentation/nav[0]/gs-in-range</property>
-                            </and>
+                            <property>/v22/afcs/active/gs-hold</property>
                         </not>
                     </and>
                 </visible>
@@ -184,7 +178,7 @@
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/autopilot/locks/altitude", "")</script>
+                    <script>setprop("/v22/afcs/locks/altitude", "")</script>
                 </binding>
             </button>
             <button>
@@ -193,7 +187,7 @@
                 <visible>
                     <not>
                         <equals>
-                            <property>/autopilot/locks/altitude</property>
+                            <property>/v22/afcs/locks/altitude</property>
                             <value>gs1-hold</value>
                         </equals>
                     </not>
@@ -202,7 +196,7 @@
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/autopilot/locks/altitude", "gs1-hold")</script>
+                    <script>setprop("/v22/afcs/locks/altitude", "gs1-hold")</script>
                 </binding>
             </button>
             <text>

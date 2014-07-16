@@ -22,6 +22,9 @@
                     </equals>
                     <property>/v22/pfcs/active/roll-axis-unconstrained</property>
                 </and>
+                <not>
+                   <property>/v22/afcs/active/loc-hold</property>
+                </not>
             </condition>
         </enable>
         <input>
@@ -47,6 +50,9 @@
                     <property>/autopilot/locks/heading</property>
                     <value>dg-heading-hold</value>
                 </equals>
+                <not>
+                   <property>/v22/afcs/active/loc-hold</property>
+                </not>
             </condition>
         </enable>
         <input>
@@ -81,6 +87,9 @@
                         <property>/autopilot/locks/heading</property>
                         <value>true-heading-hold</value>
                     </equals>
+                    <not>
+                        <property>/v22/afcs/active/loc-hold</property>
+                    </not>
                 </and>
             </condition>
         </enable>
@@ -108,11 +117,15 @@
         <input>
             <and>
                 <equals>
-                    <property>/autopilot/locks/heading</property>
+                    <property>/v22/afcs/locks/heading</property>
                     <value>nav1-hold</value>
                 </equals>
                 <property>/instrumentation/nav[0]/nav-loc</property>
                 <property>/instrumentation/nav[0]/in-range</property>
+                <greater-than>
+                    <property>/instrumentation/nav[0]/signal-quality-norm</property>
+                    <value>0.9</value>
+                </greater-than>
             </and>
         </input>
         <output>
@@ -286,10 +299,15 @@
         <gain>1.0</gain>
         <enable>
             <condition>
-                <equals>
-                    <property>/autopilot/locks/altitude</property>
-                    <value>pitch-hold</value>
-                </equals>
+                <and>
+                    <equals>
+                        <property>/autopilot/locks/altitude</property>
+                        <value>pitch-hold</value>
+                    </equals>
+                    <not>
+                        <property>/v22/afcs/active/gs-hold</property>
+                    </not>
+                </and>
             </condition>
         </enable>
         <input>
@@ -306,10 +324,15 @@
         <debug>false</debug>
         <enable>
             <condition>
-                <equals>
-                    <property>/autopilot/locks/altitude</property>
-                    <value>altitude-hold</value>
-                </equals>
+                <and>
+                    <equals>
+                        <property>/autopilot/locks/altitude</property>
+                        <value>altitude-hold</value>
+                    </equals>
+                    <not>
+                        <property>/v22/afcs/active/gs-hold</property>
+                    </not>
+                </and>
             </condition>
         </enable>
         <input>
@@ -337,7 +360,7 @@
         <input>
             <and>
                 <equals>
-                    <property>/autopilot/locks/altitude</property>
+                    <property>/v22/afcs/locks/altitude</property>
                     <value>gs1-hold</value>
                 </equals>
                 <property>/instrumentation/nav[0]/has-gs</property>
@@ -379,6 +402,9 @@
                     <property>/autopilot/locks/altitude</property>
                     <value>vertical-speed-hold</value>
                 </equals>
+                <not>
+                    <property>/v22/afcs/active/gs-hold</property>
+                </not>
             </condition>
         </enable>
         <input>

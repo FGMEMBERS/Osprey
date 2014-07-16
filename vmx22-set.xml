@@ -246,6 +246,19 @@
     </controls>
 
     <v22>
+        <afcs>
+            <locks>
+                <!-- Used by the NAV1 localizer and glideslope A/P modes
+                     in order to not interfere with the regular A/P modes
+                     and only activate when the signal can be captured.
+
+                     These properties make sure that the regular
+                     /autopilot/locks/ properties are left untouched.
+                -->
+                <heading type="string"></heading>
+                <altitude type="string"></altitude>
+            </locks>
+        </afcs>
         <pfcs>
             <active>
                 <sidestick-controller type="bool">true</sidestick-controller>

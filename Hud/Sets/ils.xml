@@ -7,31 +7,68 @@
     <label>
         <width>60</width>
         <height>10</height>
+        <y>-10</y>
         <box>true</box>
-        <format>LOC</format>
+        <format>LOC CAP</format>
         <halign>left</halign>
         <condition>
-            <equals>
-                <property>/autopilot/locks/heading</property>
-                <value>nav1-hold</value>
-            </equals>
+            <property>/v22/afcs/active/loc-hold</property>
+        </condition>
+    </label>
+
+    <label>
+        <width>60</width>
+        <height>10</height>
+        <y>-10</y>
+        <box>true</box>
+        <format>LOC ARM</format>
+        <halign>left</halign>
+        <condition>
+            <and>
+                <equals>
+                    <property>/v22/afcs/active/loc-hold</property>
+                    <value>nav1-hold</value>
+                </equals>
+                <not>
+                    <property>/v22/afcs/active/loc-hold</property>
+                </not>
+            </and>
         </condition>
     </label>
 
     <!-- altitude -->
 
     <label>
-        <x>60</x>
         <width>60</width>
         <height>10</height>
+        <x>60</x>
+        <y>-10</y>
         <box>true</box>
-        <format>G/S</format>
+        <format>G/S CAP</format>
         <halign>left</halign>
         <condition>
-            <equals>
-                <property>/autopilot/locks/altitude</property>
-                <value>gs1-hold</value>
-            </equals>
+            <property>/v22/afcs/active/gs-hold</property>
+        </condition>
+    </label>
+
+    <label>
+        <width>60</width>
+        <height>10</height>
+        <x>60</x>
+        <y>-10</y>
+        <box>true</box>
+        <format>G/S ARM</format>
+        <halign>left</halign>
+        <condition>
+            <and>
+                <equals>
+                    <property>/v22/afcs/locks/altitude</property>
+                    <value>gs1-hold</value>
+                </equals>
+                <not>
+                    <property>/v22/afcs/active/gs-hold</property>
+                </not>
+            </and>
         </condition>
     </label>
 
