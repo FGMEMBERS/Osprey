@@ -26,7 +26,7 @@
         <condition>
             <and>
                 <equals>
-                    <property>/v22/afcs/active/loc-hold</property>
+                    <property>/v22/afcs/locks/heading</property>
                     <value>nav1-hold</value>
                 </equals>
                 <not>
