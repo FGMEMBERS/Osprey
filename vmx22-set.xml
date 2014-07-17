@@ -434,8 +434,8 @@
             <max-fuel-transfer-lbs-min>6000</max-fuel-transfer-lbs-min>
 
             <!-- Offset of the probe from the aircraft model's origin -->
-            <offset-x-m>0</offset-x-m>
-            <offset-y-m>0</offset-y-m>
+            <offset-x-m>9</offset-x-m>
+            <offset-y-m>1</offset-y-m>
             <offset-z-m>0</offset-z-m>
         </refuel>
     </systems>
