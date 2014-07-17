@@ -269,4 +269,25 @@
         <max-rate-of-change>2</max-rate-of-change>
     </filter>
 
+    <!-- Simulates the moving of the Thrust Control Lever (TCL). Without
+         this filter, changes in the requested throttle would be
+         instantaneous. This is especially needed when the A/P controls
+         the throttle.
+    -->
+    <filter>
+        <name>Thrust Control Lever (TCL) Servos</name>
+        <type>noise-spike</type>
+        <input>
+            <property>/controls/engines/engine[0]/throttle</property>
+        </input>
+        <output>
+            <property>/v22/pfcs/output/tcl</property>
+        </output>
+
+        <min>0.0</min>
+        <max>1.0</max>
+
+        <max-rate-of-change>1.0</max-rate-of-change>
+    </filter>
+
 </PropertyList>

@@ -448,7 +448,7 @@
 		<enable-pointer>true</enable-pointer>
 		<pointer-type>fixed</pointer-type>
 		<input>
-			<property>/controls/engines/engine/throttle</property>
+			<property>/v22/pfcs/output/tcl</property>
 			<max>1.0</max>
 			<min>0.0</min>
 		</input>

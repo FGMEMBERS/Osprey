@@ -100,7 +100,7 @@ var update_controls_and_tilt_loop = func(dt) {
 
     ################################################################################
 
-    var thr = control_throttle.getValue();
+    var thr = getprop("/v22/pfcs/output/tcl");
     var col_wing = thr * interpol(speed, 0, 20, 200, 75); 
 
     # Calculate the rotor controls
@@ -211,7 +211,6 @@ var pback_pos = props.globals.getNode("sim/model/pushback/position-norm", 1);
 
 
 var torque = props.globals.getNode("rotors/gear/total-torque", 1);
-var collective = props.globals.getNode("controls/engines/engine[0]/throttle", 1);
 var turbine = props.globals.getNode("sim/model/v22/turbine-rpm-pct", 1);
 var stall_right = props.globals.getNode("rotors/main/stall", 1);
 var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
@@ -521,7 +520,7 @@ var update_stall = func(dt) {
     } else {
         stall_val = s;
     }
-    var c = collective.getValue();
+    var c = getprop("/v22/pfcs/output/tcl");
     var r = clamp(rotor_rpm.getValue()*0.004-0.2,0,1);
     stall_filtered.setDoubleValue(r*min(1,0.5+5*stall_val + 0.006 * (1 - c)));
     
@@ -532,7 +531,7 @@ var update_stall = func(dt) {
 #   } else {
 #       stall_left_val = s;
 #   }
-#   c = collective.getValue();
+#   c = getprop("/v22/pfcs/output/tcl");
 #   stall_left_filtered.setDoubleValue(stall_left_val + 0.006 * (1 - c));
 }
 
@@ -790,14 +789,13 @@ var crashed = 0;
 
 # Initialization
 setlistener("/sim/signals/fdm-initialized", func {
-    collective.setDoubleValue(1);
-    control_throttle.setValue(0);
+    control_throttle.setDoubleValue(0);
     #settimer(update_controls_and_tilt_loop, 0);
 
     setlistener("/sim/signals/reinit", func(n) {
         n.getBoolValue() and return;
         #turbine_timer.stop();
-        collective.setDoubleValue(1);
+        control_throttle.setDoubleValue(0);
         crashed = 0;
     });
 
