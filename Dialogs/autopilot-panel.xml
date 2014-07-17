@@ -788,9 +788,37 @@
                 <row>4</row>
                 <col>14</col>
                 <colspan>4</colspan>
+                <visible>
+                    <equals>
+                        <property>/autopilot/locks/speed</property>
+                        <value>speed-with-throttle</value>
+                    </equals>
+                </visible>
                 <legend>ON</legend>
                 <pref-width>40</pref-width>
-                <enable><false/></enable>
+                <binding>
+                    <command>nasal</command>
+                    <script>setprop("/autopilot/locks/speed", "")</script>
+                </binding>
+            </button>
+            <button>
+                <row>4</row>
+                <col>14</col>
+                <colspan>4</colspan>
+                <visible>
+                    <not>
+                        <equals>
+                            <property>/autopilot/locks/speed</property>
+                            <value>speed-with-throttle</value>
+                        </equals>
+                    </not>
+                </visible>
+                <legend></legend>
+                <pref-width>40</pref-width>
+                <binding>
+                    <command>nasal</command>
+                    <script>setprop("/autopilot/locks/speed", "speed-with-throttle")</script>
+                </binding>
             </button>
             <button>
                 <row>4</row>

@@ -65,10 +65,9 @@ var update_controls_and_tilt_loop = func(dt) {
         return;
     }
 
-    var act_tilt_avg = actual_tilt.getValue();
-    var speed = airspeed_kt.getValue();
+    var act_tilt = actual_tilt.getValue();
 
-    target_rpm = clamp(target_rpm_helicopter + (target_rpm_airplane - target_rpm_helicopter) * (act_tilt_avg - 30) / 60,
+    target_rpm = clamp(target_rpm_helicopter + (target_rpm_airplane - target_rpm_helicopter) * (act_tilt - 30) / 60,
         target_rpm_airplane,target_rpm_helicopter);
     if (state.getValue() == 5) {
         target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
@@ -79,6 +78,7 @@ var update_controls_and_tilt_loop = func(dt) {
     ################################################################################
 
     # Below min_conv_mode_kias the conversion factor is 0, above max_conv_mode_kias it is 1
+    var speed = airspeed_kt.getValue();
     var conv_factor = clamp((speed - min_conv_mode_kias) / (max_conv_mode_kias - min_conv_mode_kias), 0, 1);
 
     var airplane_control_factor = conv_factor;
@@ -95,7 +95,7 @@ var update_controls_and_tilt_loop = func(dt) {
     control_flaps.setValue(flap);
 
     if (wing_state.getValue() == 0) {
-        out_wing_flap.setValue(flap_control_factor * flap * 0.3 + (1 - flap_control_factor) * min(1, 1 - act_tilt_avg / 90));
+        out_wing_flap.setValue(flap_control_factor * flap * 0.3 + (1 - flap_control_factor) * min(1, 1 - act_tilt / 90));
     }
 
     ################################################################################
@@ -108,7 +108,7 @@ var update_controls_and_tilt_loop = func(dt) {
     var min_col = 2;
     var max_col = 23;
 
-    var col_tilt_correction = 1 / cos(clamp(act_tilt_avg, -10, 30));
+    var col_tilt_correction = 1 / cos(clamp(act_tilt, -10, 30));
     var col_rotor = min_col + thr * (max_col - min_col) * col_tilt_correction;
 
     # Set blades vertical if folded
