@@ -25,6 +25,71 @@
         </output>
     </logic>
 
+    <!-- Enable A/P WYPT if WYPT mode selected in A/P -->
+    <logic>
+        <name>A/P WYPT On/Off Switcher</name>
+        <input>
+            <and>
+                <property>/autopilot/settings/gps-driving-true-heading</property>
+                <equals>
+                    <property>/autopilot/locks/heading</property>
+                    <value>true-heading-hold</value>
+                </equals>
+            </and>
+        </input>
+        <output>
+            <property>/v22/afcs/active/wypt-hold</property>
+        </output>
+    </logic>
+
+    <!-- Enable A/P NAV1 Localizer if localizer is in range and NAV1
+         mode selected in A/P.
+    -->
+    <logic>
+        <name>A/P NAV1 Localizer On/Off Switcher</name>
+        <input>
+            <and>
+                <equals>
+                    <property>/v22/afcs/locks/heading</property>
+                    <value>nav1-hold</value>
+                </equals>
+                <property>/instrumentation/nav[0]/nav-loc</property>
+                <property>/instrumentation/nav[0]/in-range</property>
+                <greater-than>
+                    <property>/instrumentation/nav[0]/signal-quality-norm</property>
+                    <value>0.85</value>
+                </greater-than>
+                <or>
+                    <not>
+                        <property>/v22/afcs/active/wypt-hold</property>
+                    </not>
+
+                    <!-- If WYPT is active, the localizer should only be
+                         captured when the aircraft is close to the crosstrack.
+                    -->
+                    <less-than>
+                        <expression>
+                            <abs>
+                                <property>/instrumentation/nav[0]/crosstrack-error-m</property>
+                            </abs>
+                        </expression>
+                        <value>2000.0</value>
+                    </less-than>
+
+                    <!-- Once the aircraft has been within the crosstrack
+                         error and the localizer was captured, this filter
+                         should not be switched off in case the aircraft
+                         goes outside the crosstrack error again.
+                    -->
+                    <property>/v22/afcs/active/loc-hold</property>
+                </or>
+            </and>
+        </input>
+        <output>
+            <property>/v22/afcs/active/loc-hold</property>
+        </output>
+    </logic>
+
     <!-- Filter which sets the desired roll angle to zero in order to
          level the wings.
     -->
@@ -107,11 +172,7 @@
         <enable>
             <condition>
                 <and>
-                    <property>/autopilot/settings/gps-driving-true-heading</property>
-                    <equals>
-                        <property>/autopilot/locks/heading</property>
-                        <value>true-heading-hold</value>
-                    </equals>
+                    <property>/v22/afcs/active/wypt-hold</property>
                     <not>
                         <or>
                             <property>/v22/afcs/active/loc-hold</property>
@@ -137,30 +198,6 @@
         </period>
     </filter>
 
-    <!-- Enable A/P NAV1 Localizer if localizer is in range and NAV1
-         mode selected in A/P.
-    -->
-    <logic>
-        <name>A/P NAV1 Localizer On/Off Switcher</name>
-        <input>
-            <and>
-                <equals>
-                    <property>/v22/afcs/locks/heading</property>
-                    <value>nav1-hold</value>
-                </equals>
-                <property>/instrumentation/nav[0]/nav-loc</property>
-                <property>/instrumentation/nav[0]/in-range</property>
-                <greater-than>
-                    <property>/instrumentation/nav[0]/signal-quality-norm</property>
-                    <value>0.9</value>
-                </greater-than>
-            </and>
-        </input>
-        <output>
-            <property>/v22/afcs/active/loc-hold</property>
-        </output>
-    </logic>
-
     <!-- Enable A/P Heading Hold if one of the A/P heading modes has
          been selected.
     -->
@@ -172,13 +209,7 @@
                     <property>/autopilot/locks/heading</property>
                     <value>dg-heading-hold</value>
                 </equals>
-                <and>
-                    <property>/autopilot/settings/gps-driving-true-heading</property>
-                    <equals>
-                        <property>/autopilot/locks/heading</property>
-                        <value>true-heading-hold</value>
-                    </equals>
-                </and>
+                <property>/v22/afcs/active/wypt-hold</property>
                 <property>/v22/afcs/active/loc-hold</property>
                 <property>/v22/afcs/active/tacan-hold</property>
             </or>

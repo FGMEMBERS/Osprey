@@ -76,3 +76,13 @@ var disable_heading = func (node) {
 
 setlistener("/v22/afcs/active/loc-hold", disable_heading);
 setlistener("/v22/afcs/active/tacan-hold", disable_heading);
+
+# Disable standard altitude hold if NAV1 glideslope signal has been
+# captured.
+var disable_altitude = func (node) {
+    if (node.getValue()) {
+        setprop("/autopilot/locks/altitude", "");
+    }
+}
+
+setlistener("/v22/afcs/active/gs-hold", disable_altitude);
