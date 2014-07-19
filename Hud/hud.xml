@@ -5,7 +5,7 @@
 <PropertyList>
  <name>VMX-22 Osprey modified Hud</name>
 
- <enable3d>true</enable3d>
+ <enable3d>false</enable3d>
 
   <import>
 	  <path>Huds/Sets/coordinates.xml</path>
@@ -201,7 +201,7 @@
   </condition>
 
   <input>
-   <property>/position/altitude-ft</property>
+   <property>/instrumentation/altimeter/indicated-altitude-ft</property>
    <min>-0.5</min>
    <factor>0.001</factor>
   </input>
@@ -294,7 +294,7 @@
   <pointer-width>10</pointer-width>
   <pointer-length>5</pointer-length>
   <input>
-   <property>/position/altitude-ft</property>
+   <property>/instrumentation/altimeter/indicated-altitude-ft</property>
    <factor>0.1</factor>
   </input>
  </label>
@@ -327,7 +327,7 @@
   <name>KIAS</name>
 
   <input>
-   <property>/velocities/airspeed-kt</property>
+   <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
    <min>0.0</min>
    <factor>0.1</factor>
   </input>
@@ -392,7 +392,7 @@
   <pointer-width>10</pointer-width>
   <pointer-length>5</pointer-length>
   <input>
-   <property>/velocities/airspeed-kt</property>
+   <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
   </input>
  </label>
 
