@@ -6,6 +6,25 @@
     <!-- Roll Axis Modes                                                    -->
     <!-- ================================================================== -->
 
+    <!-- Enable A/P TACAN if aircraft is in range and TACAN
+         mode selected in A/P.
+    -->
+    <logic>
+        <name>A/P TACAN On/Off Switcher</name>
+        <input>
+            <and>
+                <equals>
+                    <property>/v22/afcs/locks/heading</property>
+                    <value>tacan-hold</value>
+                </equals>
+                <property>/v22/afcs/internal/tacan-in-range</property>
+            </and>
+        </input>
+        <output>
+            <property>/v22/afcs/active/tacan-hold</property>
+        </output>
+    </logic>
+
     <!-- Filter which sets the desired roll angle to zero in order to
          level the wings.
     -->
@@ -23,7 +42,10 @@
                     <property>/v22/pfcs/active/roll-axis-unconstrained</property>
                 </and>
                 <not>
-                   <property>/v22/afcs/active/loc-hold</property>
+                    <or>
+                        <property>/v22/afcs/active/loc-hold</property>
+                        <property>/v22/afcs/active/tacan-hold</property>
+                    </or>
                 </not>
             </condition>
         </enable>
@@ -51,7 +73,10 @@
                     <value>dg-heading-hold</value>
                 </equals>
                 <not>
-                   <property>/v22/afcs/active/loc-hold</property>
+                    <or>
+                        <property>/v22/afcs/active/loc-hold</property>
+                        <property>/v22/afcs/active/tacan-hold</property>
+                    </or>
                 </not>
             </condition>
         </enable>
@@ -88,7 +113,10 @@
                         <value>true-heading-hold</value>
                     </equals>
                     <not>
-                        <property>/v22/afcs/active/loc-hold</property>
+                        <or>
+                            <property>/v22/afcs/active/loc-hold</property>
+                            <property>/v22/afcs/active/tacan-hold</property>
+                        </or>
                     </not>
                 </and>
             </condition>
@@ -152,6 +180,7 @@
                     </equals>
                 </and>
                 <property>/v22/afcs/active/loc-hold</property>
+                <property>/v22/afcs/active/tacan-hold</property>
             </or>
         </input>
         <output>
@@ -173,6 +202,29 @@
             <property>/instrumentation/nav[0]/radials/target-auto-hdg-deg</property>
             <offset>
                 <property>/orientation/heading-deg</property>
+                <scale>-1.0</scale>
+            </offset>
+        </input>
+        <output>
+            <property>/v22/afcs/internal/heading-bug-error-deg</property>
+        </output>
+        <period>
+            <min>-180</min>
+            <max>180</max>
+        </period>
+    </filter>
+
+    <filter>
+        <name>A/P TACAN Heading Bug Error Computer</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <property>/v22/afcs/active/tacan-hold</property>
+        </enable>
+        <input>
+            <property>/v22/afcs/target/tacan-bearing-deg</property>
+            <offset>
+                <property>/instrumentation/gps/indicated-track-true-deg</property>
                 <scale>-1.0</scale>
             </offset>
         </input>

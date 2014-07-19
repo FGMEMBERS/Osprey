@@ -124,9 +124,54 @@
             <button>
                 <row>1</row>
                 <col>3</col>
+                <visible>
+                    <property>/v22/afcs/active/tacan-hold</property>
+                </visible>
                 <legend>CAP</legend>
                 <pref-width>40</pref-width>
-                <enable><false/></enable>
+                <binding>
+                    <command>nasal</command>
+                    <script>setprop("/v22/afcs/locks/heading", "")</script>
+                </binding>
+            </button>
+            <button>
+                <row>1</row>
+                <col>3</col>
+                <visible>
+                    <and>
+                        <equals>
+                            <property>/v22/afcs/locks/heading</property>
+                            <value>tacan-hold</value>
+                        </equals>
+                        <not>
+                            <property>/v22/afcs/active/tacan-hold</property>
+                        </not>
+                    </and>
+                </visible>
+                <legend>ARM</legend>
+                <pref-width>40</pref-width>
+                <binding>
+                    <command>nasal</command>
+                    <script>setprop("/v22/afcs/locks/heading", "")</script>
+                </binding>
+            </button>
+            <button>
+                <row>1</row>
+                <col>3</col>
+                <visible>
+                    <not>
+                        <equals>
+                            <property>/v22/afcs/locks/heading</property>
+                            <value>tacan-hold</value>
+                        </equals>
+                    </not>
+                </visible>
+                <legend></legend>
+                <pref-width>40</pref-width>
+                <binding>
+                    <command>nasal</command>
+                    <script>setprop("/v22/afcs/locks/heading", "tacan-hold")</script>
+                </binding>
             </button>
 
             <!-- 2nd row: 3 buttons -->
@@ -362,7 +407,7 @@
                     <command>property-adjust</command>
                     <property>/autopilot/settings/true-heading-deg</property>
                     <step type="double">-10.0</step>
-                    <min>1</min>
+                    <min>0</min>
                     <max>360</max>
                     <wrap>true</wrap>
                 </binding>
@@ -380,7 +425,7 @@
                     <command>property-adjust</command>
                     <property>/autopilot/settings/true-heading-deg</property>
                     <step type="double">-1.0</step>
-                    <min>1</min>
+                    <min>0</min>
                     <max>360</max>
                     <wrap>true</wrap>
                 </binding>
@@ -398,7 +443,7 @@
                     <command>property-adjust</command>
                     <property>/autopilot/settings/true-heading-deg</property>
                     <step type="double">1.0</step>
-                    <min>1</min>
+                    <min>0</min>
                     <max>360</max>
                     <wrap>true</wrap>
                 </binding>
@@ -416,7 +461,7 @@
                     <command>property-adjust</command>
                     <property>/autopilot/settings/true-heading-deg</property>
                     <step type="double">10.0</step>
-                    <min>1</min>
+                    <min>0</min>
                     <max>360</max>
                     <wrap>true</wrap>
                 </binding>
@@ -436,7 +481,7 @@
                     <command>property-adjust</command>
                     <property>/autopilot/settings/heading-bug-deg</property>
                     <step type="double">-10.0</step>
-                    <min>1</min>
+                    <min>0</min>
                     <max>360</max>
                     <wrap>true</wrap>
                 </binding>
@@ -454,7 +499,7 @@
                     <command>property-adjust</command>
                     <property>/autopilot/settings/heading-bug-deg</property>
                     <step type="double">-1.0</step>
-                    <min>1</min>
+                    <min>0</min>
                     <max>360</max>
                     <wrap>true</wrap>
                 </binding>
@@ -472,7 +517,7 @@
                     <command>property-adjust</command>
                     <property>/autopilot/settings/heading-bug-deg</property>
                     <step type="double">1.0</step>
-                    <min>1</min>
+                    <min>0</min>
                     <max>360</max>
                     <wrap>true</wrap>
                 </binding>
@@ -490,7 +535,7 @@
                     <command>property-adjust</command>
                     <property>/autopilot/settings/heading-bug-deg</property>
                     <step type="double">10.0</step>
-                    <min>1</min>
+                    <min>0</min>
                     <max>360</max>
                     <wrap>true</wrap>
                 </binding>
