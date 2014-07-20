@@ -12,6 +12,8 @@ x Implement lateral cyclic movement for VTOL aileron input using the LSG factors
 x Slow down response of Roll Hold controller to make Ctrl+w less nervous and jerky
 - Perhaps use gain scheduling to overcome inertia when pitch is between 2 and -2 degrees
 - Fix VTOL Yaw Rate controller
+- Add speed and vertical speed A/P controllers for VTOL mode
+- Make TCL control the torque instead of collective of the rotors
 - Modify YASim FDM so that loading ramp acts as a flight control surface
 - Display warning when folding wing while /environment/wind-speed-kt > 45
 - Limit range of flight control surfaces
@@ -31,7 +33,7 @@ x Slow down response of Roll Hold controller to make Ctrl+w less nervous and jer
 - Add radar altimeter
 - Add TCAS for CV-22
 - Add TF/TA multimode radar for CV-22
-- Modify 3D model so that wind screen whipers can be moved
+- Modify 3D model so that wind screen wipers can be moved
 - Add high resolution liveries
 - Simulate ice and add de-icing system
 - Add electrical system
@@ -39,7 +41,7 @@ x Slow down response of Roll Hold controller to make Ctrl+w less nervous and jer
 - Add hydraulic system
 - In cockpit, display a stall meter when nacelles are between 35 degrees and 0 degrees (horizontal)
 - Add weather radar
-- Add support for TACAN, VOR, ILS, GPS, INS
+- Add support for TACAN, VOR, ILS, GPS
 - Display hot exhaust gases animation below nacelles
 - Display brown-out condition animation when hovering above sandy terrain
 - Add cockpit to interior 3D model with fancy Canvas glass MFD's
@@ -48,7 +50,7 @@ x Slow down response of Roll Hold controller to make Ctrl+w less nervous and jer
 - Add minigun to MV-22
 - Support aerial refueling
     x Support AI > Tanker Controls
-    - Fix offset of probe
+    x Fix offset of probe
     - Only refill left forward sponson tank when refueling
 - Add aerial refueling capability for other aircraft (F-18)
 - Simulate low oxygen at high altitudes, when not wearing oxygen masks:
