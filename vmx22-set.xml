@@ -258,6 +258,12 @@
                 <heading type="string"></heading>
                 <altitude type="string"></altitude>
             </locks>
+            <settings>
+                <!-- When the glideslope has been captured, the aircraft
+                     should descend. A large pitch up is unwanted.
+                -->
+                <gs-hold-pitch-max type="double">1.0</gs-hold-pitch-max>
+            </settings>
         </afcs>
         <pfcs>
             <active>

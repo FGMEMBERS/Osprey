@@ -544,6 +544,15 @@
                 <property>/v22/pfcs/settings/pitch-hold-min</property>
             </u_min>
             <u_max>
+                <condition>
+                    <property>/v22/afcs/active/gs-hold</property>
+                </condition>
+                <property>/v22/afcs/settings/gs-hold-pitch-max</property>
+                <max>
+                    <property>/v22/pfcs/settings/pitch-hold-max</property>
+                </max>
+            </u_max>
+            <u_max>
                 <property>/v22/pfcs/settings/pitch-hold-max</property>
             </u_max>
         </config>
