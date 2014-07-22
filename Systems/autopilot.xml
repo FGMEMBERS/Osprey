@@ -376,22 +376,30 @@
     <!-- Pitch Axis Modes                                                   -->
     <!-- ================================================================== -->
 
+    <logic>
+        <name></name>
+        <input>
+            <and>
+                <equals>
+                    <property>/autopilot/locks/altitude</property>
+                    <value>pitch-hold</value>
+                </equals>
+                <not>
+                    <property>/v22/afcs/active/gs-hold</property>
+                </not>
+            </and>
+        </input>
+        <output>
+            <property>/v22/afcs/active/pitch-hold-no-gs</property>
+        </output>
+    </logic>
+
     <filter>
         <name>A/P Pitch Hold</name>
         <type>gain</type>
         <gain>1.0</gain>
         <enable>
-            <condition>
-                <and>
-                    <equals>
-                        <property>/autopilot/locks/altitude</property>
-                        <value>pitch-hold</value>
-                    </equals>
-                    <not>
-                        <property>/v22/afcs/active/gs-hold</property>
-                    </not>
-                </and>
-            </condition>
+            <property>/v22/afcs/active/pitch-hold-no-gs</property>
         </enable>
         <input>
             <property>/autopilot/settings/target-pitch-deg</property>
@@ -522,7 +530,7 @@
          or by the NAV1 glideslope signal.
     -->
     <pid-controller>
-        <name>A/P Vertical Speed Hold</name>
+        <name>A/P Vertical Speed APLN Hold</name>
         <debug>false</debug>
         <enable>
             <property>/v22/afcs/active/vs-hold</property>
@@ -534,7 +542,7 @@
             <property>/v22/afcs/target/vs-fps</property>
         </reference>
         <output>
-            <property>/v22/pfcs/target/pitch-deg</property>
+            <property>/v22/afcs/target/pitch-deg-apln</property>
         </output>
         <config>
             <Kp>0.52</Kp>
@@ -558,6 +566,56 @@
         </config>
     </pid-controller>
 
+    <pid-controller>
+        <name>A/P Vertical Speed VTOL Hold</name>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <and>
+                    <property>/v22/afcs/active/vs-hold</property>
+                    <equals>
+                        <property>/controls/engines/engine/magnetos</property>
+                        <value>1.0</value>
+                    </equals>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <property>/velocities/vertical-speed-fps</property>
+        </input>
+        <reference>
+            <property>/v22/afcs/target/vs-fps</property>
+        </reference>
+        <output>
+            <property>/v22/afcs/target/throttle-vtol</property>
+        </output>
+        <config>
+            <Kp>
+                <condition>
+                    <greater-than>
+                        <property>/velocities/vertical-speed-fps</property>
+                        <property>/v22/afcs/target/vs-fps</property>
+                    </greater-than>
+                </condition>
+                <value>0.02</value>
+            </Kp>
+            <Kp>0.02</Kp>
+            <Ti>
+                <condition>
+                    <greater-than>
+                        <property>/velocities/vertical-speed-fps</property>
+                        <property>/v22/afcs/target/vs-fps</property>
+                    </greater-than>
+                </condition>
+                <value>6.1</value>
+            </Ti>
+            <Ti>2.0</Ti>
+            <Td>0.0</Td>
+            <u_min>0.125</u_min>
+            <u_max>1.0</u_max>
+        </config>
+    </pid-controller>
+
     <!-- Enable FBW Pitch Hold if A/P Pitch Hold or A/P VS Hold is
          enabled.
     -->
@@ -570,6 +628,7 @@
                     <value>pitch-hold</value>
                 </equals>
                 <property>/v22/afcs/active/vs-hold</property>
+                <property>/v22/afcs/active/spd-hold</property>
             </or>
         </input>
         <output>
@@ -581,16 +640,26 @@
     <!-- Throttle Modes                                                     -->
     <!-- ================================================================== -->
 
+    <logic>
+        <name>A/P Horizontal Speed Hold On/Off Switcher</name>
+        <input>
+            <equals>
+                <property>/autopilot/locks/speed</property>
+                <value>speed-with-throttle</value>
+            </equals>
+        </input>
+        <output>
+            <property>/v22/afcs/active/spd-hold</property>
+        </output>
+    </logic>
+
     <pid-controller>
-        <name>A/P Throttle Hold</name>
+        <name>A/P Horizontal Speed APLN Hold</name>
         <debug>false</debug>
         <enable>
             <condition>
                 <and>
-                    <equals>
-                        <property>/autopilot/locks/speed</property>
-                        <value>speed-with-throttle</value>
-                    </equals>
+                    <property>/v22/afcs/active/spd-hold</property>
                     <equals>
                         <property>/controls/engines/engine/magnetos</property>
                         <value>1.0</value>
@@ -605,7 +674,7 @@
             <property>/autopilot/settings/target-speed-kt</property>
         </reference>
         <output>
-            <property>/controls/engines/engine[0]/throttle</property>
+            <property>/v22/afcs/target/throttle-apln</property>
         </output>
         <config>
             <Kp>
@@ -633,5 +702,272 @@
             <u_max>1.0</u_max>
         </config>
     </pid-controller>
+
+    <pid-controller>
+        <name>A/P Horizontal Speed VTOL Hold</name>
+        <debug>false</debug>
+        <enable>
+            <property>/v22/afcs/active/spd-hold</property>
+        </enable>
+        <input>
+            <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+        </input>
+        <reference>
+            <property>/autopilot/settings/target-speed-kt</property>
+        </reference>
+        <output>
+            <property>/v22/afcs/target/pitch-deg-vtol</property>
+        </output>
+        <config>
+            <Kp>-0.52</Kp>
+            <Ti>3.0</Ti>
+            <Td>0.0</Td>
+            <u_min>
+                <property>/v22/afcs/settings/vtol-pitch-hold-min</property>
+            </u_min>
+            <u_max>
+                <condition>
+                    <property>/v22/afcs/active/gs-hold</property>
+                </condition>
+                <property>/v22/afcs/settings/gs-hold-pitch-max</property>
+                <max>
+                    <property>/v22/afcs/settings/vtol-pitch-hold-max</property>
+                </max>
+            </u_max>
+            <u_max>
+                <property>/v22/afcs/settings/vtol-pitch-hold-max</property>
+            </u_max>
+        </config>
+    </pid-controller>
+
+    <!-- ================================================================== -->
+    <!-- V/S And Horizontal Speed Merge Filters                             -->
+    <!-- ================================================================== -->
+
+    <!-- Let A/P control pitch if Vertical Speed mode is active by
+         routing pitch-deg-apln signal to pitch-deg.
+
+         The PFCS will merge this with the stick input depending
+         on the tilt of the nacelles.
+    -->
+    <filter>
+        <name>A/P Vertical Speed APLN To Pitch Deg</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <and>
+                    <property>/v22/afcs/active/vs-hold</property>
+                    <not>
+                        <property>/v22/afcs/active/spd-hold</property>
+                    </not>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/afcs/target/pitch-deg-apln</property>
+        </input>
+        <output>
+            <property>/v22/pfcs/target/pitch-deg</property>
+        </output>
+    </filter>
+
+    <!-- Let A/P control pitch if Horizontal Speed mode is active by
+         routing pitch-deg-vtol signal to pitch-deg.
+
+         The PFCS will merge this with the stick input depending
+         on the tilt of the nacelles.
+    -->
+    <filter>
+        <name>A/P Horizontal Speed VTOL To Pitch Deg</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <and>
+                    <property>/v22/afcs/active/spd-hold</property>
+                    <not>
+                        <property>/v22/afcs/active/vs-hold</property>
+                    </not>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/afcs/target/pitch-deg-vtol</property>
+        </input>
+        <output>
+            <property>/v22/pfcs/target/pitch-deg</property>
+        </output>
+    </filter>
+
+    <!-- Merge pitch-deg-apln and pitch-deg-vtol depending on the tilt
+         of the nacelles and route it to pitch-deg.
+
+         The PFCS will ignore the stick input and will not merge it with
+         pitch-deg.
+    -->
+    <filter>
+        <name>A/P Vertical Speed APLN And Horizontal Speed VTOL Merge To Pitch Deg</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <and>
+                    <property>/v22/afcs/active/vs-hold</property>
+                    <property>/v22/afcs/active/spd-hold</property>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <expression>
+                <sum>
+                    <product>
+                        <property>/v22/afcs/target/pitch-deg-vtol</property>
+                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                    </product>
+                    <product>
+                        <property>/v22/afcs/target/pitch-deg-apln</property>
+                        <difference>
+                            <value>1.0</value>
+                            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        </difference>
+                    </product>
+                </sum>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/target/pitch-deg</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>A/P Vertical Speed VTOL To TCL</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <and>
+                    <property>/v22/afcs/active/vs-hold</property>
+                    <not>
+                        <property>/v22/afcs/active/spd-hold</property>
+                    </not>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <expression>
+                <sum>
+                    <product>
+                        <property>/v22/afcs/target/throttle-vtol</property>
+                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                    </product>
+                    <product>
+                        <property>/controls/engines/engine[0]/throttle</property>
+                        <difference>
+                            <value>1.0</value>
+                            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        </difference>
+                    </product>
+                </sum>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/afcs/output/throttle</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>A/P Horizontal Speed APLN To TCL</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <and>
+                    <property>/v22/afcs/active/spd-hold</property>
+                    <not>
+                        <property>/v22/afcs/active/vs-hold</property>
+                    </not>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <expression>
+                <sum>
+                    <product>
+                        <property>/controls/engines/engine[0]/throttle</property>
+                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                    </product>
+                    <product>
+                        <property>/v22/afcs/target/throttle-apln</property>
+                        <difference>
+                            <value>1.0</value>
+                            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        </difference>
+                    </product>
+                </sum>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/afcs/output/throttle</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>A/P Horizontal Speed APLN And Vertical Speed VTOL Merge To TCL</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <and>
+                    <property>/v22/afcs/active/vs-hold</property>
+                    <property>/v22/afcs/active/spd-hold</property>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <expression>
+                <sum>
+                    <product>
+                        <property>/v22/afcs/target/throttle-vtol</property>
+                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                    </product>
+                    <product>
+                        <property>/v22/afcs/target/throttle-apln</property>
+                        <difference>
+                            <value>1.0</value>
+                            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        </difference>
+                    </product>
+                </sum>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/afcs/output/throttle</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>A/P Throttle Pilot To TCL</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <and>
+                    <not>
+                        <property>/v22/afcs/active/vs-hold</property>
+                    </not>
+                    <not>
+                        <property>/v22/afcs/active/spd-hold</property>
+                    </not>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <property>/controls/engines/engine[0]/throttle</property>
+        </input>
+        <output>
+            <property>/v22/afcs/output/throttle</property>
+        </output>
+    </filter>
 
 </PropertyList>

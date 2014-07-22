@@ -519,9 +519,13 @@
             <condition>
                 <and>
                     <property>/v22/pfcs/active/pitch-rate</property>
-                    <not>
-                        <property>/v22/pfcs/active/pitch-hold</property>
-                    </not>
+                    <or>
+                        <not>
+                            <property>/v22/pfcs/active/pitch-hold</property>
+                        </not>
+                        <property>/v22/afcs/active/vs-hold</property>
+                        <property>/v22/afcs/active/spd-hold</property>
+                    </or>
                 </and>
             </condition>
         </enable>
@@ -533,7 +537,7 @@
             <condition>
                 <property>/v22/pfcs/active/pitch-rate</property>
             </condition>
-            <property>/v22/pfcs/target/pitch-rate</property>
+            <property>/v22/pfcs/target/pitch-rate-stick</property>
         </output>
     </filter>
 
@@ -561,7 +565,7 @@
             </max>
         </reference>
         <output>
-            <property>/v22/pfcs/target/pitch-rate</property>
+            <property>/v22/pfcs/target/pitch-rate-ap</property>
         </output>
         <config>
             <!-- Response should be something like Docs/fbw-pitch-hold.png -->
@@ -577,6 +581,130 @@
             </u_max>
         </config>
     </pid-controller>
+
+    <!-- Merge pitch-rate-stick and pitch-rate-ap using lst-tilt factor
+         if A/P Vertical Speed mode is active.
+    -->
+    <filter>
+        <name>FBW Pitch Stick And A/P V/S Merge</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <and>
+                    <property>/v22/afcs/active/vs-hold</property>
+                    <not>
+                        <property>/v22/afcs/active/spd-hold</property>
+                    </not>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <expression>
+                <sum>
+                    <product>
+                        <property>/v22/pfcs/target/pitch-rate-stick</property>
+                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                    </product>
+                    <product>
+                        <property>/v22/pfcs/target/pitch-rate-ap</property>
+                        <difference>
+                            <value>1.0</value>
+                            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        </difference>
+                    </product>
+                </sum>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/target/pitch-rate</property>
+        </output>
+    </filter>
+
+    <!-- Merge pitch-rate-stick and pitch-rate-ap using lst-tilt factor
+         if A/P Horizontal Speed mode is active.
+    -->
+    <filter>
+        <name>FBW Pitch Stick And A/P Speed Merge</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <and>
+                    <property>/v22/afcs/active/spd-hold</property>
+                    <not>
+                        <property>/v22/afcs/active/vs-hold</property>
+                    </not>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <expression>
+                <sum>
+                    <product>
+                        <property>/v22/pfcs/target/pitch-rate-ap</property>
+                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                    </product>
+                    <product>
+                        <property>/v22/pfcs/target/pitch-rate-stick</property>
+                        <difference>
+                            <value>1.0</value>
+                            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        </difference>
+                    </product>
+                </sum>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/target/pitch-rate</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>FBW Pitch Stick To Pitch Rate</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <not>
+                    <property>/v22/pfcs/active/pitch-hold</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/pfcs/target/pitch-rate-stick</property>
+        </input>
+        <output>
+            <property>/v22/pfcs/target/pitch-rate</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>FBW Pitch A/P To Pitch Rate</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <debug>false</debug>
+        <enable>
+            <condition>
+                <or>
+                    <and>
+                        <property>/v22/afcs/active/vs-hold</property>
+                        <property>/v22/afcs/active/spd-hold</property>
+                    </and>
+                    <property>/v22/afcs/active/pitch-hold-no-gs</property>
+                </or>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/pfcs/target/pitch-rate-ap</property>
+        </input>
+        <output>
+            <property>/v22/pfcs/target/pitch-rate</property>
+        </output>
+    </filter>
 
     <!-- Enable FBW Pitch Rate if FBW Pitch Hold is enabled -->
     <logic>

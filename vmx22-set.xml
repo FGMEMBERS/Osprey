@@ -7,6 +7,7 @@
         [1]  http://books.google.com/books?id=DbUhEnlI3OkC&pg=PA129 (page 113 and 129)
         [2]  http://www.globalsecurity.org/military/systems/aircraft/v-22-survive.htm
         [3]  http://www.boeing.com/ospreynews/2011/issue_02/final_2011_2012_guidebook.pdf (general characteristics, page 44)
+        [4]  http://trace.tennessee.edu/cgi/viewcontent.cgi?article=3171&context=utk_gradthes (slide 17, page 6)
 -->
 
 <PropertyList>
@@ -16,7 +17,7 @@
         <author>onox (FBW, Systems), Emmanuel Baranger (3D), Maik Justus (FDM), Oliver Thurau (3D upgrade and FDM / XML upgrade)</author>
         <status>alpha</status>
         <aircraft-version>0.60-22.06.2014</aircraft-version>
-    
+
         <flight-model>yasim</flight-model>
 
         <!-- Empty fuel tanks at start-up of FlightGear -->
@@ -35,11 +36,11 @@
 
         <model>
             <path archive="y">Aircraft/VMX22-Osprey/Models/v22.xml</path>
-            
+
             <livery>
                 <file type="string">default</file>
             </livery>
-        
+
             <v22>
                 <state type="int">0</state>
                 <wing_state type="int">0</wing_state>
@@ -65,7 +66,7 @@
                         <collective type="float">0</collective>
                     </right>
                 </rotor>
-                
+
                 <engine_right type="float">0.0</engine_right>
                 <engine_left type="float">0.0</engine_left>
                 <rotor-step-deg type="float">-1.0</rotor-step-deg>
@@ -76,7 +77,7 @@
                 <tilt type="float">0</tilt>
                 <animation_tilt type="float">0</animation_tilt>
             </v22>
-        
+
             <!-- set for landing lights OFF (0 default) on startup <property>sim/model/lights/landing-lights/state</property> -->
             <!-- set for GIT landing lights OFF (0 default) on startup <property>sim/model/lights/git-landing-lights/state</property> -->
             <!-- change state to 1 - to globaly set the GIT landing lights to ON for all mp vmx22 -->
@@ -118,7 +119,7 @@
                 <int n="12"/> <!-- paratrooper jump state mp -->
             </generic>
         </multiplay>
-    
+
         <weight n="0">
             <name>Pilot</name>
             <weight-lb>180</weight-lb>
@@ -154,7 +155,7 @@
             <setting>0.66</setting> <!--  -->
             <setting>1.00</setting> <!-- Full -->
         </flaps>
-    
+
         <hitches>
             <!-- Make sure some properties do exist, when the list for multiplayer transfer is defined -->
             <!-- They need to be in the same value, as they are initilized in the FDM, to get the same values after reset should fix this somehow -->
@@ -263,6 +264,9 @@
                      should descend. A large pitch up is unwanted.
                 -->
                 <gs-hold-pitch-max type="double">1.0</gs-hold-pitch-max>
+
+                <vtol-pitch-hold-min type="double">-10.0</vtol-pitch-hold-min>
+                <vtol-pitch-hold-max type="double">5.0</vtol-pitch-hold-max>
             </settings>
         </afcs>
         <pfcs>
@@ -294,9 +298,9 @@
                 <roll-hold-limit type="double">45</roll-hold-limit>
 
                 <pitch-rate-limit type="double">15</pitch-rate-limit>
-                <pitch-hold-min type="double">-40</pitch-hold-min>
-
                 <yaw-rate-limit type="double">25</yaw-rate-limit>
+
+                <pitch-hold-min type="double">-40</pitch-hold-min>
 
                 <!-- Maximum AoA = 35 according to YASim .xml file -->
                 <pitch-hold-max type="double">35</pitch-hold-max>
@@ -346,7 +350,7 @@
     <surface-positions>
         <flap-pos-norm type="float">0</flap-pos-norm>
     </surface-positions>
-  
+
     <ai>
         <submodels>
             <trigger type="bool">false</trigger>
@@ -371,7 +375,7 @@
             <spray-density type="double">0</spray-density>
         </gear>
     </gear>
-  
+
     <nasal>
         <lighting>
             <file>Aircraft/VMX22-Osprey/Nasal/lighting.nas</file>
@@ -428,7 +432,7 @@
         <max-positive-g>4.0</max-positive-g>
         <max-negative-g>-1.0</max-negative-g>
     </limits>
-    
+
     <instrumentation include="Systems/instrumentation.xml"/>
 
     <systems>

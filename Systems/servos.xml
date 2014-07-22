@@ -278,7 +278,7 @@
         <name>Thrust Control Lever (TCL) Servos</name>
         <type>noise-spike</type>
         <input>
-            <property>/controls/engines/engine[0]/throttle</property>
+            <property>/v22/afcs/output/throttle</property>
         </input>
         <output>
             <property>/v22/pfcs/output/tcl</property>
