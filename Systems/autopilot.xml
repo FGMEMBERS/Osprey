@@ -377,7 +377,7 @@
     <!-- ================================================================== -->
 
     <logic>
-        <name></name>
+        <name>A/P Pitch Hold On/Off Switcher</name>
         <input>
             <and>
                 <equals>
@@ -527,7 +527,9 @@
     </logic>
 
     <!-- Tracks a given vertical speed (in fps), set by the pilot
-         or by the NAV1 glideslope signal.
+         or by the NAV1 glideslope signal, by controlling the
+         pitch of the aircraft. Used when the nacelles have tilted
+         to a horizontal position.
     -->
     <pid-controller>
         <name>A/P Vertical Speed APLN Hold</name>
@@ -566,6 +568,11 @@
         </config>
     </pid-controller>
 
+    <!-- Tracks a given vertical speed (in fps), set by the pilot
+         or by the NAV1 glideslope signal, by controlling the
+         throttle of the engines. Used when the nacelles have tilted
+         to a vertical position.
+    -->
     <pid-controller>
         <name>A/P Vertical Speed VTOL Hold</name>
         <debug>false</debug>
@@ -653,6 +660,10 @@
         </output>
     </logic>
 
+    <!-- Tracks a given horizontal speed (in knots), set by the pilot,
+         by controlling the throttle of the engines. Used when the
+         nacelles have tilted to a horizontal position.
+    -->
     <pid-controller>
         <name>A/P Horizontal Speed APLN Hold</name>
         <debug>false</debug>
@@ -703,6 +714,13 @@
         </config>
     </pid-controller>
 
+    <!-- Tracks a given horizontal speed (in knots), set by the pilot,
+         by controlling the pitch of the aircraft. Used when the
+         nacelles have tilted to a vertical position.
+
+         The allowed pitch is severely restricted in order to avoid
+         losing too much altitude.
+    -->
     <pid-controller>
         <name>A/P Horizontal Speed VTOL Hold</name>
         <debug>false</debug>
