@@ -270,6 +270,7 @@
             </settings>
             <target>
                 <ap-altitude-ft type="double">10000</ap-altitude-ft>
+                <ap-agl-ft type="double">50</ap-agl-ft>
             </target>
         </afcs>
         <pfcs>
@@ -458,7 +459,6 @@
             <true-heading-deg type="double">300</true-heading-deg>
             <heading-bug-deg type="double">300</heading-bug-deg>
             <target-speed-kt type="double">200</target-speed-kt>
-            <target-agl-ft type="double">50</target-agl-ft>
         </settings>
     </autopilot>
 

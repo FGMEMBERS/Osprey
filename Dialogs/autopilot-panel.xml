@@ -392,7 +392,7 @@
                 <pref-width>60</pref-width>
                 <enable><false/></enable>
                 <format>%4.0f</format>
-                <property>/autopilot/settings/target-agl-ft</property>
+                <property>/v22/afcs/target/ap-agl-ft</property>
                 <live>true</live>
             </input>
 
@@ -701,9 +701,9 @@
                 <padding>0</padding>
                 <binding>
                     <command>property-adjust</command>
-                    <property>/autopilot/settings/target-agl-ft</property>
+                    <property>/v22/afcs/target/ap-agl-ft</property>
                     <step type="double">-10.0</step>
-                    <min>10</min>
+                    <min>5</min>
                     <max>5000</max>
                     <wrap>false</wrap>
                 </binding>
@@ -719,9 +719,9 @@
                 <padding>0</padding>
                 <binding>
                     <command>property-adjust</command>
-                    <property>/autopilot/settings/target-agl-ft</property>
+                    <property>/v22/afcs/target/ap-agl-ft</property>
                     <step type="double">-1.0</step>
-                    <min>10</min>
+                    <min>5</min>
                     <max>5000</max>
                     <wrap>false</wrap>
                 </binding>
@@ -737,9 +737,9 @@
                 <padding>0</padding>
                 <binding>
                     <command>property-adjust</command>
-                    <property>/autopilot/settings/target-agl-ft</property>
+                    <property>/v22/afcs/target/ap-agl-ft</property>
                     <step type="double">1.0</step>
-                    <min>10</min>
+                    <min>5</min>
                     <max>5000</max>
                     <wrap>false</wrap>
                 </binding>
@@ -755,9 +755,9 @@
                 <padding>0</padding>
                 <binding>
                     <command>property-adjust</command>
-                    <property>/autopilot/settings/target-agl-ft</property>
+                    <property>/v22/afcs/target/ap-agl-ft</property>
                     <step type="double">10.0</step>
-                    <min>10</min>
+                    <min>5</min>
                     <max>5000</max>
                     <wrap>false</wrap>
                 </binding>
@@ -905,9 +905,37 @@
                 <row>4</row>
                 <col>24</col>
                 <colspan>4</colspan>
+                <visible>
+                    <equals>
+                        <property>/autopilot/locks/altitude</property>
+                        <value>agl-hold</value>
+                    </equals>
+                </visible>
                 <legend>ON</legend>
                 <pref-width>40</pref-width>
-                <enable><false/></enable>
+                <binding>
+                    <command>nasal</command>
+                    <script>setprop("/autopilot/locks/altitude", "")</script>
+                </binding>
+            </button>
+            <button>
+                <row>4</row>
+                <col>24</col>
+                <colspan>4</colspan>
+                <visible>
+                    <not>
+                        <equals>
+                            <property>/autopilot/locks/altitude</property>
+                            <value>agl-hold</value>
+                        </equals>
+                    </not>
+                </visible>
+                <legend></legend>
+                <pref-width>40</pref-width>
+                <binding>
+                    <command>nasal</command>
+                    <script>setprop("/autopilot/locks/altitude", "agl-hold")</script>
+                </binding>
             </button>
 
             <!-- 1st row: 2 buttons -->
