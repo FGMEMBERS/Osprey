@@ -382,7 +382,7 @@
                 <pref-width>60</pref-width>
                 <enable><false/></enable>
                 <format>%5.0f</format>
-                <property>/autopilot/settings/target-altitude-ft</property>
+                <property>/v22/afcs/target/ap-altitude-ft</property>
                 <live>true</live>
             </input>
             <input>
@@ -627,7 +627,7 @@
                 <padding>0</padding>
                 <binding>
                     <command>property-adjust</command>
-                    <property>/autopilot/settings/target-altitude-ft</property>
+                    <property>/v22/afcs/target/ap-altitude-ft</property>
                     <step type="double">-1000.0</step>
                     <min>500</min>
                     <max>25000</max>
@@ -645,7 +645,7 @@
                 <padding>0</padding>
                 <binding>
                     <command>property-adjust</command>
-                    <property>/autopilot/settings/target-altitude-ft</property>
+                    <property>/v22/afcs/target/ap-altitude-ft</property>
                     <step type="double">-100.0</step>
                     <min>500</min>
                     <max>25000</max>
@@ -663,7 +663,7 @@
                 <padding>0</padding>
                 <binding>
                     <command>property-adjust</command>
-                    <property>/autopilot/settings/target-altitude-ft</property>
+                    <property>/v22/afcs/target/ap-altitude-ft</property>
                     <step type="double">100.0</step>
                     <min>500</min>
                     <max>25000</max>
@@ -681,7 +681,7 @@
                 <padding>0</padding>
                 <binding>
                     <command>property-adjust</command>
-                    <property>/autopilot/settings/target-altitude-ft</property>
+                    <property>/v22/afcs/target/ap-altitude-ft</property>
                     <step type="double">1000.0</step>
                     <min>500</min>
                     <max>25000</max>

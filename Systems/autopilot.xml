@@ -430,7 +430,7 @@
             <property>/instrumentation/altimeter/indicated-altitude-ft</property>
         </input>
         <reference>
-            <property>/autopilot/settings/target-altitude-ft</property>
+            <property>/v22/afcs/target/ap-altitude-ft</property>
         </reference>
         <output>
             <property>/v22/afcs/target/vs-fps</property>

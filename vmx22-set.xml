@@ -268,6 +268,9 @@
                 <vtol-pitch-hold-min type="double">-10.0</vtol-pitch-hold-min>
                 <vtol-pitch-hold-max type="double">5.0</vtol-pitch-hold-max>
             </settings>
+            <target>
+                <ap-altitude-ft type="double">10000</ap-altitude-ft>
+            </target>
         </afcs>
         <pfcs>
             <active>
@@ -455,7 +458,6 @@
             <true-heading-deg type="double">300</true-heading-deg>
             <heading-bug-deg type="double">300</heading-bug-deg>
             <target-speed-kt type="double">200</target-speed-kt>
-            <target-altitude-ft type="double">10000</target-altitude-ft>
             <target-agl-ft type="double">50</target-agl-ft>
         </settings>
     </autopilot>
