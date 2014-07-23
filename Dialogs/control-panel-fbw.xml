@@ -210,6 +210,26 @@
                     <object-name>gs-hold-pitch-max</object-name>
                 </binding>
             </input>
+
+            <text>
+                <row>8</row>
+                <col>0</col>
+                <label>Climb Rate Max:</label>
+                <halign>right</halign>
+            </text>
+            <input>
+                <row>8</row>
+                <col>1</col>
+                <name>climb-rate-max</name>
+                <label>fpm</label>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/v22/afcs/settings/climb-rate-max</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>climb-rate-max</object-name>
+                </binding>
+            </input>
         </group>
     </group>
 

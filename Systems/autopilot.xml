@@ -438,8 +438,18 @@
         <config>
             <Kp>0.15</Kp>
             <Ki>0.01</Ki>
-            <u_min>-40.0</u_min>
-            <u_max>40.0</u_max>
+            <u_min>
+                <property>/v22/afcs/settings/climb-rate-max</property> 
+
+                <!-- Multiply by 1/60 to convert from fpm to fps -->
+                <scale>-0.01666666</scale>
+            </u_min>
+            <u_max>
+                <property>/v22/afcs/settings/climb-rate-max</property> 
+
+                <!-- Multiply by 1/60 to convert from fpm to fps -->
+                <scale>0.01666666</scale>
+            </u_max>
         </config>
     </pi-simple-controller>
 
