@@ -133,16 +133,18 @@
         <gain>1.0</gain>
         <enable>
             <condition>
-                <equals>
-                    <property>/autopilot/locks/heading</property>
-                    <value>dg-heading-hold</value>
-                </equals>
-                <not>
-                    <or>
-                        <property>/v22/afcs/active/loc-hold</property>
-                        <property>/v22/afcs/active/tacan-hold</property>
-                    </or>
-                </not>
+                <and>
+                    <equals>
+                        <property>/autopilot/locks/heading</property>
+                        <value>dg-heading-hold</value>
+                    </equals>
+                    <not>
+                        <or>
+                            <property>/v22/afcs/active/loc-hold</property>
+                            <property>/v22/afcs/active/tacan-hold</property>
+                        </or>
+                    </not>
+                </and>
             </condition>
         </enable>
         <input>

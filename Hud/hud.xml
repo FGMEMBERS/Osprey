@@ -13,7 +13,7 @@
   </import>
 
   <import>
-      <path>Huds/Sets/autopilot.xml</path>
+      <path>Aircraft/VMX22-Osprey/Hud/Sets/autopilot.xml</path>
 	  <x-offset>-90</x-offset>
 	  <y-offset>160</y-offset>
   </import>

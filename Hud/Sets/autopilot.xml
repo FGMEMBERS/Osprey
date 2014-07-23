@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <!-- Heading -->
+
+    <label>
+        <width>60</width>
+        <height>10</height>
+        <box>true</box>
+        <format>ROLL</format>
+        <halign>left</halign>
+        <condition>
+            <equals>
+                <property>/autopilot/locks/heading</property>
+                <value>wing-leveler</value>
+            </equals>
+        </condition>
+    </label>
+
+    <label>
+        <width>60</width>
+        <height>10</height>
+        <box>true</box>
+        <format>HDG %03d</format>
+        <halign>left</halign>
+        <input>
+            <property>/autopilot/settings/heading-bug-deg</property>
+        </input>
+        <condition>
+            <equals>
+                <property>/autopilot/locks/heading</property>
+                <value>dg-heading-hold</value>
+            </equals>
+        </condition>
+    </label>
+
+    <label>
+        <width>60</width>
+        <height>10</height>
+        <box>true</box>
+        <format>GPS %03d</format>
+        <halign>left</halign>
+        <input>
+            <property>/autopilot/settings/true-heading-deg</property>
+        </input>
+        <condition>
+            <property>/v22/afcs/active/wypt-hold</property>
+        </condition>
+    </label>
+
+    <label>
+       <width>60</width>
+        <height>10</height>
+        <y>-10</y>
+        <box>true</box>
+        <format>TACAN CAP</format>
+        <halign>left</halign>
+        <condition>
+            <property>/v22/afcs/active/tacan-hold</property>
+         </condition>
+    </label>
+ 
+    <label>
+        <width>60</width>
+        <height>10</height>
+        <y>-10</y>
+        <box>true</box>
+        <format>TACAN ARM</format>
+        <halign>left</halign>
+        <condition>
+            <and>
+                <equals>
+                    <property>/v22/afcs/locks/heading</property>
+                    <value>tacan-hold</value>
+                </equals>
+                <not>
+                    <property>/v22/afcs/active/tacan-hold</property>
+                </not>
+            </and>
+        </condition>
+    </label>
+
+    <!-- Altitude -->
+
+    <label>
+        <x>60</x>
+        <width>60</width>
+        <height>10</height>
+        <box>true</box>
+        <format>ALT %04d</format>
+        <halign>left</halign>
+        <input>
+            <property>/v22/afcs/target/ap-altitude-ft</property>
+        </input>
+        <condition>
+            <equals>
+                <property>/autopilot/locks/altitude</property>
+                <value>altitude-hold</value>
+            </equals>
+        </condition>
+    </label>
+
+    <label>
+        <x>60</x>
+        <width>60</width>
+        <height>10</height>
+        <box>true</box>
+        <format>PTCH</format>
+        <halign>left</halign>
+        <condition>
+            <equals>
+                <property>/autopilot/locks/altitude</property>
+                <value>pitch-hold</value>
+            </equals>
+        </condition>
+    </label>
+
+    <label>
+        <x>60</x>
+        <width>60</width>
+        <height>10</height>
+        <box>true</box>
+        <format>V/S %d</format>
+        <halign>left</halign>
+        <input>
+            <property>/autopilot/settings/vertical-speed-fpm</property>
+        </input>
+        <condition>
+            <equals>
+                <property>/autopilot/locks/altitude</property>
+                <value>vertical-speed-hold</value>
+            </equals>
+        </condition>
+    </label>
+
+    <label>
+        <x>60</x>
+        <width>60</width>
+        <height>10</height>
+        <format>AGL %04d</format>
+        <halign>left</halign>
+        <box>true</box>
+        <input>
+            <property>/v22/afcs/target/ap-agl-ft</property>
+        </input>
+        <condition>
+            <equals>
+                <property>/autopilot/locks/altitude</property>
+                <value>agl-hold</value>
+            </equals>
+        </condition>
+    </label>
+
+    <!-- Speed -->
+
+    <label>
+        <x>120</x>
+        <width>60</width>
+        <height>10</height>
+        <format>IAS %3d</format>
+        <halign>left</halign>
+        <box>true</box>
+        <input>
+            <property>/autopilot/settings/target-speed-kt</property>
+        </input>
+        <condition>
+            <property>/v22/afcs/active/spd-hold</property>
+        </condition>
+    </label>
+
+</PropertyList>
