@@ -59,6 +59,7 @@
 
                     <!-- Or a VOR beacon -->
                     <property>/instrumentation/nav[0]/to-flag</property>
+                    <property>/instrumentation/nav[0]/from-flag</property>
                 </or>
                 <property>/instrumentation/nav[0]/in-range</property>
                 <greater-than>
