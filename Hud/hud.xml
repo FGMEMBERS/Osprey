@@ -3,20 +3,21 @@
 <!-- NTPS Default Aircraft HUD -->
 
 <PropertyList>
- <name>VMX-22 Osprey modified Hud</name>
 
- <enable3d>false</enable3d>
+    <name>VMX-22 Osprey modified Hud</name>
 
-  <import>
-	  <path>Huds/Sets/coordinates.xml</path>
-	  <y-offset>190</y-offset>
-  </import>
+    <enable3d>false</enable3d>
 
-  <import>
-      <path>Aircraft/VMX22-Osprey/Hud/Sets/autopilot.xml</path>
-	  <x-offset>-90</x-offset>
-	  <y-offset>160</y-offset>
-  </import>
+    <import>
+        <path>Huds/Sets/coordinates.xml</path>
+        <y-offset>190</y-offset>
+    </import>
+
+    <import>
+        <path>Aircraft/VMX22-Osprey/Hud/Sets/autopilot.xml</path>
+        <x-offset>-90</x-offset>
+        <y-offset>160</y-offset>
+    </import>
 
     <import>
         <path>Aircraft/VMX22-Osprey/Hud/Sets/ils.xml</path>
@@ -24,404 +25,418 @@
 	    <y-offset>160</y-offset>
     </import>
 
-  <import>
-	  <path>Aircraft/VMX22-Osprey/Hud/Sets/fgcom.xml</path>
-	  <x-offset>-30</x-offset>
-	  <y-offset>150</y-offset>
-  </import>
+    <import>
+        <path>Aircraft/VMX22-Osprey/Hud/Sets/fgcom.xml</path>
+        <x-offset>-30</x-offset>
+        <y-offset>150</y-offset>
+    </import>
 
-  <import>
-      <path>Huds/Sets/gps.xml</path>
-	  <x-offset>-300</x-offset>
-	  <y-offset>160</y-offset>
-  </import>
+    <import>
+        <path>Huds/Sets/gps.xml</path>
+        <x-offset>-300</x-offset>
+        <y-offset>160</y-offset>
+    </import>
 
- <ladder>
-  <name>Pitch Ladder</name>
-  <type>pitch</type>
-  <!-- <type>climb-dive</type> -->
-  <x>-60</x>
-  <y>-70</y>
-  <width>120</width>
-  <height>140</height>
-  <roll-input>
-   <property>/orientation/roll-deg</property>
-  </roll-input>
-  <pitch-input>
-   <property>/orientation/pitch-deg</property>
-  </pitch-input>
+    <ladder>
+        <name>Pitch Ladder</name>
+        <type>pitch</type>
+        <!-- <type>climb-dive</type> -->
+        <x>-60</x>
+        <y>-70</y>
+        <width>120</width>
+        <height>140</height>
 
-  <compression-factor>10</compression-factor>
-  <display-span>30.0</display-span>
-  <divisions>5.0</divisions>
-  <screen-hole>50</screen-hole>
-  <zero-bar-overlength>50</zero-bar-overlength>
-  <tick-length>5</tick-length>
-  <enable-dive-bar-angle>true</enable-dive-bar-angle>
-  <lbl-pos>0</lbl-pos>
-  <glide-slope>0.0</glide-slope>
-  <enable-dynamic-origin>false</enable-dynamic-origin>
-  <enable-zenith>true</enable-zenith>
-  <enable-nadir>true</enable-nadir>
-  <enable-fuselage-ref-line>true</enable-fuselage-ref-line>
-  <enable-target-spot>true</enable-target-spot>
-  <enable-target-markers>true</enable-target-markers>
-  <enable-velocity-vector>true</enable-velocity-vector>
-  <enable-drift-marker>true</enable-drift-marker>
-  <enable-alpha-bracket>true</enable-alpha-bracket>
-  <enable-energy-marker>true</enable-energy-marker>
-  <enable-climb-dive-marker>true</enable-climb-dive-marker>
-  <enable-glide-slope-marker>true</enable-glide-slope-marker>
-  <enable-energy-worm>true</enable-energy-worm>
-  <enable-waypoint-marker>true</enable-waypoint-marker>
- </ladder>
+        <roll-input>
+            <property>/orientation/roll-deg</property>
+        </roll-input>
+        <pitch-input>
+            <property>/orientation/pitch-deg</property>
+        </pitch-input>
 
- <tape>
-  <name>Gyrocompass</name>
-  <input>
-   <property>/orientation/heading-magnetic-deg</property>
-   <factor>0.1</factor>
-  </input>
+        <compression-factor>10</compression-factor>
+        <display-span>30.0</display-span>
+        <divisions>5.0</divisions>
+        <screen-hole>50</screen-hole>
+        <zero-bar-overlength>50</zero-bar-overlength>
+        <tick-length>5</tick-length>
+        <enable-dive-bar-angle>true</enable-dive-bar-angle>
+        <lbl-pos>0</lbl-pos>
+        <glide-slope>0.0</glide-slope>
+        <enable-dynamic-origin>false</enable-dynamic-origin>
+        <enable-zenith>true</enable-zenith>
+        <enable-nadir>true</enable-nadir>
+        <enable-fuselage-ref-line>true</enable-fuselage-ref-line>
+        <enable-target-spot>true</enable-target-spot>
+        <enable-target-markers>true</enable-target-markers>
+        <enable-velocity-vector>true</enable-velocity-vector>
+        <enable-drift-marker>true</enable-drift-marker>
+        <enable-alpha-bracket>true</enable-alpha-bracket>
+        <enable-energy-marker>true</enable-energy-marker>
+        <enable-climb-dive-marker>true</enable-climb-dive-marker>
+        <enable-glide-slope-marker>true</enable-glide-slope-marker>
+        <enable-energy-worm>true</enable-energy-worm>
+        <enable-waypoint-marker>true</enable-waypoint-marker>
+    </ladder>
 
-  <x>-100</x>
-  <y>170</y>
-  <width>200</width>
-  <height>28</height>
+    <tape>
+        <name>Gyrocompass</name>
 
-  <display-span>4.0</display-span>
-  <modulo>36</modulo>
+        <input>
+            <property>/orientation/heading-magnetic-deg</property>
+            <factor>0.1</factor>
+        </input>
 
-  <option>top</option>
-  <label-gap-width>22</label-gap-width>
+        <x>-100</x>
+        <y>170</y>
+        <width>200</width>
+        <height>28</height>
+        <display-span>4.0</display-span>
+        <modulo>36</modulo>
+        <option>top</option>
+        <label-gap-width>22</label-gap-width>
+        <major-divisions>1</major-divisions>
+        <minor-divisions>0.5</minor-divisions>
+        <tick-bottom>false</tick-bottom>
+        <tick-top>false</tick-top>
+        <tick-right>false</tick-right>
+        <tick-left>false</tick-left>
+        <cap-bottom>false</cap-bottom>
+        <cap-top>false</cap-top>
+        <cap-right>false</cap-right>
+        <cap-left>false</cap-left>
+        <marker-offset>0</marker-offset>
+        <enable-pointer>true</enable-pointer>
+        <pointer-type>fixed</pointer-type>
+        <tick-type>line</tick-type>
+        <tick-length>variable</tick-length>
+    </tape>
 
-  <major-divisions>1</major-divisions>
-  <minor-divisions>0.5</minor-divisions>
-  <tick-bottom>false</tick-bottom>
-  <tick-top>false</tick-top>
-  <tick-right>false</tick-right>
-  <tick-left>false</tick-left>
-  <cap-bottom>false</cap-bottom>
-  <cap-top>false</cap-top>
-  <cap-right>false</cap-right>
-  <cap-left>false</cap-left>
-  <marker-offset>0</marker-offset>
-  <enable-pointer>true</enable-pointer>
-  <pointer-type>fixed</pointer-type>
-  <tick-type>line</tick-type>
-  <tick-length>variable</tick-length>
- </tape>
+    <gauge>
+        <name>Waypoint</name>
+        <x>-100</x>
+        <y>178</y>
+        <width>200</width>
+        <height>20</height>
+        <option>bottom</option>
+        <option>notext</option>
+        <major-divisions>0</major-divisions>
+        <minor-divisions>0</minor-divisions>
 
- <gauge>
-    <name>Waypoint</name>
-    <x>-100</x>
-    <y>178</y>
-    <width>200</width>
-    <height>20</height>
-    <option>bottom</option>
-    <option>notext</option>
-    <major-divisions>0</major-divisions>
-    <minor-divisions>0</minor-divisions>
-    <input>
-	    <property>/autopilot/internal/true-heading-error-deg</property>
-	    <max>20</max>
-	    <min>-20</min>
-    </input>
-  </gauge>
+        <input>
+            <property>/autopilot/internal/true-heading-error-deg</property>
+            <max>20</max>
+            <min>-20</min>
+        </input>
+    </gauge>
 
- <label>
-  <name>Heading</name>
-  <x>-9</x>
-  <y>200</y>
-  <width>18</width>
-  <height>10</height>
-  <halign>center</halign>
-  <format>%03.0f</format>
-  <box>true</box>
-  <!--option>bottom</option>
-  <pointer-width>7</pointer-width-->
-  <input>
-   <property>/orientation/heading-magnetic-deg</property>
-  </input>
- </label>
+    <label>
+        <name>Heading</name>
+        <x>-9</x>
+        <y>200</y>
+        <width>18</width>
+        <height>10</height>
+        <halign>center</halign>
+        <format>%03.0f</format>
+        <box>true</box>
+        <!--option>bottom</option>
+        <pointer-width>7</pointer-width-->
 
- <tape>
-  <name>Altitude AGL less than 500 ft</name>
+        <input>
+            <property>/orientation/heading-magnetic-deg</property>
+        </input>
+    </label>
 
-  <condition>
-   <less-than>
-    <property>/position/gear-agl-ft</property>
-    <value>500.0</value>
-   </less-than>
-  </condition>
+    <tape>
+        <name>Altitude AGL less than 500 ft</name>
 
-  <input>
-   <property>/position/gear-agl-ft</property>
-   <min>-0.5</min>
-  </input>
+        <condition>
+            <less-than>
+                <property>/position/gear-agl-ft</property>
+                <value>500.0</value>
+            </less-than>
+        </condition>
 
-  <x>180</x>
-  <y>-100</y>
-  <width>35</width>
-  <height>202</height>
+        <input>
+            <property>/position/gear-agl-ft</property>
+            <min>-0.5</min>
+        </input>
 
-  <option>right</option>
-  <option>vertical</option>
-  <label-gap-width>11</label-gap-width>
+        <x>180</x>
+        <y>-100</y>
+        <width>35</width>
+        <height>202</height>
 
-  <major-divisions>10</major-divisions>
-  <minor-divisions>2</minor-divisions>
-  <display-span>40</display-span>
-  <format>%0.0f</format> 
+        <option>right</option>
+        <option>vertical</option>
+        <label-gap-width>11</label-gap-width>
 
-  <tick-bottom>false</tick-bottom>
-  <tick-top>false</tick-top>
-  <tick-right>false</tick-right>
-  <tick-left>false</tick-left>
-  <cap-bottom>false</cap-bottom>
-  <cap-top>false</cap-top>
-  <cap-right>false</cap-right>
-  <cap-left>false</cap-left>
-  <marker-offset>0.0</marker-offset>
-  <enable-pointer>false</enable-pointer>
-  <pointer-type>fixed</pointer-type>
-  <tick-type>line</tick-type>
-  <tick-length>variable</tick-length>
+        <major-divisions>10</major-divisions>
+        <minor-divisions>2</minor-divisions>
+        <display-span>40</display-span>
+        <format>%0.0f</format> 
 
- </tape>
+        <tick-bottom>false</tick-bottom>
+        <tick-top>false</tick-top>
+        <tick-right>false</tick-right>
+        <tick-left>false</tick-left>
+        <cap-bottom>false</cap-bottom>
+        <cap-top>false</cap-top>
+        <cap-right>false</cap-right>
+        <cap-left>false</cap-left>
+        <marker-offset>0.0</marker-offset>
+        <enable-pointer>false</enable-pointer>
+        <pointer-type>fixed</pointer-type>
+        <tick-type>line</tick-type>
+        <tick-length>variable</tick-length>
+    </tape>
 
- <tape>
-  <name>Altitude AGL greater-than-or-equal-to 500 ft</name>
+    <tape>
+        <name>Altitude AGL greater-than-or-equal-to 500 ft</name>
 
-  <condition>
-    <greater-than-equals>
-      <property>/position/gear-agl-ft</property>
-      <value>500.0</value>
-    </greater-than-equals>
-  </condition>
+        <condition>
+            <greater-than-equals>
+                <property>/position/gear-agl-ft</property>
+                <value>500.0</value>
+            </greater-than-equals>
+        </condition>
 
-  <input>
-   <property>/instrumentation/altimeter/indicated-altitude-ft</property>
-   <min>-0.5</min>
-   <factor>0.001</factor>
-  </input>
+        <input>
+            <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+            <min>-0.5</min>
+            <factor>0.001</factor>
+        </input>
 
-  <x>180</x>
-  <y>-100</y>
-  <width>35</width>
-  <height>202</height>
+        <x>180</x>
+        <y>-100</y>
+        <width>35</width>
+        <height>202</height>
 
-  <option>right</option>
-  <option>vertical</option>
-  <label-gap-width>11</label-gap-width>
+        <option>right</option>
+        <option>vertical</option>
+        <label-gap-width>11</label-gap-width>
 
-  <major-divisions>0.5</major-divisions>
-  <minor-divisions>0.1</minor-divisions>
-  <display-span>2.5</display-span>
-  <format>%0.1f</format>
+        <major-divisions>0.5</major-divisions>
+        <minor-divisions>0.1</minor-divisions>
+        <display-span>2.5</display-span>
+        <format>%0.1f</format>
 
-  <tick-bottom>false</tick-bottom>
-  <tick-top>false</tick-top>
-  <tick-right>false</tick-right>
-  <tick-left>false</tick-left>
-  <cap-bottom>false</cap-bottom>
-  <cap-top>false</cap-top>
-  <cap-right>false</cap-right>
-  <cap-left>false</cap-left>
-  <marker-offset>0.0</marker-offset>
-  <enable-pointer>false</enable-pointer>
-  <pointer-type>fixed</pointer-type>
-  <tick-type>line</tick-type>
-  <tick-length>variable</tick-length>
+        <tick-bottom>false</tick-bottom>
+        <tick-top>false</tick-top>
+        <tick-right>false</tick-right>
+        <tick-left>false</tick-left>
+        <cap-bottom>false</cap-bottom>
+        <cap-top>false</cap-top>
+        <cap-right>false</cap-right>
+        <cap-left>false</cap-left>
+        <marker-offset>0.0</marker-offset>
+        <enable-pointer>false</enable-pointer>
+        <pointer-type>fixed</pointer-type>
+        <tick-type>line</tick-type>
+        <tick-length>variable</tick-length>
+    </tape>
 
- </tape>
+    <gauge>
+        <name>VSI</name>
+        <x>170</x>
+        <y>-100</y>
+        <width>35</width>
+        <height>202</height>
+        <option>vertical</option>
+        <option>right</option>
+        <option>notext</option>
+        <major-divisions>0</major-divisions>
+        <minor-divisions>1000</minor-divisions>
+        <enable-pointer>true</enable-pointer>
+        <pointer-type>fixed</pointer-type>
 
- <gauge>
-    <name>VSI</name>
-    <x>170</x>
-    <y>-100</y>
-    <width>35</width>
-    <height>202</height>
-    <option>vertical</option>
-    <option>right</option>
-    <option>notext</option>
-    <major-divisions>0</major-divisions>
-    <minor-divisions>1000</minor-divisions>
-    <enable-pointer>true</enable-pointer>
-    <pointer-type>fixed</pointer-type>
-    <input>
-      <property>/velocities/vertical-speed-fps</property>
-      <factor>60</factor>
-      <max>5000</max>
-      <min>-5000</min>
-    </input>
-  </gauge>
+        <input>
+            <property>/velocities/vertical-speed-fps</property>
+            <factor>60</factor>
+            <max>5000</max>
+            <min>-5000</min>
+        </input>
+    </gauge>
 
-  <label>
-  <name>VS</name>
-  <width>35</width>
-  <height>10</height>
-  <x>170</x>
-  <y>-112</y>
-  <halign>right</halign>
-  <format>%.0f</format>
-  <box>true</box>
-  <option></option>
-  <pointer-width>10</pointer-width>
-  <pointer-length>5</pointer-length>
-  <input>
-      <property>/velocities/vertical-speed-fps</property>
-   <factor>60</factor>
-  </input>
- </label>
+    <label>
+        <name>VS</name>
+        <width>35</width>
+        <height>10</height>
+        <x>170</x>
+        <y>-112</y>
+        <halign>right</halign>
+        <format>%.0f</format>
+        <box>true</box>
+        <option></option>
+        <pointer-width>10</pointer-width>
+        <pointer-length>5</pointer-length>
+
+        <input>
+            <property>/velocities/vertical-speed-fps</property>
+            <factor>60</factor>
+        </input>
+    </label>
   
- <label>
-  <name>Altitude</name>
-  <condition>
-    <greater-than-equals>
-      <property>/position/gear-agl-ft</property>
-      <value>500.0</value>
-    </greater-than-equals>
-  </condition>
-  <width>28</width>
-  <height>10</height>
-  <x>197</x>
-  <y>-4</y>
-  <halign>left</halign>
-  <format>%.0f0</format>
-  <box>true</box>
-  <option>left</option>
-  <pointer-width>10</pointer-width>
-  <pointer-length>5</pointer-length>
-  <input>
-   <property>/instrumentation/altimeter/indicated-altitude-ft</property>
-   <factor>0.1</factor>
-  </input>
- </label>
+    <label>
+        <name>Altitude</name>
 
- <label>
-  <name>Altitude</name>
-  <condition>
-   <less-than>
-    <property>/position/gear-agl-ft</property>
-    <value>500.0</value>
-   </less-than>
-  </condition>
-  <width>28</width>
-  <height>10</height>
-  <x>197</x>
-  <y>-4</y>
-  <halign>left</halign>
-  <format>%.0f</format>
-  <box>true</box>
-  <option>left</option>
-  <pointer-width>10</pointer-width>
-  <pointer-length>5</pointer-length>
-  <input>
-   <property>/position/gear-agl-ft</property>
-  </input>
- </label>
+        <condition>
+            <greater-than-equals>
+               <property>/position/gear-agl-ft</property>
+               <value>500.0</value>
+            </greater-than-equals>
+        </condition>
 
- <tape>
-  <name>KIAS</name>
+        <width>28</width>
+        <height>10</height>
+        <x>197</x>
+        <y>-4</y>
+        <halign>left</halign>
+        <format>%.0f0</format>
+        <box>true</box>
+        <option>left</option>
+        <pointer-width>10</pointer-width>
+        <pointer-length>5</pointer-length>
 
-  <input>
-   <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
-   <min>0.0</min>
-   <factor>0.1</factor>
-  </input>
+        <input>
+            <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+            <factor>0.1</factor>
+        </input>
+    </label>
 
-  <x>-215</x>
-  <y>-100</y>
-  <width>35</width>
-  <height>200</height>
+    <label>
+        <name>Altitude</name>
 
-  <option>left</option>
-  <option>vertical</option>
-  <label-gap-width>11</label-gap-width>
+        <condition>
+            <less-than>
+                <property>/position/gear-agl-ft</property>
+                <value>500.0</value>
+            </less-than>
+        </condition>
 
-  <major-divisions>5</major-divisions>
-  <minor-divisions>1</minor-divisions>
-  <display-span>20.0</display-span>
-  <tick-bottom>false</tick-bottom>
-  <tick-top>false</tick-top>
-  <tick-right>false</tick-right>
-  <tick-left>false</tick-left>
-  <cap-bottom>false</cap-bottom>
-  <cap-top>false</cap-top>
-  <cap-right>false</cap-right>
-  <cap-left>false</cap-left>
-  <marker-offset>0.0</marker-offset>
-  <enable-pointer>false</enable-pointer>
-  <pointer-type>fixed</pointer-type>
-  <tick-type>line</tick-type>
-  <tick-length>variable</tick-length>
- </tape>
+        <width>28</width>
+        <height>10</height>
+        <x>197</x>
+        <y>-4</y>
+        <halign>left</halign>
+        <format>%.0f</format>
+        <box>true</box>
+        <option>left</option>
+        <pointer-width>10</pointer-width>
+        <pointer-length>5</pointer-length>
 
- <gauge>
-    <name>Trim</name>
-    <x>-205</x>
-    <y>-100</y>
-    <width>35</width>
-    <height>200</height>
-    <option>vertical</option>
-    <option>left</option>
-    <option>notext</option>
-    <major-divisions>2</major-divisions>
-    <minor-divisions>0</minor-divisions>
-    <enable-pointer>true</enable-pointer>
-    <pointer-type>fixed</pointer-type>
-    <input>
-      <property>/controls/flight/elevator-trim</property>
-      <max>1.0</max>
-      <min>-1.0</min>
-    </input>
-  </gauge>
+        <input>
+            <property>/position/gear-agl-ft</property>
+        </input>
+    </label>
 
- <label>
-  <name>Speed</name>
-  <width>23</width>
-  <height>10</height>
-  <x>-220</x>
-  <y>-5</y>
-  <halign>right</halign>
-  <format>%.0f</format>
-  <box>true</box>
-  <option>right</option>
-  <pointer-width>10</pointer-width>
-  <pointer-length>5</pointer-length>
-  <input>
-   <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
-  </input>
- </label>
+    <tape>
+        <name>KIAS</name>
 
- <turn-bank-indicator>
-  <name>Turn Bank Indicator</name>
-  <x>-125</x>
-  <y>-190</y>
-  <width>250</width>
-  <height>250</height>
-  <bank-input>
-   <property>/orientation/roll-deg</property>
-  </bank-input>
-  <sideslip-input>
-   <property>/orientation/side-slip-deg</property>
-  </sideslip-input>
-  <bank-scale>true</bank-scale>
-  <option>bottom</option>
- </turn-bank-indicator>
+        <input>
+            <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+            <min>0.0</min>
+            <factor>0.1</factor>
+        </input>
 
- <dial>
-   <name>nacelle-tilt</name>
-   <x>-187</x>
-   <y>-120</y> 
-   <width>35</width>
-   <height>35</height>
-   <input>
-     <property>/sim/model/v22/tilt</property>
-   </input>
-   <radius>17.5</radius>
-   <divisions>8</divisions>
- </dial>
+        <x>-215</x>
+        <y>-100</y>
+        <width>35</width>
+        <height>200</height>
+
+        <option>left</option>
+        <option>vertical</option>
+        <label-gap-width>11</label-gap-width>
+
+        <major-divisions>5</major-divisions>
+        <minor-divisions>1</minor-divisions>
+        <display-span>20.0</display-span>
+
+        <tick-bottom>false</tick-bottom>
+        <tick-top>false</tick-top>
+        <tick-right>false</tick-right>
+        <tick-left>false</tick-left>
+        <cap-bottom>false</cap-bottom>
+        <cap-top>false</cap-top>
+        <cap-right>false</cap-right>
+        <cap-left>false</cap-left>
+        <marker-offset>0.0</marker-offset>
+        <enable-pointer>false</enable-pointer>
+        <pointer-type>fixed</pointer-type>
+        <tick-type>line</tick-type>
+        <tick-length>variable</tick-length>
+    </tape>
+
+    <gauge>
+        <name>Trim</name>
+        <x>-205</x>
+        <y>-100</y>
+        <width>35</width>
+        <height>200</height>
+        <option>vertical</option>
+        <option>left</option>
+        <option>notext</option>
+        <major-divisions>2</major-divisions>
+        <minor-divisions>0</minor-divisions>
+        <enable-pointer>true</enable-pointer>
+        <pointer-type>fixed</pointer-type>
+
+        <input>
+            <property>/controls/flight/elevator-trim</property>
+            <max>1.0</max>
+            <min>-1.0</min>
+        </input>
+    </gauge>
+
+    <label>
+        <name>Speed</name>
+        <width>23</width>
+        <height>10</height>
+        <x>-220</x>
+        <y>-5</y>
+        <halign>right</halign>
+        <format>%.0f</format>
+        <box>true</box>
+        <option>right</option>
+        <pointer-width>10</pointer-width>
+        <pointer-length>5</pointer-length>
+
+        <input>
+            <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+        </input>
+    </label>
+
+    <turn-bank-indicator>
+        <name>Turn Bank Indicator</name>
+        <x>-125</x>
+        <y>-190</y>
+        <width>250</width>
+        <height>250</height>
+
+        <bank-input>
+            <property>/orientation/roll-deg</property>
+        </bank-input>
+        <sideslip-input>
+            <property>/orientation/side-slip-deg</property>
+        </sideslip-input>
+
+        <bank-scale>true</bank-scale>
+        <option>bottom</option>
+    </turn-bank-indicator>
+
+    <dial>
+        <name>nacelle-tilt</name>
+        <x>-187</x>
+        <y>-120</y> 
+        <width>35</width>
+        <height>35</height>
+
+        <input>
+            <property>/sim/model/v22/tilt</property>
+        </input>
+
+        <radius>17.5</radius>
+        <divisions>8</divisions>
+    </dial>
 
 	<gauge>
 		<name>Throttle Pilot</name>
@@ -445,6 +460,7 @@
 		<marker-offset>0.0</marker-offset>
 		<enable-pointer>true</enable-pointer>
 		<pointer-type>fixed</pointer-type>
+
 		<input>
 			<property>/controls/engines/engine[0]/throttle</property>
 			<max>1.0</max>
@@ -474,6 +490,7 @@
 		<marker-offset>0.0</marker-offset>
 		<enable-pointer>true</enable-pointer>
 		<pointer-type>fixed</pointer-type>
+
 		<input>
 			<property>/v22/pfcs/output/tcl</property>
 			<max>1.0</max>
