@@ -149,15 +149,14 @@
 
   <condition>
    <less-than>
-    <property>/position/altitude-agl-ft</property>
+    <property>/position/gear-agl-ft</property>
     <value>500.0</value>
    </less-than>
   </condition>
 
   <input>
-   <property>/position/altitude-agl-ft</property>
+   <property>/position/gear-agl-ft</property>
    <min>-0.5</min>
-   <factor>0.001</factor>
   </input>
 
   <x>180</x>
@@ -169,10 +168,10 @@
   <option>vertical</option>
   <label-gap-width>11</label-gap-width>
 
-  <major-divisions>0.1</major-divisions>
-  <minor-divisions>0.02</minor-divisions>
-  <display-span>0.4</display-span>
-  <format>%0.1f</format>
+  <major-divisions>10</major-divisions>
+  <minor-divisions>2</minor-divisions>
+  <display-span>40</display-span>
+  <format>%0.0f</format> 
 
   <tick-bottom>false</tick-bottom>
   <tick-top>false</tick-top>
@@ -195,7 +194,7 @@
 
   <condition>
     <greater-than-equals>
-      <property>/position/altitude-agl-ft</property>
+      <property>/position/gear-agl-ft</property>
       <value>500.0</value>
     </greater-than-equals>
   </condition>
@@ -279,7 +278,7 @@
   <name>Altitude</name>
   <condition>
     <greater-than-equals>
-      <property>/position/altitude-agl-ft</property>
+      <property>/position/gear-agl-ft</property>
       <value>500.0</value>
     </greater-than-equals>
   </condition>
@@ -303,7 +302,7 @@
   <name>Altitude</name>
   <condition>
    <less-than>
-    <property>/position/altitude-agl-ft</property>
+    <property>/position/gear-agl-ft</property>
     <value>500.0</value>
    </less-than>
   </condition>
@@ -312,14 +311,13 @@
   <x>197</x>
   <y>-4</y>
   <halign>left</halign>
-  <format>%.0f0</format>
+  <format>%.0f</format>
   <box>true</box>
   <option>left</option>
   <pointer-width>10</pointer-width>
   <pointer-length>5</pointer-length>
   <input>
-   <property>/position/altitude-agl-ft</property>
-   <factor>0.1</factor>
+   <property>/position/gear-agl-ft</property>
   </input>
  </label>
 
