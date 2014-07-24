@@ -53,7 +53,13 @@
                     <property>/v22/afcs/locks/heading</property>
                     <value>nav1-hold</value>
                 </equals>
-                <property>/instrumentation/nav[0]/nav-loc</property>
+                <or>
+                    <!-- NAV1 must be an ILS localizer -->
+                    <property>/instrumentation/nav[0]/nav-loc</property>
+
+                    <!-- Or a VOR beacon -->
+                    <property>/instrumentation/nav[0]/to-flag</property>
+                </or>
                 <property>/instrumentation/nav[0]/in-range</property>
                 <greater-than>
                     <property>/instrumentation/nav[0]/signal-quality-norm</property>
