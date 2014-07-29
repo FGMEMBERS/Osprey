@@ -99,6 +99,29 @@
                 <label>Navigation</label>
                 <property>/controls/lighting/nav-lights</property>
                 <live>true</live>
+                <enable>
+                    <not>
+                        <property>/controls/lighting/taxi-light</property>
+                    </not>
+                </enable>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-toggle</command>
+                </binding>
+            </checkbox>
+
+            <checkbox>
+                <halign>left</halign>
+                <label>Taxi</label>
+                <property>/controls/lighting/taxi-light</property>
+                <live>true</live>
+                <enable>
+                    <not>
+                        <property>/controls/lighting/nav-lights</property>
+                    </not>
+                </enable>
                 <binding>
                     <command>dialog-apply</command>
                 </binding>

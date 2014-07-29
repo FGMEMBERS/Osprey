@@ -238,6 +238,7 @@
         <lighting>
             <beacon type="bool">false</beacon>
             <nav-lights type="bool">false</nav-lights>
+            <taxi-light type="bool">false</taxi-light>
         </lighting>
 
         <gear>
