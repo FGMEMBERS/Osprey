@@ -7,7 +7,7 @@
 x Implement lateral cyclic movement for VTOL aileron input using the LSG factors
 - Phase out collective pitch commanded by the TCL when in APLN mode
 - Reduce sensitivity of ailerons at high airspeeds
-- Add soft and hard limits for Vortex Ring State, High Rate of Descent
+x Add hard limit for Vortex Ring State, High Rate of Descent
 - Add dcp-mast-torque factor
 x Slow down response of Roll Hold controller to make Ctrl+w less nervous and jerky
 - Perhaps use gain scheduling to overcome inertia when pitch is between 2 and -2 degrees
@@ -41,7 +41,7 @@ x Replace Autopilot Settings window with custom dialog
 - Add hydraulic system
 - In cockpit, display a stall meter when nacelles are between 35 degrees and 0 degrees (horizontal)
 - Add weather radar
-- Add support for TACAN, VOR, ILS, GPS
+x Add support for TACAN, VOR, ILS, GPS
 - Display hot exhaust gases animation below nacelles
 - Display brown-out condition animation when hovering above sandy terrain
 - Add cockpit to interior 3D model with fancy Canvas glass MFD's
