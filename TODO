@@ -20,7 +20,7 @@ x Add speed and vertical speed A/P controllers for VTOL mode
     x Limit range of elevator
     x Limit range of rudders
     - Limit range of flaperons
-- Add flash mode to navigation lights for ground operations
+x Add flash mode to navigation lights for ground operations
 - Replace navigation, beacon, and landing lights with ones that look much better (from 777 perhaps?)
 - Add shadow underneath the 3D model
 x Replace Autopilot Settings window with custom dialog
