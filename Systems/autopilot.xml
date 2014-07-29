@@ -2,6 +2,11 @@
 
 <PropertyList>
 
+    <!--
+         Sources:
+            [1]  http://www.globalsecurity.org/military/systems/aircraft/v-22-vrs.htm
+    -->
+
     <!-- ================================================================== -->
     <!-- Roll Axis Modes                                                    -->
     <!-- ================================================================== -->
@@ -445,7 +450,9 @@
             <property>/v22/afcs/target/vs-fps</property>
         </output>
         <config>
-            <Kp>0.15</Kp>
+            <!-- TODO Perhaps use a pid-controller so we can better damp the response -->
+            <!-- TODO Current Kp and Ki work well for APLN mode, but not for VTOL mode -->
+            <Kp>0.35</Kp>
             <Ki>0.01</Ki>
             <u_min>
                 <property>/v22/afcs/settings/climb-rate-max</property> 
@@ -489,10 +496,21 @@
             <property>/v22/afcs/target/vs-fps</property>
         </output>
         <config>
-            <Kp>0.15</Kp>
-            <Ki>0.01</Ki>
-            <u_min>-40.0</u_min>
-            <u_max>40.0</u_max>
+            <!-- TODO Current Kp and Ki work well for VTOL mode, but not for APLN mode -->
+            <Kp>0.97</Kp>
+            <Ki>0.027</Ki>
+            <u_min>
+                <property>/v22/afcs/settings/climb-rate-max</property> 
+
+                <!-- Multiply by 1/60 to convert from fpm to fps -->
+                <scale>-0.01666666</scale>
+            </u_min>
+            <u_max>
+                <property>/v22/afcs/settings/climb-rate-max</property> 
+
+                <!-- Multiply by 1/60 to convert from fpm to fps -->
+                <scale>0.01666666</scale>
+            </u_max>
         </config>
     </pi-simple-controller>
 
@@ -625,6 +643,50 @@
         </config>
     </pid-controller>
 
+    <!-- Computes the maximum rate of descent for VTOL mode to prevent
+         vortex ring state. This filter implements the original NATOPS
+         limit [1].
+    -->
+    <filter>
+        <name>A/P Maximum Rate Of Descent VTOL Computer</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <table>
+                    <property>/instrumentation/airspeed-indicator/true-speed-kt</property>
+                    <entry><ind>40</ind><dep>-800</dep></entry>
+                    <entry><ind>200</ind><dep>-4000</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/afcs/internal/maximum-descent-rate-vtol-fpm</property>
+        </output>
+        <min>
+            <property>/v22/afcs/settings/climb-rate-max</property> 
+            <scale>-1.0</scale>
+        </min>
+    </filter>
+
+    <filter>
+        <name>A/P V/S VTOL Limiter</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <property>/v22/afcs/target/vs-fps</property>
+            <min>
+                <property>/v22/afcs/internal/maximum-descent-rate-vtol-fpm</property>
+
+                <!-- Multiply by 1/60 to convert from fpm to fps -->
+                <scale>0.01666666</scale>
+            </min>
+        </input>
+        <output>
+            <property>/v22/afcs/target/vs-fps-vtol-filtered</property>
+        </output>
+    </filter>
+
     <!-- Tracks a given vertical speed (in fps), set by the pilot
          or by the NAV1 glideslope signal, by controlling the
          throttle of the engines. Used when the nacelles have tilted
@@ -648,7 +710,7 @@
             <property>/velocities/vertical-speed-fps</property>
         </input>
         <reference>
-            <property>/v22/afcs/target/vs-fps</property>
+            <property>/v22/afcs/target/vs-fps-vtol-filtered</property>
         </reference>
         <output>
             <property>/v22/afcs/target/throttle-vtol</property>
@@ -658,7 +720,7 @@
                 <condition>
                     <greater-than>
                         <property>/velocities/vertical-speed-fps</property>
-                        <property>/v22/afcs/target/vs-fps</property>
+                        <property>/v22/afcs/target/vs-fps-vtol-filtered</property>
                     </greater-than>
                 </condition>
                 <value>0.02</value>
@@ -668,7 +730,7 @@
                 <condition>
                     <greater-than>
                         <property>/velocities/vertical-speed-fps</property>
-                        <property>/v22/afcs/target/vs-fps</property>
+                        <property>/v22/afcs/target/vs-fps-vtol-filtered</property>
                     </greater-than>
                 </condition>
                 <value>6.1</value>
