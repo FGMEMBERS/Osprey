@@ -274,6 +274,7 @@
             <target>
                 <ap-altitude-ft type="double">10000</ap-altitude-ft>
                 <ap-agl-ft type="double">50</ap-agl-ft>
+                <mp-callsign-tacan type="string"></mp-callsign-tacan>
             </target>
         </afcs>
         <pfcs>
