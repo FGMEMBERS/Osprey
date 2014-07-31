@@ -23,7 +23,8 @@ var TacanClass = {
     new: func {
         return {
             parents: [TacanClass],
-            listeners: []
+            listeners: [],
+            mp_timer: nil
         };
     },
 
@@ -80,24 +81,27 @@ var TacanClass = {
     follow_mp_target: func(target) {
         var valid = target.getNode("valid");
 
-        append(me.listeners, setlistener(target.getNode("bearing-to"), func (node) {
+        append(me.listeners, setlistener(target.getNode("radar/bearing-deg"), func (node) {
             setprop("/v22/afcs/target/tacan-bearing-deg", node.getValue());
             setprop("/v22/afcs/internal/tacan-in-range", valid.getValue());
         }, startup=1));
-
-        var callsign = target.getNode("callsign").getValue();
-
-        var copilot_message = sprintf("Found target %s", callsign);
-        setprop("/sim/messages/copilot", copilot_message);
-
-        append(me.listeners, setlistener("/sim/signals/multiplayer-updated", func me._update_mp_target(callsign)));
     },
 
     find_and_follow_mp_target: func (callsign) {
-        var mp_aircraft = me.find_mp_aircraft(callsign);
+        var target = me.find_mp_aircraft(callsign);
 
-        if (mp_aircraft != nil) {
-            me.follow_mp_target(mp_aircraft);
+        if (target != nil) {
+            var callsign = target.getNode("callsign").getValue();
+
+            var copilot_message = sprintf("Found target %s", callsign);
+            setprop("/sim/messages/copilot", copilot_message);
+
+            me.mp_timer = maketimer(0.0, func { me._update_pos_mp_target(target); });
+            me.mp_timer.start();
+
+            me.follow_mp_target(target);
+
+            append(me.listeners, setlistener("/sim/signals/multiplayer-updated", func me._update_mp_target(callsign)));
         }
         else {
             var copilot_message = sprintf("Target %s not found", callsign);
@@ -111,6 +115,11 @@ var TacanClass = {
         }
         me.listeners = [];
 
+        if (me.mp_timer != nil) {
+            me.mp_timer.stop();
+            me.mp_timer = nil;
+        }
+
         # Make sure TACAN gets disabled
         setprop("/v22/afcs/internal/tacan-in-range", 0);
     },
@@ -119,6 +128,27 @@ var TacanClass = {
         me.remove_listeners();
 
         me.find_and_follow_mp_target(callsign);
+    },
+
+    _update_pos_mp_target: func (target) {
+        # Following code is from Nasal/multiplayer.nas
+        var x = target.getNode("position/global-x").getValue();
+        var y = target.getNode("position/global-y").getValue();
+        var z = target.getNode("position/global-z").getValue();
+        var ac = geo.Coord.new().set_xyz(x, y, z);
+
+        # Following code is from Nasal/multiplayer.nas
+        var distance = nil;
+        var self = geo.aircraft_position();
+        call(func distance = self.distance_to(ac), nil, var err = []);
+
+        if (size(err) == 0 and distance != nil) {
+            target.setValues({
+                "radar/bearing-deg": self.course_to(ac),
+                "radar/range-nm": distance * M2NM,
+                "radar/in-range": target.getNode("valid").getBoolValue()
+            });
+        }
     }
 };
 
