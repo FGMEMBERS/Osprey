@@ -136,15 +136,10 @@
         <type>noise-spike</type>
         <enable>
             <condition>
-                <and>
-                    <equals>
-                        <property>/sim/model/v22/wing_state</property>
-                        <value>0</value>
-                    </equals>
-                    <not>
-                        <property>/sim/freeze/replay-state</property>
-                    </not>
-                </and>
+                <equals>
+                    <property>/sim/model/v22/wing_state</property>
+                    <value>0</value>
+                </equals>
             </condition>
         </enable>
         <input>
@@ -157,8 +152,7 @@
             </max>
         </input>
         <output>
-            <property>/sim/model/v22/tilt</property>
-            <property>/sim/model/v22/animation_tilt</property>
+            <property>/v22/pfcs/output/tilt</property>
         </output>
 
         <!-- Tilt rate can be at most 8 deg/s, which is roughly 90 degrees
@@ -167,6 +161,32 @@
         <max-rate-of-change>
             <property>/v22/pfcs/output/tilt-rate</property>
         </max-rate-of-change>
+    </filter>
+
+    <!-- The whole purpose of this filter is to make sure that the
+         recorded tilt does not get overridden by the Nacelles Tilt Limit
+         filter during replay, while at the same time working around a
+         bug that causes the input of that filter to be passed to the output
+         without adhering to the max-rate-of-change property (which can be zero).
+    -->
+    <filter>
+        <name>Nacelles Tilt Buffer For Non Replay State</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/pfcs/output/tilt</property>
+        </input>
+        <output>
+            <property>/sim/model/v22/tilt</property>
+            <property>/sim/model/v22/animation_tilt</property>
+        </output>
     </filter>
 
     <!-- Simulate the servo motors of the two ailerons by limiting the
