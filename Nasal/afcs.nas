@@ -24,7 +24,8 @@ var TacanClass = {
         return {
             parents: [TacanClass],
             listeners: [],
-            mp_timer: nil
+            mp_timer: nil,
+            mp_listener: nil
         };
     },
 
@@ -54,6 +55,8 @@ var TacanClass = {
     },
 
     follow_ai_target: func(target) {
+        # Set-up listeners to follow the given AI tanker
+
         var true_hdg_deg = target.getNode("orientation/true-heading-deg");
         var range_nm = target.getNode("radar/range-nm");
 
@@ -72,6 +75,8 @@ var TacanClass = {
     },
 
     find_mp_aircraft: func (callsign) {
+        # Find and return an MP aircraft that has the given callsign
+
         if (contains(multiplayer.model.callsign, callsign)) {
             return multiplayer.model.callsign[callsign].node;
         };
@@ -79,6 +84,8 @@ var TacanClass = {
     },
 
     follow_mp_target: func(target) {
+        # Set-up listeners to follow the given MP target
+
         var valid = target.getNode("valid");
 
         append(me.listeners, setlistener(target.getNode("radar/bearing-deg"), func (node) {
@@ -88,6 +95,12 @@ var TacanClass = {
     },
 
     find_and_follow_mp_target: func (callsign) {
+        # Try to find the MP aircraft that uses the given callsign
+        # and then make sure that it gets followed. Additionally, if
+        # necessary, it creates a listener to handle the multiplayer updates
+        # This listener is created once and gets only cleaned up when TACAN
+        # is disabled again
+
         var target = me.find_mp_aircraft(callsign);
 
         if (target != nil) {
@@ -96,20 +109,44 @@ var TacanClass = {
             var copilot_message = sprintf("Found target %s", callsign);
             setprop("/sim/messages/copilot", copilot_message);
 
-            me.mp_timer = maketimer(0.0, func { me._update_pos_mp_target(target); });
+            # Start a timer to continuously update various properties
+            # needed to keep tracking the MP target
+            me.mp_timer = maketimer(0.0, func me._update_pos_mp_target(target)); 
             me.mp_timer.start();
+            # TODO ideally this timer should have a fixed frequency, irrespective of the fps of the GUI
 
+            # Make sure the A/P starts following the target
             me.follow_mp_target(target);
-
-            append(me.listeners, setlistener("/sim/signals/multiplayer-updated", func me._update_mp_target(callsign)));
         }
         else {
             var copilot_message = sprintf("Target %s not found", callsign);
             setprop("/sim/messages/copilot", copilot_message);
         }
+
+        if (me.mp_listener == nil) {
+            # If this signal gets emitted, it will clean up the old
+            # listeners (but not this listener itself!) and then tries
+            # to find and follow the targeted MP aircraft again
+            me.mp_listener = setlistener("/sim/signals/multiplayer-updated", func me._update_mp_target(callsign));
+        }
     },
 
     remove_listeners: func {
+        # Remove all listeners, including the listener that handles
+        # multiplayer updates
+
+        me._remove_listeners();
+
+        if (me.mp_listener != nil) {
+            removelistener(me.mp_listener);
+            me.mp_listener = nil;
+        }
+    },
+
+    _remove_listeners: func {
+        # Remove listeners and the timer that updates the radar 
+        # properties of the aircraft that is being tracked
+
         foreach (var l; me.listeners) {
             removelistener(l);
         }
@@ -125,7 +162,7 @@ var TacanClass = {
     },
 
     _update_mp_target: func (callsign) {
-        me.remove_listeners();
+        me._remove_listeners();
 
         me.find_and_follow_mp_target(callsign);
     },
