@@ -96,6 +96,16 @@
             <property>/v22/pfcs/output/tilt-rate</property>
         </output>
 
+        <!-- Set the maximum tilt rate to 0 deg/s during replay
+             in order to pause any movement of the nacelles.
+        -->
+        <max>
+            <condition>
+                <property>/sim/freeze/replay-state</property>
+            </condition>
+            <value>0.0</value>
+        </max>
+
         <!-- Set minimum tilt rate to 8 deg/s if nacelles need to tilt
              in order to stay within the allowed range.
         -->
