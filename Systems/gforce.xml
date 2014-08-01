@@ -174,4 +174,170 @@
         </output>
     </filter>
 
+    <!-- A simple function that computes the cosine of the tilt of the
+         nacelles. If the nacelles are completely vertical it returns 1,
+         if the nacelles are horizontal it return 0.
+    -->
+    <filter>
+        <name>Nacelles Tilt Cos Function</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <cos>
+                    <deg2rad>
+                        <property>/v22/pfcs/output/tilt</property>
+                    </deg2rad>
+                </cos>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/internal/tilt-cos</property>
+        </output>
+    </filter>
+
+    <!-- Merges the maximum load factors of APLN mode and VTOL mode -->
+    <filter>
+        <name>G Force Limit Maximum</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <sum>
+                    <product>
+                        <property>/v22/pfcs/limits/gforce-vtol-maximum</property>
+                        <property>/v22/pfcs/internal/tilt-cos</property>
+                    </product>
+                    <product>
+                        <property>/v22/pfcs/limits/gforce-airplane-maximum</property>
+                        <difference>
+                            <value>1.0</value>
+                            <property>/v22/pfcs/internal/tilt-cos</property>
+                        </difference>
+                    </product>
+                </sum>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/limits/gforce-maximum</property>
+        </output>
+    </filter>
+
+    <!-- Merges the minimum load factors of APLN mode and VTOL mode -->
+    <filter>
+        <name>G Force Limit Minimum</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <sum>
+                    <product>
+                        <property>/v22/pfcs/limits/gforce-vtol-minimum</property>
+                        <property>/v22/pfcs/internal/tilt-cos</property>
+                    </product>
+                    <product>
+                        <property>/v22/pfcs/limits/gforce-airplane-minimum</property>
+                        <difference>
+                            <value>1.0</value>
+                            <property>/v22/pfcs/internal/tilt-cos</property>
+                        </difference>
+                    </product>
+                </sum>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/limits/gforce-minimum</property>
+        </output>
+    </filter>
+
+    <!-- Computes the pitch rate (in deg/s) that would give a certain
+         maximum load (g's). The fly-by-wire system uses this pitch rate
+         as the maximum pitch rate allowed in order to not exceed the
+         maximum structural load.
+    -->
+    <filter>
+        <name>G Force Maximum Pitch Rate</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <rad2deg>
+                    <product>
+                        <!-- g / V -->
+                        <div>
+                            <property>/environment/gravitational-acceleration-mps2</property>
+                            <product>
+                                <property>/velocities/airspeed-kt</property>
+
+                                <!-- Multiply by 463/900 to convert from knots to m/s -->
+                                <value>0.51444444</value>
+                            </product>
+                        </div>
+
+                        <!-- n_max * cos(phi)  - 1 -->
+                        <difference>
+                            <product>
+                                <property>/v22/pfcs/limits/gforce-maximum</property>
+                                <cos>
+                                    <deg2rad>
+                                        <property>/orientation/roll-deg</property>
+                                    </deg2rad>
+                                </cos>
+                            </product>
+                            <value>1.0</value>
+                        </difference>
+                    </product>
+                </rad2deg>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/limits/pitch-rate-max-degps</property>
+        </output>
+    </filter>
+
+    <!-- Computes the pitch rate (in deg/s) that would give a certain
+         minimum load (g's). The fly-by-wire system uses this pitch rate
+         as the minimum pitch rate allowed in order to not exceed the
+         minimum structural load.
+    -->
+    <filter>
+        <name>G Force Minimum Pitch Rate</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <rad2deg>
+                    <product>
+                        <!-- g / V -->
+                        <div>
+                            <property>/environment/gravitational-acceleration-mps2</property>
+                            <product>
+                                <property>/velocities/airspeed-kt</property>
+
+                                <!-- Multiply by 463/900 to convert from knots to m/s -->
+                                <value>0.51444444</value>
+                            </product>
+                        </div>
+
+                        <!-- n_min * cos(phi)  - 1 -->
+                        <difference>
+                            <product>
+                                <property>/v22/pfcs/limits/gforce-minimum</property>
+                                <cos>
+                                    <deg2rad>
+                                        <property>/orientation/roll-deg</property>
+                                    </deg2rad>
+                                </cos>
+                            </product>
+                            <value>1.0</value>
+                        </difference>
+                    </product>
+                </rad2deg>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/limits/pitch-rate-min-degps</property>
+        </output>
+    </filter>
+
 </PropertyList>
