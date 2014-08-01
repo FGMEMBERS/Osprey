@@ -3,7 +3,7 @@
 - Add Differential Swashplate Tilt (DST) factors for VTOL rudder input
     x Add factor using nacelles tilt
     - Add factor using airspeed
-- Add g force protection to Pitch Rate controller (min. and max. functions have already been added)
+x Add g force protection to Pitch Rate controller (min. and max. functions have already been added)
 x Implement lateral cyclic movement for VTOL aileron input using the LSG factors
 - Phase out collective pitch commanded by the TCL when in APLN mode
 - Reduce sensitivity of ailerons at high airspeeds

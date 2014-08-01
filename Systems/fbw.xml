@@ -757,11 +757,23 @@
         <reference>
             <property>/v22/pfcs/target/pitch-rate</property>
             <min>
-                <property>/v22/pfcs/settings/pitch-rate-limit</property>
-                <scale>-1.0</scale>
+                <expression>
+                    <max>
+                        <property>/v22/pfcs/limits/pitch-rate-min-degps</property>
+                        <product>
+                            <property>/v22/pfcs/settings/pitch-rate-limit</property>
+                            <value>-1.0</value>
+                        </product>
+                    </max>
+                </expression>
             </min>
             <max>
-                <property>/v22/pfcs/settings/pitch-rate-limit</property>
+                <expression>
+                    <min>
+                        <property>/v22/pfcs/limits/pitch-rate-max-degps</property>
+                        <property>/v22/pfcs/settings/pitch-rate-limit</property>
+                    </min>
+                </expression>
             </max>
         </reference>
         <output>
