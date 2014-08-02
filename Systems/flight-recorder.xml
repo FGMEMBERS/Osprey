@@ -27,6 +27,10 @@
             <type>float</type>
             <property type="string">/controls/engines/engine[0]/throttle</property>
         </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/v22/pfcs/output/tcl</property>
+        </signal>
 
         <!-- Lighting -->
         <signal>
@@ -36,6 +40,10 @@
         <signal>
             <type>bool</type>
             <property type="string">/controls/lighting/beacon</property>
+        </signal>
+        <signal>
+            <type>bool</type>
+            <property type="string">/controls/lighting/taxi-light</property>
         </signal>
 
         <!-- Blades right rotor -->
@@ -184,6 +192,20 @@
         <signal>
             <type>double</type>
             <property type="string">/position/latitude-deg</property>
+        </signal>
+
+        <!-- HUD -->
+        <signal>
+            <type>double</type>
+            <property type="string">/position/gear-agl-ft</property>
+        </signal>
+        <signal>
+            <type>double</type>
+            <property type="string">/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+        </signal>
+        <signal>
+            <type>double</type>
+            <property type="string">/instrumentation/altimeter/indicated-altitude-ft</property>
         </signal>
 
         <!-- Doors -->
