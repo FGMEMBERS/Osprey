@@ -527,6 +527,7 @@
                 </equals>
                 <property>/instrumentation/nav[0]/has-gs</property>
                 <property>/instrumentation/nav[0]/gs-in-range</property>
+                <property>/v22/afcs/active/loc-hold</property>
             </and>
         </input>
         <output>
