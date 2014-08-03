@@ -444,10 +444,11 @@
 
     <label>
         <name>RPM Nr.</name>
-        <width>45</width>
+        <x>-295</x>
+        <y>-90</y>
+        <width>40</width>
         <height>10</height>
-        <x>-215</x>
-        <y>-165</y>
+        <halign>right</halign>
 
         <input>
             <property>/rotors/tail/rpm</property>
