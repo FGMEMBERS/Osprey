@@ -326,4 +326,15 @@
         <max-rate-of-change>1.0</max-rate-of-change>
     </filter>
 
+    <filter>
+        <type>derivative</type>
+        <filter-time>1.0</filter-time>
+        <input>
+            <property>/gear/gear[0]/position-norm</property>
+        </input>
+        <output>
+            <property>/gear/gear[0]/position-normps</property>
+        </output>
+    </filter>
+
 </PropertyList>

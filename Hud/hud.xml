@@ -21,8 +21,8 @@
 
     <import>
         <path>Aircraft/VMX22-Osprey/Hud/Sets/ils.xml</path>
-	    <x-offset>-90</x-offset>
-	    <y-offset>160</y-offset>
+        <x-offset>-90</x-offset>
+        <y-offset>160</y-offset>
     </import>
 
     <import>
@@ -37,10 +37,15 @@
         <y-offset>160</y-offset>
     </import>
 
+    <import>
+        <path>Aircraft/VMX22-Osprey/Hud/Sets/gear.xml</path>
+        <x-offset>-300</x-offset>
+        <y-offset>110</y-offset>
+    </import>
+
     <ladder>
         <name>Pitch Ladder</name>
         <type>pitch</type>
-        <!-- <type>climb-dive</type> -->
         <x>-60</x>
         <y>-70</y>
         <width>120</width>
@@ -266,7 +271,6 @@
         <halign>right</halign>
         <format>%.0f</format>
         <box>true</box>
-        <option></option>
         <pointer-width>10</pointer-width>
         <pointer-length>5</pointer-length>
 
@@ -424,7 +428,7 @@
     </turn-bank-indicator>
 
     <dial>
-        <name>nacelle-tilt</name>
+        <name>Nacelles Tilt</name>
         <x>-187</x>
         <y>-120</y> 
         <width>35</width>
@@ -438,64 +442,82 @@
         <divisions>8</divisions>
     </dial>
 
-	<gauge>
-		<name>Throttle Pilot</name>
-		<x>-305</x>
-		<y>-75</y>
-		<width>20</width>
-		<height>150</height>
-		<option>vertical</option>
-		<option>left</option>
-		<option>notext</option>
-		<major-divisions>50</major-divisions>
-		<minor-divisions>0</minor-divisions>
-		<tick-bottom>true</tick-bottom>
-		<tick-top>true</tick-top>
-		<tick-right>false</tick-right>
-		<tick-left>false</tick-left>
-		<cap-bottom>false</cap-bottom>
-		<cap-top>false</cap-top>
-		<cap-right>true</cap-right>
-		<cap-left>false</cap-left>
-		<marker-offset>0.0</marker-offset>
-		<enable-pointer>true</enable-pointer>
-		<pointer-type>fixed</pointer-type>
+    <label>
+        <name>RPM Nr.</name>
+        <width>45</width>
+        <height>10</height>
+        <x>-215</x>
+        <y>-165</y>
 
-		<input>
-			<property>/controls/engines/engine[0]/throttle</property>
-			<max>1.0</max>
-			<min>0.0</min>
-		</input>
-	</gauge>
+        <input>
+            <property>/rotors/tail/rpm</property>
+            <!-- 100/397 -->
+            <factor>0.2518891688</factor>
+            <min>0.0</min>
+        </input>
+
+        <format>%2.0f%% Nr</format>
+        <box>true</box>
+    </label>
 
     <gauge>
-		<name>Throttle Pilot And A/P Combined</name>
-		<x>-275</x>
-		<y>-75</y>
-		<width>20</width>
-		<height>150</height>
-		<option>vertical</option>
-		<option>left</option>
-		<option>notext</option>
-		<major-divisions>50</major-divisions>
-		<minor-divisions>0</minor-divisions>
-		<tick-bottom>true</tick-bottom>
-		<tick-top>true</tick-top>
-		<tick-right>false</tick-right>
-		<tick-left>false</tick-left>
-		<cap-bottom>false</cap-bottom>
-		<cap-top>false</cap-top>
-		<cap-right>true</cap-right>
-		<cap-left>false</cap-left>
-		<marker-offset>0.0</marker-offset>
-		<enable-pointer>true</enable-pointer>
-		<pointer-type>fixed</pointer-type>
+        <name>Throttle Pilot</name>
+        <x>-305</x>
+        <y>-75</y>
+        <width>20</width>
+        <height>150</height>
+        <option>vertical</option>
+        <option>left</option>
+        <option>notext</option>
+        <major-divisions>50</major-divisions>
+        <minor-divisions>0</minor-divisions>
+        <tick-bottom>true</tick-bottom>
+        <tick-top>true</tick-top>
+        <tick-right>false</tick-right>
+        <tick-left>false</tick-left>
+        <cap-bottom>false</cap-bottom>
+        <cap-top>false</cap-top>
+        <cap-right>true</cap-right>
+        <cap-left>false</cap-left>
+        <marker-offset>0.0</marker-offset>
+        <enable-pointer>true</enable-pointer>
+        <pointer-type>fixed</pointer-type>
 
-		<input>
-			<property>/v22/pfcs/output/tcl</property>
-			<max>1.0</max>
-			<min>0.0</min>
-		</input>
-	</gauge>
+        <input>
+            <property>/controls/engines/engine[0]/throttle</property>
+            <max>1.0</max>
+            <min>0.0</min>
+        </input>
+    </gauge>
+
+    <gauge>
+        <name>Throttle Pilot And A/P Combined</name>
+        <x>-275</x>
+        <y>-75</y>
+        <width>20</width>
+        <height>150</height>
+        <option>vertical</option>
+        <option>left</option>
+        <option>notext</option>
+        <major-divisions>50</major-divisions>
+        <minor-divisions>0</minor-divisions>
+        <tick-bottom>true</tick-bottom>
+        <tick-top>true</tick-top>
+        <tick-right>false</tick-right>
+        <tick-left>false</tick-left>
+        <cap-bottom>false</cap-bottom>
+        <cap-top>false</cap-top>
+        <cap-right>true</cap-right>
+        <cap-left>false</cap-left>
+        <marker-offset>0.0</marker-offset>
+        <enable-pointer>true</enable-pointer>
+        <pointer-type>fixed</pointer-type>
+
+        <input>
+            <property>/v22/pfcs/output/tcl</property>
+            <max>1.0</max>
+            <min>0.0</min>
+        </input>
+    </gauge>
 
 </PropertyList>

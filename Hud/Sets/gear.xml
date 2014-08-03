@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <label>
+        <name>Parking Brake</name>
+        <width>2</width>
+        <height>2</height>
+        <y>0</y>
+        <halign>left</halign>
+
+        <condition>
+            <equals>
+                <property>/controls/gear/brake-parking</property>
+                <value>1.0</value>
+            </equals>
+        </condition>
+
+        <format>Parking brake set</format>
+    </label>
+
+    <label>
+        <name>Gear Up</name>
+        <width>2</width>
+        <height>2</height>
+        <y>-10</y>
+        <halign>left</halign>
+
+        <condition>
+            <equals>
+                <property>/gear/gear[0]/position-norm</property>
+                <value>0.0</value>
+            </equals>
+        </condition>
+
+        <format>Gear up</format>
+    </label>
+
+    <label>
+        <name>Gear Retracting</name>
+        <width>2</width>
+        <height>2</height>
+        <y>-10</y>
+        <halign>left</halign>
+
+        <condition>
+            <less-than>
+                <property>/gear/gear/position-normps</property>
+                <value>0.0</value>
+            </less-than>
+        </condition>
+
+        <format>Gear retracting</format>
+
+        <blinking>
+            <interval>0.5</interval>
+        </blinking>
+    </label>
+
+    <label>
+        <name>Gear Extending</name>
+        <width>2</width>
+        <height>2</height>
+        <y>-10</y>
+        <halign>left</halign>
+
+        <condition>
+            <greater-than>
+                <property>/gear/gear/position-normps</property>
+                <value>0.0</value>
+            </greater-than>
+        </condition>
+
+        <format>Gear extending</format>
+
+        <blinking>
+            <interval>0.5</interval>
+        </blinking>
+    </label>
+
+    <label>
+        <name>Gear Down</name>
+        <width>2</width>
+        <height>2</height>
+
+        <!-- For some reason FlightGear places the label a bit too low -->
+        <y>-9</y>
+        <halign>left</halign>
+
+        <condition>
+            <equals>
+                <property>/gear/gear/position-norm</property>
+                <value>1.0</value>
+            </equals>
+        </condition>
+
+        <format>Gear down</format>
+    </label>
+
+    <label>
+        <name>Gear Stuck</name>
+        <width>2</width>
+        <height>2</height>
+        <y>-10</y>
+        <halign>left</halign>
+
+        <condition>
+            <and>
+                <not-equals>
+                    <property>/gear/gear/position-norm</property>
+                    <value>0.0</value>
+                </not-equals>
+                <not-equals>
+                    <property>/gear/gear/position-norm</property>
+                    <value>1.0</value>
+                </not-equals>
+                <equals>
+                    <property>/gear/gear/position-normps</property>
+                    <value>0.0</value>
+                </equals>
+            </and>
+        </condition>
+
+        <format>Warning: gear stuck!</format>
+
+        <blinking>
+            <interval>0.5</interval>
+        </blinking>
+    </label>
+
+</PropertyList>
