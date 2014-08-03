@@ -308,10 +308,10 @@
                 <pitch-rate-limit type="double">15</pitch-rate-limit>
                 <yaw-rate-limit type="double">25</yaw-rate-limit>
 
-                <pitch-hold-min type="double">-40</pitch-hold-min>
+                <pitch-hold-min type="double">-25</pitch-hold-min>
 
                 <!-- Maximum AoA = 35 according to YASim .xml file -->
-                <pitch-hold-max type="double">35</pitch-hold-max>
+                <pitch-hold-max type="double">15</pitch-hold-max>
 
                 <!-- Fixed gains used when using Direct Mode,
                      which bypasses the Fly-By-Wire. Limited to be
