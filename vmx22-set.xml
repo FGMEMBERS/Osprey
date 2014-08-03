@@ -266,7 +266,7 @@
                 -->
                 <gs-hold-pitch-max type="double">1.0</gs-hold-pitch-max>
 
-                <vtol-pitch-hold-min type="double">-10.0</vtol-pitch-hold-min>
+                <vtol-pitch-hold-min type="double">-15.0</vtol-pitch-hold-min>
                 <vtol-pitch-hold-max type="double">5.0</vtol-pitch-hold-max>
 
                 <climb-rate-max type="double">4000</climb-rate-max>
@@ -327,7 +327,7 @@
                 <vtol>
                     <direct-roll-rate-gain type="double">2.5</direct-roll-rate-gain>
                     <direct-yaw-rate-gain type="double">2.0</direct-yaw-rate-gain>
-                    <direct-pitch-rate-gain type="double">2.5</direct-pitch-rate-gain>
+                    <direct-pitch-rate-gain type="double">7.0</direct-pitch-rate-gain>
                     <direct-lateral-move-gain type="double">2.5</direct-lateral-move-gain>
                 </vtol>
             </settings>

@@ -1100,7 +1100,7 @@
         <gain>
             <property>/v22/pfcs/settings/vtol/direct-pitch-rate-gain</property>
             <abs type="bool">true</abs>
-            <max>5.0</max>
+            <max>8.0</max>
         </gain>
         <enable>
             <condition>
@@ -1145,12 +1145,11 @@
             <property>/v22/pfcs/output/vtol/elevator</property>
         </output>
         <config>
-            <!-- Old values: Kp = -0.016 Ti = 0.07 Td = 0.0002 beta = 0.1 -->
             <Kp>-0.40</Kp>
             <Ti>0.3</Ti>
             <Td>0.0000001</Td>
             <u_min>-4.0</u_min>
-            <u_max>4.0</u_max>
+            <u_max>8.0</u_max>
         </config>
     </pid-controller>
 
