@@ -274,7 +274,7 @@
                             </product>
                         </div>
 
-                        <!-- n_max * cos(phi)  - 1 -->
+                        <!-- n_max * cos(phi) - 1 -->
                         <difference>
                             <product>
                                 <property>/v22/pfcs/limits/gforce-maximum</property>
@@ -319,7 +319,7 @@
                             </product>
                         </div>
 
-                        <!-- n_min * cos(phi)  - 1 -->
+                        <!-- n_min * cos(phi) - 1 -->
                         <difference>
                             <product>
                                 <property>/v22/pfcs/limits/gforce-minimum</property>

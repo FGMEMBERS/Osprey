@@ -326,7 +326,11 @@
         <max-rate-of-change>1.0</max-rate-of-change>
     </filter>
 
+    <!-- Computes the velocity of the normalized nose gear position.
+         Can be used to detect whether the gear is stuck.
+    -->
     <filter>
+        <name>Gear Movement</name>
         <type>derivative</type>
         <filter-time>1.0</filter-time>
         <input>
