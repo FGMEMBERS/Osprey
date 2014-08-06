@@ -49,7 +49,22 @@ var RunwayAnnounceClass = {
         var m = {
             parents: [RunwayAnnounceClass, Observable.new()]
         };
+        m.mode = "";
         return m;
+    },
+
+    set_mode: func (mode) {
+        # Set the mode. Depending on the mode this object will or
+        # will not notify certain observers.
+
+        me.mode = mode;
+
+        if (mode != '') {
+            logger.warn(sprintf("Set mode to %s", mode));
+        }
+        else {
+            logger.warn("Reset mode");
+        }
     },
 
     _check_runway: func (apt, runway, self) {
@@ -104,7 +119,7 @@ var TakeoffRunwayAnnounceConfig = {
     distance_start_m: 200,
     # The maximum distance in meters from the starting position
     # on the runway. Large runways are usually 40 to 60 meters wide.
-    
+
     diff_runway_heading_deg: 10,
     # Difference in heading between runway and aircraft in order to
     # get an announcement that the aircraft is on the runway for takeoff.
@@ -124,6 +139,12 @@ var TakeoffRunwayAnnounceConfig = {
 };
 
 var TakeoffRunwayAnnounceClass = {
+    # Announce when approaching a runway or when on a runway ready for
+    # takeoff. Valid modes and the signals they emit are:
+    #
+    # - taxi:               approaching-runway
+    # - taxi-and-takeoff:   approaching-runway, on-runway
+    # - takeoff:            on-runway
 
     new: func (config) {
         var m = {
@@ -132,7 +153,6 @@ var TakeoffRunwayAnnounceClass = {
         m.timer = maketimer(0.5, func m._check_position());
         m.config = config;
 
-        m.mode = "";
         m.last_announced_runway = "";
         m.last_announced_approach = "";
 
@@ -147,8 +167,7 @@ var TakeoffRunwayAnnounceClass = {
     },
 
     stop: func {
-        # Stop monitoring the location of the aircraft while it is on the
-        # ground.
+        # Stop monitoring the location of the aircraft.
         #
         # You should call this function after takeoff.
 
@@ -158,19 +177,11 @@ var TakeoffRunwayAnnounceClass = {
         me.last_announced_approach = "";
     },
 
-    set_mode: func (mode) {
-        # Set the mode. Depending on the mode this object will or
-        # will not notify certain observers. Valid modes and the signals
-        # they emit are:
-        #
-        # - taxi:               approaching-runway
-        # - taxi-and-takeoff:   approaching-runway, on-runway
-        # - takeoff:            on-runway
-
-        me.mode = mode;
-    },
-
     _check_position: func {
+        if (me.mode == "") {
+            return;
+        }
+
         var apt = airportinfo();
 
         var approaching_runways = {};
@@ -238,6 +249,128 @@ var TakeoffRunwayAnnounceClass = {
                 me.notify_observers("approaching-runway", runway);
                 me.last_announced_approach = runway;
             }
+        }
+    }
+
+};
+
+var LandingRunwayAnnounceConfig = {
+
+    distances: [30, 100, 300, 600, 900, 1200, 2000, 3000, 4000],
+
+    diff_runway_heading_deg: 15,
+    # Difference in heading between runway and aircraft in order to
+    # detect the correct runway on which the aircraft is landing.
+
+};
+
+var LandingRunwayAnnounceClass = {
+
+    period: 0.1,
+
+    # Announce remaining distance after landing on a runway. Valid modes
+    # and the signals they emit are:
+    #
+    # - landing: remaining-distance, landed-runway, vacated-runway, landed-outside-runway
+
+    new: func (config) {
+        var m = {
+            parents: [LandingRunwayAnnounceClass, RunwayAnnounceClass.new()]
+        };
+        m.timer = maketimer(LandingRunwayAnnounceClass.period, func m._check_position());
+        m.config = config;
+
+        m.last_announced_runway = "";
+        m.landed_runway = "";
+        m.distances = nil;
+
+        return m;
+    },
+
+    start: func {
+        # Start monitoring the location of the aircraft on the runway.
+
+        me.timer.start();
+    },
+
+    stop: func {
+        # Stop monitoring the location of the aircraft.
+        #
+        # You should call this function after vacating the runway.
+
+        me.set_mode("");
+
+        me.timer.stop();
+
+        me.last_announced_runway = "";
+        me.landed_runway = "";
+        me.distances = nil;
+    },
+
+    _check_position: func {
+        if (me.mode == "") {
+            return;
+        }
+
+        var apt = airportinfo();
+        
+        var on_number_of_rwys = 0;
+
+        foreach (var runway; keys(apt.runways)) {
+            var self = geo.aircraft_position();
+            var result = me._check_runway(apt, runway, self);
+
+            var self_heading = getprop("/orientation/heading-deg");
+            var runway_heading = apt.runway(runway).heading;
+
+            if (result.on_runway) {
+                on_number_of_rwys += 1;
+
+                if (me.mode == "landing") {
+                    if (me.landed_runway == "") {
+                        var heading_diff = abs(self_heading - runway_heading);
+                        if (heading_diff <= me.config.diff_runway_heading_deg) {
+                            me.landed_runway = runway;
+                            me.distances = me.config.distances;
+                            me.notify_observers("landed-runway", runway);
+                        }
+                    }
+
+                    if (runway == me.landed_runway) {
+                        var mps = getprop("/velocities/uBody-fps") * 0.3048;
+                        var dist_upper = pop(me.distances);
+                        if (dist_upper != nil) {
+                            # Distance travelled in two timer periods
+                            var dist_lower = dist_upper - mps * LandingRunwayAnnounceClass.period * 2;
+
+                            if (dist_lower <= result.distance_stop and result.distance_stop <= dist_upper) {
+                                me.notify_observers("remaining-distance", dist_upper);
+                            }
+                            elsif (dist_upper < result.distance_stop) {
+                                append(me.distances, dist_upper);
+                            };
+                        }
+                    }
+                }
+            }
+            else {
+                if (me.mode == "landing" and runway == me.landed_runway) {
+                    me.distances = nil;
+                    if (me.last_announced_runway != runway) {
+                        me.notify_observers("vacated-runway", runway);
+                        me.last_announced_runway = runway;
+                    }
+                }
+            }
+        }
+        
+        # Make landed_runway nil to prevent emitting landed-runway signal
+        # in case we landed on anything but a runway (taxiway for example)
+        if (me.mode == "landing" and on_number_of_rwys == 0) {
+            if (me.landed_runway == "") {
+                me.notify_observers("landed-outside-runway", nil);
+            }
+            me.landed_runway = nil;
         }
     }
 
