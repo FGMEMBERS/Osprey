@@ -516,10 +516,16 @@
             <property>/v22/pfcs/active/beep-to-84-became-false</property>
         </S>
         <R>
-            <greater-than>
-                <property>/rotors/main/rpm</property>
-                <value>390.0</value>
-            </greater-than>
+            <or>
+                <greater-than>
+                    <property>/rotors/main/rpm</property>
+                    <value>390.0</value>
+                </greater-than>
+                <less-than>
+                    <property>/sim/model/v22/tilt</property>
+                    <value>90.0</value>
+                </less-than>
+            </or>
         </R>
         <output>
             <property>/v22/pfcs/active/back-to-100</property>
