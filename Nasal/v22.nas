@@ -45,9 +45,7 @@ var animation_tilt = props.globals.getNode("sim/model/v22/animation_tilt",1);
 var actual_tilt = props.globals.getNode("sim/model/v22/tilt",1);
 actual_tilt.setValue(0);
 
-var target_rpm_airplane = 333;
 var target_rpm_helicopter = 397;
-var target_rpm = target_rpm_helicopter;
 
 # [1] actually describes the lower bound as "40 to 80 knots" (KTAS) and the
 # upper bound as "100 to 120 knots" (KTAS)
@@ -66,12 +64,6 @@ var update_controls_and_tilt_loop = func(dt) {
     }
 
     var act_tilt = actual_tilt.getValue();
-
-    target_rpm = clamp(target_rpm_helicopter + (target_rpm_airplane - target_rpm_helicopter) * (act_tilt - 30) / 60,
-        target_rpm_airplane,target_rpm_helicopter);
-    if (state.getValue() == 5) {
-        target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
-    }
 
     ################################################################################
     # Conversion mode control factors
@@ -211,7 +203,6 @@ var pback_pos = props.globals.getNode("sim/model/pushback/position-norm", 1);
 
 
 var torque = props.globals.getNode("rotors/gear/total-torque", 1);
-var turbine = props.globals.getNode("sim/model/v22/turbine-rpm-pct", 1);
 var stall_right = props.globals.getNode("rotors/main/stall", 1);
 var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
 var stall_left = props.globals.getNode("rotors/tail/stall", 1);
@@ -309,7 +300,7 @@ var update_state = func {
         if (rotor_rpm.getValue() > 100) {
             # Rotor is running at high rpm, so accel. engine faster
             max_rel_torque.setValue(0.6);
-            target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
+            target_rel_rpm.setValue(1.0);
             interpolate(engine1, 1.0, 10);
         }
      }
@@ -317,7 +308,7 @@ var update_state = func {
         if (rotor_rpm.getValue() > 100) {
             # Rotor is running at high rpm, so accel. engine faster
             max_rel_torque.setValue(1);
-            target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
+            target_rel_rpm.setValue(1.0);
             state.setValue(5);
             interpolate(engine1, 1.0, 5);
             interpolate(engine2, 1.0, 10);
@@ -335,12 +326,12 @@ var update_state = func {
         else {
             settimer(func { update_state(5) }, 30);
             max_rel_torque.setValue(0.35);
-            target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
+            target_rel_rpm.setValue(1.0);
         }
     }
     elsif (new_state == 5) {
         max_rel_torque.setValue(1);
-        target_rel_rpm.setValue(target_rpm / target_rpm_helicopter);
+        target_rel_rpm.setValue(1.0);
     }
 }
 
@@ -794,13 +785,11 @@ setlistener("/sim/signals/fdm-initialized", func {
 
     setlistener("/sim/signals/reinit", func(n) {
         n.getBoolValue() and return;
-        #turbine_timer.stop();
         control_throttle.setDoubleValue(0);
         crashed = 0;
     });
 
     setlistener("sim/crashed", func(n) {
-        #turbine_timer.stop();
         if (n.getBoolValue()) {
             crash(crashed = 1);
         }

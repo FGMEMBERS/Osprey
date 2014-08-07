@@ -341,4 +341,137 @@
         </output>
     </filter>
 
+    <flipflop>
+        <name>Can Beep To 84 Percent Logic</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>RS</type>
+        <S>
+            <and>
+                <equals>
+                    <property>/sim/model/v22/tilt</property>
+                    <value>90.0</value>
+                </equals>
+                <equals>
+                    <property>/v22/pfcs/output/tilt-rate</property>
+                    <value>0.0</value>
+                </equals>
+                <greater-than>
+                    <property>/rotors/main/rpm</property>
+                    <value>390.0</value>
+                </greater-than>
+            </and>
+        </S>
+        <R>
+            <property>/v22/pfcs/active/beep-to-84</property>
+        </R>
+        <output>
+            <property>/v22/pfcs/active/can-beep-to-84</property>
+        </output>
+    </flipflop>
+
+    <flipflop>
+        <name>Can Beep To 100 Percent Logic</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>RS</type>
+        <S>
+            <and>
+                <property>/v22/pfcs/active/beep-to-84</property>
+                <equals>
+                    <property>/sim/model/v22/tilt</property>
+                    <value>90.0</value>
+                </equals>
+                <equals>
+                    <property>/v22/pfcs/output/tilt-rate</property>
+                    <value>0.0</value>
+                </equals>
+            </and>
+        </S>
+        <R>
+            <not>
+                <property>/v22/pfcs/active/beep-to-84</property>
+            </not>
+        </R>
+        <output>
+            <property>/v22/pfcs/active/can-beep-to-100</property>
+        </output>
+    </flipflop>
+
+    <flipflop>
+        <name>Beep to 84 Percent or 100 Percent Thumb Wheel</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>RS</type>
+        <S>
+            <and>
+                <property>/v22/pfcs/active/can-beep-to-84</property>
+
+                <!-- Pilot moves thumb wheel forward -->
+                <greater-than>
+                    <property>/v22/pfcs/output/tilt-rate</property>
+                    <value>0.0</value>
+                </greater-than>
+            </and>
+        </S>
+        <R>
+            <or>
+                <and>
+                    <property>/v22/pfcs/active/can-beep-to-100</property>
+
+                    <!-- Pilot moves thumb wheel forward -->
+                    <greater-than>
+                        <property>/v22/pfcs/output/tilt-rate</property>
+                        <value>0.0</value>
+                    </greater-than>
+                </and>
+
+                <!-- If for some reason the nacelles tilt aft, then beep
+                     back to 100 % RPM.
+                -->
+                <less-than>
+                    <property>/sim/model/v22/tilt</property>
+                    <value>90.0</value>
+                </less-than>
+            </or>
+        </R>
+        <output>
+            <property>/v22/pfcs/active/beep-to-84</property>
+        </output>
+    </flipflop>
+
+    <filter>
+        <name>Beep to 84 Percent or 100 Percent RPM</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <and>
+                    <not>
+                        <property>/sim/freeze/replay-state</property>
+                    </not>
+                    <equals>
+                        <property>/sim/model/v22/wing_state</property>
+                        <value>0</value>
+                    </equals>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <condition>
+                <property>/v22/pfcs/active/beep-to-84</property>
+            </condition>
+            <value>0.84</value>
+        </input>
+        <input>
+            <condition>
+                <not>
+                    <property>/v22/pfcs/active/beep-to-84</property>
+                </not>
+            </condition>
+            <value>1.0</value>
+        </input>
+        <output>
+            <property>/controls/rotor/reltarget</property>
+        </output>
+    </filter>
+
 </PropertyList>

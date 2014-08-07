@@ -287,6 +287,10 @@
                 <yaw-rate type="bool">false</yaw-rate>
 
                 <bank-angle-hard-limit type="bool">true</bank-angle-hard-limit>
+
+                <beep-to-84 type="bool">false</beep-to-84>
+                <can-beep-to-84 type="bool">false</can-beep-to-84>
+                <can-beep-to-100 type="bool">false</can-beep-to-100>
             </active>
             <settings>
                 <!-- 60 deg/ps due to roll-rate feedback, limited by
