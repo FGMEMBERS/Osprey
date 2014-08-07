@@ -125,6 +125,22 @@
             <value>8.0</value>
         </min>
 
+        <max>
+            <condition>
+                <and>
+                    <or>
+                        <property>/v22/pfcs/active/beep-to-84</property>
+                        <property>/v22/pfcs/active/back-to-100</property>
+                    </or>
+                    <less-than>
+                        <property>/v22/pfcs/target/tilt</property>
+                        <value>0.0</value>
+                    </less-than>
+                </and>
+            </condition>
+            <value>0.0</value>
+        </max>
+
         <!-- Tilt rate is always positive because it is used as the
              maximum rate of change in the Nacelles Tilt Limit filter.
              The input property of that filter controls the direction
@@ -341,6 +357,10 @@
         </output>
     </filter>
 
+    <!-- ================================================================== -->
+    <!-- Beep To 84 % RPM Logic                                             -->
+    <!-- ================================================================== -->
+
     <flipflop>
         <name>Can Beep To 84 Percent Logic</name>
         <update-interval-secs type="double">0.1</update-interval-secs>
@@ -362,7 +382,13 @@
             </and>
         </S>
         <R>
-            <property>/v22/pfcs/active/beep-to-84</property>
+            <or>
+                <property>/v22/pfcs/active/beep-to-84</property>
+                <less-than>
+                    <property>/sim/model/v22/tilt</property>
+                    <value>90.0</value>
+                </less-than>
+            </or>
         </R>
         <output>
             <property>/v22/pfcs/active/can-beep-to-84</property>
@@ -434,6 +460,69 @@
         </R>
         <output>
             <property>/v22/pfcs/active/beep-to-84</property>
+        </output>
+    </flipflop>
+
+    <!-- Set beep-to-84-became-false to true on the negative edge
+         of beep-to-84.
+    -->
+    <flipflop>
+        <name>Beep To 84 % Became False</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>D</type>
+        <D>
+            <true/>
+        </D>
+        <clock>
+            <not>
+                <property>/v22/pfcs/active/beep-to-84</property>
+            </not>
+        </clock>
+        <output>
+            <property>/v22/pfcs/active/beep-to-84-became-false</property>
+        </output>
+    </flipflop>
+
+    <!-- Set beep-to-84-became-false to false on the positive edge
+         of beep-to-84.
+    -->
+    <flipflop>
+        <name>Beep To 84 % Became True</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>D</type>
+        <D>
+            <false/>
+        </D>
+        <clock>
+            <property>/v22/pfcs/active/beep-to-84</property>
+        </clock>
+        <output>
+            <property>/v22/pfcs/active/beep-to-84-became-false</property>
+        </output>
+    </flipflop>
+
+    <!-- A flipflop to keep back-to-100 true while RPM is going back to
+         100 % but has not reached this RPM yet. Once RPM has become 100 %,
+         back-to-100 will become false.
+
+         The back-to-100 property is used to temporarily restrict tilting
+         the nacelles aft.
+    -->
+    <flipflop>
+        <name>Beeping Back To 100 %</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>RS</type>
+        <S>
+            <property>/v22/pfcs/active/beep-to-84-became-false</property>
+        </S>
+        <R>
+            <greater-than>
+                <property>/rotors/main/rpm</property>
+                <value>390.0</value>
+            </greater-than>
+        </R>
+        <output>
+            <property>/v22/pfcs/active/back-to-100</property>
         </output>
     </flipflop>
 

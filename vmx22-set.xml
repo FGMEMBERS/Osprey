@@ -291,6 +291,8 @@
                 <beep-to-84 type="bool">false</beep-to-84>
                 <can-beep-to-84 type="bool">false</can-beep-to-84>
                 <can-beep-to-100 type="bool">false</can-beep-to-100>
+                <beep-to-84-became-false type="bool">true</beep-to-84-became-false>
+                <back-to-100 type="bool">false</back-to-100>
             </active>
             <settings>
                 <!-- 60 deg/ps due to roll-rate feedback, limited by
