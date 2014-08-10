@@ -31,14 +31,14 @@ var Observable = {
         if (!contains(me.observers, signal)) {
             me.observers[signal] = [];
         }
-        append(me.observers[signal], callback);
+        var listener_id = setlistener("/sim/signals/runway-announcer/" ~ signal, callback);
+        append(me.observers[signal], listener_id);
+        return listener_id;
     },
 
     notify_observers: func (signal, arguments) {
         if (contains(me.observers, signal)) {
-            foreach (var observer; me.observers[signal]) {
-                observer(arguments);
-            }
+            setprop("/sim/signals/runway-announcer/" ~ signal, arguments);
         }
     }
 };
@@ -363,12 +363,12 @@ var LandingRunwayAnnounceClass = {
                 }
             }
         }
-        
+
         # Make landed_runway nil to prevent emitting landed-runway signal
         # in case we landed on anything but a runway (taxiway for example)
         if (me.mode == "landing" and on_number_of_rwys == 0) {
             if (me.landed_runway == "") {
-                me.notify_observers("landed-outside-runway", nil);
+                me.notify_observers("landed-outside-runway", "");
             }
             me.landed_runway = nil;
         }

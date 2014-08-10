@@ -18,25 +18,25 @@ var copilot_say = func (message) {
 };
 
 var on_runway = func (runway) {
-    var message = sprintf("On runway %s", runway);
+    var message = sprintf("On runway %s", runway.getValue());
     copilot_say(message);
     logger.info(sprintf("Announcing '%s'", message));
 };
 
 var approaching_runway = func (runway) {
-    var message = sprintf("Approaching runway %s", runway);
+    var message = sprintf("Approaching runway %s", runway.getValue());
     copilot_say(message);
     logger.info(sprintf("Announcing '%s'", message));
 };
 
 var remaining_distance = func (distance) {
-    var message = sprintf("%d remaining", distance);
+    var message = sprintf("%d remaining", distance.getValue());
     copilot_say(message);
     logger.info(sprintf("Announcing '%s'", message));
 };
 
 var vacated_runway = func (runway) {
-    var message = sprintf("Vacated runway %s", runway);
+    var message = sprintf("Vacated runway %s", runway.getValue());
     copilot_say(message);
     logger.info(sprintf("Announcing '%s'", message));
 
@@ -47,12 +47,12 @@ var vacated_runway = func (runway) {
 };
 
 var landed_runway = func (runway) {
-    var message = sprintf("Touchdown on runway %s", runway);
+    var message = sprintf("Touchdown on runway %s", runway.getValue());
     copilot_say(message);
     logger.info(sprintf("Announcing '%s'", message));
 };
 
-var landed_outside_runway = func (runway) {
+var landed_outside_runway = func {
     var message = sprintf("We did not land on a runway!");
     copilot_say(message);
     logger.info(sprintf("Announcing '%s'", message));
