@@ -108,7 +108,7 @@ setlistener("/controls/lighting/nav-lights", func (n) {
 var have_been_in_air = 0;
 
 var init_announcers = func {
-    setlistener("/gear/gear[0]/wow", func (n) {
+    setlistener("/gear/gear[0]/wow-avg", func (n) {
         if (n.getBoolValue()) {
             takeoff_announcer.start();
             logger.warn("Starting takeoff announce");

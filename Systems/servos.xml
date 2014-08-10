@@ -357,6 +357,44 @@
         </output>
     </filter>
 
+    <filter>
+        <name>Nose Gear WOW Average Raw</name>
+        <type>moving-average</type>
+        <samples>30</samples>
+        <input>
+            <property>/gear/gear[0]/wow</property>
+        </input>
+        <output>
+            <property>/gear/gear[0]/wow-avg-raw</property>
+        </output>
+    </filter>
+
+    <!-- Sets wow-avg to true if wow-avg-raw > 0.9 and sets it to false
+         if wow-avg-raw < 0.1. Between 0.1 and 0.9 the value does not
+         change. Because a moving average filter is used, the value of
+         wow-avg-raw will eventually always move out of this fuzzy area.
+    -->
+    <flipflop>
+        <name>Nose Gear WOW Average Filtered</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>RS</type>
+        <S>
+            <greater-than>
+                <property>/gear/gear[0]/wow-avg-raw</property>
+                <value>0.9</value>
+            </greater-than>
+        </S>
+        <R>
+            <less-than>
+                <property>/gear/gear[0]/wow-avg-raw</property>
+                <value>0.1</value>
+            </less-than>
+        </R>
+        <output>
+            <property>/gear/gear[0]/wow-avg</property>
+        </output>
+    </flipflop>
+
     <!-- ================================================================== -->
     <!-- Beep To 84 % RPM Logic                                             -->
     <!-- ================================================================== -->
