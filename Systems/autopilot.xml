@@ -423,6 +423,48 @@
         </output>
     </filter>
 
+    <!-- A filter to compute the Kp that is used by the A/P Altitude Hold
+         and A/P Altitude AGL Hold PI controllers.
+    -->
+    <filter>
+        <name>A/P Altitude Hold Kp Computer</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <table>
+                    <property>/sim/model/v22/tilt</property>
+                    <entry><ind>15</ind><dep>0.97</dep></entry>
+                    <entry><ind>90</ind><dep>0.35</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/afcs/internal/altitude-kp</property>
+        </output>
+    </filter>
+
+    <!-- A filter to compute the Ki that is used by the A/P Altitude Hold
+         and A/P Altitude AGL Hold PI controllers.
+    -->
+    <filter>
+        <name>A/P Altitude Hold Ki Computer</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <table>
+                    <property>/sim/model/v22/tilt</property>
+                    <entry><ind>15</ind><dep>0.027</dep></entry>
+                    <entry><ind>90</ind><dep>0.01</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/afcs/internal/altitude-ki</property>
+        </output>
+    </filter>
+
     <!-- Tracks a given altitude -->
     <pi-simple-controller>
         <name>A/P Altitude Hold</name>
@@ -451,9 +493,12 @@
         </output>
         <config>
             <!-- TODO Perhaps use a pid-controller so we can better damp the response -->
-            <!-- TODO Current Kp and Ki work well for APLN mode, but not for VTOL mode -->
-            <Kp>0.35</Kp>
-            <Ki>0.01</Ki>
+            <Kp>
+                <property>/v22/afcs/internal/altitude-kp</property>
+            </Kp>
+            <Ki>
+                <property>/v22/afcs/internal/altitude-ki</property>
+            </Ki>
             <u_min>
                 <property>/v22/afcs/settings/climb-rate-max</property> 
 
@@ -496,9 +541,12 @@
             <property>/v22/afcs/target/vs-fps</property>
         </output>
         <config>
-            <!-- TODO Current Kp and Ki work well for VTOL mode, but not for APLN mode -->
-            <Kp>0.97</Kp>
-            <Ki>0.027</Ki>
+            <Kp>
+                <property>/v22/afcs/internal/altitude-kp</property>
+            </Kp>
+            <Ki>
+                <property>/v22/afcs/internal/altitude-ki</property>
+            </Ki>
             <u_min>
                 <property>/v22/afcs/settings/climb-rate-max</property> 
 
