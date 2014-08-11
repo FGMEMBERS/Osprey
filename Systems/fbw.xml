@@ -605,13 +605,13 @@
                 <sum>
                     <product>
                         <property>/v22/pfcs/target/pitch-rate-stick</property>
-                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        <property>/v22/pfcs/internal/lst-tilt</property>
                     </product>
                     <product>
                         <property>/v22/pfcs/target/pitch-rate-ap</property>
                         <difference>
                             <value>1.0</value>
-                            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                            <property>/v22/pfcs/internal/lst-tilt</property>
                         </difference>
                     </product>
                 </sum>
@@ -645,13 +645,13 @@
                 <sum>
                     <product>
                         <property>/v22/pfcs/target/pitch-rate-ap</property>
-                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        <property>/v22/pfcs/internal/lst-tilt</property>
                     </product>
                     <product>
                         <property>/v22/pfcs/target/pitch-rate-stick</property>
                         <difference>
                             <value>1.0</value>
-                            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                            <property>/v22/pfcs/internal/lst-tilt</property>
                         </difference>
                     </product>
                 </sum>
@@ -824,7 +824,7 @@
             </expression>
         </input>
         <output>
-            <property>/v22/pfcs/output/vtol/dcp-tilt</property>
+            <property>/v22/pfcs/internal/dcp-tilt</property>
         </output>
     </filter>
 
@@ -846,7 +846,7 @@
             </expression>
         </input>
         <output>
-            <property>/v22/pfcs/output/vtol/dcp-airspeed</property>
+            <property>/v22/pfcs/internal/dcp-airspeed</property>
         </output>
     </filter>
 
@@ -877,7 +877,7 @@
             </expression>
         </input>
         <output>
-            <property>/v22/pfcs/output/vtol/lsg-tilt</property>
+            <property>/v22/pfcs/internal/lsg-tilt</property>
         </output>
     </filter>
 
@@ -899,7 +899,7 @@
             </expression>
         </input>
         <output>
-            <property>/v22/pfcs/output/vtol/lsg-airspeed</property>
+            <property>/v22/pfcs/internal/lsg-airspeed</property>
         </output>
     </filter>
 
@@ -923,7 +923,7 @@
             </expression>
         </input>
         <output>
-            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+            <property>/v22/pfcs/internal/lst-tilt</property>
         </output>
     </filter>
 
@@ -946,7 +946,7 @@
             </expression>
         </input>
         <output>
-            <property>/v22/pfcs/output/vtol/dst-tilt</property>
+            <property>/v22/pfcs/internal/dst-tilt</property>
         </output>
     </filter>
 
@@ -1162,11 +1162,11 @@
                 <sum>
                     <product>
                         <property>/v22/pfcs/output/vtol/rudder</property>
-                        <property>/v22/pfcs/output/vtol/dst-tilt</property>
+                        <property>/v22/pfcs/internal/dst-tilt</property>
                     </product>
                     <product>
                         <property>/v22/pfcs/output/vtol/elevator</property>
-                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        <property>/v22/pfcs/internal/lst-tilt</property>
                     </product>
                 </sum>
             </expression>
@@ -1185,12 +1185,12 @@
                 <sum>
                     <product>
                         <property>/v22/pfcs/output/vtol/rudder</property>
-                        <property>/v22/pfcs/output/vtol/dst-tilt</property>
+                        <property>/v22/pfcs/internal/dst-tilt</property>
                         <value>-1.0</value>
                     </product>
                     <product>
                         <property>/v22/pfcs/output/vtol/elevator</property>
-                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        <property>/v22/pfcs/internal/lst-tilt</property>
                     </product>
                 </sum>
             </expression>
@@ -1234,8 +1234,8 @@
         <input>
             <expression>
                 <product>
-                    <property>/v22/pfcs/output/vtol/lsg-tilt</property>
-                    <property>/v22/pfcs/output/vtol/lsg-airspeed</property>
+                    <property>/v22/pfcs/internal/lsg-tilt</property>
+                    <property>/v22/pfcs/internal/lsg-airspeed</property>
                     <property>/v22/pfcs/output/vtol/lateral</property>
                 </product>
             </expression>

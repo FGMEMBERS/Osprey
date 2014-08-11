@@ -19,7 +19,7 @@ airspeed and whether the aircraft is in VTOL or APLN mode.
 
 Depending on the tilt of the nacelles and the airspeed, several factors
 are computed which control how effective the VTOL flight controls are.
-These factors are read-only and can be found in output/vtol/
+These factors are read-only and can be found in internal/
 
     - Differential Collective Pitch (DCP) controls the roll
     - Lateral Swashplate Gearing (LSG) provides lateral movement

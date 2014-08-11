@@ -1009,13 +1009,13 @@
                 <sum>
                     <product>
                         <property>/v22/afcs/target/pitch-deg-vtol</property>
-                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        <property>/v22/pfcs/internal/lst-tilt</property>
                     </product>
                     <product>
                         <property>/v22/afcs/target/pitch-deg-apln</property>
                         <difference>
                             <value>1.0</value>
-                            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                            <property>/v22/pfcs/internal/lst-tilt</property>
                         </difference>
                     </product>
                 </sum>
@@ -1045,13 +1045,13 @@
                 <sum>
                     <product>
                         <property>/v22/afcs/target/throttle-vtol</property>
-                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        <property>/v22/pfcs/internal/lst-tilt</property>
                     </product>
                     <product>
                         <property>/controls/engines/engine[0]/throttle</property>
                         <difference>
                             <value>1.0</value>
-                            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                            <property>/v22/pfcs/internal/lst-tilt</property>
                         </difference>
                     </product>
                 </sum>
@@ -1081,13 +1081,13 @@
                 <sum>
                     <product>
                         <property>/controls/engines/engine[0]/throttle</property>
-                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        <property>/v22/pfcs/internal/lst-tilt</property>
                     </product>
                     <product>
                         <property>/v22/afcs/target/throttle-apln</property>
                         <difference>
                             <value>1.0</value>
-                            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                            <property>/v22/pfcs/internal/lst-tilt</property>
                         </difference>
                     </product>
                 </sum>
@@ -1115,13 +1115,13 @@
                 <sum>
                     <product>
                         <property>/v22/afcs/target/throttle-vtol</property>
-                        <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                        <property>/v22/pfcs/internal/lst-tilt</property>
                     </product>
                     <product>
                         <property>/v22/afcs/target/throttle-apln</property>
                         <difference>
                             <value>1.0</value>
-                            <property>/v22/pfcs/output/vtol/lst-tilt</property>
+                            <property>/v22/pfcs/internal/lst-tilt</property>
                         </difference>
                     </product>
                 </sum>

@@ -96,7 +96,7 @@ var update_controls_and_tilt_loop = func(dt) {
     var col_wing = thr * interpol(speed, 0, 20, 200, 75); 
 
     # Calculate the rotor controls
-    var ail2col = 5 * getprop("/v22/pfcs/output/vtol/dcp-tilt") * getprop("/v22/pfcs/output/vtol/dcp-airspeed");
+    var ail2col = 5 * getprop("/v22/pfcs/internal/dcp-tilt") * getprop("/v22/pfcs/internal/dcp-airspeed");
     var min_col = 2;
     var max_col = 23;
 
