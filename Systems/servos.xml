@@ -2,6 +2,10 @@
 
 <PropertyList>
 
+    <!-- ================================================================== -->
+    <!-- Nacelles Filters                                                   -->
+    <!-- ================================================================== -->
+
     <!-- Move and limit the tilt of the left and right nacelles (the rotors)
          within a certain range. This range is dependent on the speed of the
          aircraft.
@@ -221,6 +225,10 @@
         </output>
     </filter>
 
+    <!-- ================================================================== -->
+    <!-- Flight Control Surfaces Servos                                     -->
+    <!-- ================================================================== -->
+
     <!-- Simulate the servo motors of the two ailerons by limiting the
          rate of change of the two flight control surfaces. -->
     <filter>
@@ -342,6 +350,10 @@
         <max-rate-of-change>1.0</max-rate-of-change>
     </filter>
 
+    <!-- ================================================================== -->
+    <!-- Gear Logic                                                         -->
+    <!-- ================================================================== -->
+
     <!-- Computes the velocity of the normalized nose gear position.
          Can be used to detect whether the gear is stuck.
     -->
@@ -360,7 +372,7 @@
     <filter>
         <name>Nose Gear WOW Average Raw</name>
         <type>moving-average</type>
-        <samples>30</samples>
+        <samples>48</samples>
         <input>
             <property>/gear/gear[0]/wow</property>
         </input>
@@ -392,6 +404,82 @@
         </R>
         <output>
             <property>/gear/gear[0]/wow-avg</property>
+        </output>
+    </flipflop>
+
+    <filter>
+        <name>Left Rear Gear WOW Average Raw</name>
+        <type>moving-average</type>
+        <samples>48</samples>
+        <input>
+            <property>/gear/gear[1]/wow</property>
+        </input>
+        <output>
+            <property>/gear/gear[1]/wow-avg-raw</property>
+        </output>
+    </filter>
+
+    <!-- Sets wow-avg to true if wow-avg-raw > 0.9 and sets it to false
+         if wow-avg-raw < 0.1. Between 0.1 and 0.9 the value does not
+         change. Because a moving average filter is used, the value of
+         wow-avg-raw will eventually always move out of this fuzzy area.
+    -->
+    <flipflop>
+        <name>Left Rear Gear WOW Average Filtered</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>RS</type>
+        <S>
+            <greater-than>
+                <property>/gear/gear[1]/wow-avg-raw</property>
+                <value>0.9</value>
+            </greater-than>
+        </S>
+        <R>
+            <less-than>
+                <property>/gear/gear[1]/wow-avg-raw</property>
+                <value>0.1</value>
+            </less-than>
+        </R>
+        <output>
+            <property>/gear/gear[1]/wow-avg</property>
+        </output>
+    </flipflop>
+
+    <filter>
+        <name>Right Rear Gear WOW Average Raw</name>
+        <type>moving-average</type>
+        <samples>48</samples>
+        <input>
+            <property>/gear/gear[2]/wow</property>
+        </input>
+        <output>
+            <property>/gear/gear[2]/wow-avg-raw</property>
+        </output>
+    </filter>
+
+    <!-- Sets wow-avg to true if wow-avg-raw > 0.9 and sets it to false
+         if wow-avg-raw < 0.1. Between 0.1 and 0.9 the value does not
+         change. Because a moving average filter is used, the value of
+         wow-avg-raw will eventually always move out of this fuzzy area.
+    -->
+    <flipflop>
+        <name>Right Rear Gear WOW Average Filtered</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>RS</type>
+        <S>
+            <greater-than>
+                <property>/gear/gear[2]/wow-avg-raw</property>
+                <value>0.9</value>
+            </greater-than>
+        </S>
+        <R>
+            <less-than>
+                <property>/gear/gear[2]/wow-avg-raw</property>
+                <value>0.1</value>
+            </less-than>
+        </R>
+        <output>
+            <property>/gear/gear[2]/wow-avg</property>
         </output>
     </flipflop>
 

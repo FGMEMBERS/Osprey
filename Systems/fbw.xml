@@ -49,8 +49,8 @@
         <input>
             <not>
                 <and>
-                    <property>/gear/gear[1]/wow</property>
-                    <property>/gear/gear[2]/wow</property>
+                    <property>/gear/gear[1]/wow-avg</property>
+                    <property>/gear/gear[2]/wow-avg</property>
                 </and>
             </not>
         </input>
