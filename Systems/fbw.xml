@@ -59,20 +59,6 @@
         </output>
     </logic>
 
-    <!-- Enable FBW Roll Hold if active/roll-hold is true and aircraft is in the air -->
-    <logic>
-        <name>FBW Roll Hold On/Off Switcher</name>
-        <input>
-            <and>
-                <property>/v22/pfcs/active/roll-hold</property>
-                <property>/v22/pfcs/active/roll-axis-unconstrained</property>
-            </and>
-        </input>
-        <output>
-            <property>/v22/pfcs/active/roll-hold-in-air</property>
-        </output>
-    </logic>
-
     <!-- Enable FBW Roll Rate if active/roll-rate is true and aircraft is in the air -->
     <logic>
         <name>FBW Roll Rate On/Off Switcher</name>
@@ -84,6 +70,41 @@
         </input>
         <output>
             <property>/v22/pfcs/active/roll-rate-in-air</property>
+        </output>
+    </logic>
+
+    <!-- Enable FBW for pitch axis modes if ground contact logic detects
+         aircraft's pitch axis (y) is unconstrained.
+    -->
+    <logic>
+        <name>FBW Pitch Axis On/Off Switcher</name>
+        <input>
+            <not>
+                <and>
+                    <property>/gear/gear[0]/wow-avg</property>
+                    <or>
+                        <property>/gear/gear[1]/wow-avg</property>
+                        <property>/gear/gear[2]/wow-avg</property>
+                    </or>
+                </and>
+            </not>
+        </input>
+        <output>
+            <property>/v22/pfcs/active/pitch-axis-unconstrained</property>
+        </output>
+    </logic>
+
+    <!-- Enable FBW Pitch Rate if active/pitch-rate is true and aircraft is in the air -->
+    <logic>
+        <name>FBW Pitch Rate On/Off Switcher</name>
+        <input>
+            <and>
+                <property>/v22/pfcs/active/pitch-rate</property>
+                <property>/v22/pfcs/active/pitch-axis-unconstrained</property>
+            </and>
+        </input>
+        <output>
+            <property>/v22/pfcs/active/pitch-rate-in-air</property>
         </output>
     </logic>
 
@@ -194,7 +215,7 @@
                 <and>
                     <property>/v22/pfcs/active/roll-rate-in-air</property>
                     <not>
-                        <property>/v22/pfcs/active/roll-hold-in-air</property>
+                        <property>/v22/pfcs/active/roll-hold</property>
                     </not>
                 </and>
             </condition>
@@ -203,9 +224,6 @@
             <property>/v22/pfcs/target/roll</property>
         </input>
         <output>
-            <condition>
-                <property>/v22/pfcs/active/roll-rate-in-air</property>
-            </condition>
             <property>/v22/pfcs/target/roll-rate</property>
         </output>
     </filter>
@@ -220,7 +238,7 @@
         <name>FBW Roll Hold</name>
         <debug>false</debug>
         <enable>
-            <property>/v22/pfcs/active/roll-hold-in-air</property>
+            <property>/v22/pfcs/active/roll-hold</property>
         </enable>
         <input>
             <property>/orientation/roll-deg</property>
@@ -496,7 +514,7 @@
         <enable>
             <condition>
                 <not>
-                    <property>/v22/pfcs/active/pitch-rate</property>
+                    <property>/v22/pfcs/active/pitch-rate-in-air</property>
                 </not>
             </condition>
         </enable>
@@ -518,7 +536,7 @@
         <enable>
             <condition>
                 <and>
-                    <property>/v22/pfcs/active/pitch-rate</property>
+                    <property>/v22/pfcs/active/pitch-rate-in-air</property>
                     <or>
                         <not>
                             <property>/v22/pfcs/active/pitch-hold</property>
@@ -534,9 +552,6 @@
             <scale>-1.0</scale>
         </input>
         <output>
-            <condition>
-                <property>/v22/pfcs/active/pitch-rate</property>
-            </condition>
             <property>/v22/pfcs/target/pitch-rate-stick</property>
         </output>
     </filter>
@@ -749,7 +764,7 @@
         <name>FBW Pitch Rate</name>
         <debug>false</debug>
         <enable>
-            <property>/v22/pfcs/active/pitch-rate</property>
+            <property>/v22/pfcs/active/pitch-rate-in-air</property>
         </enable>
         <input>
             <property>/orientation/pitch-rate-degps</property>
@@ -1105,7 +1120,7 @@
         <enable>
             <condition>
                 <not>
-                    <property>/v22/pfcs/active/pitch-rate</property>
+                    <property>/v22/pfcs/active/pitch-rate-in-air</property>
                 </not>
             </condition>
         </enable>
@@ -1126,7 +1141,7 @@
         <name>FBW VTOL Pitch Rate</name>
         <debug>false</debug>
         <enable>
-            <property>/v22/pfcs/active/pitch-rate</property>
+            <property>/v22/pfcs/active/pitch-rate-in-air</property>
         </enable>
         <input>
             <property>/orientation/pitch-rate-degps</property>
