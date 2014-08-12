@@ -429,7 +429,7 @@
 
     <dial>
         <name>Nacelles Tilt</name>
-        <x>-187</x>
+        <x>-188</x>
         <y>-120</y> 
         <width>35</width>
         <height>35</height>
@@ -441,6 +441,22 @@
         <radius>17.5</radius>
         <divisions>8</divisions>
     </dial>
+
+    <label>
+        <name>Tilt Rate Thumb Wheel</name>
+        <x>-210</x>
+        <y>-150</y>
+        <width>40</width>
+        <height>10</height>
+        <halign>right</halign>
+
+        <input>
+            <property>/v22/pfcs/target/tilt-rate</property>
+        </input>
+
+        <format>%2.0f deg/s</format>
+        <box>true</box>
+    </label>
 
     <label>
         <name>RPM Nr.</name>
