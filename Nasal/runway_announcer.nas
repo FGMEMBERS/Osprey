@@ -17,6 +17,10 @@ var sin = func(a) { math.sin(a * math.pi / 180.0) }
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
 var max = func(a, b) { a > b ? a : b }
 
+var mod = func (n, m) {
+    return n - m * math.floor(n / m);
+}
+
 var Observable = {
 
     new: func {
@@ -218,8 +222,8 @@ var TakeoffRunwayAnnounceClass = {
                 if (me.mode == "taxi-and-takeoff" or me.mode == "taxi") {
                     if (me.config.distance_edge_min_m <= result.edge_rem
                       and result.edge_rem <= me.config.distance_edge_max_m) {
-                        var ac_angle1 = cos(90.0 - (math.mod(runway_heading, 180) - self_heading));
-                        var ac_angle2 = cos(90.0 - (self_heading - math.mod(runway_heading, 180)));
+                        var ac_angle1 = cos(90.0 - (mod(runway_heading, 180) - self_heading));
+                        var ac_angle2 = cos(90.0 - (self_heading - mod(runway_heading, 180)));
                         var ac_angle = max(ac_angle1, ac_angle2);
 
                         if (ac_angle > 0 and ac_angle >= cos(me.config.diff_approach_heading_deg)) {
