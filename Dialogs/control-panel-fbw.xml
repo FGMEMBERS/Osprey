@@ -4,7 +4,7 @@
 
     <name>control-panel-fbw</name>
     <layout>vbox</layout>
-    <width>270</width>
+    <width>600</width>
     <resizable>false</resizable>
 
     <group>
@@ -59,321 +59,383 @@
     <hrule/>
 
     <group>
-        <layout>vbox</layout>
-        <padding>6</padding>
-        <text>
-            <label>FBW</label>
-        </text>
+        <layout>hbox</layout>
+        <padding>12</padding>
 
         <group>
-            <layout>table</layout>
-            <halign>left</halign>
+            <layout>vbox</layout>
+            <padding>6</padding>
+            <valign>top</valign>
 
-            <text>
-                <row>1</row>
-                <col>0</col>
-                <label>Roll Rate Limit:</label>
-                <halign>right</halign>
-            </text>
-            <input>
-                <row>1</row>
-                <col>1</col>
-                <name>roll-rate-limit</name>
-                <label>deg/s</label>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/pfcs/settings/roll-rate-limit</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>roll-rate-limit</object-name>
-                </binding>
-            </input>
+            <group>
+                <layout>vbox</layout>
+                <padding>6</padding>
+                <valign>top</valign>
+                <text>
+                    <label>FBW</label>
+                </text>
 
-            <text>
-                <row>2</row>
-                <col>0</col>
-                <label>Pitch Rate Limit:</label>
-                <halign>right</halign>
-            </text>
-            <input>
-                <row>2</row>
-                <col>1</col>
-                <name>pitch-rate-limit</name>
-                <label>deg/s</label>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/pfcs/settings/pitch-rate-limit</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>pitch-rate-limit</object-name>
-                </binding>
-            </input>
+                <group>
+                    <layout>table</layout>
+                    <halign>left</halign>
 
-            <checkbox>
-                <row>3</row>
-                <col>0</col>
-                <colspan>3</colspan>
-                <halign>left</halign>
-                <label>Bank Angle Hard Limit</label>
-                <property>/v22/pfcs/active/bank-angle-hard-limit</property>
-                <live>true</live>
-                <binding>
-                    <command>dialog-apply</command>
-                </binding>
-                <binding>
-                    <command>property-toggle</command>
-                </binding>
-            </checkbox>
+                    <text>
+                        <row>1</row>
+                        <col>0</col>
+                        <label>Roll Rate Limit:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>1</row>
+                        <col>1</col>
+                        <name>roll-rate-limit</name>
+                        <label>deg/s</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/roll-rate-limit</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>roll-rate-limit</object-name>
+                        </binding>
+                    </input>
 
-            <text>
-                <row>4</row>
-                <col>0</col>
-                <label>Roll Hold Limit:</label>
-                <halign>right</halign>
-                <enable>
-                    <property>/v22/pfcs/active/bank-angle-hard-limit</property>
-                </enable>
-            </text>
-            <input>
-                <row>4</row>
-                <col>1</col>
-                <name>roll-hold-limit</name>
-                <enable>
-                    <property>/v22/pfcs/active/bank-angle-hard-limit</property>
-                </enable>
-                <label>deg</label>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/pfcs/settings/roll-hold-limit</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>roll-hold-limit</object-name>
-                </binding>
-            </input>
+                    <text>
+                        <row>2</row>
+                        <col>0</col>
+                        <label>Pitch Rate Limit:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>2</row>
+                        <col>1</col>
+                        <name>pitch-rate-limit</name>
+                        <label>deg/s</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/pitch-rate-limit</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>pitch-rate-limit</object-name>
+                        </binding>
+                    </input>
 
-            <text>
-                <row>5</row>
-                <col>0</col>
-                <label>Pitch Hold Max:</label>
-                <halign>right</halign>
-            </text>
-            <input>
-                <row>5</row>
-                <col>1</col>
-                <name>pitch-hold-max</name>
-                <label>deg</label>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/pfcs/settings/pitch-hold-max</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>pitch-hold-max</object-name>
-                </binding>
-            </input>
+                    <checkbox>
+                        <row>3</row>
+                        <col>0</col>
+                        <colspan>3</colspan>
+                        <halign>left</halign>
+                        <label>Bank Angle Hard Limit</label>
+                        <property>/v22/pfcs/active/bank-angle-hard-limit</property>
+                        <live>true</live>
+                        <binding>
+                            <command>dialog-apply</command>
+                        </binding>
+                        <binding>
+                            <command>property-toggle</command>
+                        </binding>
+                    </checkbox>
 
-            <text>
-                <row>6</row>
-                <col>0</col>
-                <label>Pitch Hold Min:</label>
-                <halign>right</halign>
-            </text>
-            <input>
-                <row>6</row>
-                <col>1</col>
-                <name>pitch-hold-min</name>
-                <label>deg</label>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/pfcs/settings/pitch-hold-min</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>pitch-hold-min</object-name>
-                </binding>
-            </input>
+                    <text>
+                        <row>4</row>
+                        <col>0</col>
+                        <label>Roll Hold Limit:</label>
+                        <halign>right</halign>
+                        <enable>
+                            <property>/v22/pfcs/active/bank-angle-hard-limit</property>
+                        </enable>
+                    </text>
+                    <input>
+                        <row>4</row>
+                        <col>1</col>
+                        <name>roll-hold-limit</name>
+                        <enable>
+                            <property>/v22/pfcs/active/bank-angle-hard-limit</property>
+                        </enable>
+                        <label>deg</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/roll-hold-limit</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>roll-hold-limit</object-name>
+                        </binding>
+                    </input>
 
-            <text>
-                <row>7</row>
-                <col>0</col>
-                <label>G/S Hold Pitch Max:</label>
-                <halign>right</halign>
-            </text>
-            <input>
-                <row>7</row>
-                <col>1</col>
-                <name>gs-hold-pitch-max</name>
-                <label>deg</label>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/afcs/settings/gs-hold-pitch-max</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>gs-hold-pitch-max</object-name>
-                </binding>
-            </input>
+                    <text>
+                        <row>5</row>
+                        <col>0</col>
+                        <label>Pitch Hold Max:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>5</row>
+                        <col>1</col>
+                        <name>pitch-hold-max</name>
+                        <label>deg</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/pitch-hold-max</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>pitch-hold-max</object-name>
+                        </binding>
+                    </input>
 
-            <text>
-                <row>8</row>
-                <col>0</col>
-                <label>Climb Rate Max:</label>
-                <halign>right</halign>
-            </text>
-            <input>
-                <row>8</row>
-                <col>1</col>
-                <name>climb-rate-max</name>
-                <label>fpm</label>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/afcs/settings/climb-rate-max</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>climb-rate-max</object-name>
-                </binding>
-            </input>
+                    <text>
+                        <row>6</row>
+                        <col>0</col>
+                        <label>Pitch Hold Min:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>6</row>
+                        <col>1</col>
+                        <name>pitch-hold-min</name>
+                        <label>deg</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/pitch-hold-min</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>pitch-hold-min</object-name>
+                        </binding>
+                    </input>
+
+                    <text>
+                        <row>7</row>
+                        <col>0</col>
+                        <label>G/S Hold Pitch Max:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>7</row>
+                        <col>1</col>
+                        <name>gs-hold-pitch-max</name>
+                        <label>deg</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/afcs/settings/gs-hold-pitch-max</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>gs-hold-pitch-max</object-name>
+                        </binding>
+                    </input>
+
+                    <text>
+                        <row>8</row>
+                        <col>0</col>
+                        <label>Climb Rate Max:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>8</row>
+                        <col>1</col>
+                        <name>climb-rate-max</name>
+                        <label>fpm</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/afcs/settings/climb-rate-max</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>climb-rate-max</object-name>
+                        </binding>
+                    </input>
+
+                    <text>
+                        <row>9</row>
+                        <col>0</col>
+                        <label>VTOL Pitch Hold Max:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>9</row>
+                        <col>1</col>
+                        <name>vtol-pitch-hold-max</name>
+                        <label>deg</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/afcs/settings/vtol-pitch-hold-max</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>vtol-pitch-hold-max</object-name>
+                        </binding>
+                    </input>
+
+                    <text>
+                        <row>10</row>
+                        <col>0</col>
+                        <label>VTOL Pitch Hold Min:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>10</row>
+                        <col>1</col>
+                        <name>vtol-pitch-hold-min</name>
+                        <label>deg</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/afcs/settings/vtol-pitch-hold-min</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>vtol-pitch-hold-min</object-name>
+                        </binding>
+                    </input>
+                </group>
+            </group>
+
         </group>
-    </group>
 
-    <hrule/>
-
-    <group>
-        <layout>vbox</layout>
-        <padding>6</padding>
-        <text>
-            <label>Direct Mode APLN</label>
-        </text>
+        <vrule/>
 
         <group>
-            <layout>table</layout>
-            <halign>left</halign>
+            <layout>vbox</layout>
+            <padding>6</padding>
+            <valign>top</valign>
+        
+            <group>
+                <layout>vbox</layout>
+                <padding>6</padding>
+                <valign>top</valign>
+                <text>
+                    <label>Direct Mode APLN</label>
+                </text>
 
-            <text>
-                <row>0</row>
-                <col>0</col>
-                <label>Roll Rate Gain:</label>
-                <halign>right</halign>
-            </text>
-            <input>
-                <row>0</row>
-                <col>1</col>
-                <name>roll-rate-gain</name>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/pfcs/settings/direct-roll-rate-gain</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>roll-rate-gain</object-name>
-                </binding>
-            </input>
+                <group>
+                    <layout>table</layout>
+                    <halign>left</halign>
 
-            <text>
-                <row>1</row>
-                <col>0</col>
-                <label>Pitch Rate Gain:</label>
-                <halign>right</halign>
-            </text>
-            <input>
-                <row>1</row>
-                <col>1</col>
-                <name>pitch-rate-gain</name>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/pfcs/settings/direct-pitch-rate-gain</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>pitch-rate-gain</object-name>
-                </binding>
-            </input>
-        </group>
-    </group>
+                    <text>
+                        <row>0</row>
+                        <col>0</col>
+                        <label>Roll Rate Gain:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>0</row>
+                        <col>1</col>
+                        <name>roll-rate-gain</name>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/direct-roll-rate-gain</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>roll-rate-gain</object-name>
+                        </binding>
+                    </input>
 
-    <hrule/>
+                    <text>
+                        <row>1</row>
+                        <col>0</col>
+                        <label>Pitch Rate Gain:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>1</row>
+                        <col>1</col>
+                        <name>pitch-rate-gain</name>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/direct-pitch-rate-gain</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>pitch-rate-gain</object-name>
+                        </binding>
+                    </input>
+                </group>
+            </group>
 
-    <group>
-        <layout>vbox</layout>
-        <padding>6</padding>
-        <text>
-            <label>Direct Mode VTOL</label>
-        </text>
+            <hrule/>
 
-        <group>
-            <layout>table</layout>
-            <halign>left</halign>
+            <group>
+                <layout>vbox</layout>
+                <padding>6</padding>
+                <valign>top</valign>
+                <text>
+                    <label>Direct Mode VTOL</label>
+                </text>
 
-            <text>
-                <row>0</row>
-                <col>0</col>
-                <label>Roll Rate Gain:</label>
-                <halign>right</halign>
-            </text>
-            <input>
-                <row>0</row>
-                <col>1</col>
-                <name>vtol-roll-rate-gain</name>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/pfcs/settings/vtol/direct-roll-rate-gain</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>vtol-roll-rate-gain</object-name>
-                </binding>
-            </input>
+                <group>
+                    <layout>table</layout>
+                    <halign>left</halign>
 
-            <text>
-                <row>1</row>
-                <col>0</col>
-                <label>Pitch Rate Gain:</label>
-                <halign>right</halign>
-            </text>
-            <input>
-                <row>1</row>
-                <col>1</col>
-                <name>vtol-pitch-rate-gain</name>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/pfcs/settings/vtol/direct-pitch-rate-gain</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>vtol-pitch-rate-gain</object-name>
-                </binding>
-            </input>
+                    <text>
+                        <row>0</row>
+                        <col>0</col>
+                        <label>Roll Rate Gain:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>0</row>
+                        <col>1</col>
+                        <name>vtol-roll-rate-gain</name>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/vtol/direct-roll-rate-gain</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>vtol-roll-rate-gain</object-name>
+                        </binding>
+                    </input>
 
-            <text>
-                <row>2</row>
-                <col>0</col>
-                <label>Yaw Rate Gain:</label>
-                <halign>right</halign>
-            </text>
-            <input>
-                <row>2</row>
-                <col>1</col>
-                <name>vtol-yaw-rate-gain</name>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/pfcs/settings/vtol/direct-yaw-rate-gain</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>vtol-yaw-rate-gain</object-name>
-                </binding>
-            </input>
+                    <text>
+                        <row>1</row>
+                        <col>0</col>
+                        <label>Pitch Rate Gain:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>1</row>
+                        <col>1</col>
+                        <name>vtol-pitch-rate-gain</name>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/vtol/direct-pitch-rate-gain</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>vtol-pitch-rate-gain</object-name>
+                        </binding>
+                    </input>
 
-            <text>
-                <row>3</row>
-                <col>0</col>
-                <label>Lateral Move Gain:</label>
-                <halign>right</halign>
-            </text>
-            <input>
-                <row>3</row>
-                <col>1</col>
-                <name>vtol-lateral-move-gain</name>
-                <halign>left</halign>
-                <live>true</live>
-                <property>/v22/pfcs/settings/vtol/direct-lateral-move-gain</property>
-                <binding>
-                    <command>dialog-apply</command>
-                    <object-name>vtol-lateral-move-gain</object-name>
-                </binding>
-            </input>
+                    <text>
+                        <row>2</row>
+                        <col>0</col>
+                        <label>Yaw Rate Gain:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>2</row>
+                        <col>1</col>
+                        <name>vtol-yaw-rate-gain</name>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/vtol/direct-yaw-rate-gain</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>vtol-yaw-rate-gain</object-name>
+                        </binding>
+                    </input>
+
+                    <text>
+                        <row>3</row>
+                        <col>0</col>
+                        <label>Lateral Move Gain:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>3</row>
+                        <col>1</col>
+                        <name>vtol-lateral-move-gain</name>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/vtol/direct-lateral-move-gain</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>vtol-lateral-move-gain</object-name>
+                        </binding>
+                    </input>
+                </group>
+            </group>
+
         </group>
     </group>
 
