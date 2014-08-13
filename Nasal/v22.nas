@@ -20,9 +20,6 @@ var interpol = func(x, x0, y0, x1, y1) { x < x0 ? y0 : x > x1 ? y1 : y0 + (y1 - 
 # controls 
 var control_rotor_incidence_wing_fold = props.globals.getNode("sim/model/v22/wingfoldincidence");
 
-var input_flaps = props.globals.getNode("controls/flight/flaps",1);
-var control_flaps = props.globals.getNode("sim/model/v22/inputflaps",1);
-
 var control_throttle = props.globals.getNode("/controls/engines/engine[0]/throttle");
 var control_rotor_brake = props.globals.getNode("/controls/rotor/brake",1);
 
@@ -65,30 +62,9 @@ var update_controls_and_tilt_loop = func(dt) {
 
     var act_tilt = actual_tilt.getValue();
 
-    ################################################################################
-    # Conversion mode control factors
-    ################################################################################
-
     # Below min_conv_mode_kias the conversion factor is 0, above max_conv_mode_kias it is 1
     var speed = airspeed_kt.getValue();
     var conv_factor = clamp((speed - min_conv_mode_kias) / (max_conv_mode_kias - min_conv_mode_kias), 0, 1);
-
-    var airplane_control_factor = conv_factor;
-    var helicopter_control_factor = 1 - conv_factor;
-
-    ################################################################################
-
-    var flap_control_factor = clamp((speed - min_conv_mode_kias - flap_speed_offset) / (max_conv_mode_kias - min_conv_mode_kias + flap_speed_range), 0, 1);
-
-    var flap = control_flaps.getValue();
-    var iflap = input_flaps.getValue();
-    var maxflap_delta = dt * 0.125;
-    flap = max(min(iflap, flap + maxflap_delta), flap - maxflap_delta);
-    control_flaps.setValue(flap);
-
-    if (wing_state.getValue() == 0) {
-        out_wing_flap.setValue(flap_control_factor * flap * 0.3 + (1 - flap_control_factor) * min(1, 1 - act_tilt / 90));
-    }
 
     ################################################################################
 
@@ -109,8 +85,8 @@ var update_controls_and_tilt_loop = func(dt) {
     ail = getprop("/v22/pfcs/output/vtol/aileron") * (1-h);
 
     # Rotor collective
-    out_rotor_r_col.setValue(airplane_control_factor * col_wing + helicopter_control_factor * (col_rotor - ail * ail2col));
-    out_rotor_l_col.setValue(airplane_control_factor * col_wing + helicopter_control_factor * (col_rotor + ail * ail2col));
+    out_rotor_r_col.setValue(conv_factor * col_wing + (1 - conv_factor) * (col_rotor - ail * ail2col));
+    out_rotor_l_col.setValue(conv_factor * col_wing + (1 - conv_factor) * (col_rotor + ail * ail2col));
 }
 
 var set_tilt = func (value = 0) {

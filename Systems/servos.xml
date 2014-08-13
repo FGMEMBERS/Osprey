@@ -350,6 +350,81 @@
         <max-rate-of-change>1.0</max-rate-of-change>
     </filter>
 
+    <!-- Factor controlling when the flaps fully depend on the tilt of
+         the nacelles.
+    -->
+    <filter>
+        <name>Flaps Control Factor</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <table>
+                    <property>/velocities/airspeed-kt</property>
+                    <entry><ind>30</ind><dep>1.0</dep></entry>
+                    <entry><ind>150</ind><dep>0.0</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/internal/flap-control</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>Flaps Control</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <and>
+                    <not>
+                        <property>/sim/freeze/replay-state</property>
+                    </not>
+                    <equals>
+                        <property>/sim/model/v22/wing_state</property>
+                        <value>0</value>
+                    </equals>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <expression>
+                <product>
+                    <difference>
+                        <value>1.0</value>
+                        <div>
+                            <property>/sim/model/v22/tilt</property>
+                            <value>90.0</value>
+                        </div>
+                    </difference>
+                    <property>/v22/pfcs/internal/flap-control</property>
+                </product>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/output/flaps</property>
+        </output>
+    </filter>
+
+    <!-- Simulates the moving of the flaps -->
+    <filter>
+        <name>Flaps Servos</name>
+        <type>noise-spike</type>
+        <input>
+            <property>/v22/pfcs/output/flaps</property>
+        </input>
+        <output>
+            <property>/sim/model/v22/wing/flap</property>
+        </output>
+
+        <min>0.0</min>
+        <max>1.0</max>
+
+        <!-- range (0..1 = 1) in 8 seconds -->
+        <max-rate-of-change>0.125</max-rate-of-change>
+    </filter>
+
     <!-- ================================================================== -->
     <!-- Gear Logic                                                         -->
     <!-- ================================================================== -->

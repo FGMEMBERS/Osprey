@@ -46,7 +46,6 @@
                 <wing_state type="int">0</wing_state>
                 <blade_folding type="float">0</blade_folding>
                 <wing_rotation type="float">0</wing_rotation>
-                <inputflaps type="float">0</inputflaps>
                 <wingfoldincidence type="float">0</wingfoldincidence>
 
                 <wing>
