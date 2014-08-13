@@ -1,5 +1,5 @@
-- Use moving average filter for ground contact logic
-- Use ground contact logic for enabling/disabling FBW pitch modes
+x Use moving average filter for ground contact logic
+x Use ground contact logic for enabling/disabling FBW pitch modes
 - Add Differential Swashplate Tilt (DST) factors for VTOL rudder input
     x Add factor using nacelles tilt
     - Add factor using airspeed
@@ -65,3 +65,4 @@ x Add support for TACAN, VOR, ILS, GPS
 - Adjust YASim FDM to work with YASIM_VERSION_32 in FlightGear 3.2
 - Add missions from guide book
 - Add dual control
+- Use heading hold if speed is less than 25 knots, switch to turn coordinator between 25 and 45 knots

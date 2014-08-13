@@ -49,24 +49,14 @@ var target_rpm_helicopter = 397;
 var min_conv_mode_kias = 40;
 var max_conv_mode_kias = 120;
 
-# Lower the speed at which the flaps are fully extended by 10 knots
-var flap_speed_offset = -10;
-
-# Increase the range in which the flaps are (partially) extended by 40 knots
-var flap_speed_range = 40;
-
 var update_controls_and_tilt_loop = func(dt) {
     if (props.globals.getNode("sim/crashed",1).getBoolValue()) {
         return;
     }
 
-    var act_tilt = actual_tilt.getValue();
-
     # Below min_conv_mode_kias the conversion factor is 0, above max_conv_mode_kias it is 1
     var speed = airspeed_kt.getValue();
     var conv_factor = clamp((speed - min_conv_mode_kias) / (max_conv_mode_kias - min_conv_mode_kias), 0, 1);
-
-    ################################################################################
 
     var thr = getprop("/v22/pfcs/output/tcl");
     var col_wing = thr * interpol(speed, 0, 20, 200, 75); 
@@ -76,7 +66,7 @@ var update_controls_and_tilt_loop = func(dt) {
     var min_col = 2;
     var max_col = 23;
 
-    var col_tilt_correction = 1 / cos(clamp(act_tilt, -10, 30));
+    var col_tilt_correction = 1 / cos(clamp(actual_tilt.getValue(), -10, 30));
     var col_rotor = min_col + thr * (max_col - min_col) * col_tilt_correction;
 
     # Set blades vertical if folded
