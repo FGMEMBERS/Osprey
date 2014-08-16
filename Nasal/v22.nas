@@ -49,7 +49,7 @@ var target_rpm_helicopter = 397;
 var min_conv_mode_kias = 40;
 var max_conv_mode_kias = 120;
 
-var update_controls_and_tilt_loop = func(dt) {
+var update_controls_and_tilt_loop = func {
     if (props.globals.getNode("sim/crashed",1).getBoolValue()) {
         return;
     }
@@ -77,6 +77,9 @@ var update_controls_and_tilt_loop = func(dt) {
     # Rotor collective
     out_rotor_r_col.setValue(conv_factor * col_wing + (1 - conv_factor) * (col_rotor - ail * ail2col));
     out_rotor_l_col.setValue(conv_factor * col_wing + (1 - conv_factor) * (col_rotor + ail * ail2col));
+
+    # Allow refuel only if fuel probe is extended
+    setprop("/systems/refuel/serviceable", door_fuelpr.getValue() == 0.0);
 }
 
 var set_tilt = func (value = 0) {
@@ -120,53 +123,8 @@ var rotor = props.globals.getNode("controls/engines/engine/magnetos", 1);
 var rotor_rpm = props.globals.getNode("rotors/main/rpm", 1);
 
 # MP door/airrefuel ======================================================
-# door cargodown - cargodoormix
-var door_cargodown = props.globals.getNode("instrumentation/doors/cargodoor/position-norm", 1);
-# door cargodoorup
-var door_cargoup = props.globals.getNode("instrumentation/doors/cargodoorup/position-norm", 1);
 # door airrefuel probe
 var door_fuelpr = props.globals.getNode("instrumentation/doors/airrefuel/position-norm", 1);
-# door cockpit
-var door_cockpit = props.globals.getNode("instrumentation/doors/cockpitdoor/position-norm", 1);
-# door crew
-var door_crew = props.globals.getNode("instrumentation/doors/crew/position-norm", 1);
-# door crewup
-var door_crewup = props.globals.getNode("instrumentation/doors/crewup/position-norm", 1);
-
-# MP gear-agl-meter for rotor particle ====================================
-var gear_magl = props.globals.getNode("position/gear-agl-m", 1);
-
-# MP gear-caster for gear rotation ====================================
-var gear_cast = props.globals.getNode("gear/gear[0]/caster-angle-deg", 1);
-
-# MP Front gear-spin ====================================
-var gear0_spin = props.globals.getNode("gear/gear[0]/rollspeed-ms", 1);
-# MP Left gear-spin ====================================
-var gear1_spin = props.globals.getNode("gear/gear[1]/rollspeed-ms", 1);
-# MP Right gear-spin ====================================
-var gear2_spin = props.globals.getNode("gear/gear[2]/rollspeed-ms", 1);
-
-# MP sim/model/v22/rotor/left/collective for rotor particle
-var collective_left = props.globals.getNode("sim/model/v22/rotor/left/collective", 1);
-
-# MP sim/model/v22/rotor/right/collective for rotor particle
-var collective_right = props.globals.getNode("sim/model/v22/rotor/right/collective", 1);
-
-# landing lights movement ====================================
-var light_position = props.globals.getNode("instrumentation/doors/landinglightpos/position-norm", 1);
-
-# landing lights state ====================================
-var l_light_state = props.globals.getNode("sim/model/lights/landing-lights/state", 1);
-
-# pushback state ====================================
-var pback_state = props.globals.getNode("sim/model/pushback/enabled", 1);
-
-# paratrooper jump state ====================================
-#var ptroup_jump_state = props.globals.getNode("controls/jump-signal", 1);
-
-# pushback positon ====================================
-var pback_pos = props.globals.getNode("sim/model/pushback/position-norm", 1);
-
 
 var torque = props.globals.getNode("rotors/gear/total-torque", 1);
 var stall_right = props.globals.getNode("rotors/main/stall", 1);
@@ -187,7 +145,6 @@ var max_rel_torque = props.globals.getNode("controls/rotor/maxreltorque", 1);
 # 12 unfolding blades
 # 13 -> 0
 var blade_folding = props.globals.getNode("sim/model/v22/blade_folding",1);
-var blade_incidence = props.globals.getNode("rotors/main/blade/incidence-deg",1);
 
 var update_wing_state = func {
     var ws = wing_state.getValue();
@@ -640,93 +597,6 @@ dynamic_view.register(func {
         -15 * r * lowspeed;                 #    roll
 });
 
-
-var update_mp_generics = func {
-    setprop("sim/multiplay/generic/float[0]", blade_folding.getValue());
-    setprop("sim/multiplay/generic/float[1]", animation_tilt.getValue());
-    setprop("sim/multiplay/generic/float[3]", wing_rotation.getValue());
-    setprop("sim/multiplay/generic/float[4]", blade_incidence.getValue());
-
-    # door cargodown
-    setprop("sim/multiplay/generic/float[5]", door_cargodown.getValue());
-    # door cargoup
-    setprop("sim/multiplay/generic/float[6]", door_cargoup.getValue());
-    # door airrefuel
-    setprop("sim/multiplay/generic/float[7]", door_fuelpr.getValue());
-    # door cockpit
-    setprop("sim/multiplay/generic/float[8]", door_cockpit.getValue());
-    # door crew
-    setprop("sim/multiplay/generic/float[9]", door_crew.getValue());
-    # door crewup
-    setprop("sim/multiplay/generic/float[10]", door_crewup.getValue());
-
-    # gear meter agl
-    var gearagl_mp = gear_magl.getValue();
-    if (gearagl_mp != nil) {
-        setprop("sim/multiplay/generic/float[11]", gear_magl.getValue());
-    }
-    else {
-        setprop("sim/multiplay/generic/float[11]", 0.0);
-    }
-
-    # gear caster-angle-deg for mp front gear caster rotation
-    var gearcast_mp = gear_cast.getValue();
-    if (gearcast_mp != nil) {
-        setprop("sim/multiplay/generic/float[12]", gear_cast.getValue());
-    }
-    else {
-        setprop("sim/multiplay/generic/float[12]", 0.0);
-    }
-
-    # Front gear spin A for mp
-    setprop("sim/multiplay/generic/float[18]", gear0_spin.getValue());
-    # Left gear spin G for mp
-    setprop("sim/multiplay/generic/float[19]", gear1_spin.getValue());
-    # Right gear spin D for mp
-    setprop("sim/multiplay/generic/float[20]", gear2_spin.getValue());  
-
-    # collective_left for particle effect 
-    setprop("sim/multiplay/generic/float[14]", collective_left.getValue());
-
-    # collective_right for particle effect 
-    setprop("sim/multiplay/generic/float[15]", collective_right.getValue());
-
-    # landing lights animation
-    setprop("sim/multiplay/generic/float[16]", light_position.getValue());
-
-    # landing lights state
-    setprop("sim/multiplay/generic/int[10]", l_light_state.getValue());
-
-    # pushback state
-    var pbacks_mp = pback_state.getValue();
-    if (pbacks_mp != nil) {
-        setprop("sim/multiplay/generic/int[11]", pback_state.getValue());
-    }
-    else {
-        setprop("sim/multiplay/generic/int[11]", 0);
-    }
-
-    # paratrooper jump signal state
-    #var ptroup_mp = ptroup_jump_state.getValue();
-    #if (ptroup_mp != nil) {
-    #setprop("sim/multiplay/generic/int[12]", ptroup_jump_state.getValue());
-    #} else {
-    #setprop("sim/multiplay/generic/int[12]", 0);
-    #}
-
-    # pushback position animation
-    var pbackpos_mp = pback_pos.getValue();
-    if (pbackpos_mp != nil) {
-        setprop("sim/multiplay/generic/float[17]", pback_pos.getValue());
-    }
-    else {
-        setprop("sim/multiplay/generic/float[17]", 0);
-    }
-
-    # Allow refuel only if fuel probe is extended
-    setprop("/systems/refuel/serviceable", door_fuelpr.getValue() == 0.0);
-}
-
 # main() ============================================================
 var delta_time = props.globals.getNode("/sim/time/delta-realtime-sec", 1);
 
@@ -737,9 +607,8 @@ var main_loop = func {
     #update_slide();
     update_engine();
     update_sound(dt);
-    update_controls_and_tilt_loop(dt);
+    update_controls_and_tilt_loop();
     # update_rotor_brake();
-    update_mp_generics();
 }
 
 var crashed = 0;
@@ -747,7 +616,6 @@ var crashed = 0;
 # Initialization
 setlistener("/sim/signals/fdm-initialized", func {
     control_throttle.setDoubleValue(0);
-    #settimer(update_controls_and_tilt_loop, 0);
 
     setlistener("/sim/signals/reinit", func(n) {
         n.getBoolValue() and return;

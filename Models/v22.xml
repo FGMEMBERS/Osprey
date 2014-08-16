@@ -1,206 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- VMX-22 Version - 28.08.2010 -->
-
-<!--
-  Wing rotate axe : 
-  <center>
-    <x-m>-1.018454</x-m>
-    <y-m>0.000235</y-m>
-    <z-m>0.87156</z-m>
-  </center>
-  <axis>
-    <x>-0.068906</x>
-    <y>0</y>
-    <z>2.440773</z>
-  </axis>
-
-
-  blade left 2 fold rotate axe (paleG2)
-  <center>
-    <x-m> -4.542 </x-m>
-    <y-m> -8.751 </y-m>
-    <z-m>  2.572 </z-m>
-  </center>
-  <axis>
-    <x> 0.000 </x>
-    <y> 0.000 </y>
-    <z> 1.000 </z>
-  </axis>
-
-  blade left 3 fold rotate axe (paleG3)
-  <center>
-    <x-m> -0.377 </x-m>
-    <y-m> -7.734 </y-m>
-    <z-m>  2.572 </z-m>
-  </center>
-  <axis>
-    <x> 0.000 </x>
-    <y> 0.000 </y>
-    <z> 1.000 </z>
-  </axis>
-
-  blade right 2 fold rotate axe (paleD2)
-  <center>
-    <x-m> -4.542 </x-m>
-    <y-m>  8.751 </y-m>
-    <z-m>  2.572 </z-m>
-  </center>
-  <axis>
-    <x> 0.000 </x>
-    <y> 0.000 </y>
-    <z> 1.000 </z>
-  </axis>
-
-  blade right 3 fold rotate axe (paleD3)
-  <center>
-    <x-m> -0.377 </x-m>
-    <y-m>  7.734 </y-m>
-    <z-m>  2.572 </z-m>
-  </center>
-  <axis>
-    <x> 0.000 </x>
-    <y> 0.000 </y>
-    <z> 1.000 </z>
-  </axis>
-
-  blade left 1 pitch (piedpaleG1+paleG1)
-  <center>
-    <x-m>-1.574569</x-m>
-    <y-m>-6.693149</y-m>
-    <z-m>2.533302</z-m>
-  </center>
-  <axis>
-    <x>-0.001439</x>
-    <y>-0.695704</y>
-    <z>0.012211</z>
-  </axis>
-
-  blade left 2 pitch (piedpaleG2+paleG2)
-  <center>
-    <x-m>-1.876895</x-m>
-    <y-m>-7.214302</y-m>
-    <z-m>2.533302</z-m>
-  </center>
-  <axis>
-    <x>0.603216</x>
-    <y>0.346605</y>
-    <z>0.012211</z>
-  </axis>
-
-  blade left 3 pitch (piedpaleG3+paleG3)
-  <center>
-    <x-m>-1.2744</x-m>
-    <y-m>-7.215548</y-m>
-    <z-m>2.533302</z-m>
-  </center>
-  <axis>
-    <x>-0.601777</x>
-    <y>0.349097</y>
-    <z>0.012211</z>
-  </axis>
-
-  blade right 1 pitch (piedpaleD1+paleD1)
-  <center>
-    <x-m>-1.574569</x-m>
-    <y-m>6.692998</y-m>
-    <z-m>2.533302</z-m>
-  </center>
-  <axis>
-    <x>-0.001439</x>
-    <y>0.695704</y>
-    <z>0.012211</z>
-  </axis>
-
-  blade right 2 pitch (piedpaleD2+paleD2)
-  <center>
-    <x-m>-1.876895</x-m>
-    <y-m>7.214001</y-m>
-    <z-m>2.533302</z-m>
-  </center>
-  <axis>
-    <x>0.603215</x>
-    <y>-0.346605</y>
-    <z>0.012211</z>
-  </axis>
-
-  blade right 3 pitch (piedpaleD3+paleD3)
-  <center>
-    <x-m>-1.274399</x-m>
-    <y-m>7.216</y-m>
-    <z-m>2.533301</z-m>
-  </center>
-  <axis>
-    <x>-0.601777</x>
-    <y>-0.349097</y>
-    <z>0.012211</z>
-  </axis>
--->
-
 <PropertyList>
 
-  <path>v22.ac</path>
-  <nasal>
-    <load>
-      var self = cmdarg();
-      var animation_tilt = self.getNode("sim/model/v22/animation_tilt",1);
-      var blade_folding = self.getNode("sim/model/v22/blade_folding",1);
-      var wing_rotation = self.getNode("sim/model/v22/wing_rotation", 1);
-      var blade_folding_mp = self.getNode("sim/multiplay/generic/float[0]", 1);
-      var animation_tilt_mp = self.getNode("sim/multiplay/generic/float[1]", 1);
-      var wing_rotation_mp = self.getNode("sim/multiplay/generic/float[3]", 1);
-      var blade_incidence_mp = self.getNode("sim/multiplay/generic/float[4]", 1);
-	
-      var blade_incidence0 = self.getNode("rotors/main/blade[0]/incidence-deg", 1);
-      var blade_incidence1 = self.getNode("rotors/main/blade[1]/incidence-deg", 1);
-      var blade_incidence2 = self.getNode("rotors/main/blade[2]/incidence-deg", 1);
-      var blade_incidence10 = self.getNode("rotors/tail/blade[0]/incidence-deg", 1);
-      var blade_incidence11 = self.getNode("rotors/tail/blade[1]/incidence-deg", 1);
-      var blade_incidence12 = self.getNode("rotors/tail/blade[2]/incidence-deg", 1);
-      var loopid = 0;
-      var loop = func(id) {
-                 id == loopid or return;
-                 var v = blade_folding_mp.getValue();
-                 if (v == nil) v = 0.0;
-                 blade_folding.setDoubleValue(v);
+    <path>v22.ac</path>
 
-                 v = animation_tilt_mp.getValue();
-                 if (v == nil) {
-                     v = 0.0;
-                 }
-                 animation_tilt.setDoubleValue(v);
+    <nasal>
+        <load>
+            var livery_update = aircraft.livery_update.new("Aircraft/VMX22-Osprey/Models/Liveries", 10);
+        </load>
+        <unload>
+            livery_update.stop();
+        </unload>
+    </nasal>
 
-                 v = wing_rotation_mp.getValue();
-                 if (v == nil) {
-                     v = 0.0;
-                 }
-                 wing_rotation.setDoubleValue(v);
+    <params>
+        <nacelles>
+            <blade-folding>
+	            <property>sim/multiplay/generic/float[0]</property>
+            </blade-folding>
+            <wing-rotation>
+	            <property>sim/multiplay/generic/float[3]</property>
+            </wing-rotation>
+            <animation-tilt>
+	            <property>sim/multiplay/generic/float[1]</property>
+            </animation-tilt>
+        </nacelles>
+        <rotors>
+            <left>
+                <incidence-deg>
+                    <blade-1>
+	                    <property>sim/multiplay/generic/float[14]</property>
+                    </blade-1>
+                    <blade-2>
+	                    <property>sim/multiplay/generic/float[15]</property>
+                    </blade-2>
+                    <blade-3>
+	                    <property>sim/multiplay/generic/float[13]</property>
+                    </blade-3>
+                </incidence-deg>
+                <roll-deg>
+                    <property>/rotors/tail/roll-deg</property>
+                </roll-deg>
+                <yaw-deg>
+                    <property>/rotors/tail/yaw-deg</property>
+                </yaw-deg>
+            </left>
+            <right>
+                <incidence-deg>
+                    <blade-1>
+	                    <property>sim/multiplay/generic/float[4]</property>
+                    </blade-1>
+                    <blade-2>
+	                    <property>sim/multiplay/generic/float[2]</property>
+                    </blade-2>
+                    <blade-3>
+	                    <property>sim/multiplay/generic/float[11]</property>
+                    </blade-3>
+                </incidence-deg>
+                <roll-deg>
+                    <property>/rotors/main/roll-deg</property>
+                </roll-deg>
+                <yaw-deg>
+                    <property>/rotors/main/yaw-deg</property>
+                </yaw-deg>
+            </right>
+        </rotors>
+        <doors>
+            <aerial-refueling-probe>
+                <property>sim/multiplay/generic/float[7]</property>
+            </aerial-refueling-probe>
+            <cockpit>
+                <property>sim/multiplay/generic/float[8]</property>
+            </cockpit>
 
-                 v = blade_incidence_mp.getValue();
-                 if (v == nil) {
-                     v = 0.0;
-                 }
-                 blade_incidence0.setDoubleValue(v);
-                 blade_incidence1.setDoubleValue(v);
-                 blade_incidence2.setDoubleValue(v);
-                 blade_incidence10.setDoubleValue(v);
-                 blade_incidence11.setDoubleValue(v);
-                 blade_incidence12.setDoubleValue(v);
+            <!-- The small door on the starboard side near the right rotor -->
+            <starboard-upper>
+                <property>sim/multiplay/generic/float[10]</property>
+            </starboard-upper>
+            <starboard-lower>
+                <property>sim/multiplay/generic/float[9]</property>
+            </starboard-lower>
 
-                 settimer(func { loop(id) }, 0);
-      }
-      settimer(func { loop(loopid) }, 0);
-    </load>
-    <unload>
-      loopid += 1;
-    </unload>
-    <load>
-      var livery_update = aircraft.livery_update.new("Aircraft/VMX22-Osprey/Models/Liveries", 10);
-    </load>
-    <unload>
-      livery_update.stop();
-    </unload>
-  </nasal>
+            <cargo>
+                <property>sim/multiplay/generic/float[6]</property>
+            </cargo>
+            <loading-ramp>
+                <property>sim/multiplay/generic/float[5]</property>
+            </loading-ramp>
+        </doors>
+        <gear>
+            <nose>
+                <caster-angle-deg>
+                    <property>sim/multiplay/generic/float[12]</property>
+                </caster-angle-deg>
+                <rollspeed-ms>
+                    <property>sim/multiplay/generic/float[18]</property>
+                </rollspeed-ms>
+            </nose>
+            <left-rear>
+                <rollspeed-ms>
+                    <property>sim/multiplay/generic/float[19]</property>
+                </rollspeed-ms>
+            </left-rear>
+            <right-rear>
+                <rollspeed-ms>
+                    <property>sim/multiplay/generic/float[20]</property>
+                </rollspeed-ms>
+            </right-rear>
+        </gear>
+    </params>
 
   <animation>
     <!-- Objets opaques - needs update -->
@@ -601,7 +509,6 @@
     <name>landinglight_obj</name>
 	<object-name>landinglight_03</object-name>
 	<type>rotate</type>
-	<!-- <property>instrumentation/doors/landinglightpos/position-norm</property> -->
 	<property>sim/multiplay/generic/float[16]</property>
     <factor> 0.100 </factor>
 	<interpolation>
@@ -1096,7 +1003,7 @@
   <animation>
     <type>rotate</type>
     <object-name>LesAiles</object-name>
-    <property>sim/model/v22/wing_rotation</property>
+    <property alias="../../params/nacelles/wing-rotation/property"/>
     <factor>1</factor>
     <interpolation>
       <entry><ind>  0.0 </ind><dep>  0.00 </dep></entry>
@@ -1157,7 +1064,7 @@
   <animation>
     <type>rotate</type>
     <object-name>EngineLeft</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <property alias="../../params/nacelles/animation-tilt/property"/>
     <factor>1</factor>
     <center>
       <x-m> -1.570 </x-m>
@@ -1175,7 +1082,7 @@
   <animation>
     <type>rotate</type>
     <object-name>EngineRight</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <property alias="../../params/nacelles/animation-tilt/property"/>
     <factor>1</factor>
     <center>
       <x-m> -1.570 </x-m>
@@ -1194,7 +1101,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nhydr_G</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <property alias="../../params/nacelles/animation-tilt/property"/>
 	<offset-deg>-90</offset-deg>
     <factor>1</factor>
     <center>
@@ -1214,7 +1121,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nacur_G</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <property alias="../../params/nacelles/animation-tilt/property"/>
 	<!-- <offset-deg>-90</offset-deg> -->
     <factor>1</factor>
 	<interpolation>
@@ -1241,7 +1148,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nacur_G_ext</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <property alias="../../params/nacelles/animation-tilt/property"/>
 	<!-- <offset-deg>-90</offset-deg> -->
     <factor>1</factor>
 	<interpolation>
@@ -1270,7 +1177,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nacur_D</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <property alias="../../params/nacelles/animation-tilt/property"/>
 	<!-- <offset-deg>-90</offset-deg> -->
     <factor>1</factor>
 	<interpolation>
@@ -1297,7 +1204,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Nacur_D_ext</object-name>
-    <property>sim/model/v22/animation_tilt</property>
+    <property alias="../../params/nacelles/animation-tilt/property"/>
 	<!-- <offset-deg>-90</offset-deg> -->
     <factor>1</factor>
 	<interpolation>
@@ -1320,30 +1227,6 @@
       <z>  0 </z>
     </axis>
   </animation>
-  
-  
-  <!--
-  <animation> 
-   <type>translate</type>
-		<object-name>Nacur_G_ext</object-name>
-		<property>sim/model/v22/animation_tilt</property>
-	<interpolation>
-      <entry><ind> 0.0 </ind><dep> 0.000 </dep></entry>
-	  <entry><ind> 90 </ind><dep>  0.550 </dep></entry>
-    </interpolation>
-		<axis>
-			<x1-m>-1.612</x1-m>
-			<y1-m>-6.363</y1-m>
-			<z1-m> 0.852</z1-m>
-			<x2-m>-2.164</x2-m>
-			<y2-m>-6.363</y2-m>
-			<z2-m> 0.517</z2-m>
-		</axis>
-
-  </animation>
-  -->
-
-
 
   <!-- Rotor and rotor Disks G - Left / L'hélice gauche-->
   <!-- switch visiblety of objects with rotor rpm / Séléction de l'objet visible en fonction des rpm -->
@@ -1375,7 +1258,7 @@
   <animation>
     <type>rotate</type>
     <object-name>HeliceGauche_R</object-name>
-    <property>rotors/tail/roll-deg</property>
+    <property alias="../../params/rotors/left/roll-deg/property"/>
     <factor> 1 </factor>
     <center>
       <x-m> -1.574 </x-m>
@@ -1392,7 +1275,7 @@
   <animation>
     <type>rotate</type>
     <object-name>HeliceGauche_R</object-name>
-    <property>rotors/tail/yaw-deg</property>
+    <property alias="../../params/rotors/left/yaw-deg/property"/>
     <factor> 1 </factor>
     <center>
       <x-m> -1.574 </x-m>
@@ -1410,7 +1293,6 @@
     <type>rotate</type>
     <object-name>HeliceGauche</object-name>
     <property>rotors/tail/blade[0]/position-deg</property>
-	<!--<property>sim/multiplay/generic/float[5]</property>-->
     <offset-deg>-90</offset-deg>
     <factor> 1 </factor>
     <center>
@@ -1516,7 +1398,7 @@
   <animation>
     <type>rotate</type>
     <object-name>HeliceDroite_R</object-name>
-    <property>rotors/main/roll-deg</property>
+    <property alias="../../params/rotors/right/roll-deg/property"/>
     <factor> 1 </factor>
     <center>
       <x-m> -1.574 </x-m>
@@ -1533,7 +1415,7 @@
   <animation>
     <type>rotate</type>
     <object-name>HeliceDroite_R</object-name>
-    <property>rotors/main/yaw-deg</property>
+    <property alias="../../params/rotors/right/yaw-deg/property"/>
     <factor> 1 </factor>
     <center>
       <x-m> -1.574 </x-m>
@@ -1640,7 +1522,7 @@
   <animation>
     <type>rotate</type>
     <object-name>PiedPaleGauche1</object-name>
-    <property>rotors/tail/blade[0]/incidence-deg</property>
+    <property alias="../../params/rotors/left/incidence-deg/blade-1/property"/>
     <factor> -1 </factor>
     <!--<offset-deg>-80</offset-deg>-->
 	<interpolation>
@@ -1667,7 +1549,7 @@
   <animation>
     <type>rotate</type>
     <object-name>PiedPaleGauche2</object-name>
-    <property>rotors/tail/blade[2]/incidence-deg</property>
+    <property alias="../../params/rotors/left/incidence-deg/blade-3/property"/>
     <factor> -1 </factor>
     <!--<offset-deg>-80</offset-deg>-->
 	<interpolation>
@@ -1694,7 +1576,7 @@
   <animation>
     <type>rotate</type>
     <object-name>PiedPaleGauche3</object-name>
-    <property>rotors/tail/blade[1]/incidence-deg</property>
+    <property alias="../../params/rotors/left/incidence-deg/blade-2/property"/>
     <factor> -1 </factor>
     <!--<offset-deg>-80</offset-deg>-->
 	<interpolation>
@@ -1721,7 +1603,7 @@
   <animation>
     <type>rotate</type>
     <object-name>PiedPaleDroit1</object-name>
-    <property>rotors/main/blade[0]/incidence-deg</property>
+    <property alias="../../params/rotors/right/incidence-deg/blade-1/property"/>
     <factor> 1 </factor>
 	<!--<offset-deg>80</offset-deg>-->
 	<interpolation>
@@ -1749,7 +1631,7 @@
   <animation>
     <type>rotate</type>
     <object-name>PiedPaleDroit2</object-name>
-    <property>rotors/main/blade[2]/incidence-deg</property>
+    <property alias="../../params/rotors/right/incidence-deg/blade-3/property"/>
     <!--<offset-deg>80</offset-deg>-->
 	<interpolation>
       <entry><ind>   0 </ind><dep>105</dep></entry>
@@ -1775,7 +1657,7 @@
   <animation>
     <type>rotate</type>
     <object-name>PiedPaleDroit3</object-name>
-    <property>rotors/main/blade[1]/incidence-deg</property>
+    <property alias="../../params/rotors/right/incidence-deg/blade-2/property"/>
     <!--<offset-deg>80</offset-deg>-->
 	<interpolation>
       <entry><ind>   0 </ind><dep>105</dep></entry>
@@ -1795,7 +1677,7 @@
   <animation>
     <type>rotate</type>
     <object-name>paleG2</object-name>
-    <property>sim/model/v22/blade_folding</property>
+    <property alias="../../params/nacelles/blade-folding/property"/>
     <interpolation>
       <entry><ind> 0 </ind><dep> 120 </dep></entry>
       <entry><ind> 1 </ind><dep> 245</dep></entry>
@@ -1816,7 +1698,7 @@
   <animation>
     <type>rotate</type>
     <object-name>paleG3</object-name>
-    <property>sim/model/v22/blade_folding</property>
+    <property alias="../../params/nacelles/blade-folding/property"/>
     <interpolation>
       <entry><ind> 0 </ind><dep> 120 </dep></entry>
       <entry><ind> 1 </ind><dep> 245 </dep></entry>
@@ -1837,7 +1719,7 @@
   <animation>
     <type>rotate</type>
     <object-name>paleD2</object-name>
-    <property>sim/model/v22/blade_folding</property>
+    <property alias="../../params/nacelles/blade-folding/property"/>
     <interpolation>
       <entry><ind> 0 </ind><dep> 120 </dep></entry>
       <entry><ind> 1 </ind><dep> 245 </dep></entry>
@@ -1858,7 +1740,7 @@
   <animation>
     <type>rotate</type>
     <object-name>paleD3</object-name>
-    <property>sim/model/v22/blade_folding</property>
+    <property alias="../../params/nacelles/blade-folding/property"/>
     <interpolation>
       <entry><ind> 0 </ind><dep> 120 </dep></entry>
       <entry><ind> 1 </ind><dep> 245 </dep></entry>
@@ -2162,12 +2044,11 @@
   <!-- to do list -->
   
   
-   <!-- Air Refuleing Probe retract-->
+   <!-- Aerial Refueling Probe Retract -->
   <animation> 
    <type>translate</type>
 		<object-name>AirRF-02</object-name>
-		<!--<property>instrumentation/doors/airrefuel/position-norm</property>-->
-		<property>sim/multiplay/generic/float[7]</property>
+        <property alias="../../params/doors/aerial-refueling-probe/property"/>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>    0.0 </dep></entry>
       <entry><ind> 1.000 </ind><dep>  1.700 </dep></entry>
@@ -2184,8 +2065,7 @@
   <animation> 
    <type>rotate</type>
 		<object-name>cockpit_door</object-name>
-		<!--<property>instrumentation/doors/cockpitdoor/position-norm</property>-->
-		<property>sim/multiplay/generic/float[8]</property>
+        <property alias="../../params/doors/cockpit/property"/>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>   0 </dep></entry>
       <!--<entry><ind> 0.1 </ind><dep>   0 </dep></entry>
@@ -2226,12 +2106,12 @@
 	<object-name>frontdoor_vitre</object-name>
 	<object-name>frontdoor_invitre</object-name>
   </animation>
-  
+ 
+    <!-- Starboard Door Lower Part -->
   <animation> 
    <type>rotate</type>
 		<object-name>frontLOW</object-name>
-		<!--<property>instrumentation/doors/crew/position-norm</property>-->
-		<property>sim/multiplay/generic/float[9]</property>
+        <property alias="../../params/doors/starboard-lower/property"/>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>   0 </dep></entry>
       <entry><ind> 1.0 </ind><dep> 142 </dep></entry>
@@ -2246,12 +2126,11 @@
     </axis>
   </animation>
   
-  <!-- Crew Door upper parts move up -->
+    <!-- Starboard Door Upper Part Move Up -->
   <animation> 
    <type>translate</type>
 		<object-name>frontUP</object-name>
-		<!--<property>instrumentation/doors/crewup/position-norm</property>-->
-		<property>sim/multiplay/generic/float[10]</property>
+        <property alias="../../params/doors/starboard-upper/property"/>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>    0.0 </dep></entry>
       <entry><ind> 0.250 </ind><dep>  0.0 </dep></entry>
@@ -2264,12 +2143,11 @@
         </axis>
   </animation>
   
-  <!-- Crew Door upper parts move inward -->
+    <!-- Starboard Door Upper Part Move Inward -->
   <animation> 
    <type>translate</type>
 		<object-name>frontUP</object-name>
-		<!--<property>instrumentation/doors/crewup/position-norm</property>-->
-		<property>sim/multiplay/generic/float[10]</property>
+        <property alias="../../params/doors/starboard-upper/property"/>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>    0.0 </dep></entry>
       <entry><ind> 0.200 </ind><dep>  -0.040 </dep></entry>
@@ -2282,12 +2160,11 @@
         </axis>
   </animation>
   
-  <!-- Crew Door upper parts rotate while move up -->
+    <!-- Starboard Door Upper Part Rotate While Moving Up -->
   <animation> 
    <type>rotate</type>
 		<object-name>frontUP</object-name>
-		<!--<property>instrumentation/doors/crewup/position-norm</property>-->
-		<property>sim/multiplay/generic/float[10]</property>
+        <property alias="../../params/doors/starboard-upper/property"/>
 		<interpolation>
       <entry><ind> 0.000 </ind><dep>   0 </dep></entry>
 	  <entry><ind> 0.250 </ind><dep>   0 </dep></entry>
@@ -2303,7 +2180,7 @@
     </axis>
   </animation>
   
-  <!-- Cargo Door lower parts-->
+    <!-- Starboard Door Lower Part -->
   <animation>
     <name>cargoLOW</name>
     <object-name>cargodoorlow</object-name>
@@ -2330,8 +2207,7 @@
    <type>rotate</type>
 		<object-name>cargoLOW</object-name>
 		<object-name>cargoLOWhydr</object-name>
-		<!--<property>instrumentation/doors/cargodoormix/position-norm</property>-->
-		<property>sim/multiplay/generic/float[5]</property>
+        <property alias="../../params/doors/loading-ramp/property"/>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>  0 </dep></entry>
       
@@ -2351,8 +2227,7 @@
   <animation> 
    <type>rotate</type>
 		<object-name>cargoLOWhydr</object-name>
-		<!--<property>instrumentation/doors/cargodoormix/position-norm</property>-->
-		<property>sim/multiplay/generic/float[5]</property>
+        <property alias="../../params/doors/loading-ramp/property"/>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>   0 </dep></entry>
       
@@ -2374,8 +2249,7 @@
   <animation> 
    <type>rotate</type>
 		<object-name>cargoUPhydr</object-name>
-		<!--<property>instrumentation/doors/cargodoormix/position-norm</property>-->
-		<property>sim/multiplay/generic/float[5]</property>
+        <property alias="../../params/doors/loading-ramp/property"/>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>   0 </dep></entry>
       
@@ -2397,8 +2271,7 @@
   <animation> 
    <type>rotate</type>
 		<object-name>cargodoorup</object-name>
-		<!--<property>instrumentation/doors/cargodoorup/position-norm</property>-->
-		<property>sim/multiplay/generic/float[6]</property>
+        <property alias="../../params/doors/cargo/property"/>
 		<interpolation>
       <entry><ind> 0.0 </ind><dep>  0 </dep></entry>
       <entry><ind> 0.2 </ind><dep>  1 </dep></entry>
@@ -2894,16 +2767,11 @@
 	</animation>
   
   <!-- Front Landing Gear - rotation with ruder control -->
-  <!-- Rotation de la roue avant en fonction de la gouverne de direction -->
   <animation>
     <type>rotate</type>
     <object-name>TrainAvant</object-name>
-	<!-- <property>gear/gear[0]/caster-angle-deg</property> -->
-	<property>sim/multiplay/generic/float[12]</property>
+    <property alias="../../params/gear/nose/caster-angle-deg/property"/>
 	<factor> 1 </factor>
-    <!--<property>/controls/flight/rudder</property>
-    <factor> 20.0 </factor>
-	-->
     <center>
       <x-m> -7.197 </x-m>
       <y-m>  0.000 </y-m>
@@ -2916,13 +2784,11 @@
     </axis>
   </animation>
 
-  <!-- Landing Gear Wheel spin -->
-  <!-- Rotation des roues lors du roulage -->
+    <!-- Nose Gear Wheel spin -->
   <animation>
     <type>spin</type>
     <object-name>roueA</object-name>
-    <!-- <property>/gear/gear[0]/rollspeed-ms</property> -->
-	<property>sim/multiplay/generic/float[18]</property>
+    <property alias="../../params/gear/nose/rollspeed-ms/property"/>
     <factor> 30 </factor>
     <center>
       <x-m> -7.105 </x-m>
@@ -2936,11 +2802,11 @@
     </axis>
   </animation>
 
+    <!-- Left Rear Gear Wheel spin -->
   <animation>
     <type>spin</type>
     <object-name>roueG</object-name>
-    <!-- <property>/gear/gear[1]/rollspeed-ms</property> -->
-	<property>sim/multiplay/generic/float[19]</property>
+    <property alias="../../params/gear/left-rear/rollspeed-ms/property"/>
     <factor> 30 </factor>
     <center>
       <x-m>  1.118 </x-m>
@@ -2954,11 +2820,11 @@
     </axis>
   </animation>
 
+    <!-- Right Rear Gear Wheel spin -->
   <animation>
     <type>spin</type>
     <object-name>roueD</object-name>
-    <!-- <property>/gear/gear[2]/rollspeed-ms</property> -->
-	<property>sim/multiplay/generic/float[20]</property>
+    <property alias="../../params/gear/right-rear/rollspeed-ms/property"/>
     <factor> 30 </factor>
     <center>
       <x-m>  1.118 </x-m>
@@ -2972,24 +2838,4 @@
     </axis>
   </animation>
 
-  
-  
-<!-- ==                  == -->
-<!-- == PARTICLE SYSTEMS == -->
-<!-- ==                  == -->
-
-
-<!-- Rotor dirt without water effect -->
-  <model>
-    <name>mainrotors_dirt</name>
-    <path>Aircraft/VMX22-Osprey/Models/rotor-particle/rotor-particle_new.xml</path>
-    <offsets>
-      <x-m>  0.000 </x-m>
-      <y-m>  0.000 </y-m>
-      <z-m>  0.000 </z-m>
-    </offsets>
-  </model>
-  	
-
-  
 </PropertyList>

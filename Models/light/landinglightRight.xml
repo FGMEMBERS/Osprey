@@ -20,7 +20,6 @@
         <type>select</type>
         <object-name>flash</object-name>
         <condition>
-            <!-- <property>sim/model/lights/landing-lights/state</property> -->
 			<property>sim/multiplay/generic/int[10]</property>
         </condition>
     </animation>
@@ -29,7 +28,6 @@
     <name>landinglight_ALL</name>
 	<object-name>flash</object-name>
 	<type>rotate</type>
-	<!-- <property>instrumentation/doors/landinglightpos/position-norm</property> -->
 	<property>sim/multiplay/generic/float[16]</property>
     <factor> 0.100 </factor>
 	<interpolation>

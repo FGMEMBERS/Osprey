@@ -3,6 +3,12 @@
 
     <path>RedLight.ac</path>
 
+    <params>
+        <beacon-state>
+            <property>/sim/multiplay/generic/int[0]</property>
+        </beacon-state>
+    </params>
+
     <animation>
         <type>noshadow</type>
         <object-name>Light</object-name>
@@ -23,7 +29,7 @@
         <type>select</type>
         <object-name>Light</object-name>
         <condition>
-            <property>/sim/model/v22/lighting/beacon/state</property>
+            <property alias="../../../params/beacon-state/property"/>
         </condition>
     </animation>
 
