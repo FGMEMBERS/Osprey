@@ -17,46 +17,25 @@ var copilot_say = func (message) {
     setprop("/sim/messages/copilot", message);
 };
 
-var on_runway = func (runway) {
-    var message = sprintf("On runway %s", runway.getValue());
-    copilot_say(message);
-    logger.info(sprintf("Announcing '%s'", message));
+var make_notification_cb = func (format, action=nil) {
+    return func (data=nil) {
+        if (data != nil) {
+            var message = sprintf(format, data.getValue());
+        }
+        else {
+            var message = format;
+        }
+
+        copilot_say(message);
+        logger.info(sprintf("Announcing '%s'", message));
+
+        if (typeof(action) != 'nil') {
+            action();
+        }
+    };
 };
 
-var approaching_runway = func (runway) {
-    var message = sprintf("Approaching runway %s", runway.getValue());
-    copilot_say(message);
-    logger.info(sprintf("Announcing '%s'", message));
-};
-
-var remaining_distance = func (distance) {
-    var message = sprintf("%d remaining", distance.getValue());
-    copilot_say(message);
-    logger.info(sprintf("Announcing '%s'", message));
-};
-
-var vacated_runway = func (runway) {
-    var message = sprintf("Vacated runway %s", runway.getValue());
-    copilot_say(message);
-    logger.info(sprintf("Announcing '%s'", message));
-
-    landing_announcer.stop();
-    logger.warn("Stopping landing announce");
-
-    takeoff_announcer.set_mode("taxi");
-};
-
-var landed_runway = func (runway) {
-    var message = sprintf("Touchdown on runway %s", runway.getValue());
-    copilot_say(message);
-    logger.info(sprintf("Announcing '%s'", message));
-};
-
-var landed_outside_runway = func {
-    var message = sprintf("We did not land on a runway!");
-    copilot_say(message);
-    logger.info(sprintf("Announcing '%s'", message));
-
+var stop_announcer = func {
     landing_announcer.stop();
     logger.warn("Stopping landing announce");
 
@@ -66,44 +45,39 @@ var landed_outside_runway = func {
 var takeoff_config = { parents: [runway.TakeoffRunwayAnnounceConfig] };
 
 var takeoff_announcer = runway.TakeoffRunwayAnnounceClass.new(takeoff_config);
-takeoff_announcer.connect("on-runway", on_runway);
-takeoff_announcer.connect("approaching-runway", approaching_runway);
+takeoff_announcer.connect("on-runway", make_notification_cb("On runway %s"));
+takeoff_announcer.connect("approaching-runway", make_notification_cb("Approaching runway %s"));
 
 var landing_config = { parents: [runway.LandingRunwayAnnounceConfig] };
 
 var landing_announcer = runway.LandingRunwayAnnounceClass.new(landing_config);
-landing_announcer.connect("remaining-distance", remaining_distance);
-landing_announcer.connect("vacated-runway", vacated_runway);
-landing_announcer.connect("landed-runway", landed_runway);
-landing_announcer.connect("landed-outside-runway", landed_outside_runway);
+landing_announcer.connect("remaining-distance", make_notification_cb("%d remaining"));
+landing_announcer.connect("vacated-runway", make_notification_cb("Vacated runway %s", stop_announcer));
+landing_announcer.connect("landed-runway", make_notification_cb("Touchdown on runway %s"));
+landing_announcer.connect("landed-outside-runway", make_notification_cb("We did not land on a runway!", stop_announcer));
 
-setlistener("/controls/lighting/taxi-light", func (n) {
-    if (n.getBoolValue()) {
-        if (getprop("/gear/gear[0]/wow")) {
-            takeoff_announcer.set_mode("taxi-and-takeoff");
+var make_switch_mode_cb = func (wow_mode, no_wow_mode) {
+    return func (node) {
+        if (node.getBoolValue()) {
+            if (getprop("/gear/gear[0]/wow")) {
+                takeoff_announcer.set_mode(wow_mode);
+            }
+            else {
+                takeoff_announcer.set_mode(no_wow_mode);
+            }
         }
         else {
-            takeoff_announcer.set_mode("taxi");
+            takeoff_announcer.set_mode("");
         }
-    }
-    else {
-        takeoff_announcer.set_mode("");
-    }
-}, startup=1, runtime=0);
+    };
+};
 
-setlistener("/controls/lighting/nav-lights", func (n) {
-    if (n.getBoolValue()) {
-        if (getprop("/gear/gear[0]/wow")) {
-            takeoff_announcer.set_mode("takeoff");
-        }
-        else {
-            takeoff_announcer.set_mode("taxi");
-        }
-    }
-    else {
-        takeoff_announcer.set_mode("");
-    }
-}, startup=1, runtime=0);
+setlistener("/controls/lighting/taxi-light",
+  make_switch_mode_cb("taxi-and-takeoff", "taxi"),
+  startup=1, runtime=0);
+setlistener("/controls/lighting/nav-lights",
+  make_switch_mode_cb("takeoff", "taxi"),
+  startup=1, runtime=0);
 
 var have_been_in_air = 0;
 
