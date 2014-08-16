@@ -207,6 +207,10 @@
             <type>double</type>
             <property type="string">/instrumentation/altimeter/indicated-altitude-ft</property>
         </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/v22/pfcs/target/tilt-rate</property>
+        </signal>
 
         <!-- Doors -->
         <signal>
