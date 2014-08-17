@@ -39,10 +39,10 @@
                     </blade-3>
                 </incidence-deg>
                 <roll-deg>
-                    <property>/rotors/tail/roll-deg</property>
+                    <property>sim/multiplay/generic/int[4]</property>
                 </roll-deg>
                 <yaw-deg>
-                    <property>/rotors/tail/yaw-deg</property>
+                    <property>sim/multiplay/generic/int[5]</property>
                 </yaw-deg>
             </left>
             <right>
@@ -58,10 +58,10 @@
                     </blade-3>
                 </incidence-deg>
                 <roll-deg>
-                    <property>/rotors/main/roll-deg</property>
+                    <property>sim/multiplay/generic/int[2]</property>
                 </roll-deg>
                 <yaw-deg>
-                    <property>/rotors/main/yaw-deg</property>
+                    <property>sim/multiplay/generic/int[3]</property>
                 </yaw-deg>
             </right>
         </rotors>
@@ -104,7 +104,7 @@
             </left-rear>
             <right-rear>
                 <rollspeed-ms>
-                    <property>sim/multiplay/generic/float[20]</property>
+                    <property>sim/multiplay/generic/int[6]</property>
                 </rollspeed-ms>
             </right-rear>
         </gear>

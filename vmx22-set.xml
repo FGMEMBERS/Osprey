@@ -103,14 +103,10 @@
                 <float n="15" alias="/rotors/tail/blade[1]/incidence-deg"/>
                 <float n="13" alias="/rotors/tail/blade[2]/incidence-deg"/>
 
-                <!--
-                    TODO Not transmitted over MP yet:
-
-                    /rotors/main/roll-deg
-                    /rotors/tail/roll-deg
-                    /rotors/main/yaw-deg
-                    /rotors/tail/yaw-deg
-                -->
+                <int n="2" alias="/rotors/main/roll-deg"/>
+                <int n="3" alias="/rotors/main/yaw-deg"/>
+                <int n="4" alias="/rotors/tail/roll-deg"/>
+                <int n="5" alias="/rotors/tail/yaw-deg"/>
 
                 <float n="5" alias="/instrumentation/doors/cargodoor/position-norm"/>
                 <float n="6" alias="/instrumentation/doors/cargodoorup/position-norm"/>
@@ -122,7 +118,7 @@
                 <float n="12" alias="/gear/gear[0]/caster-angle-deg"/>
                 <float n="18" alias="/gear/gear[0]/rollspeed-ms"/>
                 <float n="19" alias="/gear/gear[1]/rollspeed-ms"/>
-                <float n="20" alias="/gear/gear[2]/rollspeed-ms"/> <!-- TODO Probably does not get transmitted over MP -->
+                <int n="6" alias="/gear/gear[2]/rollspeed-ms"/>
 
                 <float n="16" alias="/instrumentation/doors/landinglightpos/position-norm"/>
                 <float n="17" alias="/sim/model/pushback/position-norm"/>
