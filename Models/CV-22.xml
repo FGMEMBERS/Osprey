@@ -39,10 +39,10 @@
                     </blade-3>
                 </incidence-deg>
                 <roll-deg>
-                    <property>sim/multiplay/generic/int[4]</property>
+                    <property>engines/engine[9]/n1</property>
                 </roll-deg>
                 <yaw-deg>
-                    <property>sim/multiplay/generic/int[5]</property>
+                    <property>engines/engine[9]/n2</property>
                 </yaw-deg>
             </left>
             <right>
@@ -58,10 +58,10 @@
                     </blade-3>
                 </incidence-deg>
                 <roll-deg>
-                    <property>sim/multiplay/generic/int[2]</property>
+                    <property>engines/engine[8]/n1</property>
                 </roll-deg>
                 <yaw-deg>
-                    <property>sim/multiplay/generic/int[3]</property>
+                    <property>engines/engine[8]/n2</property>
                 </yaw-deg>
             </right>
         </rotors>

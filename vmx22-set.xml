@@ -103,11 +103,6 @@
                 <float n="15" alias="/rotors/tail/blade[1]/incidence-deg"/>
                 <float n="13" alias="/rotors/tail/blade[2]/incidence-deg"/>
 
-                <int n="2" alias="/rotors/main/roll-deg"/>
-                <int n="3" alias="/rotors/main/yaw-deg"/>
-                <int n="4" alias="/rotors/tail/roll-deg"/>
-                <int n="5" alias="/rotors/tail/yaw-deg"/>
-
                 <float n="5" alias="/instrumentation/doors/cargodoor/position-norm"/>
                 <float n="6" alias="/instrumentation/doors/cargodoorup/position-norm"/>
                 <float n="7" alias="/instrumentation/doors/airrefuel/position-norm"/>
@@ -234,6 +229,17 @@
         </hud>
 
     </sim>
+
+    <engines>
+        <engine n="8">
+            <n1 alias="/rotors/main/roll-deg"/>
+            <n2 alias="/rotors/main/yaw-deg"/>
+        </engine>
+        <engine n="9">
+            <n1 alias="/rotors/tail/roll-deg"/>
+            <n2 alias="/rotors/tail/yaw-deg"/>
+        </engine>
+    </engines>
 
     <input>
         <keyboard include="Nasal/v22-keyboard.xml"/>
