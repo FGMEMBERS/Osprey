@@ -6,7 +6,7 @@
 
     <params>
         <position-state>
-            <property>/sim/multiplay/generic/int[1]</property>
+            <property>sim/multiplay/generic/int[1]</property>
         </position-state>
     </params>
 

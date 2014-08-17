@@ -5,7 +5,7 @@
 
     <params>
         <beacon-state>
-            <property>/sim/multiplay/generic/int[0]</property>
+            <property>sim/multiplay/generic/int[0]</property>
         </beacon-state>
     </params>
 
