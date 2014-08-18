@@ -143,6 +143,9 @@ var TakeoffRunwayAnnounceConfig = {
 };
 
 var TakeoffRunwayAnnounceClass = {
+
+    period: 0.5,
+
     # Announce when approaching a runway or when on a runway ready for
     # takeoff. Valid modes and the signals they emit are:
     #
@@ -154,7 +157,7 @@ var TakeoffRunwayAnnounceClass = {
         var m = {
             parents: [TakeoffRunwayAnnounceClass, RunwayAnnounceClass.new()]
         };
-        m.timer = maketimer(0.5, func m._check_position());
+        m.timer = maketimer(TakeoffRunwayAnnounceClass.period, func m._check_position());
         m.config = config;
 
         m.last_announced_runway = "";
@@ -187,6 +190,7 @@ var TakeoffRunwayAnnounceClass = {
         }
 
         var apt = airportinfo();
+        var self_heading = getprop("/orientation/heading-deg");
 
         var approaching_runways = {};
 
@@ -194,7 +198,6 @@ var TakeoffRunwayAnnounceClass = {
             var self = geo.aircraft_position();
             var result = me._check_runway(apt, runway, self);
 
-            var self_heading = getprop("/orientation/heading-deg");
             var runway_heading = apt.runway(runway).heading;
 
             # Reset flag for announced approaching runway, so that
@@ -317,14 +320,14 @@ var LandingRunwayAnnounceClass = {
         }
 
         var apt = airportinfo();
-        
+        var self_heading = getprop("/orientation/heading-deg");
+
         var on_number_of_rwys = 0;
 
         foreach (var runway; keys(apt.runways)) {
             var self = geo.aircraft_position();
             var result = me._check_runway(apt, runway, self);
 
-            var self_heading = getprop("/orientation/heading-deg");
             var runway_heading = apt.runway(runway).heading;
 
             if (result.on_runway) {
