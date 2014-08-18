@@ -91,7 +91,7 @@
         <gear>
             <nose>
                 <caster-angle-deg>
-                    <property>sim/multiplay/generic/float[12]</property>
+                    <property>engines/engine[7]/n1</property>
                 </caster-angle-deg>
                 <rollspeed-ms>
                     <property>sim/multiplay/generic/float[18]</property>
@@ -104,7 +104,7 @@
             </left-rear>
             <right-rear>
                 <rollspeed-ms>
-                    <property>sim/multiplay/generic/int[6]</property>
+                    <property>sim/multiplay/generic/float[12]</property>
                 </rollspeed-ms>
             </right-rear>
         </gear>

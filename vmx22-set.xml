@@ -110,10 +110,9 @@
                 <float n="9" alias="/instrumentation/doors/crew/position-norm"/> 
                 <float n="10" alias="/instrumentation/doors/crewup/position-norm"/>
 
-                <float n="12" alias="/gear/gear[0]/caster-angle-deg"/>
                 <float n="18" alias="/gear/gear[0]/rollspeed-ms"/>
                 <float n="19" alias="/gear/gear[1]/rollspeed-ms"/>
-                <int n="6" alias="/gear/gear[2]/rollspeed-ms"/>
+                <float n="12" alias="/gear/gear[2]/rollspeed-ms"/>
 
                 <float n="16" alias="/instrumentation/doors/landinglightpos/position-norm"/>
                 <float n="17" alias="/sim/model/pushback/position-norm"/>
@@ -230,7 +229,16 @@
 
     </sim>
 
+    <!-- Following properties are part of a static list of properties
+         that FlightGear transmits during multiplay. Because the number
+         of properties in /sim/multiplay/generic/ is quite limited and
+         the properties in /engines/ are unused, we can use them instead
+         to get FlightGear to transmit all the required properties.
+    -->
     <engines>
+        <engine n="7">
+            <n1 alias="/gear/gear[0]/caster-angle-deg"/>
+        </engine>
         <engine n="8">
             <n1 alias="/rotors/main/roll-deg"/>
             <n2 alias="/rotors/main/yaw-deg"/>
