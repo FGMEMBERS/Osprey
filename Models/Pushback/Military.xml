@@ -171,7 +171,7 @@
    <condition>
      <greater-than>
        <!-- <property>sim/model/pushback/position-norm</property> -->
-	   <property>sim/multiplay/generic/float[17]</property>
+	   <property>sim/multiplay/generic/float[19]</property>
        <value>0.99</value>
      </greater-than>
    </condition>
@@ -209,7 +209,7 @@
    <condition>
      <greater-than>
        <!-- <property>sim/model/pushback/position-norm</property> -->
-	   <property>sim/multiplay/generic/float[17]</property>
+	   <property>sim/multiplay/generic/float[19]</property>
        <value>0.99</value>
      </greater-than>
    </condition>
@@ -305,7 +305,7 @@
   <animation>
     <type>rotate</type>
     <!-- <property>sim/model/pushback/position-norm</property> -->
-	   <property>sim/multiplay/generic/float[17]</property>
+	   <property>sim/multiplay/generic/float[19]</property>
     <factor>-90</factor>
     <offset-deg>90</offset-deg>
     <center>
@@ -335,7 +335,7 @@
   <animation>
     <type>translate</type>
     <!-- <property>sim/model/pushback/position-norm</property> -->
-	   <property>sim/multiplay/generic/float[17]</property>
+	   <property>sim/multiplay/generic/float[19]</property>
     <interpolation>
       <entry><ind>1.000000</ind><dep>0.000000</dep></entry>
       <entry><ind>0.950000</ind><dep>1.961477</dep></entry>
@@ -369,7 +369,7 @@
   <animation>
     <type>translate</type>
     <!-- <property>sim/model/pushback/position-norm</property> -->
-	   <property>sim/multiplay/generic/float[17]</property>
+	   <property>sim/multiplay/generic/float[19]</property>
     <interpolation>
     <entry><ind>1.000000</ind><dep>0.000000</dep></entry>
     <entry><ind>0.950000</ind><dep>0.077067</dep></entry>

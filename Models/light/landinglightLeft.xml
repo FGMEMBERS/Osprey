@@ -28,7 +28,7 @@
     <name>landinglight_ALL</name>
 	<object-name>flash</object-name>
 	<type>rotate</type>
-	<property>sim/multiplay/generic/float[16]</property>
+	<property>sim/multiplay/generic/float[18]</property>
     <factor> 0.100 </factor>
 	<interpolation>
       <entry><ind> 0.0 </ind><dep>    0 </dep></entry>

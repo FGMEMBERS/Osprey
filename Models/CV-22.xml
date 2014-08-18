@@ -19,23 +19,23 @@
 	            <property>sim/multiplay/generic/float[0]</property>
             </blade-folding>
             <wing-rotation>
-	            <property>sim/multiplay/generic/float[3]</property>
+	            <property>sim/multiplay/generic/float[1]</property>
             </wing-rotation>
             <animation-tilt>
-	            <property>sim/multiplay/generic/float[1]</property>
+	            <property>sim/multiplay/generic/float[2]</property>
             </animation-tilt>
         </nacelles>
         <rotors>
             <left>
                 <incidence-deg>
                     <blade-1>
-	                    <property>sim/multiplay/generic/float[14]</property>
+	                    <property>sim/multiplay/generic/float[6]</property>
                     </blade-1>
                     <blade-2>
-	                    <property>sim/multiplay/generic/float[15]</property>
+	                    <property>sim/multiplay/generic/float[7]</property>
                     </blade-2>
                     <blade-3>
-	                    <property>sim/multiplay/generic/float[13]</property>
+	                    <property>sim/multiplay/generic/float[8]</property>
                     </blade-3>
                 </incidence-deg>
                 <roll-deg>
@@ -48,13 +48,13 @@
             <right>
                 <incidence-deg>
                     <blade-1>
-	                    <property>sim/multiplay/generic/float[4]</property>
+	                    <property>sim/multiplay/generic/float[3]</property>
                     </blade-1>
                     <blade-2>
-	                    <property>sim/multiplay/generic/float[2]</property>
+	                    <property>sim/multiplay/generic/float[4]</property>
                     </blade-2>
                     <blade-3>
-	                    <property>sim/multiplay/generic/float[11]</property>
+	                    <property>sim/multiplay/generic/float[5]</property>
                     </blade-3>
                 </incidence-deg>
                 <roll-deg>
@@ -67,25 +67,25 @@
         </rotors>
         <doors>
             <aerial-refueling-probe>
-                <property>sim/multiplay/generic/float[7]</property>
+                <property>sim/multiplay/generic/float[9]</property>
             </aerial-refueling-probe>
             <cockpit>
-                <property>sim/multiplay/generic/float[8]</property>
+                <property>sim/multiplay/generic/float[10]</property>
             </cockpit>
 
             <!-- The small door on the starboard side near the right rotor -->
             <starboard-upper>
-                <property>sim/multiplay/generic/float[10]</property>
+                <property>sim/multiplay/generic/float[11]</property>
             </starboard-upper>
             <starboard-lower>
-                <property>sim/multiplay/generic/float[9]</property>
+                <property>sim/multiplay/generic/float[12]</property>
             </starboard-lower>
 
             <cargo>
-                <property>sim/multiplay/generic/float[6]</property>
+                <property>sim/multiplay/generic/float[13]</property>
             </cargo>
             <loading-ramp>
-                <property>sim/multiplay/generic/float[5]</property>
+                <property>sim/multiplay/generic/float[14]</property>
             </loading-ramp>
         </doors>
         <gear>
@@ -94,17 +94,17 @@
                     <property>engines/engine[7]/n1</property>
                 </caster-angle-deg>
                 <rollspeed-ms>
-                    <property>sim/multiplay/generic/float[18]</property>
+                    <property>sim/multiplay/generic/float[15]</property>
                 </rollspeed-ms>
             </nose>
             <left-rear>
                 <rollspeed-ms>
-                    <property>sim/multiplay/generic/float[19]</property>
+                    <property>sim/multiplay/generic/float[16]</property>
                 </rollspeed-ms>
             </left-rear>
             <right-rear>
                 <rollspeed-ms>
-                    <property>sim/multiplay/generic/float[12]</property>
+                    <property>sim/multiplay/generic/float[17]</property>
                 </rollspeed-ms>
             </right-rear>
         </gear>
@@ -509,7 +509,7 @@
     <name>landinglight_obj</name>
 	<object-name>landinglight_03</object-name>
 	<type>rotate</type>
-	<property>sim/multiplay/generic/float[16]</property>
+	<property>sim/multiplay/generic/float[18]</property>
     <factor> 0.100 </factor>
 	<interpolation>
       <entry><ind> 0.0 </ind><dep>    0 </dep></entry>

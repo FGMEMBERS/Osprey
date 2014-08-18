@@ -15,7 +15,7 @@
         <object-name>Cone</object-name>
         <object-name>Cone-texture</object-name>
         <type>rotate</type>
-        <property>sim/multiplay/generic/float[16]</property>
+        <property>sim/multiplay/generic/float[18]</property>
         <factor>0.100</factor>
 
         <interpolation>
