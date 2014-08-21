@@ -19,7 +19,7 @@ var cargo_upper_toggle = func {
         cargo_upper.open();
         cargo_upper_state = 1;
     }
-}
+};
 
 # Position of the loading ramp when it is horizontal.
 # 0 is fully closed, 1 is fully open.
@@ -43,7 +43,7 @@ var loading_ramp_open = func {
     else {
         setprop("/sim/messages/copilot", "Open cargo door first");
     }
-}
+};
 
 var loading_ramp_close = func {
     if (cargo_lower_state == 2) {
@@ -54,7 +54,7 @@ var loading_ramp_close = func {
         cargo_lower.close();
         cargo_lower_state = 0;
     }
-}
+};
 
 ################################################################################
 
@@ -77,7 +77,7 @@ var crew_upper_toggle = func {
         crew_upper.open();
         crew_upper_state = 1;
     }
-}
+};
 
 var crew_lower_toggle = func {
     if (crew_lower_state) {
@@ -93,18 +93,24 @@ var crew_lower_toggle = func {
             setprop("/sim/messages/copilot", "Open upper starboard door first");
         }
     }
-}
+};
 
 ################################################################################
 
-var gear_up = func {
-    if (getprop("/gear/gear[0]/wow") or getprop("/gear/gear[1]/wow") or getprop("/gear/gear[2]/wow")) {
+var internal_gearDown = controls.gearDown;
+
+var aircraft_on_ground = func {
+    return getprop("/gear/gear[0]/wow") or getprop("/gear/gear[1]/wow") or getprop("/gear/gear[2]/wow");
+};
+
+controls.gearDown = func (v) {
+    if (v < 0 and aircraft_on_ground()) {
         setprop("/sim/messages/copilot", "Cannot move gear up while aircraft is on the ground");
     }
     else {
-        controls.gearDown(-1);
+        internal_gearDown(v);
     }
-}
+};
 
 ################################################################################
 

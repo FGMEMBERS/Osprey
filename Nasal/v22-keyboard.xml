@@ -181,21 +181,6 @@
         <repeatable>false</repeatable>
     </key>
 
-    <key n="103">
-        <name>g</name>
-        <desc>Gear up</desc>
-        <binding>
-            <command>nasal</command>
-            <script>controls.gearDown(0)</script>
-        </binding>
-        <mod-up>
-            <binding>
-                <command>nasal</command>
-                <script>doors.gear_up()</script>
-            </binding>
-        </mod-up>
-    </key>
-
     <key n="267">
         <name>F11</name>
         <desc>Pop up autopilot dialog</desc>
