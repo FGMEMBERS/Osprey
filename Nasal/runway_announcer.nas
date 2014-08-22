@@ -128,7 +128,7 @@ var TakeoffRunwayAnnounceConfig = {
     # Difference in heading between runway and aircraft in order to
     # get an announcement that the aircraft is on the runway for takeoff.
 
-    diff_approach_heading_deg: 60,
+    diff_approach_heading_deg: 40,
     # Maximum angle at which the aircraft should approach the runway.
     # Must be higher than 0 and lower than 90.
 
@@ -136,7 +136,7 @@ var TakeoffRunwayAnnounceConfig = {
     # The distance in meters from the center line of the runway
 
     distance_edge_min_m: 20,
-    distance_edge_max_m: 100,
+    distance_edge_max_m: 80,
     # Minimum and maximum distance in meters from the edge of the runway
     # for announcing approaches.
 
