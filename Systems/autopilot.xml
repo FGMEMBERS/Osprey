@@ -328,7 +328,7 @@
             <property>/v22/afcs/internal/maximum-heading-roll-deg</property>
         </output>
         <max>
-            <property>/v22/pfcs/settings/roll-hold-limit</property>
+            <property>/v22/pfcs/target/roll-hold-limit</property>
         </max>
     </filter>
 
