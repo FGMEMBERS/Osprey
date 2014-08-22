@@ -514,6 +514,89 @@
         </config>
     </pi-simple-controller>
 
+    <!-- Set active/hvr-alt-hold-became-true to true if HVR ALT A/P got
+         enabled in the "Autopilot Panel" window and the groundspeed is
+         less than 55 knots.
+
+         The property is set back to false in the same iteration of the
+         FDM by the <logic> element below. This is to prevent re-enabling
+         the HVR ALT A/P when it gets disabled by the RS flipflop when
+         the groundspeed becomes higher than 55 knots.
+
+         In order to re-enable the HVR ALT A/P, the pilot first needs to
+         disable it in the "Autopilot Panel" window and then re-enable
+         it again. This will trigger the raising edge of the clock.
+    -->
+    <flipflop>
+        <name>A/P HVR ALT Became True</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>D</type>
+        <D>
+            <less-than>
+                <property>/velocities/groundspeed-kt</property>
+                <value>55.0</value>
+            </less-than>
+        </D>
+        <clock>
+            <equals>
+                <property>/autopilot/locks/altitude</property>
+                <value>agl-hold</value>
+            </equals>
+        </clock>
+        <output>
+            <property>/v22/afcs/active/hvr-alt-hold-became-true</property>
+        </output>
+    </flipflop>
+
+    <!-- Set the HVR ALT A/P if the pilot enables it in the "Autopilot Panel"
+         window while the groundspeed is less than 55 knots. Disable it
+         if the pilot disables it or if the groundspeed becomes higher than
+         55 knots. Once it has been disabled, the pilot first needs to
+         disable it in the "Autopilot Panel" window in order to re-enable it
+         again.
+    -->
+    <flipflop>
+        <name>A/P HVR ALT On/Off Switcher</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>RS</type>
+        <S>
+            <property>/v22/afcs/active/hvr-alt-hold-became-true</property>
+        </S>
+        <R>
+            <or>
+                <not-equals>
+                    <property>/autopilot/locks/altitude</property>
+                    <value>agl-hold</value>
+                </not-equals>
+                <greater-than>
+                    <property>/velocities/groundspeed-kt</property>
+                    <value>55.0</value>
+                </greater-than>
+            </or>
+        </R>
+        <output>
+            <property>/v22/afcs/active/hvr-alt-hold</property>
+        </output>
+    </flipflop>
+
+    <!-- Reset the active/hvr-alt-hold-became-true property in order to
+         prevent re-enabling the HVR ALT A/P when it gets disabled by the
+         RS flipflop when the groundspeed becomes higher than 55 knots.
+    -->
+    <logic>
+        <name>A/P HVR ALT Reset Set Line</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <enable>
+            <property>/v22/afcs/active/hvr-alt-hold</property>
+        </enable>
+        <input>
+            <false/>
+        </input>
+        <output>
+            <property>/v22/afcs/active/hvr-alt-hold-became-true</property>
+        </output>
+    </logic>
+
     <!-- Tracks a given altitude above ground level -->
     <pi-simple-controller>
         <name>A/P Altitude AGL Hold</name>
@@ -521,10 +604,7 @@
         <enable>
             <condition>
                 <and>
-                    <equals>
-                        <property>/autopilot/locks/altitude</property>
-                        <value>agl-hold</value>
-                    </equals>
+                    <property>/v22/afcs/active/hvr-alt-hold</property>
                     <not>
                         <property>/v22/afcs/active/gs-hold</property>
                     </not>
@@ -638,10 +718,7 @@
                     <property>/autopilot/locks/altitude</property>
                     <value>altitude-hold</value>
                 </equals>
-                <equals>
-                    <property>/autopilot/locks/altitude</property>
-                    <value>agl-hold</value>
-                </equals>
+                <property>/v22/afcs/active/hvr-alt-hold</property>
                 <property>/v22/afcs/active/gs-hold</property>
             </or>
         </input>
@@ -859,7 +936,7 @@
             <Kp>
                 <condition>
                     <greater-than>
-                        <property>instrumentation/airspeed-indicator/indicated-speed-kt</property>
+                        <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
                         <property>/autopilot/settings/target-speed-kt</property>
                     </greater-than>
                 </condition>
@@ -869,7 +946,7 @@
             <Ti>
                 <condition>
                     <greater-than>
-                        <property>instrumentation/airspeed-indicator/indicated-speed-kt</property>
+                        <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
                         <property>/autopilot/settings/target-speed-kt</property>
                     </greater-than>
                 </condition>

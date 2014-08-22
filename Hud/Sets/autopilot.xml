@@ -145,10 +145,7 @@
             <property>/v22/afcs/target/ap-agl-ft</property>
         </input>
         <condition>
-            <equals>
-                <property>/autopilot/locks/altitude</property>
-                <value>agl-hold</value>
-            </equals>
+            <property>/v22/afcs/active/hvr-alt-hold</property>
         </condition>
     </label>
 
