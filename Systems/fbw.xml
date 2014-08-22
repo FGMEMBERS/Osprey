@@ -176,6 +176,36 @@
     <!-- Roll Axis Modes                                                    -->
     <!-- ================================================================== -->
 
+    <!-- Computes the bank angle limit based on the tilt of the nacelles
+         and the airspeed.
+    -->
+    <filter>
+        <name>FBW Bank Angle Limit Computer</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <condition>
+                <or>
+                    <less-than>
+                        <property>/sim/model/v22/tilt</property>
+                        <value>15.0</value>
+                    </less-than>
+                    <less-than>
+                        <property>/velocities/airspeed-kt</property>
+                        <value>60.0</value>
+                    </less-than>
+                </or>
+            </condition>
+            <value>30.0</value>
+        </input>
+        <input>
+            <value>60.0</value>
+        </input>
+        <output>
+            <property>/v22/pfcs/target/roll-hold-limit</property>
+        </output>
+    </filter>
+
     <!-- Connects the stick directly to the ailerons servos, bypassing
          any PID controllers, giving the pilot direct unfiltered
          control over the ailerons.
@@ -249,11 +279,11 @@
                 <property>/v22/pfcs/active/bank-angle-hard-limit</property>
             </condition>
             <min>
-                <property>/v22/pfcs/settings/roll-hold-limit</property>
+                <property>/v22/pfcs/target/roll-hold-limit</property>
                 <scale>-1.0</scale>
             </min>
             <max>
-                <property>/v22/pfcs/settings/roll-hold-limit</property>
+                <property>/v22/pfcs/target/roll-hold-limit</property>
             </max>
         </reference>
         <reference>
@@ -325,7 +355,7 @@
                     <expression>
                         <abs>
                             <difference>
-                                <property>/v22/pfcs/settings/roll-hold-limit</property>
+                                <property>/v22/pfcs/target/roll-hold-limit</property>
                                 <abs>
                                     <property>/orientation/roll-deg</property>
                                 </abs>
@@ -384,7 +414,7 @@
                         <sin>
                             <product>
                                 <difference>
-                                    <property>/v22/pfcs/settings/roll-hold-limit</property>
+                                    <property>/v22/pfcs/target/roll-hold-limit</property>
                                     <property>/orientation/roll-deg</property>
                                 </difference>
                                 <div>
@@ -429,7 +459,7 @@
                             <product>
                                 <difference>
                                     <product>
-                                        <property>/v22/pfcs/settings/roll-hold-limit</property>
+                                        <property>/v22/pfcs/target/roll-hold-limit</property>
                                         <value>-1.0</value>
                                     </product>
                                     <property>/orientation/roll-deg</property>
@@ -1072,7 +1102,7 @@
         </output>
     </filter>
 
-    <!-- Tracks the given yaw rate (r) using LST -->
+    <!-- Tracks the given yaw rate (r) using DST -->
     <pid-controller>
         <name>FBW VTOL Yaw Rate</name>
         <debug>false</debug>

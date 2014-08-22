@@ -341,8 +341,6 @@
                 -->
                 <roll-rate-limit type="double">60</roll-rate-limit>
 
-                <roll-hold-limit type="double">45</roll-hold-limit>
-
                 <pitch-rate-limit type="double">15</pitch-rate-limit>
                 <yaw-rate-limit type="double">25</yaw-rate-limit>
 
