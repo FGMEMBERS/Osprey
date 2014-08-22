@@ -301,7 +301,7 @@
                 <vtol-pitch-hold-min type="double">-15.0</vtol-pitch-hold-min>
                 <vtol-pitch-hold-max type="double">10.0</vtol-pitch-hold-max>
 
-                <climb-rate-max type="double">4000</climb-rate-max>
+                <climb-rate-max type="double">2000</climb-rate-max>
             </settings>
             <target>
                 <ap-altitude-ft type="double">10000</ap-altitude-ft>
