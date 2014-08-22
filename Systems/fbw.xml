@@ -181,8 +181,7 @@
     -->
     <filter>
         <name>FBW Bank Angle Limit Computer</name>
-        <type>gain</type>
-        <gain>1.0</gain>
+        <type>noise-spike</type>
         <input>
             <condition>
                 <or>
@@ -204,6 +203,8 @@
         <output>
             <property>/v22/pfcs/target/roll-hold-limit</property>
         </output>
+
+        <max-rate-of-change>5.0</max-rate-of-change>
     </filter>
 
     <!-- Connects the stick directly to the ailerons servos, bypassing
@@ -390,7 +391,9 @@
                     <!-- Only enable limiter if close to the bank angle limit -->
                     <property>/v22/pfcs/active/roll-rate-bank-angle</property>
 
-                    <!-- Only enable limiter if moving away from the center (phi = 0) -->
+                    <!-- Only enable limiter if rolling to the right, away
+                         from the center (phi = 0).
+                    -->
                     <greater-than>
                         <property>/orientation/roll-deg</property>
                         <value>0.0</value>
@@ -434,7 +437,9 @@
                     <!-- Only enable limiter if close to the bank angle limit -->
                     <property>/v22/pfcs/active/roll-rate-bank-angle</property>
 
-                    <!-- Only enable limiter if moving away from the center (phi = 0) -->
+                    <!-- Only enable limiter if moving to the left, away
+                         from the center (phi = 0).
+                    -->
                     <less-than>
                         <property>/orientation/roll-deg</property>
                         <value>0.0</value>
