@@ -45,8 +45,8 @@
 
     <import>
         <path>Aircraft/VMX22-Osprey/Hud/Sets/radio.xml</path>
-        <x-offset>-300</x-offset>
-        <y-offset>-110</y-offset>
+        <x-offset>210</x-offset>
+        <y-offset>160</y-offset>
     </import>
 
     <ladder>
