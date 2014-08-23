@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <label>
+        <name>COM1 Label</name>
+        <width>2</width>
+        <height>2</height>
+        <y>0</y>
+        <halign>left</halign>
+
+        <format>COM1:</format>
+    </label>
+    <label>
+        <name>COM1 Frequency</name>
+        <width>2</width>
+        <height>2</height>
+        <x>50</x>
+        <y>0</y>
+        <halign>left</halign>
+
+        <input>
+            <property>/instrumentation/comm[0]/frequencies/selected-mhz</property> 
+        </input>
+        <format>%0.2f</format>
+    </label>
+
+    <label>
+        <name>VOR/ILS Label</name>
+        <width>2</width>
+        <height>2</height>
+        <y>-10</y>
+        <halign>left</halign>
+
+        <format>VOR/ILS:</format>
+    </label>
+    <label>
+        <name>VOR/ILS Frequency</name>
+        <width>2</width>
+        <height>2</height>
+        <x>50</x>
+        <y>-10</y>
+        <halign>left</halign>
+
+        <input>
+            <property>/instrumentation/nav[0]/frequencies/selected-mhz-fmt</property> 
+        </input>
+    </label>
+
+    <label>
+        <name>TACAN Label</name>
+        <width>2</width>
+        <height>2</height>
+        <y>-20</y>
+        <halign>left</halign>
+
+        <format>TACAN:</format>
+    </label>
+    <label>
+        <name>TACAN Channel 1</name>
+        <width>2</width>
+        <height>2</height>
+        <x>50</x>
+        <y>-20</y>
+        <halign>left</halign>
+
+        <input>
+            <property>/instrumentation/tacan/frequencies/selected-channel[1]</property> 
+        </input>
+    </label>
+    <label>
+        <name>TACAN Channel 2</name>
+        <width>2</width>
+        <height>2</height>
+        <x>56</x>
+        <y>-20</y>
+        <halign>left</halign>
+
+        <input>
+            <property>/instrumentation/tacan/frequencies/selected-channel[2]</property> 
+        </input>
+    </label>
+    <label>
+        <name>TACAN Channel 3</name>
+        <width>2</width>
+        <height>2</height>
+        <x>62</x>
+        <y>-20</y>
+        <halign>left</halign>
+
+        <input>
+            <property>/instrumentation/tacan/frequencies/selected-channel[3]</property> 
+        </input>
+    </label>
+    <label>
+        <name>TACAN Channel 4</name>
+        <width>2</width>
+        <height>2</height>
+        <x>68</x>
+        <y>-20</y>
+        <halign>left</halign>
+
+        <input>
+            <property>/instrumentation/tacan/frequencies/selected-channel[4]</property> 
+        </input>
+    </label>
+
+    <label>
+        <name>Altimeter Label</name>
+        <width>2</width>
+        <height>2</height>
+        <y>-30</y>
+        <halign>left</halign>
+
+        <format>Pressure:</format>
+    </label>
+
+    <label>
+        <name>Altimeter Hg</name>
+        <width>2</width>
+        <height>2</height>
+        <x>50</x>
+        <y>-30</y>
+        <halign>left</halign>
+
+        <input>
+            <property>/instrumentation/altimeter/setting-inhg</property> 
+        </input>
+    </label>
+
+</PropertyList>

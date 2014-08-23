@@ -43,6 +43,12 @@
         <y-offset>110</y-offset>
     </import>
 
+    <import>
+        <path>Aircraft/VMX22-Osprey/Hud/Sets/radio.xml</path>
+        <x-offset>-300</x-offset>
+        <y-offset>-110</y-offset>
+    </import>
+
     <ladder>
         <name>Pitch Ladder</name>
         <type>pitch</type>
