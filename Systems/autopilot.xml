@@ -54,10 +54,7 @@
         <name>A/P NAV1 Localizer On/Off Switcher</name>
         <input>
             <and>
-                <equals>
-                    <property>/v22/afcs/locks/heading</property>
-                    <value>nav1-hold</value>
-                </equals>
+                <property>/v22/afcs/locks/vor-ils</property>
                 <or>
                     <!-- NAV1 must be an ILS localizer -->
                     <property>/instrumentation/nav[0]/nav-loc</property>
@@ -649,10 +646,7 @@
         <name>A/P NAV1 Glideslope On/Off Switcher</name>
         <input>
             <and>
-                <equals>
-                    <property>/v22/afcs/locks/altitude</property>
-                    <value>gs1-hold</value>
-                </equals>
+                <property>/v22/afcs/locks/vor-ils</property>
                 <property>/instrumentation/nav[0]/has-gs</property>
                 <property>/instrumentation/nav[0]/gs-in-range</property>
                 <property>/v22/afcs/active/loc-hold</property>

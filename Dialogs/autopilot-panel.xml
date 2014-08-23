@@ -68,13 +68,16 @@
                 <row>1</row>
                 <col>2</col>
                 <visible>
-                    <property>/v22/afcs/active/loc-hold</property>
+                    <or>
+                        <property>/v22/afcs/active/loc-hold</property>
+                        <property>/v22/afcs/active/gs-hold</property>
+                    </or>
                 </visible>
                 <legend>CAP</legend>
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/heading", "")</script>
+                    <script>setprop("/v22/afcs/locks/vor-ils", 0)</script>
                 </binding>
             </button>
             <button>
@@ -82,12 +85,12 @@
                 <col>2</col>
                 <visible>
                     <and>
-                        <equals>
-                            <property>/v22/afcs/locks/heading</property>
-                            <value>nav1-hold</value>
-                        </equals>
+                        <property>/v22/afcs/locks/vor-ils</property>
                         <not>
-                            <property>/v22/afcs/active/loc-hold</property>
+                            <or>
+                                <property>/v22/afcs/active/loc-hold</property>
+                                <property>/v22/afcs/active/loc-hold</property>
+                            </or>
                         </not>
                     </and>
                 </visible>
@@ -95,7 +98,7 @@
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/heading", "")</script>
+                    <script>setprop("/v22/afcs/locks/vor-ils", 0)</script>
                 </binding>
             </button>
             <button>
@@ -103,17 +106,14 @@
                 <col>2</col>
                 <visible>
                     <not>
-                        <equals>
-                            <property>/v22/afcs/locks/heading</property>
-                            <value>nav1-hold</value>
-                        </equals>
+                        <property>/v22/afcs/locks/vor-ils</property>
                     </not>
                 </visible>
                 <legend></legend>
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/heading", "nav1-hold")</script>
+                    <script>setprop("/v22/afcs/locks/vor-ils", 1)</script>
                 </binding>
             </button>
             <text>
@@ -195,54 +195,9 @@
             <button>
                 <row>3</row>
                 <col>2</col>
-                <visible>
-                    <property>/v22/afcs/active/gs-hold</property>
-                </visible>
                 <legend>CAP</legend>
                 <pref-width>40</pref-width>
-                <binding>
-                    <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/altitude", "")</script>
-                </binding>
-            </button>
-            <button>
-                <row>3</row>
-                <col>2</col>
-                <visible>
-                    <and>
-                        <equals>
-                            <property>/v22/afcs/locks/altitude</property>
-                            <value>gs1-hold</value>
-                        </equals>
-                        <not>
-                            <property>/v22/afcs/active/gs-hold</property>
-                        </not>
-                    </and>
-                </visible>
-                <legend>ARM</legend>
-                <pref-width>40</pref-width>
-                <binding>
-                    <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/altitude", "")</script>
-                </binding>
-            </button>
-            <button>
-                <row>3</row>
-                <col>2</col>
-                <visible>
-                    <not>
-                        <equals>
-                            <property>/v22/afcs/locks/altitude</property>
-                            <value>gs1-hold</value>
-                        </equals>
-                    </not>
-                </visible>
-                <legend></legend>
-                <pref-width>40</pref-width>
-                <binding>
-                    <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/altitude", "gs1-hold")</script>
-                </binding>
+                <enable><false/></enable>
             </button>
             <text>
                 <row>2</row>

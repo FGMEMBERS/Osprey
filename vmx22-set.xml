@@ -286,8 +286,9 @@
                      These properties make sure that the regular
                      /autopilot/locks/ properties are left untouched.
                 -->
+                <vor-ils type="bool">false</vor-ils>
+
                 <heading type="string"></heading>
-                <altitude type="string"></altitude>
             </locks>
             <settings>
                 <!-- When the glideslope has been captured, the aircraft

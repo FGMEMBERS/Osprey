@@ -25,10 +25,7 @@
         <halign>left</halign>
         <condition>
             <and>
-                <equals>
-                    <property>/v22/afcs/locks/heading</property>
-                    <value>nav1-hold</value>
-                </equals>
+                <property>/v22/afcs/locks/vor-ils</property>
                 <not>
                     <property>/v22/afcs/active/loc-hold</property>
                 </not>
@@ -61,10 +58,7 @@
         <halign>left</halign>
         <condition>
             <and>
-                <equals>
-                    <property>/v22/afcs/locks/altitude</property>
-                    <value>gs1-hold</value>
-                </equals>
+                <property>/v22/afcs/locks/vor-ils</property>
                 <not>
                     <property>/v22/afcs/active/gs-hold</property>
                 </not>

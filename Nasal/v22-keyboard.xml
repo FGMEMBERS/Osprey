@@ -196,13 +196,8 @@
         <binding>
             <command>nasal</command>
             <script>
-                var node = props.globals.getNode("/v22/afcs/locks/heading", 1);
-                if (node.getValue() == "nav1-hold") {
-                    node.setValue("");
-                }
-                else {
-                    node.setValue("nav1-hold");
-                }
+                var node = props.globals.getNode("/v22/afcs/locks/vor-ils", 1);
+                node.setBoolValue(!node.getBoolValue());
             </script>
         </binding>
     </key>
@@ -213,13 +208,8 @@
         <binding>
             <command>nasal</command>
             <script>
-                var node = props.globals.getNode("/v22/afcs/locks/altitude", 1);
-                if (node.getValue() == "gs1-hold") {
-                    node.setValue("");
-                }
-                else {
-                    node.setValue("gs1-hold");
-                }
+                var node = props.globals.getNode("/v22/afcs/locks/vor-ils", 1);
+                node.setBoolValue(!node.getBoolValue());
             </script>
         </binding>
     </key>
