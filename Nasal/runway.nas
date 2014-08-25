@@ -83,7 +83,9 @@ var have_been_in_air = 0;
 
 var init_announcers = func {
     setlistener("/gear/gear[0]/wow-avg", func (n) {
-        if (n.getBoolValue()) {
+        var on_ground = n.getBoolValue();
+
+        if (on_ground) {
             takeoff_announcer.start();
             logger.warn("Starting takeoff announce");
 
@@ -108,6 +110,10 @@ var init_announcers = func {
                 have_been_in_air = 1;
             }
         }
+
+        # Tell the multiplayer ATC chat window whether the aircraft is
+        # on the ground or in the air
+        atc.dialog.set_on_ground(on_ground);
     }, startup=1, runtime=0);
 };
 
@@ -116,3 +122,6 @@ setlistener("/sim/signals/fdm-initialized", func {
 
     settimer(func init_announcers(), 5.0);
 });
+
+atc.dialog.set_runway_takeoff_announcer(takeoff_announcer);
+atc.dialog.set_runway_landing_announcer(landing_announcer);

@@ -431,6 +431,9 @@
         <runway>
             <file>Aircraft/VMX22-Osprey/Nasal/runway_announcer.nas</file>
         </runway>
+        <atc>
+            <file>Aircraft/VMX22-Osprey/Nasal/atc.nas</file>
+        </atc>
         <v22>
             <file>Aircraft/VMX22-Osprey/Nasal/v22.nas</file>
             <!-- <file>Aircraft/VMX22-Osprey/Nasal/terrain_under.nas</file> -->

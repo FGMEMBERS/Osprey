@@ -214,4 +214,14 @@
         </binding>
     </key>
 
+    <key n="45">
+        <name>-</name>
+        <repeatable type="bool">false</repeatable>
+        <desc>Toggle ATC chat dialog</desc>
+        <binding>
+            <command>nasal</command>
+            <script>atc.dialog.toggle()</script>
+        </binding>
+    </key>
+
 </PropertyList>

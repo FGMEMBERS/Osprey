@@ -3,6 +3,17 @@
 <PropertyList>
 
     <default>
+        <menu n="7">
+            <item n="6">
+                <name>mp-atc-chat</name>
+                <label>ATC Chat</label>
+                <binding>
+                    <command>nasal</command>
+                    <script>atc.dialog.show()</script>
+                </binding>
+            </item>
+        </menu>
+
         <menu n="10">
             <label>V22 Osprey</label>
             <enabled type="bool">true</enabled>
