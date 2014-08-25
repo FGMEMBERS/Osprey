@@ -529,10 +529,10 @@
         <update-interval-secs type="double">0.1</update-interval-secs>
         <type>D</type>
         <D>
-            <less-than>
+            <less-than-equals>
                 <property>/velocities/groundspeed-kt</property>
                 <value>55.0</value>
-            </less-than>
+            </less-than-equals>
         </D>
         <clock>
             <equals>

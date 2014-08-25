@@ -185,14 +185,14 @@
         <input>
             <condition>
                 <or>
-                    <less-than>
+                    <less-than-equals>
                         <property>/sim/model/v22/tilt</property>
                         <value>15.0</value>
-                    </less-than>
-                    <less-than>
+                    </less-than-equals>
+                    <less-than-equals>
                         <property>/velocities/airspeed-kt</property>
                         <value>60.0</value>
-                    </less-than>
+                    </less-than-equals>
                 </or>
             </condition>
             <value>30.0</value>
@@ -352,7 +352,7 @@
         <input>
             <and>
                 <property>/v22/pfcs/active/bank-angle-hard-limit</property>
-                <less-than>
+                <less-than-equals>
                     <expression>
                         <abs>
                             <difference>
@@ -368,7 +368,7 @@
                          angle limit is less than or equal to this value.
                     -->
                     <value>15.0</value>
-                </less-than>
+                </less-than-equals>
             </and>
         </input>
         <output>
