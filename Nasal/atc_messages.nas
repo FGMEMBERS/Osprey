@@ -13,6 +13,51 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+var MessageChoiceClass = {
+
+    new: func (label, message, sender, receiver) {
+        var m = {
+            parents: [MessageChoiceClass]
+        };
+        m.label = label;
+        m.message = message;
+        m.sender = sender;
+        m.receiver = receiver;
+        return m;
+    },
+
+    get_label: func {
+        return me.label;
+    },
+
+    execute: func {
+        var message = sprintf("%s: %s, %s", me.receiver, me.message, me.sender);
+        atc.dialog.send_message(message);
+    }
+
+};
+
+var ActionChoiceClass = {
+
+    new: func (label, action) {
+        var m = {
+            parents: [ActionChoiceClass]
+        };
+        m.label = label;
+        m.action = action;
+        return m;
+    },
+
+    get_label: func {
+        return me.label;
+    },
+
+    execute: func {
+        me.action();
+    }
+
+};
+
 var AbstractATCMessageClass = {
 
     new: func {

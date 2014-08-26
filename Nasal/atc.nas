@@ -13,6 +13,83 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+var max = func(a, b) { a > b ? a : b }
+
+var ChoiceListClass = {
+
+    row_height: 16,
+
+    new: func (content) {
+        var m = {
+            parents: [ChoiceListClass]
+        };
+        m.content = content;
+        m.choices = [];
+        return m;
+    },
+
+    add: func (choice) {
+        append(me.choices, choice);
+        me._update();
+    },
+
+    insert: func (choice, index) {
+        me.choices = subvec(me.choices, 0, index) ~ [choice] ~ subvec(me.choices, index);
+        me._update();
+    },
+
+    remove: func (index) {
+        me.choices = subvec(me.choices, 0, index) ~ subvec(me.choices, index + 1);
+        me._update();
+    },
+
+    remove_all: func {
+        me.choices = [];
+        me._update();
+    },
+
+    execute: func (index) {
+        me.choices[index].execute();
+    },
+
+    _append_row: func (choice) {
+        var index = size(me.content.node.getChildren("text"));
+
+        var button = me.content.addChild("button");
+        button.node.setValues({
+            "legend": index + 1,
+            "row": index,
+            "col": 0,
+            "halign": "right",
+            "pref-height": ChoiceListClass.row_height - 2,
+            "pref-width": ChoiceListClass.row_height - 2
+        });
+        button.setBinding("nasal", "atc.dialog.choice_list.execute(" ~ index ~ ")");
+
+        var row = me.content.addChild("text");
+        row.node.setValues({
+            "label": choice.get_label(),
+            "row": index,
+            "col": 1,
+            "halign": "fill",
+            "pref-height": ChoiceListClass.row_height
+        });
+    },
+
+    _update: func {
+        me.content.node.removeChildren("text");
+
+        foreach (var choice; me.choices) {
+            me._append_row(choice);
+        }
+
+        # Redraw the window so that old choices are removed and new
+        # choices are shown
+        atc.dialog.redraw();
+    }
+
+};
+
 var ATCChat = {
 
     name: "mp-atc-chat",
@@ -20,8 +97,6 @@ var ATCChat = {
     window_width: 500,
 
     content_padding: 6,
-
-    row_height: 16,
 
     new: func (name) {
         var m = {
@@ -70,6 +145,8 @@ var ATCChat = {
         me.content.set("halign", "left");
         me.content.set("default-padding", ATCChat.content_padding);
 
+        me.choice_list = ChoiceListClass.new(me.content);
+
         fgcommand("dialog-new", me.dialog.prop());
     },
 
@@ -100,17 +177,21 @@ var ATCChat = {
     },
 
     _reset_position: func {
-        var menubar = getprop("/sim/menubar/visibility") ? 28 : 0;
-        var screen = getprop("/sim/startup/ysize");
-
-        var margin = 2;
+        var screen   = getprop("/sim/startup/ysize");
+        var menubar  = getprop("/sim/menubar/visibility") ? 28 : 0;
+        var margin   = 2;
         var titlebar = 25;
 
         var rows = size(me.content.node.getChildren("text"));
+
+        # Take spacing into account if there are at least two rows
+        var spacing = max(0, rows - 1) * 14;
+
+        # Take padding into account if there is at least one row
         var padding = rows > 0 ? 2 * ATCChat.content_padding : 0;
 
         me.dialog.set("x", 2);
-        me.dialog.set("y", screen - menubar - margin - titlebar - rows * ATCChat.row_height - padding);
+        me.dialog.set("y", screen - menubar - margin - titlebar - rows * ChoiceListClass.row_height - padding - spacing);
     },
 
     redraw: func {
@@ -124,21 +205,6 @@ var ATCChat = {
                 me.show();
             }
         }
-    },
-
-    _remove_all_content: func {
-        me.content.node.removeChildren("text");
-    },
-
-    _add_content_row: func (label) {
-        var rows = size(me.content.node.getChildren("text"));
-
-        var button = me.content.addChild("button");
-        button.node.setValues({ "legend": "", "row": rows, "col": 0, "halign": "right", "pref-height": ATCChat.row_height - 2, "pref-width": ATCChat.row_height - 2});
-        button.setBinding("nasal", "atc.dialog.send_message('" ~ label ~ "')");
-
-        var row = me.content.addChild("text");
-        row.node.setValues({ "label": label, "row": rows, "col": 1, "halign": "fill", "pref-height": ATCChat.row_height});
     },
 
     set_runway_takeoff_announcer: func (announcer) {
@@ -200,27 +266,26 @@ var ATCChat = {
         debug.dump(message);
     },
 
-    _on_receive_message: func (callsign_caller, message) {
+    _on_receive_message: func (sender, message) {
         var callsign = getprop("/sim/multiplay/callsign");
 
         foreach (var atc_message; atc.messages) {
             if (atc_message.is_instance(message)) {
                 var value = atc_message.get_value(message);
                 if (value != nil) {
-                    me._display_readback(callsign, sprintf(atc_message.get_response_format(), value));
+                    me._display_readback(callsign, sender, sprintf(atc_message.get_response_format(), value));
                 }
                 else {
-                    me.send_message(sprintf("%s: %s, %s", callsign_caller, atc_message.get_error_text(), callsign));
+                    me.send_message(sprintf("%s: %s, %s", sender, atc_message.get_error_text(), callsign));
                 }
                 break;
             }
         }
     },
 
-    _display_readback: func (callsign, message) {
-        me._remove_all_content();
-        me._add_content_row(sprintf("%s, %s", message, callsign));
-        me.redraw();
+    _display_readback: func (callsign, sender, message) {
+        me.choice_list.remove_all();
+        me.choice_list.add(atc.MessageChoiceClass.new(message, message, callsign, sender));
     }
 
 };
