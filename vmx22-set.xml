@@ -432,6 +432,7 @@
             <file>Aircraft/VMX22-Osprey/Nasal/runway_announcer.nas</file>
         </runway>
         <atc>
+            <file>Aircraft/VMX22-Osprey/Nasal/atc_messages.nas</file>
             <file>Aircraft/VMX22-Osprey/Nasal/atc.nas</file>
         </atc>
         <v22>

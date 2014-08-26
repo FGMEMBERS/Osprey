@@ -13,13 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-var ATCMessages = {
-
-    heading_left: "Turn left heading: ",
-    heading_right: "Turn right heading: ",
-
-};
-
 var ATCChat = {
 
     name: "mp-atc-chat",
@@ -210,32 +203,18 @@ var ATCChat = {
     _on_receive_message: func (callsign_caller, message) {
         var callsign = getprop("/sim/multiplay/callsign");
 
-        if (find(ATCMessages.heading_left, message) == 0) {
-            var heading = int(substr(message, size(ATCMessages.heading_left)));
-            if (heading != nil and heading >= 0 and heading <= 359) {
-                me._display_heading_left(callsign, heading);
-            }
-            else {
-                me.send_message(sprintf("%s: Unable, invalid heading, %s", callsign_caller, callsign));
-            }
-        }
-        elsif (find(ATCMessages.heading_right, message) == 0) {
-            var heading = int(substr(message, size(ATCMessages.heading_right)));
-            if (heading != nil and heading >= 0 and heading <= 359) {
-                me._display_heading_right(callsign, heading);
-            }
-            else {
-                me.send_message(sprintf("%s: Unable, invalid heading, %s", callsign_caller, callsign));
+        foreach (var atc_message; atc.messages) {
+            if (atc_message.is_instance(message)) {
+                var value = atc_message.get_value(message);
+                if (value != nil) {
+                    me._display_readback(callsign, sprintf(atc_message.get_response_format(), value));
+                }
+                else {
+                    me.send_message(sprintf("%s: %s, %s", callsign_caller, atc_message.get_error_text(), callsign));
+                }
+                break;
             }
         }
-    },
-
-    _display_heading_left: func (callsign, heading) {
-        me._display_readback(callsign, sprintf("Turning left heading %d", heading));
-    },
-
-    _display_heading_right: func (callsign, heading) {
-        me._display_readback(callsign, sprintf("Turning right heading %d", heading));
     },
 
     _display_readback: func (callsign, message) {
