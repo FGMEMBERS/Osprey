@@ -15,13 +15,12 @@
 
 var MessageChoiceClass = {
 
-    new: func (label, message, sender, receiver) {
+    new: func (label, message, receiver) {
         var m = {
             parents: [MessageChoiceClass]
         };
         m.label = label;
         m.message = message;
-        m.sender = sender;
         m.receiver = receiver;
         return m;
     },
@@ -31,8 +30,33 @@ var MessageChoiceClass = {
     },
 
     execute: func {
-        var message = sprintf("%s: %s, %s", me.receiver, me.message, me.sender);
+        var message = sprintf("%s: %s", me.receiver, me.message);
         atc.dialog.send_message(message);
+        atc.dialog.choice_list.remove_all();
+    }
+
+};
+
+var ReplyMessageChoiceClass = {
+
+    new: func (label, message, sender, receiver) {
+        var message = sprintf("%s, %s", message, sender);
+        var m = {
+            parents: [ReplyMessageChoiceClass, MessageChoiceClass.new(label, message, receiver)]
+        };
+        return m;
+    }
+
+};
+
+var ReadbackMessageChoiceClass = {
+
+    new: func (message, sender, receiver) {
+        var label = sprintf("Readback \"%s\" to %s", message, receiver);
+        var m = {
+            parents: [ReadbackMessageChoiceClass, ReplyMessageChoiceClass.new(label, message, sender, receiver)]
+        };
+        return m;
     }
 
 };
@@ -190,8 +214,6 @@ var AbstractAltitudeATCMessageClass = {
         
         if (find(" ft", altitude_str) == size(altitude_str) - 3) {
             var altitude = int(substr(altitude_str, 0, size(altitude_str) - 3));
-            debug.dump(altitude_str);
-            debug.dump(substr(altitude_str, 0, size(altitude_str) - 3));
         }
         elsif (find("ft", altitude_str) == size(altitude_str) - 2) {
             var altitude = int(substr(altitude_str, 0, size(altitude_str) - 2));
@@ -212,7 +234,7 @@ var ClimbAltitudeATCMessageClass = {
             parents: [ClimbAltitudeATCMessageClass, AbstractAltitudeATCMessageClass.new()]
         };
         m.text = "Climb and maintain: ";
-        m.response_format = "Climbing to %5d";
+        m.response_format = "Climbing to %d";
         return m;
     }
 
@@ -225,7 +247,7 @@ var DescendAltitudeATCMessageClass = {
             parents: [DescendAltitudeATCMessageClass, AbstractAltitudeATCMessageClass.new()]
         };
         m.text = "Descend and maintain: ";
-        m.response_format = "Descending to %5d";
+        m.response_format = "Descending to %d";
         return m;
     }
 

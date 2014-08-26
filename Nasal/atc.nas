@@ -77,6 +77,7 @@ var ChoiceListClass = {
     },
 
     _update: func {
+        me.content.node.removeChildren("button");
         me.content.node.removeChildren("text");
 
         foreach (var choice; me.choices) {
@@ -263,7 +264,6 @@ var ATCChat = {
                 }
             }
         }
-        debug.dump(message);
     },
 
     _on_receive_message: func (sender, message) {
@@ -285,7 +285,7 @@ var ATCChat = {
 
     _display_readback: func (callsign, sender, message) {
         me.choice_list.remove_all();
-        me.choice_list.add(atc.MessageChoiceClass.new(message, message, callsign, sender));
+        me.choice_list.add(atc.ReadbackMessageChoiceClass.new(message, callsign, sender));
     }
 
 };
