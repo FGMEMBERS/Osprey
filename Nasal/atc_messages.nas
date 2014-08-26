@@ -253,6 +253,25 @@ var DescendAltitudeATCMessageClass = {
 
 };
 
+var ReduceSpeedATCMessageClass = {
+
+    new: func {
+        var m = {
+            parents: [ReduceSpeedATCMessageClass, AbstractATCMessageClass.new()]
+        };
+        m.error_text = "Unable, invalid speed";
+        m.text = "Reduce speed to: ";
+        m.response_format = "Reducing speed to %d";
+        return m;
+    },
+
+    get_value: func (message) {
+        var speed = int(substr(message, size(me.text)));
+        return (speed != nil and speed >= 0 and speed <= 999) ? speed : nil;
+    }
+
+};
+
 var messages = [
     HeadingLeftATCMessageClass.new(),
     HeadingRightATCMessageClass.new(),
@@ -260,4 +279,5 @@ var messages = [
     DescendFlightLevelATCMessageClass.new(),
     ClimbAltitudeATCMessageClass.new(),
     DescendAltitudeATCMessageClass.new(),
+    ReduceSpeedATCMessageClass.new(),
 ];
