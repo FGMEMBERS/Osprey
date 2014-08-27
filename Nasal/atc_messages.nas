@@ -61,6 +61,18 @@ var ReadbackMessageChoiceClass = {
 
 };
 
+var RequestMessageChoiceClass = {
+
+    new: func (label, message, sender, receiver) {
+        var message = sprintf("%s, %s", sender, message);
+        var m = {
+            parents: [RequestMessageChoiceClass, MessageChoiceClass.new(label, message, receiver)]
+        };
+        return m;
+    }
+
+};
+
 var ActionChoiceClass = {
 
     new: func (label, action) {
@@ -272,6 +284,25 @@ var ReduceSpeedATCMessageClass = {
 
 };
 
+var ClearedCrossRunwayATCMessageClass = {
+
+    new: func {
+        var m = {
+            parents: [ClearedCrossRunwayATCMessageClass, AbstractATCMessageClass.new()]
+        };
+        m.error_text = "Unable, invalid runway";
+        m.text = "Cleared to cross runway: ";
+        m.response_format = "Cleared to cross runway %s";
+        return m;
+    },
+
+    get_value: func (message) {
+        var runway = substr(message, size(me.text));
+        return runway != nil and contains(airportinfo().runways, runway) ? runway : nil;
+    }
+
+};
+
 var messages = [
     HeadingLeftATCMessageClass.new(),
     HeadingRightATCMessageClass.new(),
@@ -280,4 +311,5 @@ var messages = [
     ClimbAltitudeATCMessageClass.new(),
     DescendAltitudeATCMessageClass.new(),
     ReduceSpeedATCMessageClass.new(),
+    ClearedCrossRunwayATCMessageClass.new(),
 ];

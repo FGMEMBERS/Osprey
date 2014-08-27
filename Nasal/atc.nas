@@ -141,6 +141,19 @@ var ATCChat = {
 
         me.dialog.addChild("hrule");
 
+        var info_content = me.dialog.addChild("group");
+        info_content.set("layout", "hbox");
+        var com1_freq = info_content.addChild("text");
+        com1_freq.node.setValues({
+            "format": "COM1: %3.2f MHz",
+            "pref-height": 16,
+            "property": "/instrumentation/comm[0]/frequencies/selected-mhz",
+            "live": 1
+        });
+        info_content.addChild("empty").set("stretch", 1);
+
+        me.dialog.addChild("hrule");
+
         me.content = me.dialog.addChild("group");
         me.content.set("layout", "table");
         me.content.set("halign", "left");
@@ -178,10 +191,12 @@ var ATCChat = {
     },
 
     _reset_position: func {
-        var screen   = getprop("/sim/startup/ysize");
-        var menubar  = getprop("/sim/menubar/visibility") ? 28 : 0;
-        var margin   = 2;
-        var titlebar = 25;
+        var screen  = getprop("/sim/startup/ysize");
+        var menubar = getprop("/sim/menubar/visibility") ? 28 : 0;
+        var margin  = 2;
+
+        # Titlebar, line with info, and two horizontal rules
+        var header  = 16 + 9 + 16 + 9;
 
         var rows = size(me.content.node.getChildren("text"));
 
@@ -192,7 +207,7 @@ var ATCChat = {
         var padding = rows > 0 ? 2 * ATCChat.content_padding : 0;
 
         me.dialog.set("x", 2);
-        me.dialog.set("y", screen - menubar - margin - titlebar - rows * ChoiceListClass.row_height - padding - spacing);
+        me.dialog.set("y", screen - menubar - margin - header - rows * ChoiceListClass.row_height - padding - spacing);
     },
 
     redraw: func {
@@ -209,12 +224,12 @@ var ATCChat = {
     },
 
     set_runway_takeoff_announcer: func (announcer) {
-        announcer.connect("on-runway", me._on_runway);
-        announcer.connect("approaching-runway", me._approaching_runway);
+        announcer.connect("on-runway", func (node) { me._on_runway(node.getValue()) });
+        announcer.connect("approaching-runway", func (node) { me._approaching_runway(node.getValue()) });
     },
 
     set_runway_landing_announcer: func (announcer) {
-        announcer.connect("vacated-runway", me._vacated_runway);
+        announcer.connect("vacated-runway", func (node) { me._vacated_runway(node.getValue()) });
     },
 
     set_online: func (is_online) {
@@ -230,19 +245,23 @@ var ATCChat = {
         me.on_ground = on_ground;
     },
 
-    _on_runway: func (node) {
+    _on_runway: func (runway) {
         var callsign = getprop("/sim/multiplay/callsign");
-        me.send_message(sprintf("On runway %s, %s", node.getValue(), callsign));
+        me.send_message(sprintf("On runway %s, %s", runway, callsign));
     },
 
-    _approaching_runway: func (node) {
+    _approaching_runway: func (runway) {
         var callsign = getprop("/sim/multiplay/callsign");
-        me.send_message(sprintf("Approaching runway %s, %s", node.getValue(), callsign));
+        var apt_ground = sprintf("%s Ground", airportinfo().name);
+
+        var label = sprintf("Request %s to give clearance to cross runway %s", apt_ground, runway);
+        var message = sprintf("holding short of runway %s, request permission to cross", runway);
+        me.choice_list.add(atc.RequestMessageChoiceClass.new(label,message, callsign, apt_ground));
     },
 
-    _vacated_runway: func (node) {
+    _vacated_runway: func (runway) {
         var callsign = getprop("/sim/multiplay/callsign");
-        me.send_message(sprintf("Vacated runway %s, %s", node.getValue(), callsign));
+        me.send_message(sprintf("Vacated runway %s, %s", runway, callsign));
     },
 
     send_message: func (message) {
