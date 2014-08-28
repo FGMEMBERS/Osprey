@@ -104,7 +104,7 @@ var AbstractATCMessageClass = {
     },
 
     is_instance: func (message) {
-        return find (me.text, message) == 0;
+        return find(me.text, message) == 0;
     },
 
     get_error_text: func {
@@ -303,6 +303,89 @@ var ClearedCrossRunwayATCMessageClass = {
 
 };
 
+var AbstractLandingATCMessageClass = {
+
+    new: func {
+        var m = {
+            parents: [AbstractLandingATCMessageClass, AbstractATCMessageClass.new()]
+        };
+        return m;
+    },
+
+    is_instance: func (message) {
+        var distance_mi = int(string.trim(substr(message, 0, 3), -1, func (c) { c == ` ` }));
+        return distance_mi != nil and find(me.text, substr(message, 3)) == 0;
+    }
+
+};
+
+var ILSApproachATCMessageClass = {
+
+    new: func {
+        var m = {
+            parents: [ILSApproachATCMessageClass, AbstractLandingATCMessageClass.new()]
+        };
+        m.error_text = "Unable, invalid runway";
+        m.text = " mi out, maintain hdg until intercepting localizer, cleared for ILS appr rwy: ";
+        m.response_format = "Cleared for ILS approach runway %s";
+        return m;
+    },
+
+    get_value: func (message) {
+        var runway = substr(message, size(me.text) + 3);
+        # TODO Check that the destination airport has this runway
+        return runway != nil ? runway : nil;
+    }
+
+};
+
+var RunwayInSightATCMessageClass = {
+
+    new: func {
+        var m = {
+            parents: [RunwayInSightATCMessageClass, AbstractLandingATCMessageClass.new()]
+        };
+        m.text = " mi out, report when runway in sight";
+        m.response_format = "Runway in sight";
+        return m;
+    },
+
+    get_value: func (message) {
+        # Return a dummy value other than nil
+        return 1;
+    }
+
+};
+
+var ClearedToLandATCMessageClass = {
+
+    new: func {
+        var m = {
+            parents: [ClearedToLandATCMessageClass, AbstractLandingATCMessageClass.new()]
+        };
+        m.error_text = "Unable, invalid runway";
+        m.text = "cleared to land runway: ";
+        m.response_format = "Cleared to land runway %s";
+        return m;
+    },
+
+    is_instance: func (message) {
+        var distance_mi = int(string.trim(substr(message, 0, 3), -1, func (c) { c == ` ` }));
+
+        # We do not care about the precise text that ATC sent since
+        # Nasal does not support regular expressions
+        return distance_mi != nil and find(me.text, message) > 0;
+    },
+
+    get_value: func (message) {
+        var index = find(me.text, message) + size(me.text);
+        var runway = substr(message, index);
+        # TODO Check that the destination airport has this runway
+        return runway != nil ? runway : nil;
+    }
+
+};
+
 var messages = [
     HeadingLeftATCMessageClass.new(),
     HeadingRightATCMessageClass.new(),
@@ -312,4 +395,7 @@ var messages = [
     DescendAltitudeATCMessageClass.new(),
     ReduceSpeedATCMessageClass.new(),
     ClearedCrossRunwayATCMessageClass.new(),
+    ILSApproachATCMessageClass.new(),
+    RunwayInSightATCMessageClass.new(),
+    ClearedToLandATCMessageClass.new()
 ];
