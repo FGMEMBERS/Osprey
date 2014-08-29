@@ -126,6 +126,7 @@
         <input>
             <property>/instrumentation/altimeter/setting-inhg</property> 
         </input>
+        <format>%0.2f</format>
     </label>
 
 </PropertyList>
