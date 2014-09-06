@@ -120,7 +120,9 @@ var init_announcers = func {
 setlistener("/sim/signals/fdm-initialized", func {
     logger.warn("FDM initialized");
 
-    settimer(func init_announcers(), 5.0);
+    var timer = maketimer(5.0, func init_announcers());
+    timer.singleShot = 1;
+    timer.start();
 });
 
 atc.dialog.set_runway_takeoff_announcer(takeoff_announcer);
