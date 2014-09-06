@@ -19,17 +19,19 @@ var copilot_say = func (message) {
 
 var make_notification_cb = func (format, action=nil) {
     return func (data=nil) {
-        if (data != nil) {
-            var message = sprintf(format, data.getValue());
-        }
-        else {
-            var message = format;
+        if (format != nil) {
+            if (data != nil) {
+                var message = sprintf(format, data.getValue());
+            }
+            else {
+                var message = format;
+            }
+
+            copilot_say(message);
+            logger.info(sprintf("Announcing '%s'", message));
         }
 
-        copilot_say(message);
-        logger.info(sprintf("Announcing '%s'", message));
-
-        if (typeof(action) != 'nil') {
+        if (typeof(action) == "func") {
             action();
         }
     };
@@ -54,7 +56,7 @@ var landing_announcer = runway.LandingRunwayAnnounceClass.new(landing_config);
 landing_announcer.connect("remaining-distance", make_notification_cb("%d remaining"));
 landing_announcer.connect("vacated-runway", make_notification_cb("Vacated runway %s", stop_announcer));
 landing_announcer.connect("landed-runway", make_notification_cb("Touchdown on runway %s"));
-landing_announcer.connect("landed-outside-runway", make_notification_cb("We did not land on a runway!", stop_announcer));
+landing_announcer.connect("landed-outside-runway", make_notification_cb(nil, stop_announcer));
 
 var make_switch_mode_cb = func (wow_mode, no_wow_mode) {
     return func (node) {
