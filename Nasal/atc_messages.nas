@@ -39,7 +39,8 @@ var MessageChoiceClass = {
 
 var ReplyMessageChoiceClass = {
 
-    new: func (label, message, sender, receiver) {
+    new: func (label, message, receiver) {
+        var sender  = getprop("/sim/multiplay/callsign");
         var message = sprintf("%s, %s", message, sender);
         var m = {
             parents: [ReplyMessageChoiceClass, MessageChoiceClass.new(label, message, receiver)]
@@ -51,10 +52,10 @@ var ReplyMessageChoiceClass = {
 
 var ReadbackMessageChoiceClass = {
 
-    new: func (message, sender, receiver) {
+    new: func (message, receiver) {
         var label = sprintf("Read back \"%s\" to %s", message, receiver);
         var m = {
-            parents: [ReadbackMessageChoiceClass, ReplyMessageChoiceClass.new(label, message, sender, receiver)]
+            parents: [ReadbackMessageChoiceClass, ReplyMessageChoiceClass.new(label, message, receiver)]
         };
         return m;
     }
@@ -63,10 +64,69 @@ var ReadbackMessageChoiceClass = {
 
 var RequestMessageChoiceClass = {
 
-    new: func (label, message, sender, receiver) {
+    new: func (label, message, receiver) {
+        var sender  = getprop("/sim/multiplay/callsign");
         var message = sprintf("%s, %s", sender, message);
         var m = {
             parents: [RequestMessageChoiceClass, MessageChoiceClass.new(label, message, receiver)]
+        };
+        return m;
+    }
+
+};
+
+var EnrouteRequestMessageChoiceClass = {
+
+    new: func (receiver, destination) {
+        var label   = sprintf("Request %s to give en-route clearance to %s", receiver, destination);
+        var message = sprintf("requesting clearance to %s", destination);
+        var m = {
+            parents: [EnrouteRequestMessageChoiceClass, RequestMessageChoiceClass.new(label, message, receiver)]
+        };
+        return m;
+    }
+
+};
+
+var StartupRequestMessageChoiceClass = {
+
+    new: func (receiver) {
+        var label   = sprintf("Request %s to give start-up clearance", receiver);
+        var message = sprintf("Request start-up");
+        var m = {
+            parents: [EnrouteRequestMessageChoiceClass, ReplyMessageChoiceClass.new(label, message, receiver)]
+        };
+        return m;
+    }
+
+};
+
+var PushbackRequestMessageChoiceClass = {
+
+    new: func (receiver) {
+        var label   = sprintf("Request push-back from  %s", receiver);
+        var message = sprintf("request push-back");
+        var m = {
+            parents: [EnrouteRequestMessageChoiceClass, RequestMessageChoiceClass.new(label, message, receiver)]
+        };
+        return m;
+    }
+
+};
+
+var TaxiRequestMessageChoiceClass = {
+
+    new: func (receiver, runway=nil) {
+        if (runway != nil) {
+            var label   = sprintf("Request taxi to runway %s from %s", runway, receiver);
+            var message = sprintf("Request taxi to runway %s", runway);
+        }
+        else {
+            var label   = sprintf("Request taxi from %s", receiver);
+            var message = sprintf("Request taxi");
+        }
+        var m = {
+            parents: [EnrouteRequestMessageChoiceClass, ReplyMessageChoiceClass.new(label, message, receiver)]
         };
         return m;
     }

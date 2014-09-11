@@ -94,7 +94,7 @@ var ChoiceListClass = {
 };
 
 var flight_phases = collections.Vector.new([
-    "Enroute Clearance",
+    "En-route Clearance",
     "Start-up",
     "Push-back",
     "Taxi to runway",
@@ -106,6 +106,15 @@ var flight_phases = collections.Vector.new([
     "Landing",
     "Taxi to gate"
 ]);
+
+var controller_names = {
+    "del": "Delivery",
+    "gnd": "Ground",
+    "twr": "Tower",
+    "app": "Approach",
+    "dep": "Departure",
+    "ctr": "Radar" # Center or Radar depending on whether in N-A or EU
+};
 
 var ATCChat = {
 
@@ -302,12 +311,19 @@ var ATCChat = {
     },
 
     _approaching_runway: func (runway) {
-        var callsign = getprop("/sim/multiplay/callsign");
-        var apt_ground = sprintf("%s Ground", airportinfo().name);
+        var departure_airport = getprop("/autopilot/route-manager/departure/airport");
+        var departure_runway = getprop("/autopilot/route-manager/departure/runway");
 
-        var label = sprintf("Request %s to give clearance to cross runway %s", apt_ground, runway);
-        var message = sprintf("holding short of runway %s, request permission to cross", runway);
-        me.choice_list.add(atc.RequestMessageChoiceClass.new(label,message, callsign, apt_ground));
+        # If we are at the departure airport, _then_ this runway must be
+        # different from the planned takeoff runway. If we are at a different
+        # airport, then we don't care about which runway it is.
+        if (airportinfo().id != departure_airport or runway != departure_runway) {
+            var controller_name = me.get_controller_name("gnd");
+
+            var label = sprintf("Request %s to give clearance to cross runway %s", controller_name, runway);
+            var message = sprintf("holding short of runway %s, request permission to cross", runway);
+            me.choice_list.add(atc.RequestMessageChoiceClass.new(label, message, controller_name));
+        }
     },
 
     _vacated_runway: func (runway) {
@@ -326,7 +342,54 @@ var ATCChat = {
     },
 
     on_phase_change: func (text) {
-        debug.dump(text, flight_phases.index(text));
+        var index = flight_phases.index(text);
+ 
+        # We just brutally remove any previous choices
+        me.choice_list.remove_all(); # TODO Make sure to instead just only remove invalid choices
+
+        if (index <= 5) {
+            var departure_airport = getprop("/autopilot/route-manager/departure/airport");
+        }
+        elsif (index >= 7) {
+            var arrival_airport = getprop("/autopilot/route-manager/destination/airport");
+        }
+
+        if (index == 0) {
+            var destination = getprop("/autopilot/route-manager/destination/airport");
+            if (destination != "") {
+                var callsign = getprop("/sim/multiplay/callsign");
+                var controller_name = me.get_controller_name("del");
+
+                me.choice_list.add(atc.EnrouteRequestMessageChoiceClass.new(controller_name, destination));
+            }
+        }
+        elsif (index == 1) {
+            var controller_name = me.get_controller_name("del");
+            me.choice_list.add(atc.StartupRequestMessageChoiceClass.new(controller_name));
+        }
+        elsif (index == 2) {
+            var controller_name = me.get_controller_name("gnd");
+            me.choice_list.add(atc.PushbackRequestMessageChoiceClass.new(controller_name));
+        }
+        elsif (index == 3) {
+            var departure_runway = getprop("/autopilot/route-manager/departure/runway");
+            var runway = (airportinfo().id == departure_airport and departure_runway != "") ? departure_runway : nil;
+            var controller_name = me.get_controller_name("gnd");
+            me.choice_list.add(atc.TaxiRequestMessageChoiceClass.new(controller_name, runway));
+        }
+    },
+
+    get_controller_name: func (role, icao_code=nil) {
+        if (!contains(controller_names, role)) {
+            die(sprintf("KeyError: '%s'", role));
+        }
+        if (icao_code != nil) {
+            var apt = airportinfo(icao_code);
+        }
+        else {
+            var apt = airportinfo();
+        }
+        return sprintf("%s %s", apt.name, controller_names[role]);
     },
 
     send_message: func (message) {
@@ -351,15 +414,14 @@ var ATCChat = {
     },
 
     _on_receive_message: func (sender, message) {
-        var callsign = getprop("/sim/multiplay/callsign");
-
         foreach (var atc_message; atc.messages) {
             if (atc_message.is_instance(message)) {
                 var value = atc_message.get_value(message);
                 if (value != nil) {
-                    me._display_readback(callsign, sender, sprintf(atc_message.get_response_format(), value));
+                    me._display_readback(sender, sprintf(atc_message.get_response_format(), value));
                 }
                 else {
+                    var callsign = getprop("/sim/multiplay/callsign");
                     me.send_message(sprintf("%s: %s, %s", sender, atc_message.get_error_text(), callsign));
                 }
                 break;
@@ -367,9 +429,9 @@ var ATCChat = {
         }
     },
 
-    _display_readback: func (callsign, sender, message) {
+    _display_readback: func (sender, message) {
         me.choice_list.remove_all();
-        me.choice_list.add(atc.ReadbackMessageChoiceClass.new(message, callsign, sender));
+        me.choice_list.add(atc.ReadbackMessageChoiceClass.new(message, sender));
     }
 
 };
