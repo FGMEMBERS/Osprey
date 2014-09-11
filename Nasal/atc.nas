@@ -13,7 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+var min = func(a, b) { a < b ? a : b }
 var max = func(a, b) { a > b ? a : b }
+var clamp = func(v, lower, upper) { max(lower, min(v, upper)) }
 
 var ChoiceListClass = {
 
@@ -91,6 +93,20 @@ var ChoiceListClass = {
 
 };
 
+var flight_phases = collections.Vector.new([
+    "Enroute Clearance",
+    "Start-up",
+    "Push-back",
+    "Taxi to runway",
+    "Takeoff",
+    "Climb",
+    "Cruise",
+    "Descent",
+    "Approach",
+    "Landing",
+    "Taxi to gate"
+]);
+
 var ATCChat = {
 
     name: "mp-atc-chat",
@@ -109,6 +125,9 @@ var ATCChat = {
         m.visible = 0;
         m.online = 0;
         m.on_ground = 1;
+
+        m.flight_phase_index = 0;
+        setprop("/atc/phase", flight_phases.vector[m.flight_phase_index]);
 
         return m;
     },
@@ -145,12 +164,44 @@ var ATCChat = {
         info_content.set("layout", "hbox");
         var com1_freq = info_content.addChild("text");
         com1_freq.node.setValues({
-            "format": "COM1: %3.2f MHz",
-            "pref-height": 16,
-            "property": "/instrumentation/comm[0]/frequencies/selected-mhz",
-            "live": 1
+            "format":       "COM1: %3.2f MHz",
+            "pref-height":  16,
+            "property":     "/instrumentation/comm[0]/frequencies/selected-mhz",
+            "live":         1
         });
         info_content.addChild("empty").set("stretch", 1);
+
+        # Flight phase label
+        info_content.addChild("text").set("label", "Phase:");
+
+        # Previous flight phase button
+        var prev_phase_button = info_content.addChild("button");
+        prev_phase_button.node.setValues({
+            "legend": "<",
+            "halign": "right",
+            "pref-height": ChoiceListClass.row_height - 2,
+            "pref-width": ChoiceListClass.row_height - 2
+        });
+        prev_phase_button.setBinding("nasal", "atc.dialog.set_previous_phase()");
+
+        # Current flight phase label
+        var phase_label = info_content.addChild("text");
+        phase_label.node.setValues({
+            "pref-height":  16,
+            "pref-width":   110,
+            "property":     "/atc/phase",
+            "live":         1
+        });
+
+        # Next flight phase button
+        var next_phase_button = info_content.addChild("button");
+        next_phase_button.node.setValues({
+            "legend": ">",
+            "halign": "right",
+            "pref-height": ChoiceListClass.row_height - 2,
+            "pref-width": ChoiceListClass.row_height - 2
+        });
+        next_phase_button.setBinding("nasal", "atc.dialog.set_next_phase()");
 
         me.dialog.addChild("hrule");
 
@@ -264,6 +315,20 @@ var ATCChat = {
         me.send_message(sprintf("Vacated runway %s, %s", runway, callsign));
     },
 
+    set_previous_phase: func {
+        me.flight_phase_index = clamp(me.flight_phase_index - 1, 0, flight_phases.count() - 1);
+        setprop("/atc/phase", flight_phases.vector[me.flight_phase_index]);
+    },
+
+    set_next_phase: func {
+        me.flight_phase_index = clamp(me.flight_phase_index + 1, 0, flight_phases.count() - 1);
+        setprop("/atc/phase", flight_phases.vector[me.flight_phase_index]);
+    },
+
+    on_phase_change: func (text) {
+        debug.dump(text, flight_phases.index(text));
+    },
+
     send_message: func (message) {
         setprop("/sim/multiplay/chat", message);
     },
@@ -331,3 +396,7 @@ setlistener("/sim/multiplay/online", func (node) {
 setlistener("/sim/messages/mp-plane", func (node) {
     dialog.receive_message(node.getValue());
 });
+
+setlistener("/atc/phase", func (node) {
+    dialog.on_phase_change(node.getValue());
+}, startup=1, runtime=0);

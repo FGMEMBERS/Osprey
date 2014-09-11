@@ -52,7 +52,7 @@ var ReplyMessageChoiceClass = {
 var ReadbackMessageChoiceClass = {
 
     new: func (message, sender, receiver) {
-        var label = sprintf("Readback \"%s\" to %s", message, receiver);
+        var label = sprintf("Read back \"%s\" to %s", message, receiver);
         var m = {
             parents: [ReadbackMessageChoiceClass, ReplyMessageChoiceClass.new(label, message, sender, receiver)]
         };

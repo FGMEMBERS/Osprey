@@ -425,6 +425,9 @@
         <logger>
             <file>Aircraft/VMX22-Osprey/Nasal/logger.nas</file>
         </logger>
+        <collections>
+            <file>Aircraft/VMX22-Osprey/Nasal/collections.nas</file>
+        </collections>
         <lighting>
             <file>Aircraft/VMX22-Osprey/Nasal/lighting.nas</file>
         </lighting>
@@ -513,5 +516,9 @@
             <target-speed-kt type="double">200</target-speed-kt>
         </settings>
     </autopilot>
+
+    <atc>
+        <phase type="string"></phase>
+    </atc>
 
 </PropertyList>
