@@ -13,8 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-var sin = func(a) { math.sin(a * math.pi / 180.0) }
-var cos = func(a) { math.cos(a * math.pi / 180.0) }
+var sin = func(a) { math.sin(a * globals.D2R) }
+var cos = func(a) { math.cos(a * globals.D2R) }
 var max = func(a, b) { a > b ? a : b }
 
 var mod = func (n, m) {
@@ -275,8 +275,6 @@ var LandingRunwayAnnounceClass = {
 
     period: 0.1,
 
-    meter_per_feet: 0.3048,
-
     # Announce remaining distance after landing on a runway. Valid modes
     # and the signals they emit are:
     #
@@ -365,7 +363,7 @@ var LandingRunwayAnnounceClass = {
         # Aircraft has already landed on the given runway and is now
         # rolling out
         if (me.landed_runway == runway and me.distance_index >= 0) {
-            var mps = getprop("/velocities/uBody-fps") * LandingRunwayAnnounceClass.meter_per_feet;
+            var mps = getprop("/velocities/uBody-fps") * globals.FT2M;
 
             # Distance travelled in two timer periods
             var dist_upper = me.config.distances[me.distance_index];
