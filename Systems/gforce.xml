@@ -274,15 +274,17 @@
                             </product>
                         </div>
 
-                        <!-- n_max * cos(phi) - 1 -->
+                        <!-- n_max * |cos(phi)| - 1 -->
                         <difference>
                             <product>
                                 <property>/v22/pfcs/limits/gforce-maximum</property>
-                                <cos>
-                                    <deg2rad>
-                                        <property>/orientation/roll-deg</property>
-                                    </deg2rad>
-                                </cos>
+                                <abs>
+                                    <cos>
+                                        <deg2rad>
+                                            <property>/orientation/roll-deg</property>
+                                        </deg2rad>
+                                    </cos>
+                                </abs>
                             </product>
                             <value>1.0</value>
                         </difference>
@@ -319,15 +321,17 @@
                             </product>
                         </div>
 
-                        <!-- n_min * cos(phi) - 1 -->
+                        <!-- n_min * |cos(phi)| - 1 -->
                         <difference>
                             <product>
                                 <property>/v22/pfcs/limits/gforce-minimum</property>
-                                <cos>
-                                    <deg2rad>
-                                        <property>/orientation/roll-deg</property>
-                                    </deg2rad>
-                                </cos>
+                                <abs>
+                                    <cos>
+                                        <deg2rad>
+                                            <property>/orientation/roll-deg</property>
+                                        </deg2rad>
+                                    </cos>
+                                </abs>
                             </product>
                             <value>1.0</value>
                         </difference>
