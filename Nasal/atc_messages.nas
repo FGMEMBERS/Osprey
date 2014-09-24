@@ -19,9 +19,8 @@ var MessageChoiceClass = {
         var m = {
             parents: [MessageChoiceClass]
         };
-        m.label = label;
-        m.message = message;
-        m.receiver = receiver;
+        m.label   = label;
+        m.message = sprintf("%s: %s", receiver, message);
         return m;
     },
 
@@ -30,14 +29,16 @@ var MessageChoiceClass = {
     },
 
     execute: func {
-        var message = sprintf("%s: %s", me.receiver, me.message);
-        atc.dialog.send_message(message);
+        atc.dialog.send_message(me.message);
         atc.dialog.choice_list.remove_all();
     }
 
 };
 
 var ReplyMessageChoiceClass = {
+
+    # label   = "<label>"
+    # message = "<receiver>: <message>, <sender>"
 
     new: func (label, message, receiver) {
         var sender  = getprop("/sim/multiplay/callsign");
@@ -52,6 +53,9 @@ var ReplyMessageChoiceClass = {
 
 var ReadbackMessageChoiceClass = {
 
+    # label   = "Read back '<message>' to <receiver>"
+    # message = "<receiver>: <message>, <sender>"
+
     new: func (message, receiver) {
         var label = sprintf("Read back \"%s\" to %s", message, receiver);
         var m = {
@@ -63,6 +67,9 @@ var ReadbackMessageChoiceClass = {
 };
 
 var RequestMessageChoiceClass = {
+
+    # label   = "<label>"
+    # message = "<receiver>: <sender>, <message>"
 
     new: func (label, message, receiver) {
         var sender  = getprop("/sim/multiplay/callsign");
