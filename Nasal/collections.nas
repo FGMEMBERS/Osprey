@@ -29,7 +29,7 @@ var Vector = {
         return m;
     },
 
-    count: func {
+    size: func {
         # Return the number of items in the vector
 
         return size(me.vector);
@@ -68,9 +68,9 @@ var Vector = {
         # insert(3, "f")  => ["a", "b", "c", "f"]
         # insert(-3, "g") => ["f", "a", "b", "c"]
 
-        index = min(index, me.count());
+        index = min(index, me.size());
         if (index < 0) {
-            index = max(0, me.count() + index);
+            index = max(0, me.size() + index);
         }
         me.vector = subvec(me.vector, 0, index) ~ [item] ~ subvec(me.vector, index);
     },
@@ -92,12 +92,12 @@ var Vector = {
         # IndexError is raised if the index is out of range.
 
         if (index != nil) {
-            if (index < -me.count() or index >= me.count()) {
+            if (index < -me.size() or index >= me.size()) {
                 die("IndexError: index out of range");
             }
 
             if (index < 0) {
-                index = me.count() + index;
+                index = me.size() + index;
             }
             var item = me.vector[index];
             me.vector = subvec(me.vector, 0, index) ~ subvec(me.vector, index + 1);

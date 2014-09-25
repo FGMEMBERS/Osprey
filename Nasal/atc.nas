@@ -332,12 +332,12 @@ var ATCChat = {
     },
 
     set_previous_phase: func {
-        me.flight_phase_index = clamp(me.flight_phase_index - 1, 0, flight_phases.count() - 1);
+        me.flight_phase_index = clamp(me.flight_phase_index - 1, 0, flight_phases.size() - 1);
         setprop("/atc/phase", flight_phases.vector[me.flight_phase_index]);
     },
 
     set_next_phase: func {
-        me.flight_phase_index = clamp(me.flight_phase_index + 1, 0, flight_phases.count() - 1);
+        me.flight_phase_index = clamp(me.flight_phase_index + 1, 0, flight_phases.size() - 1);
         setprop("/atc/phase", flight_phases.vector[me.flight_phase_index]);
     },
 
