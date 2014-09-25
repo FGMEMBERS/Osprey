@@ -44,13 +44,22 @@ var stop_announcer = func {
     takeoff_announcer.set_mode("taxi");
 };
 
+var switch_to_takeoff = func {
+    if (takeoff_announcer.mode == "taxi-and-takeoff") {
+        takeoff_announcer.set_mode("takeoff");
+        logger.warn(sprintf("Takeoff mode: %s", takeoff_announcer.mode));
+    }
+};
+
 var takeoff_config = { parents: [runway.TakeoffRunwayAnnounceConfig] };
 
 var takeoff_announcer = runway.TakeoffRunwayAnnounceClass.new(takeoff_config);
-takeoff_announcer.connect("on-runway", make_notification_cb("On runway %s"));
+takeoff_announcer.connect("on-runway", make_notification_cb("On runway %s", switch_to_takeoff));
 takeoff_announcer.connect("approaching-runway", make_notification_cb("Approaching runway %s"));
 
 var landing_config = { parents: [runway.LandingRunwayAnnounceConfig] };
+landing_config.distances_unit = "feet";
+landing_config.distance_center_nose_m = 8;
 
 var landing_announcer = runway.LandingRunwayAnnounceClass.new(landing_config);
 landing_announcer.connect("remaining-distance", make_notification_cb("%d remaining"));
