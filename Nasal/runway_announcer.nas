@@ -62,13 +62,6 @@ var RunwayAnnounceClass = {
         # will not notify certain observers.
 
         me.mode = mode;
-
-        if (mode != '') {
-            logger.warn(sprintf("Set mode to %s", mode));
-        }
-        else {
-            logger.warn("Reset mode");
-        }
     },
 
     _check_runway: func (apt, runway, self) {
