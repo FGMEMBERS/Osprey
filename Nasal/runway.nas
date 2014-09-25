@@ -42,6 +42,7 @@ var stop_announcer = func {
     logger.warn("Stopping landing announce");
 
     takeoff_announcer.set_mode("taxi");
+    logger.warn(sprintf("Takeoff mode: %s", takeoff_announcer.mode));
 };
 
 var switch_to_takeoff = func {
@@ -80,6 +81,7 @@ var make_switch_mode_cb = func (wow_mode, no_wow_mode) {
         else {
             takeoff_announcer.set_mode("");
         }
+        logger.warn(sprintf("Takeoff mode: %s", takeoff_announcer.mode));
     };
 };
 
