@@ -263,7 +263,12 @@ var TakeoffRunwayAnnounceClass = {
 
 var LandingRunwayAnnounceConfig = {
 
-    distances: [30, 100, 300, 600, 900, 1200, 2000, 3000, 4000],
+    distances_meter: [ 30, 100,  300,  600,  900, 1200, 1500],
+
+    distances_feet:  [100, 300, 1000, 2000, 3000, 4000, 5000],
+
+    distances_unit: "meter",
+    # The unit to use for the remaining distance. Can be "meter" or "feet"
 
     diff_runway_heading_deg: 15,
     # Difference in heading between runway and aircraft in order to
@@ -355,7 +360,7 @@ var LandingRunwayAnnounceClass = {
             var heading_diff = abs(self_heading - runway_heading);
             if (heading_diff <= me.config.diff_runway_heading_deg) {
                 me.landed_runway = runway;
-                me.distance_index = size(me.config.distances) - 1;
+                me.distance_index = size(me.config.distances_meter) - 1;
                 me.notify_observers("landed-runway", runway);
             }
         }
@@ -363,17 +368,25 @@ var LandingRunwayAnnounceClass = {
         # Aircraft has already landed on the given runway and is now
         # rolling out
         if (me.landed_runway == runway and me.distance_index >= 0) {
-            var mps = getprop("/velocities/uBody-fps") * globals.FT2M;
+            if (me.config.distances_unit == "meter") {
+                var unit_ps = getprop("/velocities/uBody-fps") * globals.FT2M;
+                var dist_upper = me.config.distances_meter[me.distance_index];
+                var remaining_distance = result.distance_stop;
+            }
+            elsif (me.config.distances_unit == "feet") {
+                var unit_ps = getprop("/velocities/uBody-fps");
+                var dist_upper = me.config.distances_feet[me.distance_index];
+                var remaining_distance = result.distance_stop * globals.M2FT;
+            }
 
             # Distance travelled in two timer periods
-            var dist_upper = me.config.distances[me.distance_index];
-            var dist_lower = dist_upper - mps * LandingRunwayAnnounceClass.period * 2;
+            var dist_lower = dist_upper - unit_ps * LandingRunwayAnnounceClass.period * 2;
 
-            if (dist_lower <= result.distance_stop and result.distance_stop <= dist_upper) {
+            if (dist_lower <= remaining_distance and remaining_distance <= dist_upper) {
                 me.notify_observers("remaining-distance", dist_upper);
             }
 
-            if (result.distance_stop <= dist_upper) {
+            if (remaining_distance <= dist_upper) {
                 me.distance_index = me.distance_index - 1;
             };
         }
