@@ -20,11 +20,18 @@ var copilot_say = func (message) {
 var make_notification_cb = func (format, action=nil) {
     return func (data=nil) {
         if (format != nil) {
-            if (data != nil) {
-                var message = sprintf(format, data.getValue());
+            if (typeof(format) == "func") {
+                var message_format = format();
             }
             else {
-                var message = format;
+                var message_format = format;
+            }
+
+            if (data != nil) {
+                var message = sprintf(message_format, data.getValue());
+            }
+            else {
+                var message = message_format;
             }
 
             copilot_say(message);
@@ -35,6 +42,15 @@ var make_notification_cb = func (format, action=nil) {
             action();
         }
     };
+};
+
+var on_short_runway_format = func {
+    var distance = getprop("/sim/runway-announcer/short-runway-distance");
+    return sprintf("On runway %%s, %d %s remaining", distance, takeoff_config.distances_unit);
+};
+
+var remaining_distance_format = func {
+    return sprintf("%%d %s remaining", landing_config.distances_unit);
 };
 
 var stop_announcer = func {
@@ -54,10 +70,11 @@ var switch_to_takeoff = func {
 
 var takeoff_config = { parents: [runway.TakeoffRunwayAnnounceConfig] };
 takeoff_config.distance_start_m = nil;
+takeoff_config.distances_unit = "feet";
 
 var takeoff_announcer = runway.TakeoffRunwayAnnounceClass.new(takeoff_config);
 takeoff_announcer.connect("on-runway", make_notification_cb("On runway %s", switch_to_takeoff));
-takeoff_announcer.connect("on-short-runway", make_notification_cb("On short runway %s", switch_to_takeoff));
+takeoff_announcer.connect("on-short-runway", make_notification_cb(on_short_runway_format, switch_to_takeoff));
 takeoff_announcer.connect("approaching-runway", make_notification_cb("Approaching runway %s"));
 
 var landing_config = { parents: [runway.LandingRunwayAnnounceConfig] };
@@ -65,7 +82,7 @@ landing_config.distances_unit = "feet";
 landing_config.distance_center_nose_m = 8;
 
 var landing_announcer = runway.LandingRunwayAnnounceClass.new(landing_config);
-landing_announcer.connect("remaining-distance", make_notification_cb("%d remaining"));
+landing_announcer.connect("remaining-distance", make_notification_cb(remaining_distance_format));
 landing_announcer.connect("vacated-runway", make_notification_cb("Vacated runway %s", stop_announcer));
 landing_announcer.connect("landed-runway", make_notification_cb("Touchdown on runway %s"));
 landing_announcer.connect("landed-outside-runway", make_notification_cb(nil, stop_announcer));
