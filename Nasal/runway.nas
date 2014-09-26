@@ -65,6 +65,10 @@ var switch_to_takeoff = func {
     if (takeoff_announcer.mode == "taxi-and-takeoff") {
         takeoff_announcer.set_mode("takeoff");
         logger.warn(sprintf("Takeoff mode: %s", takeoff_announcer.mode));
+
+        landing_announcer.set_mode("takeoff");
+        landing_announcer.start();
+        logger.warn("Starting landing announce");
     }
 };
 
@@ -124,9 +128,10 @@ var init_announcers = func {
                 have_been_in_air = 0;
 
                 takeoff_announcer.set_mode("");
+                logger.warn(sprintf("Takeoff mode: %s", takeoff_announcer.mode));
 
-                landing_announcer.start();
                 landing_announcer.set_mode("landing");
+                landing_announcer.start();
                 logger.warn("Starting landing announce");
             }
         }
