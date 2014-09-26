@@ -41,7 +41,7 @@ var stop_announcer = func {
     landing_announcer.stop();
     logger.warn("Stopping landing announce");
 
-    takeoff_announcer.set_mode("taxi");
+    takeoff_announcer.set_mode("taxi-and-takeoff");
     logger.warn(sprintf("Takeoff mode: %s", takeoff_announcer.mode));
 };
 
@@ -53,9 +53,11 @@ var switch_to_takeoff = func {
 };
 
 var takeoff_config = { parents: [runway.TakeoffRunwayAnnounceConfig] };
+takeoff_config.distance_start_m = nil;
 
 var takeoff_announcer = runway.TakeoffRunwayAnnounceClass.new(takeoff_config);
 takeoff_announcer.connect("on-runway", make_notification_cb("On runway %s", switch_to_takeoff));
+takeoff_announcer.connect("on-short-runway", make_notification_cb("On short runway %s", switch_to_takeoff));
 takeoff_announcer.connect("approaching-runway", make_notification_cb("Approaching runway %s"));
 
 var landing_config = { parents: [runway.LandingRunwayAnnounceConfig] };
