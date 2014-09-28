@@ -48,6 +48,7 @@ var switch_to_takeoff = func {
 
 var takeoff_config = { parents: [runway.TakeoffRunwayAnnounceConfig] };
 takeoff_config.distances_unit = "feet";
+takeoff_config.groundspeed_max_kt = 25;
 
 var takeoff_announcer = runway.TakeoffRunwayAnnounceClass.new(takeoff_config);
 takeoff_announcer.connect("on-runway", runway.make_betty_cb(copilot_say, "On runway %s", switch_to_takeoff));
