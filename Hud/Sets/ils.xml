@@ -59,6 +59,7 @@
         <condition>
             <and>
                 <property>/v22/afcs/locks/vor-ils</property>
+                <property>/instrumentation/nav[0]/has-gs</property>
                 <not>
                     <property>/v22/afcs/active/gs-hold</property>
                 </not>
