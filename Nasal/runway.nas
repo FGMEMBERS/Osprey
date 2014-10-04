@@ -59,6 +59,7 @@ landing_announcer.connect("landed-runway", runway.make_betty_cb(copilot_say, "To
 landing_announcer.connect("landed-outside-runway", runway.make_betty_cb(copilot_say, nil, stop_announcer));
 
 var set_on_ground = runway.make_set_ground_func(takeoff_announcer, landing_announcer);
+var init_takeoff  = runway.make_init_func(takeoff_announcer);
 
 var init_announcers = func {
     setlistener("/gear/gear[0]/wow-avg", func (node) {
@@ -68,7 +69,10 @@ var init_announcers = func {
         # Tell the multiplayer ATC chat window whether the aircraft is
         # on the ground or in the air
         atc.dialog.set_on_ground(on_ground);
-    }, startup=1, runtime=0);
+    }, startup=0, runtime=0);
+
+    init_takeoff();
+    atc.dialog.set_on_ground(getprop("/gear/gear[0]/wow-avg"));
 };
 
 setlistener("/sim/signals/fdm-initialized", func {
