@@ -506,6 +506,9 @@
             <offset-x-m>9</offset-x-m>
             <offset-y-m>1</offset-y-m>
             <offset-z-m>0</offset-z-m>
+
+            <contact-report type="bool">true</contact-report>
+            <contact-radius-m type="double">4.0</contact-radius-m>
         </refuel>
     </systems>
 
