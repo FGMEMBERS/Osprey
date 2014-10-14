@@ -35,6 +35,10 @@
 
         <flight-recorder include="Systems/flight-recorder-cv22.xml"/>
 
+        <instrumentation>
+            <path>Aircraft/VMX22-Osprey/Systems/instrumentation-cv22.xml</path>
+        </instrumentation>
+
     </sim>
 
     <consumables>
@@ -43,5 +47,19 @@
             <tank n="9"><name>Right Wing Auxilliary</name></tank>
         </fuel>
     </consumables>
+
+    <instrumentation>
+        <tcas>
+            <serviceable type="bool">true</serviceable>
+            <inputs>
+                <!-- 0: off, 1: standby, 2: TA, 3:TA/RA -->
+                <mode type="int">3</mode>
+            </inputs>
+            <speaker>
+                <max-dist type="double">200.0</max-dist>
+                <reference-dist type="double">2.0</reference-dist>
+            </speaker>
+        </tcas>
+    </instrumentation>
 
 </PropertyList>

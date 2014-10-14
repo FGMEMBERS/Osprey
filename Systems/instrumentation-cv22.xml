@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList include="Systems/instrumentation.xml">
+
+    <tcas>
+        <name>tcas</name>
+        <number>0</number>
+    </tcas>
+
+</PropertyList>

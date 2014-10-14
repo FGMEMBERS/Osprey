@@ -232,6 +232,10 @@
             </palette>
         </hud>
 
+        <instrumentation>
+            <path>Aircraft/VMX22-Osprey/Systems/instrumentation.xml</path>
+        </instrumentation>
+
     </sim>
 
     <!-- Following properties are part of a static list of properties
@@ -492,7 +496,18 @@
         <max-negative-g>-1.0</max-negative-g>
     </limits>
 
-    <instrumentation include="Systems/instrumentation.xml"/>
+    <instrumentation>
+        <radar>
+            <range type="int">20</range>
+            <minimized type="bool">true</minimized>
+        </radar>
+        <radar-altimeter>
+            <serviceable type="bool">true</serviceable>
+        </radar-altimeter>
+        <wxradar>
+            <serviceable type="bool">true</serviceable>
+        </wxradar>
+    </instrumentation>
 
     <systems>
         <refuel>

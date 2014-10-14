@@ -2,9 +2,128 @@
 
 <PropertyList>
 
+    <airspeed-indicator>
+        <name>airspeed-indicator</name>
+        <number>0</number>
+        <total-pressure>/systems/pitot/total-pressure-inhg</total-pressure>
+        <static-pressure>/systems/static/pressure-inhg</static-pressure>
+    </airspeed-indicator>
+
+    <attitude-indicator>
+        <name>attitude-indicator</name>
+        <number>0</number>
+        <suction>/systems/vacuum/suction-inhg</suction>
+    </attitude-indicator>
+
+    <altimeter>
+        <name>altimeter</name>
+        <number>0</number>
+        <static-pressure>/systems/static/pressure-inhg</static-pressure>
+        <quantum>0</quantum>
+        <tau>0</tau>
+        <encode-mode-c type="bool">true</encode-mode-c>
+        <encode-mode-s type="bool">true</encode-mode-s>
+    </altimeter>
+
+    <radar-altimeter>
+        <name>radar-altimeter</name>
+        <number>0</number>
+    </radar-altimeter>
+
+    <heading-indicator>
+        <name>heading-indicator</name>
+        <number>0</number>
+        <suction>/systems/vacuum/suction-inhg</suction>
+    </heading-indicator>
+
+    <slip-skid-ball>
+        <name>slip-skid-ball</name>
+        <number>0</number>
+    </slip-skid-ball>
+
+    <turn-indicator>
+        <name>turn-indicator</name>
+        <number>0</number>
+    </turn-indicator>
+
+    <vertical-speed-indicator>
+        <name>vertical-speed-indicator</name>
+        <number>0</number>
+        <static-pressure>/systems/static/pressure-inhg</static-pressure>
+    </vertical-speed-indicator>
+
+    <magnetic-compass>
+        <name>magnetic-compass</name>
+        <number>0</number>
+    </magnetic-compass>
+
+    <clock>
+        <name>clock</name>
+        <number>0</number>
+    </clock>
+
+    <adf>
+        <name>adf</name>
+        <number>0</number>
+    </adf>
+
+    <dme>
+        <name>dme</name>
+        <number>0</number>
+    </dme>
+
+    <marker-beacon>
+        <name>marker-beacon</name>
+        <number>0</number>
+    </marker-beacon>
+
+    <!-- <comm-radio>
+        <name>comm</name>
+        <number>0</number>
+    </comm-radio>
+
+    <comm-radio>
+        <name>comm</name>
+        <number>1</number>
+    </comm-radio> -->
+
+    <nav-radio>
+        <name>nav</name>
+        <number>0</number>
+    </nav-radio>
+
+    <nav-radio>
+        <name>nav</name>
+        <number>1</number>
+    </nav-radio>
+
+    <transponder>
+        <name>transponder</name>
+        <number>0</number>
+        <encoder-path>/instrumentation/altimeter</encoder-path>
+
+        <!-- Mode S -->
+        <mode type="int">2</mode>
+    </transponder>
+
+    <gps>
+        <name>gps</name>
+        <number>0</number>
+    </gps>
+
     <radar>
-        <range type="int">20</range>
-        <minimized type="bool">true</minimized>
+        <name>wxradar</name>
+        <number>0</number>
     </radar>
+
+    <tacan>
+        <name>tacan</name>
+        <number>0</number>
+    </tacan>
+
+    <mk-viii>
+        <name>mk-viii</name>
+        <number>0</number>
+    </mk-viii>
 
 </PropertyList>
