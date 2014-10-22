@@ -236,6 +236,13 @@
             <path>Aircraft/VMX22-Osprey/Systems/instrumentation.xml</path>
         </instrumentation>
 
+        <rendering>
+            <headshake>
+                <enabled type="bool">true</enabled>
+                <rate-m-g type="double">0.05</rate-m-g>
+            </headshake>
+        </rendering>
+
     </sim>
 
     <!-- Following properties are part of a static list of properties
