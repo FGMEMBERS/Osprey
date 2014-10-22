@@ -18,8 +18,7 @@
 <!--
      Empty weight: 33140 lbs
 -->
-<!-- version="YASIM_VERSION_32" -->
-<airplane mass="33140">
+<airplane mass="33140" version="YASIM_VERSION_32">
 
     <approach speed="85" aoa="6">
         <control-setting axis="/sim/model/v22/tilt" value="90"/>
