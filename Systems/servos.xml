@@ -429,11 +429,26 @@
     <!-- Gear Logic                                                         -->
     <!-- ================================================================== -->
 
+    <!-- Since /gear/gear[i]/wow bounces very easily, a moving-average filter
+         and RS flipflop is used to debounce wow for each specific gear.
+
+         The resulting wow-avg properties are used in fbw.xml to determine
+         if the movement of the aircraft is constrained around certain
+         axes. fbw.xml then uses the results to enable or disable the rate
+         controllers for each axis (pitch and roll rate). If the aircraft
+         is on the ground with all three gear, then the stick directly
+         controls the ailerons and elevator.
+
+         Further down below in this file, one flipflop uses the three
+         wow-avg properties to determine if the aircraft is on the ground
+         or airborne.
+    -->
+
     <!-- Computes the velocity of the normalized nose gear position.
          Can be used to detect whether the gear is stuck.
     -->
     <filter>
-        <name>Gear Movement</name>
+        <name>Nose Gear Movement</name>
         <type>derivative</type>
         <filter-time>1.0</filter-time>
         <input>
@@ -555,6 +570,35 @@
         </R>
         <output>
             <property>/gear/gear[2]/wow-avg</property>
+        </output>
+    </flipflop>
+
+    <!-- ================================================================== -->
+    <!-- On Ground Logic                                                    -->
+    <!-- ================================================================== -->
+
+    <flipflop>
+        <name>Aircraft On Ground Switcher</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>RS</type>
+        <S>
+            <and>
+                <property>/gear/gear[0]/wow-avg</property>
+                <property>/gear/gear[1]/wow-avg</property>
+                <property>/gear/gear[2]/wow-avg</property>
+            </and>
+        </S>
+        <R>
+            <not>
+                <or>
+                    <property>/gear/gear[0]/wow-avg</property>
+                    <property>/gear/gear[1]/wow-avg</property>
+                    <property>/gear/gear[2]/wow-avg</property>
+                </or>
+            </not>
+        </R>
+        <output>
+            <property>/gear/on-ground</property>
         </output>
     </flipflop>
 

@@ -62,7 +62,7 @@ var set_on_ground = runway.make_set_ground_func(takeoff_announcer, landing_annou
 var init_takeoff  = runway.make_init_func(takeoff_announcer);
 
 var init_announcers = func {
-    setlistener("/gear/gear[0]/wow-avg", func (node) {
+    setlistener("/gear/on-ground", func (node) {
         var on_ground = node.getBoolValue();
         set_on_ground(on_ground);
 
@@ -72,7 +72,7 @@ var init_announcers = func {
     }, startup=0, runtime=0);
 
     init_takeoff();
-    atc.dialog.set_on_ground(getprop("/gear/gear[0]/wow-avg"));
+    atc.dialog.set_on_ground(getprop("/gear/on-ground"));
 };
 
 setlistener("/sim/signals/fdm-initialized", func {
