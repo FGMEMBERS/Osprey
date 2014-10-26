@@ -30,7 +30,7 @@ x Replace Autopilot Settings window with custom dialog
 - Add overspeed and stall protection?
 - Perhaps add automatic attitude stabilization (AFCS) when stick is in neutral position
 - Perhaps add position (x,y) stabilization in VTOL mode when stick is in neutral position
-- Add radar altimeter
+x Add radar altimeter
 x Add TCAS for CV-22
 - Add TF/TA multimode radar for CV-22
 - Modify 3D model so that wind screen wipers can be moved
