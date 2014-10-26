@@ -6,7 +6,7 @@
     <signals include="/Aircraft/Generic/flightrecorder/components/position.xml"/>
     <signals include="/Aircraft/Generic/flightrecorder/components/controls.xml"/>
     <signals include="/Aircraft/Generic/flightrecorder/components/environment.xml"/>
-    <signals include="flightrecorder/components/surfaces.xml"/>
+    <signals include="components/surfaces.xml"/>
 
     <signals include="/Aircraft/Generic/flightrecorder/components/gear-retractable.xml">
         <count type="int">3</count>

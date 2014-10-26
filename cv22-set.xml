@@ -33,7 +33,7 @@
             </default>
         </menubar>
 
-        <flight-recorder include="Systems/flight-recorder-cv22.xml"/>
+        <flight-recorder include="Systems/flight-recorder/flight-recorder-cv22.xml"/>
 
         <instrumentation>
             <path>Aircraft/VMX22-Osprey/Systems/instrumentation-cv22.xml</path>
