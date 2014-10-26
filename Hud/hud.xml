@@ -58,10 +58,10 @@
         <height>140</height>
 
         <roll-input>
-            <property>/orientation/roll-deg</property>
+            <property>/instrumentation/attitude-indicator/indicated-roll-deg</property>
         </roll-input>
         <pitch-input>
-            <property>/orientation/pitch-deg</property>
+            <property>/instrumentation/attitude-indicator/indicated-pitch-deg</property>
         </pitch-input>
 
         <compression-factor>10</compression-factor>
@@ -93,7 +93,7 @@
         <name>Gyrocompass</name>
 
         <input>
-            <property>/orientation/heading-magnetic-deg</property>
+            <property>/instrumentation/heading-indicator/indicated-heading-deg</property>
             <factor>0.1</factor>
         </input>
 
@@ -153,7 +153,7 @@
         <pointer-width>7</pointer-width-->
 
         <input>
-            <property>/orientation/heading-magnetic-deg</property>
+            <property>/instrumentation/heading-indicator/indicated-heading-deg</property>
         </input>
     </label>
 
@@ -423,7 +423,7 @@
         <height>250</height>
 
         <bank-input>
-            <property>/orientation/roll-deg</property>
+            <property>/instrumentation/attitude-indicator/indicated-roll-deg</property>
         </bank-input>
         <sideslip-input>
             <property>/orientation/side-slip-deg</property>

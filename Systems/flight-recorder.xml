@@ -173,8 +173,8 @@
 
         <!-- Gear -->
         <signal>
-            <type>float</type>
-            <property type="string">/position/gear-agl-m</property>
+            <type>double</type>
+            <property type="string">/position/gear-agl-ft</property>
         </signal>
         <signal>
             <type>float</type>
@@ -196,8 +196,12 @@
 
         <!-- HUD -->
         <signal>
-            <type>double</type>
-            <property type="string">/position/gear-agl-ft</property>
+            <type>float</type>
+            <property type="string">/instrumentation/attitude-indicator/spin</property>
+        </signal>
+        <signal>
+            <type>float</type>
+            <property type="string">/instrumentation/heading-indicator/spin</property>
         </signal>
         <signal>
             <type>double</type>

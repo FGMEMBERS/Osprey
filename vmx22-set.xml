@@ -193,6 +193,7 @@
         <menubar include="Dialogs/v22-menu.xml"/>
 
         <systems>
+            <path>Aircraft/VMX22-Osprey/Systems/systems.xml</path>
             <autopilot>
                 <path>Systems/servos.xml</path>
             </autopilot>
