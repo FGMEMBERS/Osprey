@@ -6,7 +6,7 @@
     <signals include="/Aircraft/Generic/flightrecorder/components/position.xml"/>
     <signals include="/Aircraft/Generic/flightrecorder/components/controls.xml"/>
     <signals include="/Aircraft/Generic/flightrecorder/components/environment.xml"/>
-    <signals include="/Aircraft/Generic/flightrecorder/components/surfaces.xml"/>
+    <signals include="flightrecorder/components/surfaces.xml"/>
 
     <signals include="/Aircraft/Generic/flightrecorder/components/gear-retractable.xml">
         <count type="int">3</count>
@@ -49,10 +49,6 @@
         <!-- Blades right rotor -->
         <signal>
             <type>float</type>
-            <property type="string">/rotors/main/blade[0]/flap-deg</property>
-        </signal>
-        <signal>
-            <type>float</type>
             <property type="string">/rotors/main/blade[0]/incidence-deg</property>
         </signal>
         <signal>
@@ -61,34 +57,14 @@
         </signal>
         <signal>
             <type>float</type>
-            <property type="string">/rotors/main/blade[1]/flap-deg</property>
-        </signal>
-        <signal>
-            <type>float</type>
             <property type="string">/rotors/main/blade[1]/incidence-deg</property>
-        </signal>
-        <signal>
-            <type>float</type>
-            <property type="string">/rotors/main/blade[1]/position-deg</property>
-        </signal>
-        <signal>
-            <type>float</type>
-            <property type="string">/rotors/main/blade[2]/flap-deg</property>
         </signal>
         <signal>
             <type>float</type>
             <property type="string">/rotors/main/blade[2]/incidence-deg</property>
         </signal>
-        <signal>
-            <type>float</type>
-            <property type="string">/rotors/main/blade[2]/position-deg</property>
-        </signal>
 
         <!-- Blades left rotor -->
-        <signal>
-            <type>float</type>
-            <property type="string">/rotors/tail/blade[0]/flap-deg</property>
-        </signal>
         <signal>
             <type>float</type>
             <property type="string">/rotors/tail/blade[0]/incidence-deg</property>
@@ -99,27 +75,11 @@
         </signal>
         <signal>
             <type>float</type>
-            <property type="string">/rotors/tail/blade[1]/flap-deg</property>
-        </signal>
-        <signal>
-            <type>float</type>
             <property type="string">/rotors/tail/blade[1]/incidence-deg</property>
         </signal>
         <signal>
             <type>float</type>
-            <property type="string">/rotors/tail/blade[1]/position-deg</property>
-        </signal>
-        <signal>
-            <type>float</type>
-            <property type="string">/rotors/tail/blade[2]/flap-deg</property>
-        </signal>
-        <signal>
-            <type>float</type>
             <property type="string">/rotors/tail/blade[2]/incidence-deg</property>
-        </signal>
-        <signal>
-            <type>float</type>
-            <property type="string">/rotors/tail/blade[2]/position-deg</property>
         </signal>
 
         <signal>
