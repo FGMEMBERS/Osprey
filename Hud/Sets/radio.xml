@@ -112,7 +112,7 @@
         <y>-30</y>
         <halign>left</halign>
 
-        <format>Pressure:</format>
+        <format>Altimeter:</format>
     </label>
 
     <label>
