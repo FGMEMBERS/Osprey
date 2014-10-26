@@ -451,6 +451,13 @@
         <name>Nose Gear Movement</name>
         <type>derivative</type>
         <filter-time>1.0</filter-time>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
         <input>
             <property>/gear/gear[0]/position-norm</property>
         </input>

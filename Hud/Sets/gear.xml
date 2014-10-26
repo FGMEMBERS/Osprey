@@ -2,6 +2,8 @@
 
 <PropertyList>
 
+    <!-- TODO Right now only nose gear is handled. Handle main gear as well -->
+
     <label>
         <name>Parking Brake</name>
         <width>2</width>
@@ -45,7 +47,7 @@
 
         <condition>
             <less-than>
-                <property>/gear/gear/position-normps</property>
+                <property>/gear/gear[0]/position-normps</property>
                 <value>0.0</value>
             </less-than>
         </condition>
@@ -66,7 +68,7 @@
 
         <condition>
             <greater-than>
-                <property>/gear/gear/position-normps</property>
+                <property>/gear/gear[0]/position-normps</property>
                 <value>0.0</value>
             </greater-than>
         </condition>
@@ -89,7 +91,7 @@
 
         <condition>
             <equals>
-                <property>/gear/gear/position-norm</property>
+                <property>/gear/gear[0]/position-norm</property>
                 <value>1.0</value>
             </equals>
         </condition>
@@ -107,15 +109,15 @@
         <condition>
             <and>
                 <not-equals>
-                    <property>/gear/gear/position-norm</property>
+                    <property>/gear/gear[0]/position-norm</property>
                     <value>0.0</value>
                 </not-equals>
                 <not-equals>
-                    <property>/gear/gear/position-norm</property>
+                    <property>/gear/gear[0]/position-norm</property>
                     <value>1.0</value>
                 </not-equals>
                 <equals>
-                    <property>/gear/gear/position-normps</property>
+                    <property>/gear/gear[0]/position-normps</property>
                     <value>0.0</value>
                 </equals>
             </and>
