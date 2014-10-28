@@ -62,7 +62,7 @@ x Add support for TACAN, VOR, ILS, GPS
 - Perhaps do not allow extension of landing gear at airspeed above 140 KCAS?
 - Display a warning message when WOW of landing gear above 100 knots GS
 - Limit mast torque to 100% without interim power and 109% with interim power
-- Adjust YASim FDM to work with YASIM_VERSION_32 in FlightGear 3.2
+x Adjust YASim FDM to work with YASIM_VERSION_32 in FlightGear 3.2
 - Add missions from guide book
 - Add dual control
 - Use heading hold if speed is less than 25 knots, switch to turn coordinator between 25 and 45 knots
