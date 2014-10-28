@@ -224,4 +224,26 @@
         </binding>
     </key>
 
+    <key n="9">
+        <name>Tab</name>
+        <desc>Cycle mouse mode</desc>
+        <binding>
+            <condition>
+                <not>
+                    <property>/devices/status/keyboard/alt</property>
+                </not>
+                <not>
+                    <property>/devices/status/keyboard/ctrl</property>
+                </not>
+            </condition>
+            <command>property-adjust</command>
+            <property>/devices/status/mice/mouse[0]/mode</property>
+            <step type="int">1</step>
+            <min>0</min>
+            <max>2</max>
+            <wrap>true</wrap>
+            <reason>key-press</reason>
+        </binding>
+    </key>
+
 </PropertyList>
