@@ -22,7 +22,7 @@
                     <property>/v22/afcs/locks/heading</property>
                     <value>tacan-hold</value>
                 </equals>
-                <property>/v22/afcs/internal/tacan-in-range</property>
+                <property>/instrumentation/tacan/in-range</property>
             </and>
         </input>
         <output>
@@ -256,6 +256,36 @@
         </period>
     </filter>
 
+    <!-- A filter which remembers the last true track when the aircraft
+         gets too close to the TACAN target. As long as TACAN is enabled
+         and the distance to the target is greater than a certain distance,
+         it will update the tacan-true-heading-deg property. Once the
+         aircraft gets too close, it will stop updating the property,
+         causing the aircraft to maintain the remembered track.
+    -->
+    <filter>
+        <name>A/P TACAN Track Store</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <and>
+                    <property>/v22/afcs/active/tacan-hold</property>
+                    <greater-than>
+                        <property>/instrumentation/tacan/indicated-distance-nm</property>
+                        <value>0.2</value>
+                    </greater-than>
+                </and>
+            </condition>
+        </enable>
+        <input>
+            <property>/instrumentation/gps/indicated-track-true-deg</property>
+        </input>
+        <output>
+            <property>/v22/afcs/target/tacan-true-heading-deg</property>
+        </output>
+    </filter>
+
     <filter>
         <name>A/P TACAN Heading Bug Error Computer</name>
         <type>gain</type>
@@ -264,7 +294,21 @@
             <property>/v22/afcs/active/tacan-hold</property>
         </enable>
         <input>
-            <property>/v22/afcs/target/tacan-bearing-deg</property>
+            <condition>
+                <greater-than>
+                    <property>/instrumentation/tacan/indicated-distance-nm</property>
+                    <value>0.2</value>
+                </greater-than>
+            </condition>
+            <property>/instrumentation/tacan/indicated-bearing-true-deg</property>
+            <offset>
+                <property>/instrumentation/gps/indicated-track-true-deg</property>
+                <scale>-1.0</scale>
+            </offset>
+        </input>
+        <input>
+            <!-- Maintain the remembered track -->
+            <property>/v22/afcs/target/tacan-true-heading-deg</property>
             <offset>
                 <property>/instrumentation/gps/indicated-track-true-deg</property>
                 <scale>-1.0</scale>

@@ -320,6 +320,7 @@
                 <ap-altitude-ft type="double">10000</ap-altitude-ft>
                 <ap-agl-ft type="double">50</ap-agl-ft>
                 <mp-callsign-tacan type="string"></mp-callsign-tacan>
+                <tacan-true-heading-deg type="double">0.0</tacan-true-heading-deg>
             </target>
         </afcs>
         <pfcs>

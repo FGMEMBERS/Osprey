@@ -57,7 +57,7 @@
         <format>TACAN:</format>
     </label>
     <label>
-        <name>TACAN Channel 1</name>
+        <name>TACAN Channel</name>
         <width>2</width>
         <height>2</height>
         <x>50</x>
@@ -65,43 +65,7 @@
         <halign>left</halign>
 
         <input>
-            <property>/instrumentation/tacan/frequencies/selected-channel[1]</property> 
-        </input>
-    </label>
-    <label>
-        <name>TACAN Channel 2</name>
-        <width>2</width>
-        <height>2</height>
-        <x>56</x>
-        <y>-20</y>
-        <halign>left</halign>
-
-        <input>
-            <property>/instrumentation/tacan/frequencies/selected-channel[2]</property> 
-        </input>
-    </label>
-    <label>
-        <name>TACAN Channel 3</name>
-        <width>2</width>
-        <height>2</height>
-        <x>62</x>
-        <y>-20</y>
-        <halign>left</halign>
-
-        <input>
-            <property>/instrumentation/tacan/frequencies/selected-channel[3]</property> 
-        </input>
-    </label>
-    <label>
-        <name>TACAN Channel 4</name>
-        <width>2</width>
-        <height>2</height>
-        <x>68</x>
-        <y>-20</y>
-        <halign>left</halign>
-
-        <input>
-            <property>/instrumentation/tacan/frequencies/selected-channel[4]</property> 
+            <property>/instrumentation/tacan/display/channel</property> 
         </input>
     </label>
 

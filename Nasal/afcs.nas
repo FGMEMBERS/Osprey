@@ -29,52 +29,7 @@ var TacanClass = {
         };
     },
 
-    get_channel_id: func {
-        # Return the current TACAN channel ID. This ID can be set in the Radio Settings panel.
-
-        var get_channel = func (i) {
-            return getprop("/instrumentation/tacan/frequencies/selected-channel[" ~ i ~ "]");
-        }
-        return get_channel(1) ~ get_channel(2) ~ get_channel(3) ~ get_channel(4);
-    },
-
-    find_tanker: func (channel_id) {
-        # Find and return a tanker that has the given TACAN channel ID
-        # and a fuel drogue. Return nil if no appropriate tanker can be found.
-
-        var tankers = props.globals.getNode("/ai/models", 1).getChildren("tanker");
-
-        foreach (var tanker; tankers) {
-            if (tanker.getNode("valid", 1).getValue()
-              and tanker.getNode("refuel/type").getValue() == "probe"
-              and tanker.getNode("navaids/tacan/channel-ID", 1).getValue() == channel_id) {
-                return tanker; 
-            }
-        }
-        return nil;
-    },
-
-    follow_ai_target: func(target) {
-        # Set-up listeners to follow the given AI tanker
-
-        var true_hdg_deg = target.getNode("orientation/true-heading-deg");
-        var range_nm = target.getNode("radar/range-nm");
-
-        append(me.listeners, setlistener(target.getNode("radar/bearing-deg"), func (node) {
-            if (range_nm.getValue() > 0.2) {
-                setprop("/v22/afcs/target/tacan-bearing-deg", node.getValue());
-            }
-            else {
-                setprop("/v22/afcs/target/tacan-bearing-deg", true_hdg_deg.getValue());
-            }
-        }, startup=1));
-
-        append(me.listeners, setlistener(target.getNode("radar/in-range"), func (node) {
-            setprop("/v22/afcs/internal/tacan-in-range", node.getValue());
-        }, startup=1));
-    },
-
-    find_mp_aircraft: func (callsign) {
+    _find_mp_aircraft: func (callsign) {
         # Find and return an MP aircraft that has the given callsign
 
         if (contains(multiplayer.model.callsign, callsign)) {
@@ -83,14 +38,16 @@ var TacanClass = {
         return nil;
     },
 
-    follow_mp_target: func(target) {
+    _follow_mp_target: func(target) {
         # Set-up listeners to follow the given MP target
 
         var valid = target.getNode("valid");
+        var distance = target.getNode("radar/range-nm");
 
         append(me.listeners, setlistener(target.getNode("radar/bearing-deg"), func (node) {
-            setprop("/v22/afcs/target/tacan-bearing-deg", node.getValue());
-            setprop("/v22/afcs/internal/tacan-in-range", valid.getValue());
+            setprop("/instrumentation/tacan/indicated-bearing-true-deg", node.getValue());
+            setprop("/instrumentation/tacan/indicated-distance-nm", distance.getValue());
+            globals.props.getNode("/instrumentation/tacan/in-range").setBoolValue(valid.getValue());
         }, startup=1));
     },
 
@@ -101,7 +58,7 @@ var TacanClass = {
         # This listener is created once and gets only cleaned up when TACAN
         # is disabled again
 
-        var target = me.find_mp_aircraft(callsign);
+        var target = me._find_mp_aircraft(callsign);
 
         if (target != nil) {
             var callsign = target.getNode("callsign").getValue();
@@ -116,7 +73,7 @@ var TacanClass = {
             # TODO ideally this timer should have a fixed frequency, irrespective of the fps of the GUI
 
             # Make sure the A/P starts following the target
-            me.follow_mp_target(target);
+            me._follow_mp_target(target);
         }
         else {
             var copilot_message = sprintf("Target %s not found", callsign);
@@ -158,7 +115,9 @@ var TacanClass = {
         }
 
         # Make sure TACAN gets disabled
-        setprop("/v22/afcs/internal/tacan-in-range", 0);
+        globals.props.getNode("/instrumentation/tacan/in-range").setBoolValue(0);
+        setprop("/instrumentation/tacan/indicated-bearing-true-deg", 0.0);
+        setprop("/instrumentation/tacan/indicated-distance-nm", 0.0);
     },
 
     _update_mp_target: func (callsign) {
@@ -192,19 +151,9 @@ var TacanClass = {
 var tacan = TacanClass.new();
 
 var tacan_init = func (node) {
-    if (node.getValue() == "tacan-hold") {
-        var tacan_channel = tacan.get_channel_id();
-        var tanker = tacan.find_tanker(tacan_channel);
-
-        if (tanker != nil) {
-            var copilot_message = sprintf("Found tanker %s on TACAN %s for aerial refueling", tanker.getNode("callsign").getValue(), tacan_channel);
-            setprop("/sim/messages/copilot", copilot_message);
-
-            tacan.follow_ai_target(tanker);
-        }
-        else {
-            tacan.find_and_follow_mp_target(getprop("/v22/afcs/target/mp-callsign-tacan"));
-        }
+    var callsign = getprop("/v22/afcs/target/mp-callsign-tacan");
+    if (node.getValue() == "tacan-hold" and callsign != "") {
+        tacan.find_and_follow_mp_target(callsign);
     }
     else {
         tacan.remove_listeners();
