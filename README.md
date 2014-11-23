@@ -64,8 +64,8 @@ To the left of the basic hold modes, there are some additional modes:
 
 * **TACAN** controls the heading based on the TACAN channel ID set in the
   'Radio Frequencies' window. Currently it can be used to follow AI
-  tankers. If you want to follow aircraft in multiplayer, then you need
-  to enter the callsign of the player in /v22/afcs/target/mp-callsign-tacan
+  tankers or TACAN stations. If you want to follow aircraft in multiplayer,
+  then you need to enter the callsign of the player in `/v22/afcs/target/mp-callsign-tacan`
 
 Fly-By-Wire (for pilots)
 ========================
@@ -95,15 +95,15 @@ various properties under 'FBW'. These properties are also used by the autopilot.
 Fly-By-Wire (for developers)
 ============================
 
-Properties are located in /v22/pfcs/. Boolean values can be toggled by
+Properties are located in `/v22/pfcs/`. Boolean values can be toggled by
 holding Ctrl button while click on the property. If you hold Shift while
 clicking on a property, it will display the property on the screen.
 
 Modes
 -----
 
-Modes are enabled or disabled via properties in active/. Some properties
-like roll-rate-bank-angle are read-only or get automatically enabled if
+Modes are enabled or disabled via properties in `active/`. Some properties
+like `roll-rate-bank-angle` are read-only or get automatically enabled if
 certain other properties become true.
 
 Limits
@@ -117,7 +117,7 @@ VTOL factors
 
 Depending on the tilt of the nacelles and the airspeed, several factors
 are computed which control how effective the VTOL flight controls are.
-These factors are read-only and can be found in internal/
+These factors are read-only and can be found in `internal/`
 
 * Differential Collective Pitch (DCP) controls the roll
 
