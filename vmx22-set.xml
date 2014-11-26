@@ -240,7 +240,6 @@
         <rendering>
             <headshake>
                 <enabled type="bool">true</enabled>
-                <rate-m-g type="double">0.05</rate-m-g>
             </headshake>
         </rendering>
 
