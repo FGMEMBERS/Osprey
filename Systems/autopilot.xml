@@ -763,6 +763,41 @@
                 <property>/v22/afcs/active/loc-hold</property>
                 <property>/instrumentation/nav[0]/has-gs</property>
                 <property>/instrumentation/nav[0]/gs/in-range</property>
+                <greater-than>
+                    <property>/instrumentation/nav[0]/gs/signal-quality-norm</property>
+                    <value>0.85</value>
+                </greater-than>
+                <or>
+                    <!-- The glideslope should only be captured when the
+                         aircraft is very close to the center of the signal.
+                    -->
+                    <less-than>
+                        <expression>
+                            <abs>
+                                <property>/instrumentation/nav[0]/gs-needle-deflection-norm</property>
+                            </abs>
+                        </expression>
+                        <value>0.5</value>
+                    </less-than>
+
+                    <!-- Once the glideslope was captured, this filter
+                         should not be switched off as long as the
+                         aircraft keeps flying within the full width
+                         of the glideslope.
+                    -->
+                    <and>
+                        <property>/v22/afcs/active/gs-hold</property>
+
+                        <less-than>
+                            <expression>
+                                <abs>
+                                    <property>/instrumentation/nav[0]/gs-needle-deflection-norm</property>
+                                </abs>
+                            </expression>
+                            <value>1.0</value>
+                        </less-than>
+                    </and>
+                </or>
             </and>
         </input>
         <output>
@@ -771,20 +806,29 @@
     </logic>
 
     <!-- Tracks the glideslope of the current NAV1 signal -->
-    <filter>
+    <pid-controller>
         <name>A/P NAV1 Glideslope</name>
-        <type>gain</type>
-        <gain>1.0</gain>
+        <debug>false</debug>
         <enable>
             <property>/v22/afcs/active/gs-hold</property>
         </enable>
         <input>
-            <property>/instrumentation/nav[0]/gs-rate-of-climb</property>
+            <property>/instrumentation/nav[0]/gs-needle-deflection-norm</property>
         </input>
+        <reference>
+            <value>0</value>
+        </reference>
         <output>
             <property>/v22/afcs/target/vs-fps</property>
         </output>
-    </filter>
+        <config>
+            <Kp>-120.0</Kp>
+            <Ti>28.0</Ti>
+            <Td>0.0</Td>
+            <u_min>-20.0</u_min>
+            <u_max>10.0</u_max>
+        </config>
+    </pid-controller>
 
     <!-- Tracks the vertical speed (in fpm) set in the A/P -->
     <filter>
