@@ -314,6 +314,9 @@
                 <vtol-pitch-hold-max type="double">10.0</vtol-pitch-hold-max>
 
                 <climb-rate-max type="double">2000</climb-rate-max>
+
+                <!-- Maximum heading angle when intercepting localizer or VOR -->
+                <intercept-deg-max type="double">30.0</intercept-deg-max>
             </settings>
             <target>
                 <ap-altitude-ft type="double">10000</ap-altitude-ft>
@@ -515,6 +518,8 @@
         <wxradar>
             <serviceable type="bool">true</serviceable>
         </wxradar>
+
+        <use-new-navradio type="bool">true</use-new-navradio>
     </instrumentation>
 
     <systems>

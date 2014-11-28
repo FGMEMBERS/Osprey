@@ -74,38 +74,44 @@
                 <property>/v22/afcs/locks/vor-ils</property>
                 <or>
                     <!-- NAV1 must be an ILS localizer -->
-                    <property>/instrumentation/nav[0]/nav-loc</property>
+                    <and>
+                        <property>/instrumentation/nav[0]/loc/in-range</property>
+                        <not-equals>
+                            <property>/instrumentation/nav[0]/loc/ident</property>
+                            <value></value>
+                        </not-equals>
+                    </and>
 
                     <!-- Or a VOR beacon -->
-                    <property>/instrumentation/nav[0]/to-flag</property>
-                    <property>/instrumentation/nav[0]/from-flag</property>
+                    <and>
+                        <property>/instrumentation/nav[0]/vor/in-range</property>
+                        <not-equals>
+                            <property>/instrumentation/nav[0]/vor/ident</property>
+                            <value></value>
+                        </not-equals>
+                    </and>
                 </or>
-                <property>/instrumentation/nav[0]/in-range</property>
                 <greater-than>
                     <property>/instrumentation/nav[0]/signal-quality-norm</property>
                     <value>0.85</value>
                 </greater-than>
                 <or>
-                    <not>
-                        <property>/v22/afcs/active/wypt-hold</property>
-                    </not>
-
-                    <!-- If WYPT is active, the localizer should only be
-                         captured when the aircraft is close to the crosstrack.
+                    <!-- The localizer should only be captured when the
+                         aircraft is close to the signal's crosstrack.
                     -->
                     <less-than>
                         <expression>
                             <abs>
-                                <property>/instrumentation/nav[0]/crosstrack-error-m</property>
+                                <property>/instrumentation/nav[0]/heading-needle-deflection-norm</property>
                             </abs>
                         </expression>
-                        <value>2000.0</value>
+                        <value>1.0</value>
                     </less-than>
 
-                    <!-- Once the aircraft has been within the crosstrack
-                         error and the localizer was captured, this filter
+                    <!-- Once the aircraft has been within the width of the
+                         signal and the localizer was captured, this filter
                          should not be switched off in case the aircraft
-                         goes outside the crosstrack error again.
+                         temporarily flies away from the signal again.
                     -->
                     <property>/v22/afcs/active/loc-hold</property>
                 </or>
@@ -247,8 +253,57 @@
         </output>
     </logic>
 
-    <!-- Computes the heading bug error relative to the true heading
-         of the NAV1 localizer.
+    <pi-simple-controller>
+        <name>A/P NAV1 CDI Integrator</name>
+        <enable>
+            <property>/v22/afcs/active/loc-hold</property>
+        </enable>
+        <input>
+            <property>/instrumentation/nav[0]/heading-needle-deflection-norm</property>
+        </input>
+        <reference>
+            <value>0</value>
+        </reference>
+        <output>
+            <property>/v22/afcs/internal/course-error-deg</property>
+        </output>
+        <config>
+            <Kp>45.0</Kp>
+            <Ki>0.40</Ki>
+            <u_min>
+                <property>/v22/afcs/settings/intercept-deg-max</property>
+                <scale>-1.0</scale>
+            </u_min>
+            <u_max>
+                <property>/v22/afcs/settings/intercept-deg-max</property>
+            </u_max>
+        </config>
+    </pi-simple-controller>
+
+    <filter>
+        <name>A/P NAV1 Localizer/VOR Intercept Heading Computer</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <property>/v22/afcs/active/loc-hold</property>
+        </enable>
+        <input>
+            <property>/instrumentation/nav[0]/radials/selected-deg</property>
+        </input>
+        <reference>
+            <property>/v22/afcs/internal/course-error-deg</property>
+        </reference>
+        <output>
+            <property>/v22/afcs/target/intercept-heading</property>
+        </output>
+        <period>
+            <min>0</min>
+            <max>360</max>
+        </period>
+    </filter>
+
+    <!-- Computes the heading bug error relative to magnetic intercept
+         heading of the NAV1 localizer.
     -->
     <filter>
         <name>A/P NAV1 Localizer Heading Bug Error Computer</name>
@@ -258,12 +313,11 @@
             <property>/v22/afcs/active/loc-hold</property>
         </enable>
         <input>
-            <property>/instrumentation/nav[0]/radials/target-auto-hdg-deg</property>
-            <offset>
-                <property>/orientation/heading-deg</property>
-                <scale>-1.0</scale>
-            </offset>
+            <property>/v22/afcs/target/intercept-heading</property>
         </input>
+        <reference>
+            <property>/instrumentation/gps/indicated-track-magnetic-deg</property>
+        </reference>
         <output>
             <property>/v22/afcs/internal/heading-bug-error-deg</property>
         </output>
@@ -706,10 +760,9 @@
         <name>A/P NAV1 Glideslope On/Off Switcher</name>
         <input>
             <and>
-                <property>/v22/afcs/locks/vor-ils</property>
-                <property>/instrumentation/nav[0]/has-gs</property>
-                <property>/instrumentation/nav[0]/gs-in-range</property>
                 <property>/v22/afcs/active/loc-hold</property>
+                <property>/instrumentation/nav[0]/has-gs</property>
+                <property>/instrumentation/nav[0]/gs/in-range</property>
             </and>
         </input>
         <output>
