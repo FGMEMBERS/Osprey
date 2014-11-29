@@ -288,6 +288,19 @@
             <property>/v22/afcs/active/loc-hold</property>
         </enable>
         <input>
+            <condition>
+                <not-equals>
+                    <property>/instrumentation/nav[0]/loc/ident</property>
+                    <value></value>
+                </not-equals>
+            </condition>
+            <property>/instrumentation/nav[0]/loc/true-bearing-to-deg</property>
+            <offset>
+                <property>/environment/magnetic-variation-deg</property>
+                <scale>-1.0</scale>
+            </offset>
+        </input>
+        <input>
             <property>/instrumentation/nav[0]/radials/selected-deg</property>
         </input>
         <reference>
