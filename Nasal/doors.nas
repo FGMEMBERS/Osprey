@@ -63,6 +63,11 @@ var crew_lower = aircraft.door.new("instrumentation/doors/crew", 3.0, 0);
 
 var (crew_upper_state, crew_lower_state) = (0, 0);
 
+# If the nacelles are tilted lower than this amount, then the upper
+# starboard door cannot be opened in order to prevent the blades from
+# causing someone to lose his head.
+var starboard_door_tilt_limit = 45.0;
+
 var crew_upper_toggle = func {
     if (crew_upper_state) {
         if (!crew_lower_state) {
@@ -74,8 +79,13 @@ var crew_upper_toggle = func {
         }
     }
     else {
-        crew_upper.open();
-        crew_upper_state = 1;
+        if (getprop("/sim/model/v22/tilt") > starboard_door_tilt_limit) {
+            setprop("/sim/messages/copilot", sprintf("Cannot open upper starboard door when nacelles are tilted lower than %d degrees", starboard_door_tilt_limit));
+        }
+        else {
+            crew_upper.open();
+            crew_upper_state = 1;
+        }
     }
 };
 
