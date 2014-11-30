@@ -317,6 +317,11 @@
 
                 <!-- Maximum heading angle when intercepting localizer or VOR -->
                 <intercept-deg-max type="double">30.0</intercept-deg-max>
+
+                <!-- The time in seconds required to be established on
+                     the localizer before the glideslope will be captured.
+                -->
+                <loc-established-s type="double">10.0</loc-established-s>
             </settings>
             <target>
                 <ap-altitude-ft type="double">10000</ap-altitude-ft>

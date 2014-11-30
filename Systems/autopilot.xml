@@ -766,6 +766,50 @@
         </config>
     </pi-simple-controller>
 
+    <!-- Enable the 'localizer established' switch if the aircraft has
+         established itself on the localizer for at least a certain
+         (configurable) amount of time.
+
+         This monostable flipflop is used so that the aircraft will not
+         try to establish itself on the localizer _and_ the glideslope
+         at the same time when the VOR/ILS mode is activated while
+         within range of the glideslope.
+    -->
+    <flipflop>
+        <name>A/P NAV1 Localizer Established On/Off Switcher</name>
+        <type>monostable</type>
+        <inverted type="bool">true</inverted>
+        <enable>
+            <property>/v22/afcs/active/loc-hold</property>
+        </enable>
+        <S>
+            <or>
+                <greater-than>
+                    <expression>
+                        <abs>
+                            <property>/v22/afcs/internal/course-error-deg</property>
+                        </abs>
+                    </expression>
+                    <value>5.0</value>
+                </greater-than>
+                <greater-than>
+                    <expression>
+                        <abs>
+                            <property>/v22/afcs/internal/heading-bug-error-deg</property>
+                        </abs>
+                    </expression>
+                    <value>5.0</value>
+                </greater-than>
+            </or>
+        </S>
+        <time>
+            <property>/v22/afcs/settings/loc-established-s</property>
+        </time>
+        <output>
+            <property>/v22/afcs/active/loc-established</property>
+        </output>
+    </flipflop>
+
     <!-- Enable A/P NAV1 Glideslope if glideslope is in range and NAV1
          mode selected in A/P.
     -->
@@ -774,6 +818,7 @@
         <input>
             <and>
                 <property>/v22/afcs/active/loc-hold</property>
+                <property>/v22/afcs/active/loc-established</property>
                 <property>/instrumentation/nav[0]/has-gs</property>
                 <property>/instrumentation/nav[0]/gs/in-range</property>
                 <greater-than>
