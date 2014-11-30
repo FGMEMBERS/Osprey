@@ -181,11 +181,10 @@
         </enable>
         <input>
             <property>/autopilot/settings/heading-bug-deg</property>
-            <offset>
-                <property>/orientation/heading-magnetic-deg</property>
-                <scale>-1.0</scale>
-            </offset>
         </input>
+        <reference>
+            <property>/orientation/heading-magnetic-deg</property>
+        </reference>
         <output>
             <property>/v22/afcs/internal/heading-bug-error-deg</property>
         </output>
@@ -218,11 +217,10 @@
         </enable>
         <input>
             <property>/autopilot/settings/true-heading-deg</property>
-            <offset>
-                <property>/instrumentation/gps/indicated-track-true-deg</property>
-                <scale>-1.0</scale>
-            </offset>
         </input>
+        <reference>
+            <property>/instrumentation/gps/indicated-track-true-deg</property>
+        </reference>
         <output>
             <property>/v22/afcs/internal/heading-bug-error-deg</property>
         </output>
@@ -385,19 +383,14 @@
                 </greater-than>
             </condition>
             <property>/instrumentation/tacan/indicated-bearing-true-deg</property>
-            <offset>
-                <property>/instrumentation/gps/indicated-track-true-deg</property>
-                <scale>-1.0</scale>
-            </offset>
         </input>
         <input>
             <!-- Maintain the remembered track -->
             <property>/v22/afcs/target/tacan-true-heading-deg</property>
-            <offset>
-                <property>/instrumentation/gps/indicated-track-true-deg</property>
-                <scale>-1.0</scale>
-            </offset>
         </input>
+        <reference>
+            <property>/instrumentation/gps/indicated-track-true-deg</property>
+        </reference>
         <output>
             <property>/v22/afcs/internal/heading-bug-error-deg</property>
         </output>
