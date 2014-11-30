@@ -88,6 +88,12 @@
         <type>gain</type>
         <gain>1.0</gain>
         <input>
+            <condition>
+                <property>/gear/on-ground</property>
+            </condition>
+            <value>45</value>
+        </input>
+        <input>
             <expression>
                 <table>
                     <property>/velocities/airspeed-kt</property>
