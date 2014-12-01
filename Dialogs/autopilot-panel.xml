@@ -307,7 +307,7 @@
                 <pref-width>60</pref-width>
                 <enable><false/></enable>
                 <format>%3.0f</format>
-                <property>/autopilot/settings/true-heading-deg</property>
+                <property>/instrumentation/nav[0]/radials/selected-deg</property>
                 <live>true</live>
             </input>
             <input>
@@ -360,7 +360,7 @@
                 <padding>0</padding>
                 <binding>
                     <command>property-adjust</command>
-                    <property>/autopilot/settings/true-heading-deg</property>
+                    <property>/instrumentation/nav[0]/radials/selected-deg</property>
                     <step type="double">-10.0</step>
                     <min>0</min>
                     <max>360</max>
@@ -378,7 +378,7 @@
                 <padding>0</padding>
                 <binding>
                     <command>property-adjust</command>
-                    <property>/autopilot/settings/true-heading-deg</property>
+                    <property>/instrumentation/nav[0]/radials/selected-deg</property>
                     <step type="double">-1.0</step>
                     <min>0</min>
                     <max>360</max>
@@ -396,7 +396,7 @@
                 <padding>0</padding>
                 <binding>
                     <command>property-adjust</command>
-                    <property>/autopilot/settings/true-heading-deg</property>
+                    <property>/instrumentation/nav[0]/radials/selected-deg</property>
                     <step type="double">1.0</step>
                     <min>0</min>
                     <max>360</max>
@@ -414,7 +414,7 @@
                 <padding>0</padding>
                 <binding>
                     <command>property-adjust</command>
-                    <property>/autopilot/settings/true-heading-deg</property>
+                    <property>/instrumentation/nav[0]/radials/selected-deg</property>
                     <step type="double">10.0</step>
                     <min>0</min>
                     <max>360</max>
