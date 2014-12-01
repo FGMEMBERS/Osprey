@@ -68,10 +68,7 @@
                 <row>1</row>
                 <col>2</col>
                 <visible>
-                    <or>
-                        <property>/v22/afcs/active/loc-hold</property>
-                        <property>/v22/afcs/active/gs-hold</property>
-                    </or>
+                    <property>/v22/afcs/active/loc-hold</property>
                 </visible>
                 <legend>CAP</legend>
                 <pref-width>40</pref-width>
@@ -87,10 +84,7 @@
                     <and>
                         <property>/v22/afcs/locks/vor-ils</property>
                         <not>
-                            <or>
-                                <property>/v22/afcs/active/loc-hold</property>
-                                <property>/v22/afcs/active/loc-hold</property>
-                            </or>
+                            <property>/v22/afcs/active/loc-hold</property>
                         </not>
                     </and>
                 </visible>
@@ -902,9 +896,30 @@
             <button>
                 <row>1</row>
                 <col>28</col>
+                <visible>
+                    <property>/v22/afcs/locks/auto-nac</property>
+                </visible>
                 <legend>ACT</legend>
                 <pref-width>40</pref-width>
-                <enable><false/></enable>
+                <binding>
+                    <command>nasal</command>
+                    <script>setprop("/v22/afcs/locks/auto-nac", 0)</script>
+                </binding>
+            </button>
+            <button>
+                <row>1</row>
+                <col>28</col>
+                <visible>
+                    <not>
+                        <property>/v22/afcs/locks/auto-nac</property>
+                    </not>
+                </visible>
+                <legend></legend>
+                <pref-width>40</pref-width>
+                <binding>
+                    <command>nasal</command>
+                    <script>setprop("/v22/afcs/locks/auto-nac", 1)</script>
+                </binding>
             </button>
             <text>
                 <row>0</row>

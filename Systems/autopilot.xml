@@ -1435,4 +1435,120 @@
         </output>
     </filter>
 
+    <!-- ================================================================== -->
+    <!-- Automatic Nacelles Tilting Modes                                   -->
+    <!-- ================================================================== -->
+
+    <filter>
+        <name>Auto Nacelles Speed Tilt</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <table>
+                    <property>/velocities/airspeed-kt</property>
+                    <entry><ind>200</ind><dep>90.00</dep></entry>
+                    <entry><ind>195</ind><dep>78.30</dep></entry>
+                    <entry><ind>190</ind><dep>69.10</dep></entry>
+                    <entry><ind>185</ind><dep>60.50</dep></entry>
+                    <entry><ind>180</ind><dep>57.14</dep></entry>
+                    <entry><ind>175</ind><dep>54.12</dep></entry>
+                    <entry><ind>170</ind><dep>51.24</dep></entry>
+                    <entry><ind>165</ind><dep>48.28</dep></entry>
+                    <entry><ind>160</ind><dep>45.31</dep></entry>
+                    <entry><ind>155</ind><dep>42.39</dep></entry>
+                    <entry><ind>150</ind><dep>40.89</dep></entry>
+                    <entry><ind>145</ind><dep>39.39</dep></entry>
+                    <entry><ind>140</ind><dep>37.89</dep></entry>
+                    <entry><ind>135</ind><dep>36.89</dep></entry>
+                    <entry><ind>130</ind><dep>34.89</dep></entry>
+                    <entry><ind>125</ind><dep>33.39</dep></entry>
+                    <entry><ind>120</ind><dep>31.89</dep></entry>
+                    <entry><ind>115</ind><dep>30.39</dep></entry>
+                    <entry><ind>110</ind><dep>28.89</dep></entry>
+                    <entry><ind>105</ind><dep>27.39</dep></entry>
+                    <entry><ind>100</ind><dep>25.89</dep></entry>
+                    <entry><ind>095</ind><dep>24.39</dep></entry>
+                    <entry><ind>090</ind><dep>23.85</dep></entry>
+                    <entry><ind>085</ind><dep>23.14</dep></entry>
+                    <entry><ind>080</ind><dep>22.51</dep></entry>
+                    <entry><ind>075</ind><dep>22.46</dep></entry>
+                    <entry><ind>070</ind><dep>21.26</dep></entry>
+                    <entry><ind>065</ind><dep>19.71</dep></entry>
+                    <entry><ind>060</ind><dep>18.05</dep></entry>
+                    <entry><ind>055</ind><dep>16.22</dep></entry>
+                    <entry><ind>050</ind><dep>14.26</dep></entry>
+                    <entry><ind>045</ind><dep>12.25</dep></entry>
+                    <entry><ind>040</ind><dep>10.31</dep></entry>
+                    <entry><ind>035</ind><dep>08.84</dep></entry>
+                    <entry><ind>030</ind><dep>06.77</dep></entry>
+                    <entry><ind>025</ind><dep>04.29</dep></entry>
+                    <entry><ind>020</ind><dep>00.43</dep></entry>
+                    <entry><ind>015</ind><dep>-01.48</dep></entry>
+                    <entry><ind>010</ind><dep>-02.03</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/afcs/target/auto-nac-tilt</property>
+        </output>
+    </filter>
+
+    <logic>
+        <name>A/P Auto Nacelles On/Off Switcher</name>
+        <input>
+            <and>
+                <property>/v22/afcs/active/spd-hold</property>
+                <or>
+                    <property>/v22/afcs/active/gs-hold</property>
+                    <property>/v22/afcs/locks/auto-nac</property>
+                </or>
+            </and>
+        </input>
+        <output>
+            <property>/v22/afcs/active/auto-nac</property>
+        </output>
+    </logic>
+
+    <pi-simple-controller>
+        <name>A/P Auto Nacelles Tilt</name>
+        <debug>false</debug>
+        <enable>
+            <property>/v22/afcs/active/auto-nac</property>
+        </enable>
+        <input>
+            <property>/v22/pfcs/output/tilt</property>
+        </input>
+        <reference>
+            <property>/v22/afcs/target/auto-nac-tilt</property>
+        </reference>
+        <output>
+            <property>/v22/pfcs/target/tilt-rate</property>
+        </output>
+        <config>
+            <Kp>0.45</Kp>
+            <Ki>0.0</Ki>
+            <u_min>-2.0</u_min>
+            <u_max> 2.0</u_max>
+        </config>
+    </pi-simple-controller>
+
+    <!-- Set tilt-rate to 0 deg/s on the negative edge of auto-nac -->
+    <flipflop>
+        <name>Auto Nac Became Disabled</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>D</type>
+        <D>
+            <false/>
+        </D>
+        <clock>
+            <not>
+                <property>/v22/afcs/active/auto-nac</property>
+            </not>
+        </clock>
+        <output>
+            <property>/v22/pfcs/target/tilt-rate</property>
+        </output>
+    </flipflop>
+
 </PropertyList>

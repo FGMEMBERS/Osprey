@@ -300,6 +300,7 @@
                 <vor-ils type="bool">false</vor-ils>
 
                 <heading type="string"></heading>
+                <auto-nac type="bool">false</auto-nac>
             </locks>
             <settings>
                 <!-- When the glideslope has been captured, the aircraft
@@ -328,6 +329,8 @@
                 <ap-agl-ft type="double">50</ap-agl-ft>
                 <mp-callsign-tacan type="string"></mp-callsign-tacan>
                 <tacan-true-heading-deg type="double">0.0</tacan-true-heading-deg>
+
+                <auto-nac-tilt type="double">0</auto-nac-tilt>
             </target>
         </afcs>
         <pfcs>
