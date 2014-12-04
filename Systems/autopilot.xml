@@ -972,7 +972,9 @@
     </pid-controller>
 
     <!-- Computes the maximum rate of descent for VTOL mode to prevent
-         vortex ring state. This filter implements the original NATOPS
+         vortex ring state. If  the incidence of the nacelles is greater
+         than 80 degrees (lower than 10 degrees for YASim) then the V/S
+         is restricted to -800 fpm. This filter implements the updated NATOPS
          limit [1].
     -->
     <filter>
@@ -991,6 +993,15 @@
         <output>
             <property>/v22/afcs/internal/maximum-descent-rate-vtol-fpm</property>
         </output>
+        <min>
+            <condition>
+                <less-than-equals>
+                    <property>/sim/model/v22/tilt</property>
+                    <value>10.0</value>
+                </less-than-equals>
+            </condition>
+            <value>-800</value>
+        </min>
         <min>
             <property>/v22/afcs/settings/climb-rate-max</property> 
             <scale>-1.0</scale>
