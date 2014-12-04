@@ -3,6 +3,7 @@
 <PropertyList>
 
     <default>
+
         <menu n="7">
             <item n="6">
                 <name>mp-atc-chat</name>
@@ -109,6 +110,7 @@
                 </binding>
             </item>
         </menu>
+
     </default>
 
 </PropertyList>

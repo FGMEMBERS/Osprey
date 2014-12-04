@@ -469,7 +469,7 @@
             <reference-dist>100</reference-dist>
             <max-dist>1000</max-dist>
         </squeal>
-    
+
         <!-- cargo upper door sounds -->
         <door>
             <name>cargodoorup</name>
@@ -497,7 +497,7 @@
             <reference-dist>100</reference-dist>
             <max-dist>1000</max-dist>
         </door>
-    
+
         <!-- cargo door sounds -->
         <door>
             <name>cargodoor</name>
@@ -525,7 +525,7 @@
             <reference-dist>100</reference-dist>
             <max-dist>1000</max-dist>
         </door>
-    
+
         <!-- crew upper door sounds -->
         <door>
             <name>crewdoorup</name>
@@ -553,7 +553,7 @@
             <reference-dist>100</reference-dist>
             <max-dist>1000</max-dist>
         </door>
-    
+
         <!-- crew door sounds -->
         <door>
             <name>crewdoor</name>
@@ -581,8 +581,8 @@
             <reference-dist>100</reference-dist>
             <max-dist>1000</max-dist>
         </door>
-    
-        <!-- cockpi door sounds 
+
+        <!-- cockpit door sounds
         <door>
             <name>door</name>
             <mode>in-transit</mode>
@@ -657,7 +657,7 @@
         </gear>
 
         <crash>
-            <name>intense ground contact</name>
+            <name>intense-ground-contact</name>
             <mode>once</mode>
             <path>Sounds/crash.wav</path>
             <property>sim/crashed</property>
