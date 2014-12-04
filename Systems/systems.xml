@@ -28,12 +28,15 @@
     <pitot>
         <name>pitot</name>
         <number>0</number>
+        <stall-deg>60</stall-deg>
     </pitot>
 
     <static>
         <name>static</name>
         <number>0</number>
-        <tau>1</tau>
+        <tau>0.1</tau>
+        <type>1</type>
+        <error-factor>0.2</error-factor>
     </static>
 
     <vacuum>
