@@ -182,3 +182,11 @@ var disable_altitude = func (node) {
 }
 
 setlistener("/v22/afcs/active/gs-hold", disable_altitude);
+
+var disable_auto_nac = func (node) {
+    if (!node.getValue()) {
+        setprop("/v22/afcs/locks/auto-nac", 0);
+    }
+}
+
+setlistener("/v22/afcs/active/spd-hold", disable_auto_nac);

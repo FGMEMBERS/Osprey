@@ -897,13 +897,13 @@
                 <row>1</row>
                 <col>28</col>
                 <visible>
-                    <property>/v22/afcs/locks/auto-nac</property>
+                    <property>/v22/afcs/active/auto-nac</property>
                 </visible>
                 <legend>ACT</legend>
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/auto-nac", 0)</script>
+                    <script>if (!getprop("/v22/afcs/active/gs-hold")) { setprop("/v22/afcs/locks/auto-nac", 0) }</script>
                 </binding>
             </button>
             <button>
@@ -911,14 +911,14 @@
                 <col>28</col>
                 <visible>
                     <not>
-                        <property>/v22/afcs/locks/auto-nac</property>
+                        <property>/v22/afcs/active/auto-nac</property>
                     </not>
                 </visible>
                 <legend></legend>
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/auto-nac", 1)</script>
+                    <script>if (getprop("/v22/afcs/active/spd-hold")) { setprop("/v22/afcs/locks/auto-nac", 1) }</script>
                 </binding>
             </button>
             <text>
