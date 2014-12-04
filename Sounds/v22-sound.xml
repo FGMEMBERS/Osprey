@@ -671,6 +671,39 @@
             <max-dist>1000</max-dist>
         </crash>
 
+        <!-- Warn the pilot about proximity to the Vortex Ring State (VRS)
+             when operating the aircraft in helicopter mode.
+        -->
+        <vrs-sink-rate>
+            <name>vrs-sink-rate</name>
+            <mode>once</mode>
+            <type>avionics</type>
+            <path>Sounds/mk-viii/sink-rate.wav</path>
+            <condition>
+                <and>
+                    <!-- Only during cockpit view -->
+                    <property>/sim/current-view/internal</property>
+
+                    <!-- And in helicopter mode -->
+                    <less-than-equals>
+                        <property>/sim/model/v22/tilt</property>
+                        <value>15.0</value>
+                    </less-than-equals>
+
+                    <!-- And exceeding NATOPS limit -->
+                    <less-than>
+                        <expression>
+                            <product>
+                                <property>/velocities/vertical-speed-fps</property>
+                                <value>60</value>
+                            </product>
+                        </expression>
+                        <property>/v22/afcs/internal/vrs-maximum-descent-rate-fpm</property>
+                    </less-than>
+                </and>
+            </condition>
+        </vrs-sink-rate>
+
     </fx>
 
 </PropertyList>

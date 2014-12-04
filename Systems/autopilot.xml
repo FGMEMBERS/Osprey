@@ -978,7 +978,7 @@
          limit [1].
     -->
     <filter>
-        <name>A/P Maximum Rate Of Descent VTOL Computer</name>
+        <name>Vortex Ring State Maximum Rate Of Descent Computer</name>
         <type>gain</type>
         <gain>1.0</gain>
         <input>
@@ -991,7 +991,7 @@
             </expression>
         </input>
         <output>
-            <property>/v22/afcs/internal/maximum-descent-rate-vtol-fpm</property>
+            <property>/v22/afcs/internal/vrs-maximum-descent-rate-fpm</property>
         </output>
         <min>
             <condition>
@@ -1002,6 +1002,24 @@
             </condition>
             <value>-800</value>
         </min>
+
+        <!-- Even though the table already limits the output to -4000,
+             without this <min> element the output will become 0 if the
+             conditional <min> (see above) does not apply.
+        -->
+        <min>-4000</min>
+    </filter>
+
+    <filter>
+        <name>A/P Maximum Rate Of Descent VTOL Computer</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <property>/v22/afcs/internal/vrs-maximum-descent-rate-fpm</property>
+        </input>
+        <output>
+            <property>/v22/afcs/internal/maximum-descent-rate-vtol-fpm</property>
+        </output>
         <min>
             <property>/v22/afcs/settings/climb-rate-max</property> 
             <scale>-1.0</scale>
