@@ -49,6 +49,30 @@ var target_rpm_helicopter = 397;
 var min_conv_mode_kias = 40;
 var max_conv_mode_kias = 120;
 
+var get_apln_mode_collective = func (speed) {
+    # Misuse the collective to limit the KTAS to about 275 at sea level
+    # and 305 at 15000 ft.
+    #
+    # Beause YASim computes the torque when given a certain collective
+    # and RPM instead of computing the collective, we need to manually add
+    # some extra collective when the pilot has reduced the RPM to 84 % in
+    # order to keep the maximum speed unchanged.
+
+    # TODO Set apln_max_col to a fixed value and fix the problem in the FDM instead
+
+    var apln_col_500ft   = 60;
+    var apln_col_15000ft = 66;
+
+    # Extra collective when rotors are spinning at 84 % RPM: 0.83 -> +9.5; 1.00 -> +0.0
+    var rpm_fraction = getprop("/rotors/main/rpm") / target_rpm_helicopter;
+    var extra_col_84 = interpol(rpm_fraction, 0.84, 9.5, 0.99, 0.0);
+
+    var altitude = max(500, min(15000, getprop("/position/altitude-ft")));
+    var apln_max_col = (apln_col_15000ft - apln_col_500ft) * altitude / 15000 + apln_col_500ft + extra_col_84;
+
+    return interpol(speed, 0, 20, 200, apln_max_col);
+};
+
 var update_controls_and_tilt_loop = func {
     if (props.globals.getNode("sim/crashed",1).getBoolValue()) {
         return;
@@ -59,7 +83,7 @@ var update_controls_and_tilt_loop = func {
     var conv_factor = clamp((speed - min_conv_mode_kias) / (max_conv_mode_kias - min_conv_mode_kias), 0, 1);
 
     var thr = getprop("/v22/pfcs/output/tcl");
-    var col_wing = thr * interpol(speed, 0, 20, 200, 75); 
+    var col_wing = thr * get_apln_mode_collective(speed);
 
     # Calculate the rotor controls
     var ail2col = 5 * getprop("/v22/pfcs/internal/dcp-tilt") * getprop("/v22/pfcs/internal/dcp-airspeed");
