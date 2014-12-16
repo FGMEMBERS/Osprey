@@ -107,7 +107,7 @@
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/vor-ils", 1)</script>
+                    <script>if (!getprop("/v22/afcs/active/tacan-hold")) { setprop("/v22/afcs/locks/vor-ils", 1) }</script>
                 </binding>
             </button>
             <text>
@@ -164,7 +164,7 @@
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/heading", "tacan-hold")</script>
+                    <script>if (!getprop("/v22/afcs/active/loc-hold")) { setprop("/v22/afcs/locks/heading", "tacan-hold") }</script>
                 </binding>
             </button>
 
@@ -235,7 +235,7 @@
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>if (getprop("/autopilot/settings/gps-driving-true-heading")) { setprop("/autopilot/locks/heading", "true-heading-hold") }</script>
+                    <script>if (getprop("/autopilot/settings/gps-driving-true-heading") and !getprop("/v22/afcs/active/loc-hold") and !getprop("/v22/afcs/active/tacan-hold")) { setprop("/autopilot/locks/heading", "true-heading-hold") }</script>
                 </binding>
             </button>
 
