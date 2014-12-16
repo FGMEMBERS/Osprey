@@ -844,4 +844,22 @@
         </output>
     </filter>
 
+    <!-- ================================================================== -->
+    <!-- Miscellaneous                                                      -->
+    <!-- ================================================================== -->
+
+    <filter>
+        <name>HUD Heading Indicator Magnetic Variation Offset</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <property>/environment/magnetic-variation-deg</property>
+            <scale>-1.0</scale>
+        </input>
+        <output>
+            <property>/instrumentation/heading-indicator/offset-deg</property>
+        </output>
+    </filter>
+
 </PropertyList>
