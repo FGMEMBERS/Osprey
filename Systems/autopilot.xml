@@ -40,6 +40,9 @@
                     <value>tacan-hold</value>
                 </equals>
                 <property>/instrumentation/tacan/in-range</property>
+                <not>
+                    <property>/v22/afcs/active/loc-hold</property>
+                </not>
             </and>
         </input>
         <output>
@@ -72,6 +75,9 @@
         <input>
             <and>
                 <property>/v22/afcs/locks/vor-ils</property>
+                <not>
+                    <property>/v22/afcs/active/tacan-hold</property>
+                </not>
                 <or>
                     <!-- NAV1 must be an ILS localizer -->
                     <and>
