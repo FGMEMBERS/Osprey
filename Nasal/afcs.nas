@@ -1,6 +1,6 @@
 # Automatic Flight Control System
 
-var interpol = func(x, x0, y0, x1, y1) { x < x0 ? y0 : x > x1 ? y1 : y0 + (y1 - y0) * (x - x0) / (x1 - x0) }
+var interpol = func(x, x0, y0, x1, y1) { x < x0 ? y0 : x > x1 ? y1 : y0 + (y1 - y0) * (x - x0) / (x1 - x0) };
 
 var main_loop = func {
     if (getprop("/autopilot/settings/gps-driving-true-heading") and getprop("/autopilot/route-manager/active")) {
@@ -16,7 +16,7 @@ var main_loop = func {
             }
         }
     }
-}
+};
 
 var TacanClass = {
 
@@ -158,20 +158,37 @@ var tacan_init = func (node) {
     else {
         tacan.remove_listeners();
     }
-}
+};
 
 setlistener("/v22/afcs/locks/heading", tacan_init, runtime=0);
 
 # Disable standard magnetic heading hold if NAV1 localizer or TACAN
 # signal has been captured.
-var disable_heading = func (node) {
-    if (node.getValue()) {
-        setprop("/autopilot/locks/heading", "");
-    }
-}
+var disable_heading = func {
+    setprop("/autopilot/locks/heading", "");
+};
 
-setlistener("/v22/afcs/active/loc-hold", disable_heading);
-setlistener("/v22/afcs/active/tacan-hold", disable_heading);
+# Disable standard magnetic heading hold and VOR/ILS if TACAN signal
+# has been captured.
+var disable_vor_heading = func (node) {
+    if (node.getValue()) {
+        setprop("/v22/afcs/locks/vor-ils", 0);
+        disable_heading();
+    }
+};
+
+# Disable standard magnetic heading hold and TACAN if NAV1 localizer or
+# VOR signal has been captured.
+var disable_tacan_heading = func (node) {
+    if (node.getValue()) {
+        setprop("/v22/afcs/locks/heading", "");
+        disable_heading();
+    }
+};
+
+setlistener("/v22/afcs/active/loc-hold", disable_tacan_heading);
+setlistener("/v22/afcs/active/tacan-hold", disable_vor_heading);
+
 
 # Disable standard altitude hold if NAV1 glideslope signal has been
 # captured.
@@ -179,7 +196,7 @@ var disable_altitude = func (node) {
     if (node.getValue()) {
         setprop("/autopilot/locks/altitude", "");
     }
-}
+};
 
 setlistener("/v22/afcs/active/gs-hold", disable_altitude);
 
@@ -187,6 +204,6 @@ var disable_auto_nac = func (node) {
     if (!node.getValue()) {
         setprop("/v22/afcs/locks/auto-nac", 0);
     }
-}
+};
 
 setlistener("/v22/afcs/active/spd-hold", disable_auto_nac);
