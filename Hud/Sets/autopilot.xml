@@ -54,11 +54,14 @@
         <height>10</height>
         <y>-10</y>
         <box>true</box>
-        <format>TACAN CAP</format>
+        <format>%s CAP</format>
         <halign>left</halign>
+        <input>
+            <property>/instrumentation/tacan/ident</property>
+        </input>
         <condition>
             <property>/v22/afcs/active/tacan-hold</property>
-         </condition>
+        </condition>
     </label>
  
     <label>
@@ -76,6 +79,9 @@
                 </equals>
                 <not>
                     <property>/v22/afcs/active/tacan-hold</property>
+                </not>
+                <not>
+                    <property>/v22/afcs/active/loc-hold</property>
                 </not>
             </and>
         </condition>

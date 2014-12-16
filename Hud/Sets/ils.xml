@@ -9,8 +9,11 @@
         <height>10</height>
         <y>-10</y>
         <box>true</box>
-        <format>LOC CAP</format>
+        <format>%s CAP</format>
         <halign>left</halign>
+        <input>
+            <property>/instrumentation/nav[0]/nav-id</property>
+        </input>
         <condition>
             <property>/v22/afcs/active/loc-hold</property>
         </condition>
@@ -28,6 +31,9 @@
                 <property>/v22/afcs/locks/vor-ils</property>
                 <not>
                     <property>/v22/afcs/active/loc-hold</property>
+                </not>
+                <not>
+                    <property>/v22/afcs/active/tacan-hold</property>
                 </not>
             </and>
         </condition>
