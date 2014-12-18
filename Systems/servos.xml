@@ -79,7 +79,7 @@
             </expression>
         </input>
         <output>
-            <property>/sim/model/v22/min_allowed_tilt</property>
+            <property>/v22/pfcs/limits/min-allowed-tilt</property>
         </output>
     </filter>
 
@@ -104,7 +104,7 @@
             </expression>
         </input>
         <output>
-            <property>/sim/model/v22/max_allowed_tilt</property>
+            <property>/v22/pfcs/limits/max-allowed-tilt</property>
         </output>
     </filter>
 
@@ -141,10 +141,10 @@
                 <or>
                     <less-than>
                         <property>/sim/model/v22/tilt</property>
-                        <property>/sim/model/v22/min_allowed_tilt</property>
+                        <property>/v22/pfcs/limits/min-allowed-tilt</property>
                     </less-than>
                     <less-than>
-                        <property>/sim/model/v22/max_allowed_tilt</property>
+                        <property>/v22/pfcs/limits/max-allowed-tilt</property>
                         <property>/sim/model/v22/tilt</property>
                     </less-than>
                 </or>
@@ -198,10 +198,10 @@
         <input>
             <property>/v22/pfcs/target/tilt</property>
             <min>
-                <property>/sim/model/v22/min_allowed_tilt</property>
+                <property>/v22/pfcs/limits/min-allowed-tilt</property>
             </min>
             <max>
-                <property>/sim/model/v22/max_allowed_tilt</property>
+                <property>/v22/pfcs/limits/max-allowed-tilt</property>
             </max>
         </input>
         <output>
