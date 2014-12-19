@@ -291,6 +291,58 @@
     <hrule/>
 
     <group>
+        <layout>vbox</layout>
+        <padding>6</padding>
+        <text>
+            <label>TCAS</label>
+        </text>
+
+        <group>
+            <layout>table</layout>
+
+            <checkbox>
+                <row>0</row>
+                <col>0</col>
+                <visible>
+                    <equals>
+                        <property>/sim/aircraft</property>
+                        <value>cv22</value>
+                    </equals>
+                </visible>
+                <halign>left</halign>
+                <label>Enable TCAS</label>
+                <property>/instrumentation/tcas/serviceable</property>
+                <live>true</live>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-assign</command>
+                </binding>
+            </checkbox>
+            <text>
+                <row>0</row>
+                <col>0</col>
+                <visible>
+                    <equals>
+                        <property>/sim/aircraft</property>
+                        <value>mv22</value>
+                    </equals>
+                </visible>
+                <halign>left</halign>
+                <color>
+                    <red>1.0</red>
+                    <green>0.6</green>
+                    <blue>0.6</blue>
+                </color>
+                <label>No TCAS available for MV-22</label>
+            </text>
+        </group>
+    </group>
+
+    <hrule/>
+
+    <group>
         <layout>hbox</layout>
         <default-padding>6</default-padding>
         
