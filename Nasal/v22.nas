@@ -1,10 +1,6 @@
 # Maik Justus < fg # mjustus : de >, partly based on bo105.nas by Melchior FRANZ, < mfranz # aon : at >
 # updates for vmx22 version by Oliver Thurau
 
-# Sources:
-#     [1] http://www.bellhelicopter.com/MungoBlobs/126/268/V-22%20Guidebook%202013_update_PREVIEW_LR2.pdf
-#     (conversion corridor, page 57 on slide 29)
-
 var optarg = aircraft.optarg;
 var makeNode = aircraft.makeNode;
 
@@ -24,10 +20,7 @@ var control_throttle = props.globals.getNode("/controls/engines/engine[0]/thrott
 var control_rotor_brake = props.globals.getNode("/controls/rotor/brake",1);
 
 var out_wing_flap = props.globals.getNode("sim/model/v22/wing/flap");
-var out_rotor_l_col = props.globals.getNode("sim/model/v22/rotor/left/collective");
-var out_rotor_r_col = props.globals.getNode("sim/model/v22/rotor/right/collective");
 
-var airspeed_kt = props.globals.getNode("/velocities/airspeed-kt");
 var rotor_pos = props.globals.getNode("rotors/main/blade[0]/position-deg",1);
 
 # Because YASim does not support folding the blades, it is necessary to
@@ -44,12 +37,10 @@ actual_tilt.setValue(0);
 
 var target_rpm_helicopter = 397;
 
-# [1] actually describes the lower bound as "40 to 80 knots" (KTAS) and the
-# upper bound as "100 to 120 knots" (KTAS)
-var min_conv_mode_kias = 40;
-var max_conv_mode_kias = 120;
+var apln_col_500ft   = 60;
+var apln_col_15000ft = 66;
 
-var get_apln_mode_collective = func (speed) {
+var update_apln_mode_collective = func {
     # Misuse the collective to limit the KTAS to about 275 at sea level
     # and 305 at 15000 ft.
     #
@@ -60,9 +51,6 @@ var get_apln_mode_collective = func (speed) {
 
     # TODO Set apln_max_col to a fixed value and fix the problem in the FDM instead
 
-    var apln_col_500ft   = 60;
-    var apln_col_15000ft = 66;
-
     # Extra collective when rotors are spinning at 84 % RPM: 0.83 -> +9.5; 1.00 -> +0.0
     var rpm_fraction = getprop("/rotors/main/rpm") / target_rpm_helicopter;
     var extra_col_84 = interpol(rpm_fraction, 0.84, 9.5, 0.99, 0.0);
@@ -70,41 +58,9 @@ var get_apln_mode_collective = func (speed) {
     var altitude = max(500, min(15000, getprop("/position/altitude-ft")));
     var apln_max_col = (apln_col_15000ft - apln_col_500ft) * altitude / 15000 + apln_col_500ft + extra_col_84;
 
-    return interpol(speed, 0, 20, 200, apln_max_col);
+    var collective = interpol(getprop("/velocities/airspeed-kt"), 0, 20, 200, apln_max_col);
+    setprop("/v22/pfcs/internal/apln-collective", collective);
 };
-
-var update_controls_and_tilt_loop = func {
-    if (props.globals.getNode("sim/crashed",1).getBoolValue()) {
-        return;
-    }
-
-    # Below min_conv_mode_kias the conversion factor is 0, above max_conv_mode_kias it is 1
-    var speed = airspeed_kt.getValue();
-    var conv_factor = clamp((speed - min_conv_mode_kias) / (max_conv_mode_kias - min_conv_mode_kias), 0, 1);
-
-    var thr = getprop("/v22/pfcs/output/tcl");
-    var col_wing = thr * get_apln_mode_collective(speed);
-
-    # Calculate the rotor controls
-    var ail2col = 5 * getprop("/v22/pfcs/internal/dcp-tilt") * getprop("/v22/pfcs/internal/dcp-airspeed");
-    var min_col = 2;
-    var max_col = 23;
-
-    var col_tilt_correction = 1 / cos(clamp(actual_tilt.getValue(), -10, 30));
-    var col_rotor = min_col + thr * (max_col - min_col) * col_tilt_correction;
-
-    # Set blades vertical if folded
-    var h = control_rotor_incidence_wing_fold.getValue();
-    col_rotor = 100 * h + col_rotor * (1-h);
-    ail = getprop("/v22/pfcs/output/vtol/aileron") * (1-h);
-
-    # Rotor collective
-    out_rotor_r_col.setValue(conv_factor * col_wing + (1 - conv_factor) * (col_rotor - ail * ail2col));
-    out_rotor_l_col.setValue(conv_factor * col_wing + (1 - conv_factor) * (col_rotor + ail * ail2col));
-
-    # Allow refuel only if fuel probe is extended
-    setprop("/systems/refuel/serviceable", door_fuelpr.getValue() == 0.0);
-}
 
 var set_tilt = func (value = 0) {
     if (props.globals.getNode("sim/crashed",1).getBoolValue()) {return; }
@@ -148,7 +104,7 @@ var rotor_rpm = props.globals.getNode("rotors/main/rpm", 1);
 
 # MP door/airrefuel ======================================================
 # door airrefuel probe
-var door_fuelpr = props.globals.getNode("instrumentation/doors/airrefuel/position-norm", 1);
+#var door_fuelpr = props.globals.getNode("instrumentation/doors/airrefuel/position-norm", 1);
 
 var torque = props.globals.getNode("rotors/gear/total-torque", 1);
 var stall_right = props.globals.getNode("rotors/main/stall", 1);
@@ -167,7 +123,8 @@ var max_rel_torque = props.globals.getNode("controls/rotor/maxreltorque", 1);
 # 10 fully folded
 # 11 rotating wing and moving engines up
 # 12 unfolding blades
-# 13 -> 0
+# 13 resetting blades collective
+# 14 -> 0
 var blade_folding = props.globals.getNode("sim/model/v22/blade_folding",1);
 
 var update_wing_state = func {
@@ -207,8 +164,11 @@ var update_wing_state = func {
             interpolate(blade_folding, 0, 3.5);
         }
         if (new_state == 13) {
+            settimer(func { update_wing_state(14) }, 1);
             set_tilt(0);
             interpolate(control_rotor_incidence_wing_fold, 0 , 1);
+        }
+        if (new_state == 14) {
             wing_state.setValue(0);
         }
     }
@@ -631,7 +591,7 @@ var main_loop = func {
     #update_slide();
     update_engine();
     update_sound(dt);
-    update_controls_and_tilt_loop();
+    update_apln_mode_collective();
     # update_rotor_brake();
 }
 
@@ -662,9 +622,6 @@ setlistener("/sim/signals/fdm-initialized", func {
     setlistener("/rotors/main/blade/position-deg", func {
         update_rotor_brake();
     });
-
-    # the attitude indicator needs pressure
-    # settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
 
     var afcs_loop_timer = maketimer(0.5, afcs.main_loop);
     afcs_loop_timer.start();

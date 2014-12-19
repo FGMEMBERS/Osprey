@@ -198,6 +198,9 @@
                 <path>Systems/servos.xml</path>
             </autopilot>
             <autopilot>
+                <path>Systems/rotors.xml</path>
+            </autopilot>
+            <autopilot>
                 <path>Systems/gforce.xml</path>
             </autopilot>
             <autopilot>

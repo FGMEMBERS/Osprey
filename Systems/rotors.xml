@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Copyright (c) 2014 onox
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<PropertyList>
+
+    <!--
+         Sources:
+            [1]  http://www.bellhelicopter.com/MungoBlobs/126/268/V-22%20Guidebook%202013_update_PREVIEW_LR2.pdf
+            (conversion corridor, page 57 on slide 29)
+    -->
+
+    <!-- ================================================================== -->
+    <!-- Rotors Collective                                                  -->
+    <!-- ================================================================== -->
+
+    <!-- Computes the difference with the default collective. If zero, then
+         the aircraft will not roll. If positive, the collective of the left
+         rotor is higher than the collective of the right rotor, thus the
+         aircraft will roll to the right. If negative, the aircraft will roll
+         to the left.
+    -->
+    <filter>
+        <name>Rotor Collective Differential</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <product>
+                    <!-- A gain in order to create a differential between
+                         the collective of the left and right rotors. If zero,
+                         then the aircraft will be able to lift off, but not roll.
+                    -->
+                    <value>5.0</value>
+
+                    <property>/v22/pfcs/internal/dcp-tilt</property>
+                    <property>/v22/pfcs/internal/dcp-airspeed</property>
+
+                    <!-- Multiply with the aileron input.
+
+                         Range is -1.0 .. 1.0 if using the FBW. If the FBW
+                         has been disabled or if the aircraft is on the ground,
+                         then the value is multiplied by the Roll Rate Gain from
+                         the Control Panel FBW dialog.
+                    -->
+                    <property>/v22/pfcs/output/vtol/aileron</property>
+
+                    <!-- Reduce ailerons input to zero if blades are folded -->
+                    <difference>
+                        <value>1.0</value>
+                        <property>/sim/model/v22/wingfoldincidence</property>
+                    </difference>
+                </product>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/internal/ailerons-to-collective</property>
+        </output>
+    </filter>
+
+    <!-- Computes the collective of both rotors for VTOL mode. The value
+         determines whether the aircraft will ascent, descent, or hover.
+
+         For the left rotor, this value is summed with the ailerons-to-collective
+         property above. For the right rotor, the value of ailerons-to-collective
+         is subtracted from this value.
+    -->
+    <filter>
+        <name>Rotors Collective</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <sum>
+                    <product>
+                        <value>100.0</value>
+                        <property>/sim/model/v22/wingfoldincidence</property>
+                    </product>
+                    <product>
+                        <table>
+                            <property>/v22/pfcs/output/tcl</property>
+                            <entry><ind>0.0</ind><dep>2.0</dep></entry>
+                            <entry><ind>1.0</ind><dep>23.0</dep></entry>
+                        </table>
+                        <difference>
+                            <value>1.0</value>
+                            <property>/sim/model/v22/wingfoldincidence</property>
+                        </difference>
+                    </product>
+                </sum>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/internal/rotor-collective</property>
+        </output>
+    </filter>
+
+    <!-- Factor controlling when the collective of the rotors are
+         considered to be in VTOL mode and when in APLN mode.
+    -->
+    <filter>
+        <name>Conversion Factor</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <!-- [1] describes the lower bound as "40 to 80 knots" (KTAS)
+                     and the upper bound as "100 to 120 knots" (KTAS).
+                -->
+                <table>
+                    <property>/velocities/airspeed-kt</property>
+                    <entry><ind>40</ind><dep>0.0</dep></entry>
+                    <entry><ind>120</ind><dep>1.0</dep></entry>
+                </table>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/internal/conversion-factor</property>
+        </output>
+    </filter>
+
+    <!-- Compute the actual collective of the left rotor. The value depends on
+         the aileron input, the throttle, and whether the aircraft is in VTOL mode
+         or APLN mode. If the aircraft is in APLN mode then the collective is set
+         to a fixed value and will be the same for both rotors.
+    -->
+    <filter>
+        <name>Collective Left Rotor</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <sum>
+                    <product>
+                        <property>/v22/pfcs/internal/conversion-factor</property>
+                        <property>/v22/pfcs/output/tcl</property>
+                        <property>/v22/pfcs/internal/apln-collective</property>
+                    </product>
+                    <product>
+                        <difference>
+                            <value>1.0</value>
+                            <property>/v22/pfcs/internal/conversion-factor</property>
+                        </difference>
+                        <sum>
+                            <property>/v22/pfcs/internal/rotor-collective</property>
+                            <property>/v22/pfcs/internal/ailerons-to-collective</property>
+                        </sum>
+                    </product>
+                </sum>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/output/vtol//collective-left</property>
+        </output>
+    </filter>
+
+    <!-- Compute the actual collective of the right rotor. The value depends on
+         the aileron input, the throttle, and whether the aircraft is in VTOL mode
+         or APLN mode. If the aircraft is in APLN mode then the collective is set
+         to a fixed value and will be the same for both rotors.
+    -->
+    <filter>
+        <name>Collective Right Rotor</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <input>
+            <expression>
+                <sum>
+                    <product>
+                        <property>/v22/pfcs/internal/conversion-factor</property>
+                        <property>/v22/pfcs/output/tcl</property>
+                        <property>/v22/pfcs/internal/apln-collective</property>
+                    </product>
+                    <product>
+                        <difference>
+                            <value>1.0</value>
+                            <property>/v22/pfcs/internal/conversion-factor</property>
+                        </difference>
+                        <difference>
+                            <property>/v22/pfcs/internal/rotor-collective</property>
+                            <property>/v22/pfcs/internal/ailerons-to-collective</property>
+                        </difference>
+                    </product>
+                </sum>
+            </expression>
+        </input>
+        <output>
+            <property>/v22/pfcs/output/vtol/collective-right</property>
+        </output>
+    </filter>
+
+    <!-- Simulate the servo motors of the left rotor hub by limiting the
+         rate of change of the collective.
+    -->
+    <filter>
+        <name>Collective Left Rotor Servos</name>
+        <type>noise-spike</type>
+        <enable>
+            <condition>
+                <equals>
+                    <property>/sim/model/v22/wing_state</property>
+                    <value>0</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/pfcs/output/vtol/collective-left</property>
+        </input>
+        <output>
+            <property>/sim/model/v22/rotor/left/collective</property>
+        </output>
+
+        <max-rate-of-change>5.0</max-rate-of-change>
+    </filter>
+
+    <!-- Simulate the servo motors of the right rotor hub by limiting the
+         rate of change of the collective.
+    -->
+    <filter>
+        <name>Collective Right Rotor Servos</name>
+        <type>noise-spike</type>
+        <enable>
+            <condition>
+                <equals>
+                    <property>/sim/model/v22/wing_state</property>
+                    <value>0</value>
+                </equals>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/pfcs/output/vtol/collective-right</property>
+        </input>
+        <output>
+            <property>/sim/model/v22/rotor/right/collective</property>
+        </output>
+
+        <max-rate-of-change>5.0</max-rate-of-change>
+    </filter>
+
+    <!-- TODO Extend the duration of the blade folding in Nasal/v22.nas
+         so that this filter becomes unneeded.
+    -->
+    <filter>
+        <name>Blades Fold Left Rotor</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <not-equals>
+                    <property>/sim/model/v22/wing_state</property>
+                    <value>0</value>
+                </not-equals>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/pfcs/output/vtol/collective-left</property>
+        </input>
+        <output>
+            <property>/sim/model/v22/rotor/left/collective</property>
+        </output>
+    </filter>
+
+    <!-- TODO Extend the duration of the blade folding in Nasal/v22.nas
+         so that this filter becomes unneeded.
+    -->
+    <filter>
+        <name>Blades Fold Right Rotor</name>
+        <type>gain</type>
+        <gain>1.0</gain>
+        <enable>
+            <condition>
+                <not-equals>
+                    <property>/sim/model/v22/wing_state</property>
+                    <value>0</value>
+                </not-equals>
+            </condition>
+        </enable>
+        <input>
+            <property>/v22/pfcs/output/vtol/collective-right</property>
+        </input>
+        <output>
+            <property>/sim/model/v22/rotor/right/collective</property>
+        </output>
+    </filter>
+
+</PropertyList>
