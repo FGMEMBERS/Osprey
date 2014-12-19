@@ -253,7 +253,8 @@
     <!-- ================================================================== -->
 
     <!-- Simulate the servo motors of the two ailerons by limiting the
-         rate of change of the two flight control surfaces. -->
+         rate of change of the two flight control surfaces.
+    -->
     <filter>
         <name>Ailerons Servos</name>
         <type>noise-spike</type>
@@ -309,7 +310,8 @@
     </filter>
 
     <!-- Simulate the servo motors of the elevator by limiting the
-         rate of change of the flight control surface. -->
+         rate of change of the flight control surface.
+    -->
     <filter>
         <name>Elevator Servos</name>
         <type>noise-spike</type>
@@ -332,7 +334,8 @@
     </filter>
 
     <!-- Simulate the servo motors of the two rudders by limiting the
-         rate of change of the two flight control surfaces. -->
+         rate of change of the two flight control surfaces.
+    -->
     <filter>
         <name>Rudders Servos</name>
         <type>noise-spike</type>
@@ -861,5 +864,18 @@
             <property>/instrumentation/heading-indicator/offset-deg</property>
         </output>
     </filter>
+
+    <!-- Only allow refueling if fuel probe is extended -->
+    <logic>
+        <name>Fuel Probe Serviceable On/Off Switcher</name>
+        <input>
+            <not>
+                <property>/instrumentation/doors/airrefuel/position-norm</property>
+            </not>
+        </input>
+        <output>
+            <property>/systems/refuel/serviceable</property>
+        </output>
+    </logic>
 
 </PropertyList>
