@@ -418,7 +418,7 @@ var update_stall = func(dt) {
     } else {
         stall_val = s;
     }
-    var c = getprop("/v22/pfcs/output/tcl");
+    var c = getprop("/v22/pfcs/output/tcl") or 0.0;
     var r = clamp(rotor_rpm.getValue()*0.004-0.2,0,1);
     stall_filtered.setDoubleValue(r*min(1,0.5+5*stall_val + 0.006 * (1 - c)));
     
