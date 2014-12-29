@@ -134,15 +134,31 @@
                             <command>property-toggle</command>
                         </binding>
                     </checkbox>
+                </group>
+            </group>
+
+            <hrule/>
+
+            <group>
+                <layout>vbox</layout>
+                <padding>6</padding>
+                <valign>top</valign>
+                <text>
+                    <label>Autopilot</label>
+                </text>
+
+                <group>
+                    <layout>table</layout>
+                    <halign>left</halign>
 
                     <text>
-                        <row>4</row>
+                        <row>0</row>
                         <col>0</col>
                         <label>Pitch Hold Max:</label>
                         <halign>right</halign>
                     </text>
                     <input>
-                        <row>4</row>
+                        <row>0</row>
                         <col>1</col>
                         <name>pitch-hold-max</name>
                         <label>deg</label>
@@ -156,13 +172,13 @@
                     </input>
 
                     <text>
-                        <row>5</row>
+                        <row>1</row>
                         <col>0</col>
                         <label>Pitch Hold Min:</label>
                         <halign>right</halign>
                     </text>
                     <input>
-                        <row>5</row>
+                        <row>1</row>
                         <col>1</col>
                         <name>pitch-hold-min</name>
                         <label>deg</label>
@@ -176,13 +192,13 @@
                     </input>
 
                     <text>
-                        <row>6</row>
+                        <row>2</row>
                         <col>0</col>
                         <label>G/S Hold Pitch Max:</label>
                         <halign>right</halign>
                     </text>
                     <input>
-                        <row>6</row>
+                        <row>2</row>
                         <col>1</col>
                         <name>gs-hold-pitch-max</name>
                         <label>deg</label>
@@ -196,13 +212,13 @@
                     </input>
 
                     <text>
-                        <row>7</row>
+                        <row>3</row>
                         <col>0</col>
                         <label>Climb Rate Max:</label>
                         <halign>right</halign>
                     </text>
                     <input>
-                        <row>7</row>
+                        <row>3</row>
                         <col>1</col>
                         <name>climb-rate-max</name>
                         <label>fpm</label>
@@ -216,13 +232,13 @@
                     </input>
 
                     <text>
-                        <row>8</row>
+                        <row>4</row>
                         <col>0</col>
                         <label>VTOL Pitch Hold Max:</label>
                         <halign>right</halign>
                     </text>
                     <input>
-                        <row>8</row>
+                        <row>4</row>
                         <col>1</col>
                         <name>vtol-pitch-hold-max</name>
                         <label>deg</label>
@@ -236,13 +252,13 @@
                     </input>
 
                     <text>
-                        <row>9</row>
+                        <row>5</row>
                         <col>0</col>
                         <label>VTOL Pitch Hold Min:</label>
                         <halign>right</halign>
                     </text>
                     <input>
-                        <row>9</row>
+                        <row>5</row>
                         <col>1</col>
                         <name>vtol-pitch-hold-min</name>
                         <label>deg</label>

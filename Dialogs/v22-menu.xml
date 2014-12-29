@@ -93,7 +93,7 @@
             </item>
 
             <item>
-                <label>FBW</label>
+                <label>FBW and Autopilot</label>
                 <binding>
                     <command>dialog-show</command>
                     <dialog-name>control-panel-fbw</dialog-name>
