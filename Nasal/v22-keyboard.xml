@@ -98,33 +98,6 @@
         </binding>
     </key>
 
-    <key n="15">
-        <name>Ctrl-o</name>
-        <desc>Find aircraft for aerotow</desc>
-        <binding>
-          <command>property-assign</command>
-          <property>controls/aerotow/find-aircraft</property>
-          <value type="bool">true</value>
-        </binding>
-        <mod-up>
-          <binding>
-            <command>property-assign</command>
-            <property>controls/aerotow/find-aircraft</property>
-            <value type="bool">false</value>
-          </binding>
-        </mod-up>
-    </key>
-
-    <key n="111">
-        <name>o</name>
-        <desc>Lock aerotow hook</desc>
-        <binding>
-          <command>property-assign</command>
-          <property>sim/hitches/aerotow/open</property>
-          <value type="bool">false</value>
-        </binding>
-    </key>
-
     <key n="79">
         <name>O</name>
         <desc>Open aerotow hook</desc>

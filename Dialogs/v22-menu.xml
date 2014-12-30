@@ -54,31 +54,6 @@
             </item>
 
             <item>
-                <label>Find Aircraft to Tow</label>
-                <binding>
-                    <command>property-assign</command>
-                    <property>controls/aerotow/find-aircraft</property>
-                    <value type="bool">true</value>
-                </binding>
-                <mod-up>
-                    <binding>
-                        <command>property-assign</command>
-                        <property>controls/aerotow/find-aircraft</property>
-                        <value type="bool">false</value>
-                    </binding>
-                </mod-up>
-            </item>
-
-            <item>
-                <label>Lock Tow Hook</label>
-                <binding>
-                    <command>property-assign</command>
-                    <property>sim/hitches/aerotow/open</property>
-                    <value type="bool">false</value>
-                </binding>
-            </item>
-
-            <item>
                 <label>Open Tow Hook</label>
                 <binding>
                     <command>property-assign</command>
