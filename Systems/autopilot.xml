@@ -128,6 +128,21 @@
         </output>
     </logic>
 
+    <logic>
+        <name>A/P NAV1 Localizer Armed/Disarmed Switcher</name>
+        <input>
+            <and>
+                <property>/v22/afcs/locks/vor-ils</property>
+                <not>
+                    <property>/v22/afcs/active/loc-hold</property>
+                </not>
+            </and>
+        </input>
+        <output>
+            <property>/v22/afcs/armed/loc-hold</property>
+        </output>
+    </logic>
+
     <!-- Filter which sets the desired roll angle to zero in order to
          level the wings.
     -->
@@ -862,6 +877,22 @@
         </output>
     </logic>
 
+    <logic>
+        <name>A/P NAV1 Glideslope Armed/Disarmed Switcher</name>
+        <input>
+            <and>
+                <property>/v22/afcs/locks/vor-ils</property>
+                <property>/instrumentation/nav[0]/has-gs</property>
+                <not>
+                    <property>/v22/afcs/active/gs-hold</property>
+                </not>
+            </and>
+        </input>
+        <output>
+            <property>/v22/afcs/armed/gs-hold</property>
+        </output>
+    </logic>
+
     <!-- Tracks the glideslope of the current NAV1 signal -->
     <pid-controller>
         <name>A/P NAV1 Glideslope</name>
@@ -1542,6 +1573,28 @@
         </input>
         <output>
             <property>/v22/afcs/active/auto-nac</property>
+        </output>
+    </logic>
+
+    <logic>
+        <name>A/P Auto Nacelles Armed/Disarmed Switcher</name>
+        <input>
+            <and>
+                <not>
+                    <property>/v22/afcs/active/auto-nac</property>
+                </not>
+                <or>
+                    <property>/v22/afcs/active/gs-hold</property>
+                    <property>/v22/afcs/locks/auto-nac</property>
+                    <and>
+                        <property>/v22/afcs/armed/gs-hold</property>
+                        <property>/v22/afcs/active/spd-hold</property>
+                    </and>
+                </or>
+            </and>
+        </input>
+        <output>
+            <property>/v22/afcs/armed/auto-nac</property>
         </output>
     </logic>
 

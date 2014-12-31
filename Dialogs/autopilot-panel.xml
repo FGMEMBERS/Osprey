@@ -81,12 +81,7 @@
                 <row>1</row>
                 <col>2</col>
                 <visible>
-                    <and>
-                        <property>/v22/afcs/locks/vor-ils</property>
-                        <not>
-                            <property>/v22/afcs/active/loc-hold</property>
-                        </not>
-                    </and>
+                    <property>/v22/afcs/armed/loc-hold</property>
                 </visible>
                 <legend>ARM</legend>
                 <pref-width>40</pref-width>
@@ -910,15 +905,33 @@
                 <row>1</row>
                 <col>28</col>
                 <visible>
-                    <not>
-                        <property>/v22/afcs/active/auto-nac</property>
-                    </not>
+                    <property>/v22/afcs/armed/auto-nac</property>
+                </visible>
+                <legend>ARM</legend>
+                <pref-width>40</pref-width>
+                <binding>
+                    <command>nasal</command>
+                    <script>if (!getprop("/v22/afcs/active/gs-hold")) { setprop("/v22/afcs/locks/auto-nac", 0) }</script>
+                </binding>
+            </button>
+            <button>
+                <row>1</row>
+                <col>28</col>
+                <visible>
+                    <and>
+                        <not>
+                            <property>/v22/afcs/active/auto-nac</property>
+                        </not>
+                        <not>
+                            <property>/v22/afcs/armed/auto-nac</property>
+                        </not>
+                    </and>
                 </visible>
                 <legend></legend>
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>if (getprop("/v22/afcs/active/spd-hold")) { setprop("/v22/afcs/locks/auto-nac", 1) }</script>
+                    <script>setprop("/v22/afcs/locks/auto-nac", 1)</script>
                 </binding>
             </button>
             <text>

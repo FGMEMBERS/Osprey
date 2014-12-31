@@ -206,4 +206,4 @@ var disable_auto_nac = func (node) {
     }
 };
 
-setlistener("/v22/afcs/active/spd-hold", disable_auto_nac);
+setlistener("/v22/afcs/active/spd-hold", disable_auto_nac, 0, 0);
