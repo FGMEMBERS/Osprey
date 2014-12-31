@@ -151,11 +151,6 @@
 
         <checklists include="v22-checklists.xml"/>
 
-        <submodels>
-            <serviceable type="bool">true</serviceable>
-            <path>Aircraft/VMX22-Osprey/Submodels/submodels.xml</path>
-        </submodels>
-
         <help include="Dialogs/v22-help.xml"/>
 
         <flaps>

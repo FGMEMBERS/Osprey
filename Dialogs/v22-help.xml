@@ -59,18 +59,6 @@
         <desc>Aerial refueling probe</desc>
     </key>
     <key>
-        <name>Ctrl-j</name>
-        <desc>Deploy paratroopers</desc>
-    </key>
-    <key>
-        <name>Ctrl-o</name>
-        <desc>Find aircraft to tow</desc>
-    </key>
-    <key>
-        <name>o</name>
-        <desc>Lock tow hook</desc>
-    </key>
-    <key>
         <name>O</name>
         <desc>Open tow hook</desc>
     </key>
