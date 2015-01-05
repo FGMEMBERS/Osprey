@@ -149,7 +149,7 @@
             <max-lb>300</max-lb>
         </weight>
 
-        <checklists include="v22-checklists.xml"/>
+        <checklists include="Checklists/checklists.xml"/>
 
         <help include="Dialogs/v22-help.xml"/>
 
