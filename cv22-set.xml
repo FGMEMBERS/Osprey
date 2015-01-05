@@ -19,7 +19,7 @@
 
 <PropertyList include="vmx22-set.xml">
 
-    <sim>
+    <sim include="Sim/views-cv22.xml">
 
         <description>Bell Boeing CV-22 Osprey</description>
         <aero>cv22</aero>
