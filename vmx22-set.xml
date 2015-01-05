@@ -259,8 +259,8 @@
     </engines>
 
     <input>
-        <keyboard include="Nasal/v22-keyboard.xml"/>
-        <mice include="mice.xml"/>
+        <keyboard include="Sim/keyboard.xml"/>
+        <mice include="Sim/mice.xml"/>
     </input>
 
     <controls>
