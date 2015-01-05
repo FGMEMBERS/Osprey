@@ -555,31 +555,6 @@
     </offsets>
   </model>
   
-  <!-- 3D Landing Light with effect based on shader by ZAN - Left + Right -->  
-  <model>
-    <path>Aircraft/VMX22-Osprey/Models/Landinglights/light-cone-left.xml</path>
-    <offsets>
-	  <pitch-deg>0</pitch-deg>   
-      <heading-deg>10</heading-deg>
-      <roll-deg>0</roll-deg>
-      <x-m> -6.100 </x-m>
-      <y-m> -0.727 </y-m>
-      <z-m> -2.584 </z-m>
-    </offsets>
-  </model>
-  
-  <model>
-    <path>Aircraft/VMX22-Osprey/Models/Landinglights/light-cone-right.xml</path>
-    <offsets>
-	  <pitch-deg>0</pitch-deg>   
-      <heading-deg>-10</heading-deg>
-      <roll-deg>0</roll-deg>
-      <x-m> -6.100 </x-m>
-      <y-m>  0.727 </y-m>
-      <z-m> -2.584 </z-m>
-    </offsets>
-  </model>
-  
    <!-- Tyre smoke FX -->
    
    <!-- Tyre smoke Front Gear-->

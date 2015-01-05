@@ -77,16 +77,10 @@
                 <animation_tilt type="float">0</animation_tilt>
             </v22>
 
-            <!-- set for landing lights OFF (0 default) on startup <property>sim/model/lights/landing-lights/state</property> -->
-            <!-- set for GIT landing lights OFF (0 default) on startup <property>sim/model/lights/git-landing-lights/state</property> -->
-            <!-- change state to 1 - to globaly set the GIT landing lights to ON for all mp vmx22 -->
             <lights>
                 <landing-lights>
                     <state type="int">0</state>
                 </landing-lights>
-                <git-landing-lights>
-                    <state type="int">0</state>
-                </git-landing-lights>
             </lights>
         </model>
 
