@@ -12,7 +12,7 @@
 
         <empty><stretch>true</stretch></empty>
         <text>
-            <label>Autopilot Panel</label>
+            <label>Flight Director Panel</label>
         </text>
         <empty><stretch>true</stretch></empty>
 
@@ -110,8 +110,9 @@
                 <legend>CAP</legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/vor-ils", 0)</script>
+                    <command>property-assign</command>
+                    <property>/v22/afcs/locks/vor-ils</property>
+                    <value type="bool">false</value>
                 </binding>
             </button>
             <button>
@@ -123,8 +124,9 @@
                 <legend>ARM</legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/vor-ils", 0)</script>
+                    <command>property-assign</command>
+                    <property>/v22/afcs/locks/vor-ils</property>
+                    <value type="bool">false</value>
                 </binding>
             </button>
             <button>
@@ -156,8 +158,9 @@
                 <legend>CAP</legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/heading", "")</script>
+                    <command>property-assign</command>
+                    <property>/v22/afcs/locks/heading</property>
+                    <value type="string"></value>
                 </binding>
             </button>
             <button>
@@ -169,8 +172,9 @@
                 <legend>ARM</legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/heading", "")</script>
+                    <command>property-assign</command>
+                    <property>/v22/afcs/locks/heading</property>
+                    <value type="string"></value>
                 </binding>
             </button>
             <button>
@@ -237,8 +241,9 @@
                 <legend>CAP</legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/autopilot/locks/heading", "")</script>
+                    <command>property-assign</command>
+                    <property>/autopilot/locks/heading</property>
+                    <value type="string"></value>
                 </binding>
             </button>
             <button>
@@ -778,8 +783,9 @@
                 <legend>ON</legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/autopilot/locks/heading", "")</script>
+                    <command>property-assign</command>
+                    <property>/autopilot/locks/heading</property>
+                    <value type="string"></value>
                 </binding>
             </button>
             <button>
@@ -794,8 +800,9 @@
                 <legend></legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/autopilot/locks/heading", "dg-heading-hold")</script>
+                    <command>property-assign</command>
+                    <property>/autopilot/locks/heading</property>
+                    <value type="string">dg-heading-hold</value>
                 </binding>
             </button>
 
@@ -813,8 +820,9 @@
                 <legend>ON</legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/autopilot/locks/speed", "")</script>
+                    <command>property-assign</command>
+                    <property>/autopilot/locks/speed</property>
+                    <value type="string"></value>
                 </binding>
             </button>
             <button>
@@ -832,8 +840,9 @@
                 <legend></legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/autopilot/locks/speed", "speed-with-throttle")</script>
+                    <command>property-assign</command>
+                    <property>/autopilot/locks/speed</property>
+                    <value type="string">speed-with-throttle</value>
                 </binding>
             </button>
 
@@ -848,8 +857,9 @@
                 <legend>ON</legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/autopilot/locks/altitude", "")</script>
+                    <command>property-assign</command>
+                    <property>/autopilot/locks/altitude</property>
+                    <value type="string"></value>
                 </binding>
             </button>
             <button>
@@ -864,8 +874,9 @@
                 <legend></legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/autopilot/locks/altitude", "altitude-hold")</script>
+                    <command>property-assign</command>
+                    <property>/autopilot/locks/altitude</property>
+                    <value type="string">altitude-hold</value>
                 </binding>
             </button>
 
@@ -880,8 +891,9 @@
                 <legend>ON</legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/autopilot/locks/altitude", "")</script>
+                    <command>property-assign</command>
+                    <property>/autopilot/locks/altitude</property>
+                    <value type="string"></value>
                 </binding>
             </button>
             <button>
@@ -896,8 +908,9 @@
                 <legend></legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/autopilot/locks/altitude", "agl-hold")</script>
+                    <command>property-assign</command>
+                    <property>/autopilot/locks/altitude</property>
+                    <value type="string">agl-hold</value>
                 </binding>
             </button>
 
@@ -949,8 +962,9 @@
                 <legend></legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <command>nasal</command>
-                    <script>setprop("/v22/afcs/locks/auto-nac", 1)</script>
+                    <command>property-assign</command>
+                    <property>/v22/afcs/locks/auto-nac</property>
+                    <value type="bool">true</value>
                 </binding>
             </button>
             <text>
