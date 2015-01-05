@@ -7,7 +7,6 @@
     <label>
         <width>60</width>
         <height>10</height>
-        <y>0</y>
         <box>true</box>
         <format>%s CAP</format>
         <halign>left</halign>
@@ -42,7 +41,6 @@
         <width>60</width>
         <height>10</height>
         <x>60</x>
-        <y>0</y>
         <box>true</box>
         <format>G/S CAP</format>
         <halign>left</halign>

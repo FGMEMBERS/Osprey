@@ -104,6 +104,10 @@ var TacanClass = {
         # Remove listeners and the timer that updates the radar 
         # properties of the aircraft that is being tracked
 
+        if (size(me.listeners) == 0) {
+            return;
+        }
+
         foreach (var l; me.listeners) {
             removelistener(l);
         }
@@ -160,7 +164,7 @@ var tacan_init = func (node) {
     }
 };
 
-setlistener("/v22/afcs/locks/heading", tacan_init, runtime=0);
+setlistener("/v22/afcs/locks/heading", tacan_init, 0, 0);
 
 # Disable standard magnetic heading hold if NAV1 localizer or TACAN
 # signal has been captured.
@@ -186,8 +190,8 @@ var disable_tacan_heading = func (node) {
     }
 };
 
-setlistener("/v22/afcs/active/loc-hold", disable_tacan_heading);
-setlistener("/v22/afcs/active/tacan-hold", disable_vor_heading);
+setlistener("/v22/afcs/active/loc-hold", disable_tacan_heading, 0, 0);
+setlistener("/v22/afcs/active/tacan-hold", disable_vor_heading, 0, 0);
 
 
 # Disable standard altitude hold if NAV1 glideslope signal has been
@@ -198,7 +202,7 @@ var disable_altitude = func (node) {
     }
 };
 
-setlistener("/v22/afcs/active/gs-hold", disable_altitude);
+setlistener("/v22/afcs/active/gs-hold", disable_altitude, 0, 0);
 
 var disable_auto_nac = func (node) {
     if (!node.getValue()) {

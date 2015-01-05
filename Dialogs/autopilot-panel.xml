@@ -127,15 +127,7 @@
                 <row>1</row>
                 <col>3</col>
                 <visible>
-                    <and>
-                        <equals>
-                            <property>/v22/afcs/locks/heading</property>
-                            <value>tacan-hold</value>
-                        </equals>
-                        <not>
-                            <property>/v22/afcs/active/tacan-hold</property>
-                        </not>
-                    </and>
+                    <property>/v22/afcs/armed/tacan-hold</property>
                 </visible>
                 <legend>ARM</legend>
                 <pref-width>40</pref-width>
@@ -737,15 +729,14 @@
             </text>
 
             <!-- 5th row: 4x HOLD buttons for HDG, SPEED, ALT, and HVR ALT -->
+
+            <!-- HDG HOLD -->
             <button>
                 <row>4</row>
                 <col>9</col>
                 <colspan>4</colspan>
                 <visible>
-                    <equals>
-                        <property>/autopilot/locks/heading</property>
-                        <value>dg-heading-hold</value>
-                    </equals>
+                    <property>/v22/afcs/active/mag-heading-hold</property>
                 </visible>
                 <legend>ON</legend>
                 <pref-width>40</pref-width>
@@ -760,10 +751,7 @@
                 <colspan>4</colspan>
                 <visible>
                     <not>
-                        <equals>
-                            <property>/autopilot/locks/heading</property>
-                            <value>dg-heading-hold</value>
-                        </equals>
+                        <property>/v22/afcs/active/mag-heading-hold</property>
                     </not>
                 </visible>
                 <legend></legend>
@@ -773,6 +761,8 @@
                     <script>setprop("/autopilot/locks/heading", "dg-heading-hold")</script>
                 </binding>
             </button>
+
+            <!-- SPEED HOLD -->
             <button>
                 <row>4</row>
                 <col>14</col>
@@ -809,15 +799,14 @@
                     <script>setprop("/autopilot/locks/speed", "speed-with-throttle")</script>
                 </binding>
             </button>
+
+            <!-- ALT HOLD -->
             <button>
                 <row>4</row>
                 <col>19</col>
                 <colspan>4</colspan>
                 <visible>
-                    <equals>
-                        <property>/autopilot/locks/altitude</property>
-                        <value>altitude-hold</value>
-                    </equals>
+                    <property>/v22/afcs/active/alt-hold</property>
                 </visible>
                 <legend>ON</legend>
                 <pref-width>40</pref-width>
@@ -832,10 +821,7 @@
                 <colspan>4</colspan>
                 <visible>
                     <not>
-                        <equals>
-                            <property>/autopilot/locks/altitude</property>
-                            <value>altitude-hold</value>
-                        </equals>
+                        <property>/v22/afcs/active/alt-hold</property>
                     </not>
                 </visible>
                 <legend></legend>
@@ -845,15 +831,14 @@
                     <script>setprop("/autopilot/locks/altitude", "altitude-hold")</script>
                 </binding>
             </button>
+
+            <!-- HVR ALT HOLD -->
             <button>
                 <row>4</row>
                 <col>24</col>
                 <colspan>4</colspan>
                 <visible>
-                    <equals>
-                        <property>/autopilot/locks/altitude</property>
-                        <value>agl-hold</value>
-                    </equals>
+                    <property>/v22/afcs/active/hvr-alt-hold-groundspeed-dontcare</property>
                 </visible>
                 <legend>ON</legend>
                 <pref-width>40</pref-width>
@@ -868,10 +853,7 @@
                 <colspan>4</colspan>
                 <visible>
                     <not>
-                        <equals>
-                            <property>/autopilot/locks/altitude</property>
-                            <value>agl-hold</value>
-                        </equals>
+                        <property>/v22/afcs/active/hvr-alt-hold-groundspeed-dontcare</property>
                     </not>
                 </visible>
                 <legend></legend>
