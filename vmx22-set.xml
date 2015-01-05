@@ -31,7 +31,7 @@
         </startup>
 
         <sound>
-            <path>Aircraft/VMX22-Osprey/Sounds/v22-sound.xml</path>
+            <path>Aircraft/VMX22-Osprey/Sounds/sound.xml</path>
         </sound>
 
         <model>
