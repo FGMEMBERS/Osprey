@@ -151,7 +151,7 @@
 
         <checklists include="Checklists/checklists.xml"/>
 
-        <help include="Dialogs/v22-help.xml"/>
+        <help include="Sim/help.xml"/>
 
         <flaps>
             <setting>0.00</setting> <!-- Cruise -->
