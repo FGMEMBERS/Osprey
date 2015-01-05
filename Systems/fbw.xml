@@ -263,7 +263,10 @@
                 <and>
                     <property>/v22/pfcs/active/roll-rate-in-air</property>
                     <not>
-                        <property>/v22/pfcs/active/roll-hold</property>
+                        <and>
+                            <property>/v22/pfcs/active/roll-hold</property>
+                            <property>/v22/afcs/active/coupled</property>
+                        </and>
                     </not>
                 </and>
             </condition>
@@ -286,7 +289,12 @@
         <name>FBW Roll Hold</name>
         <debug>false</debug>
         <enable>
-            <property>/v22/pfcs/active/roll-hold</property>
+            <condition>
+                <and>
+                    <property>/v22/pfcs/active/roll-hold</property>
+                    <property>/v22/afcs/active/coupled</property>
+                </and>
+            </condition>
         </enable>
         <input>
             <property>/orientation/roll-deg</property>
@@ -328,7 +336,12 @@
     <logic>
         <name>FBW Roll Hold Dependency FBW Roll Rate</name>
         <enable>
-            <property>/v22/pfcs/active/roll-hold</property>
+            <condition>
+                <and>
+                    <property>/v22/pfcs/active/roll-hold</property>
+                    <property>/v22/afcs/active/coupled</property>
+                </and>
+            </condition>
         </enable>
         <input>
             <true />
@@ -346,7 +359,10 @@
         <enable>
             <condition>
                 <not>
-                    <property>/v22/pfcs/active/roll-hold</property>
+                    <and>
+                        <property>/v22/pfcs/active/roll-hold</property>
+                        <property>/v22/afcs/active/coupled</property>
+                    </and>
                 </not>
             </condition>
         </enable>
@@ -617,7 +633,12 @@
         <name>FBW Pitch Hold</name>
         <debug>false</debug>
         <enable>
-            <property>/v22/pfcs/active/pitch-hold</property>
+            <condition>
+                <and>
+                    <property>/v22/pfcs/active/pitch-hold</property>
+                    <property>/v22/afcs/active/coupled</property>
+                </and>
+            </condition>
         </enable>
         <input>
             <property>/orientation/pitch-deg</property>
@@ -660,6 +681,7 @@
         <enable>
             <condition>
                 <and>
+                    <property>/v22/afcs/active/coupled</property>
                     <property>/v22/afcs/active/vs-hold</property>
                     <not>
                         <property>/v22/afcs/active/spd-hold</property>
@@ -700,6 +722,7 @@
         <enable>
             <condition>
                 <and>
+                    <property>/v22/afcs/active/coupled</property>
                     <property>/v22/afcs/active/spd-hold</property>
                     <not>
                         <property>/v22/afcs/active/vs-hold</property>
@@ -737,7 +760,10 @@
         <enable>
             <condition>
                 <not>
-                    <property>/v22/pfcs/active/pitch-hold</property>
+                    <and>
+                        <property>/v22/pfcs/active/pitch-hold</property>
+                        <property>/v22/afcs/active/coupled</property>
+                    </and>
                 </not>
             </condition>
         </enable>
@@ -756,13 +782,16 @@
         <debug>false</debug>
         <enable>
             <condition>
-                <or>
-                    <and>
-                        <property>/v22/afcs/active/vs-hold</property>
-                        <property>/v22/afcs/active/spd-hold</property>
-                    </and>
-                    <property>/v22/afcs/active/pitch-hold-no-gs</property>
-                </or>
+                <and>
+                    <property>/v22/afcs/active/coupled</property>
+                    <or>
+                        <and>
+                            <property>/v22/afcs/active/vs-hold</property>
+                            <property>/v22/afcs/active/spd-hold</property>
+                        </and>
+                        <property>/v22/afcs/active/pitch-hold-no-gs</property>
+                    </or>
+                </and>
             </condition>
         </enable>
         <input>
@@ -777,7 +806,12 @@
     <logic>
         <name>FBW Pitch Hold Dependency FBW Pitch Rate</name>
         <enable>
-            <property>/v22/pfcs/active/pitch-hold</property>
+            <condition>
+                <and>
+                    <property>/v22/pfcs/active/pitch-hold</property>
+                    <property>/v22/afcs/active/coupled</property>
+                </and>
+            </condition>
         </enable>
         <input>
             <true />
@@ -796,6 +830,7 @@
             <condition>
                 <not>
                     <property>/v22/pfcs/active/pitch-hold</property>
+                    <property>/v22/afcs/active/coupled</property>
                 </not>
             </condition>
         </enable>

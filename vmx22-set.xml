@@ -294,6 +294,7 @@
 
                 <heading type="string"></heading>
                 <auto-nac type="bool">false</auto-nac>
+                <coupled type="bool">false</coupled>
             </locks>
             <settings>
                 <!-- When the glideslope has been captured, the aircraft

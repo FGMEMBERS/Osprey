@@ -46,9 +46,46 @@
             <button>
                 <row>2</row>
                 <col>0</col>
+                <visible>
+                    <property>/v22/afcs/active/coupled</property>
+                </visible>
                 <legend>ACT</legend>
                 <pref-width>40</pref-width>
-                <enable><false/></enable>
+                <binding>
+                    <command>property-assign</command>
+                    <property>/v22/afcs/locks/coupled</property>
+                    <value type="bool">false</value>
+                </binding>
+            </button>
+            <button>
+                <row>2</row>
+                <col>0</col>
+                <visible>
+                    <property>/v22/afcs/armed/coupled</property>
+                </visible>
+                <legend>ARM</legend>
+                <pref-width>40</pref-width>
+                <binding>
+                    <command>property-assign</command>
+                    <property>/v22/afcs/locks/coupled</property>
+                    <value type="bool">false</value>
+                </binding>
+            </button>
+            <button>
+                <row>2</row>
+                <col>0</col>
+                <visible>
+                    <not>
+                        <property>/v22/afcs/locks/coupled</property>
+                    </not>
+                </visible>
+                <legend></legend>
+                <pref-width>40</pref-width>
+                <binding>
+                    <command>property-assign</command>
+                    <property>/v22/afcs/locks/coupled</property>
+                    <value type="bool">true</value>
+                </binding>
             </button>
 
             <!-- 1st row: 3 buttons -->
@@ -990,9 +1027,46 @@
             <button>
                 <row>2</row>
                 <col>30</col>
+                <visible>
+                    <property>/v22/afcs/active/coupled</property>
+                </visible>
                 <legend>ACT</legend>
                 <pref-width>40</pref-width>
-                <enable><false/></enable>
+                <binding>
+                    <command>property-assign</command>
+                    <property>/v22/afcs/locks/coupled</property>
+                    <value type="bool">false</value>
+                </binding>
+            </button>
+            <button>
+                <row>2</row>
+                <col>30</col>
+                <visible>
+                    <property>/v22/afcs/armed/coupled</property>
+                </visible>
+                <legend>ARM</legend>
+                <pref-width>40</pref-width>
+                <binding>
+                    <command>property-assign</command>
+                    <property>/v22/afcs/locks/coupled</property>
+                    <value type="bool">false</value>
+                </binding>
+            </button>
+            <button>
+                <row>2</row>
+                <col>30</col>
+                <visible>
+                    <not>
+                        <property>/v22/afcs/locks/coupled</property>
+                    </not>
+                </visible>
+                <legend></legend>
+                <pref-width>40</pref-width>
+                <binding>
+                    <command>property-assign</command>
+                    <property>/v22/afcs/locks/coupled</property>
+                    <value type="bool">true</value>
+                </binding>
             </button>
         </group>
     </group>
