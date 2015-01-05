@@ -704,6 +704,18 @@
             </condition>
         </vrs-sink-rate>
 
+        <ap-disengage>
+            <name>ap-disengage</name>
+            <mode>once</mode>
+            <type>avionics</type>
+            <path>Sounds/autopilot-disengage.wav</path>
+            <condition>
+                <not>
+                    <property>/v22/afcs/active/coupled</property>
+                </not>
+            </condition>
+        </ap-disengage>
+
     </fx>
 
 </PropertyList>
