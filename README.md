@@ -1,7 +1,7 @@
 Bell Boeing V-22 Osprey for FlightGear
 ======================================
 
-This a model of the V-22 Osprey for FlightGear.
+This is a model of the V-22 Osprey for FlightGear.
 
 Dependencies
 ------------
