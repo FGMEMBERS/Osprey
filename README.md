@@ -1,3 +1,15 @@
+Bell Boeing V-22 Osprey for FlightGear
+======================================
+
+This a model of the V-22 Osprey for FlightGear.
+
+Dependencies
+------------
+
+* FlightGear 3.3 or later
+
+* [ExpansionPack][url-fg-expansion-pack] aircraft
+
 84 % RPM
 ========
 
@@ -126,3 +138,5 @@ These factors are read-only and can be found in `internal/`
 * Longitudinal Swashplate Tilting (LST) controls the pitch 
 
 * Differential Swashplate Tilting (DST) controls the yaw
+
+  [url-fg-expansion-pack]: https://github.com/onox/fg-expansion-pack
