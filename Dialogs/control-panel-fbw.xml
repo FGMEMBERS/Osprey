@@ -423,6 +423,46 @@
                             <object-name>vtol-pitch-hold-min</object-name>
                         </binding>
                     </input>
+
+                    <text>
+                        <row>6</row>
+                        <col>0</col>
+                        <label>NAV1 Intercept Max:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>6</row>
+                        <col>1</col>
+                        <name>intercept-deg-max</name>
+                        <label>deg</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/afcs/settings/intercept-deg-max</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>intercept-deg-max</object-name>
+                        </binding>
+                    </input>
+
+                    <text>
+                        <row>7</row>
+                        <col>0</col>
+                        <label>NAV1 Time Before G/S:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>7</row>
+                        <col>1</col>
+                        <name>loc-established-s</name>
+                        <label>s</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/afcs/settings/loc-established-s</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>loc-established-s</object-name>
+                        </binding>
+                    </input>
                 </group>
             </group>
 
