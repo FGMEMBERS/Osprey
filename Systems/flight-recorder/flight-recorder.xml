@@ -46,6 +46,10 @@
         </signal>
         <signal>
             <type>float</type>
+            <property type="string">/controls/rotor/reltarget</property>
+        </signal>
+        <signal>
+            <type>float</type>
             <property type="string">/v22/pfcs/output/tcl</property>
         </signal>
 

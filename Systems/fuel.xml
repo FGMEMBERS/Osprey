@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Copyright (c) 2014 onox
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<PropertyList>
+
+    <!-- ================================================================== -->
+    <!-- Tubes Between Manifold And Wing Feeder Tanks                       -->
+    <!-- ================================================================== -->
+
+    <filter>
+        <name>Tube Left Feeder State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/tube-left-feeder/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/tube-left-feeder/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Tube Right Feeder State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/tube-right-feeder/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/tube-right-feeder/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <!-- ================================================================== -->
+    <!-- Auto Pumps Between Engines And Wing Feeder Tanks                   -->
+    <!-- ================================================================== -->
+
+    <filter>
+        <name>Pump Left Auto Engine State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-auto-left-feed-engine/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-auto-left-feed-engine/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Pump Right Auto Engine State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-auto-right-feed-engine/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-auto-right-feed-engine/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <!-- ================================================================== -->
+    <!-- Boost Pumps Between Tanks And Manifold                             -->
+    <!-- ================================================================== -->
+
+    <filter>
+        <name>Pump Boost Left Fwd Sponson State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-boost-left-fwd-sponson/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-boost-left-fwd-sponson/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Pump Boost Right Fwd Sponson State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-boost-right-fwd-sponson/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-boost-right-fwd-sponson/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Pump Boost Right Aft Sponson State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-boost-right-aft-sponson/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-boost-right-aft-sponson/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Pump Boost Fwd MATS 1 State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-boost-fwd-mats-1/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-boost-fwd-mats-1/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Pump Boost Fwd MATS 2 State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-boost-fwd-mats-2/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-boost-fwd-mats-2/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Pump Boost Aft MATS 3 State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-boost-aft-mats-3/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-boost-aft-mats-3/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Pump Left Wing Aux State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-boost-left-wing-aux/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-boost-left-wing-aux/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Pump Right Wing Aux State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-boost-right-wing-aux/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-boost-right-wing-aux/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+</PropertyList>
