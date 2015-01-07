@@ -13,6 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+io.include("Aircraft/ExpansionPack/Nasal/init.nas");
+
+with("logger", "raas");
+
 var copilot_say = func (message) {
     setprop("/sim/messages/copilot", message);
     logger.info(sprintf("Announcing '%s'", message));
@@ -32,34 +36,34 @@ var remaining_distance_format = func {
     return sprintf("%%d %s remaining", landing_config.distances_unit);
 };
 
-var takeoff_config = { parents: [runway.TakeoffRunwayAnnounceConfig] };
+var takeoff_config = { parents: [raas.TakeoffRunwayAnnounceConfig] };
 takeoff_config.distances_unit = "feet";
 takeoff_config.groundspeed_max_kt = 25;
 
-var landing_config = { parents: [runway.LandingRunwayAnnounceConfig] };
+var landing_config = { parents: [raas.LandingRunwayAnnounceConfig] };
 landing_config.distances_unit = "feet";
 landing_config.distance_center_nose_m = 8;
 landing_config.groundspeed_min_kt = 15;
 
 # Create announcers
-var takeoff_announcer = runway.TakeoffRunwayAnnounceClass.new(takeoff_config);
-var landing_announcer = runway.LandingRunwayAnnounceClass.new(landing_config);
+var takeoff_announcer = raas.TakeoffRunwayAnnounceClass.new(takeoff_config);
+var landing_announcer = raas.LandingRunwayAnnounceClass.new(landing_config);
 
-var stop_announcer    = runway.make_stop_announcer_func(takeoff_announcer, landing_announcer);
-var switch_to_takeoff = runway.make_switch_to_takeoff_func(takeoff_announcer, landing_announcer);
+var stop_announcer    = raas.make_stop_announcer_func(takeoff_announcer, landing_announcer);
+var switch_to_takeoff = raas.make_switch_to_takeoff_func(takeoff_announcer, landing_announcer);
 
-takeoff_announcer.connect("on-runway", runway.make_betty_cb(copilot_say, "On runway .. %s", switch_to_takeoff, runway.runway_number_filter));
-takeoff_announcer.connect("on-short-runway", runway.make_betty_cb(copilot_say, on_short_runway_format, switch_to_takeoff, runway.runway_number_filter));
-takeoff_announcer.connect("approaching-runway", runway.make_betty_cb(copilot_say, "Approaching .. %s", nil, runway.runway_number_filter));
-takeoff_announcer.connect("approaching-short-runway", runway.make_betty_cb(copilot_say, approaching_short_runway_format, nil, runway.runway_number_filter));
+takeoff_announcer.connect("on-runway", raas.make_betty_cb(copilot_say, "On runway .. %s", switch_to_takeoff, raas.runway_number_filter));
+takeoff_announcer.connect("on-short-runway", raas.make_betty_cb(copilot_say, on_short_runway_format, switch_to_takeoff, raas.runway_number_filter));
+takeoff_announcer.connect("approaching-runway", raas.make_betty_cb(copilot_say, "Approaching .. %s", nil, raas.runway_number_filter));
+takeoff_announcer.connect("approaching-short-runway", raas.make_betty_cb(copilot_say, approaching_short_runway_format, nil, raas.runway_number_filter));
 
-landing_announcer.connect("remaining-distance", runway.make_betty_cb(copilot_say, remaining_distance_format));
-landing_announcer.connect("vacated-runway", runway.make_betty_cb(copilot_say, "Vacated runway .. %s", stop_announcer, runway.runway_number_filter));
-landing_announcer.connect("landed-runway", runway.make_betty_cb(copilot_say, "Touchdown on runway .. %s", nil, runway.runway_number_filter));
-landing_announcer.connect("landed-outside-runway", runway.make_betty_cb(nil, nil, stop_announcer));
+landing_announcer.connect("remaining-distance", raas.make_betty_cb(copilot_say, remaining_distance_format));
+landing_announcer.connect("vacated-runway", raas.make_betty_cb(copilot_say, "Vacated runway .. %s", stop_announcer, raas.runway_number_filter));
+landing_announcer.connect("landed-runway", raas.make_betty_cb(copilot_say, "Touchdown on runway .. %s", nil, raas.runway_number_filter));
+landing_announcer.connect("landed-outside-runway", raas.make_betty_cb(nil, nil, stop_announcer));
 
-var set_on_ground = runway.make_set_ground_func(takeoff_announcer, landing_announcer);
-var init_takeoff  = runway.make_init_func(takeoff_announcer);
+var set_on_ground = raas.make_set_ground_func(takeoff_announcer, landing_announcer);
+var init_takeoff  = raas.make_init_func(takeoff_announcer);
 
 var init_announcers = func {
     setlistener("/gear/on-ground", func (node) {
