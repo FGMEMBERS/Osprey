@@ -144,149 +144,6 @@
                 <padding>6</padding>
                 <valign>top</valign>
                 <text>
-                    <label>Autopilot</label>
-                </text>
-
-                <group>
-                    <layout>table</layout>
-                    <halign>left</halign>
-
-                    <text>
-                        <row>0</row>
-                        <col>0</col>
-                        <label>Pitch Hold Max:</label>
-                        <halign>right</halign>
-                    </text>
-                    <input>
-                        <row>0</row>
-                        <col>1</col>
-                        <name>pitch-hold-max</name>
-                        <label>deg</label>
-                        <halign>left</halign>
-                        <live>true</live>
-                        <property>/v22/pfcs/settings/pitch-hold-max</property>
-                        <binding>
-                            <command>dialog-apply</command>
-                            <object-name>pitch-hold-max</object-name>
-                        </binding>
-                    </input>
-
-                    <text>
-                        <row>1</row>
-                        <col>0</col>
-                        <label>Pitch Hold Min:</label>
-                        <halign>right</halign>
-                    </text>
-                    <input>
-                        <row>1</row>
-                        <col>1</col>
-                        <name>pitch-hold-min</name>
-                        <label>deg</label>
-                        <halign>left</halign>
-                        <live>true</live>
-                        <property>/v22/pfcs/settings/pitch-hold-min</property>
-                        <binding>
-                            <command>dialog-apply</command>
-                            <object-name>pitch-hold-min</object-name>
-                        </binding>
-                    </input>
-
-                    <text>
-                        <row>2</row>
-                        <col>0</col>
-                        <label>G/S Hold Pitch Max:</label>
-                        <halign>right</halign>
-                    </text>
-                    <input>
-                        <row>2</row>
-                        <col>1</col>
-                        <name>gs-hold-pitch-max</name>
-                        <label>deg</label>
-                        <halign>left</halign>
-                        <live>true</live>
-                        <property>/v22/afcs/settings/gs-hold-pitch-max</property>
-                        <binding>
-                            <command>dialog-apply</command>
-                            <object-name>gs-hold-pitch-max</object-name>
-                        </binding>
-                    </input>
-
-                    <text>
-                        <row>3</row>
-                        <col>0</col>
-                        <label>Climb Rate Max:</label>
-                        <halign>right</halign>
-                    </text>
-                    <input>
-                        <row>3</row>
-                        <col>1</col>
-                        <name>climb-rate-max</name>
-                        <label>fpm</label>
-                        <halign>left</halign>
-                        <live>true</live>
-                        <property>/v22/afcs/settings/climb-rate-max</property>
-                        <binding>
-                            <command>dialog-apply</command>
-                            <object-name>climb-rate-max</object-name>
-                        </binding>
-                    </input>
-
-                    <text>
-                        <row>4</row>
-                        <col>0</col>
-                        <label>VTOL Pitch Hold Max:</label>
-                        <halign>right</halign>
-                    </text>
-                    <input>
-                        <row>4</row>
-                        <col>1</col>
-                        <name>vtol-pitch-hold-max</name>
-                        <label>deg</label>
-                        <halign>left</halign>
-                        <live>true</live>
-                        <property>/v22/afcs/settings/vtol-pitch-hold-max</property>
-                        <binding>
-                            <command>dialog-apply</command>
-                            <object-name>vtol-pitch-hold-max</object-name>
-                        </binding>
-                    </input>
-
-                    <text>
-                        <row>5</row>
-                        <col>0</col>
-                        <label>VTOL Pitch Hold Min:</label>
-                        <halign>right</halign>
-                    </text>
-                    <input>
-                        <row>5</row>
-                        <col>1</col>
-                        <name>vtol-pitch-hold-min</name>
-                        <label>deg</label>
-                        <halign>left</halign>
-                        <live>true</live>
-                        <property>/v22/afcs/settings/vtol-pitch-hold-min</property>
-                        <binding>
-                            <command>dialog-apply</command>
-                            <object-name>vtol-pitch-hold-min</object-name>
-                        </binding>
-                    </input>
-                </group>
-            </group>
-
-        </group>
-
-        <vrule/>
-
-        <group>
-            <layout>vbox</layout>
-            <padding>6</padding>
-            <valign>top</valign>
-        
-            <group>
-                <layout>vbox</layout>
-                <padding>6</padding>
-                <valign>top</valign>
-                <text>
                     <label>Direct Mode APLN</label>
                 </text>
 
@@ -421,6 +278,149 @@
                         <binding>
                             <command>dialog-apply</command>
                             <object-name>vtol-lateral-move-gain</object-name>
+                        </binding>
+                    </input>
+                </group>
+            </group>
+
+        </group>
+
+        <vrule/>
+
+        <group>
+            <layout>vbox</layout>
+            <padding>6</padding>
+            <valign>top</valign>
+
+            <group>
+                <layout>vbox</layout>
+                <padding>6</padding>
+                <valign>top</valign>
+                <text>
+                    <label>Autopilot</label>
+                </text>
+
+                <group>
+                    <layout>table</layout>
+                    <halign>left</halign>
+
+                    <text>
+                        <row>0</row>
+                        <col>0</col>
+                        <label>Pitch Hold Max:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>0</row>
+                        <col>1</col>
+                        <name>pitch-hold-max</name>
+                        <label>deg</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/pitch-hold-max</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>pitch-hold-max</object-name>
+                        </binding>
+                    </input>
+
+                    <text>
+                        <row>1</row>
+                        <col>0</col>
+                        <label>Pitch Hold Min:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>1</row>
+                        <col>1</col>
+                        <name>pitch-hold-min</name>
+                        <label>deg</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/pfcs/settings/pitch-hold-min</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>pitch-hold-min</object-name>
+                        </binding>
+                    </input>
+
+                    <text>
+                        <row>2</row>
+                        <col>0</col>
+                        <label>G/S Hold Pitch Max:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>2</row>
+                        <col>1</col>
+                        <name>gs-hold-pitch-max</name>
+                        <label>deg</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/afcs/settings/gs-hold-pitch-max</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>gs-hold-pitch-max</object-name>
+                        </binding>
+                    </input>
+
+                    <text>
+                        <row>3</row>
+                        <col>0</col>
+                        <label>Climb Rate Max:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>3</row>
+                        <col>1</col>
+                        <name>climb-rate-max</name>
+                        <label>fpm</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/afcs/settings/climb-rate-max</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>climb-rate-max</object-name>
+                        </binding>
+                    </input>
+
+                    <text>
+                        <row>4</row>
+                        <col>0</col>
+                        <label>VTOL Pitch Hold Max:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>4</row>
+                        <col>1</col>
+                        <name>vtol-pitch-hold-max</name>
+                        <label>deg</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/afcs/settings/vtol-pitch-hold-max</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>vtol-pitch-hold-max</object-name>
+                        </binding>
+                    </input>
+
+                    <text>
+                        <row>5</row>
+                        <col>0</col>
+                        <label>VTOL Pitch Hold Min:</label>
+                        <halign>right</halign>
+                    </text>
+                    <input>
+                        <row>5</row>
+                        <col>1</col>
+                        <name>vtol-pitch-hold-min</name>
+                        <label>deg</label>
+                        <halign>left</halign>
+                        <live>true</live>
+                        <property>/v22/afcs/settings/vtol-pitch-hold-min</property>
+                        <binding>
+                            <command>dialog-apply</command>
+                            <object-name>vtol-pitch-hold-min</object-name>
                         </binding>
                     </input>
                 </group>
