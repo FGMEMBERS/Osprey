@@ -96,6 +96,27 @@
     </filter>
 
     <!-- ================================================================== -->
+    <!-- Auto Pump for Air-to-Air Refueling                                 -->
+    <!-- ================================================================== -->
+
+    <filter>
+        <name>Pump Aerial Refueling State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-auto-aar-probe/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-auto-aar-probe/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <!-- ================================================================== -->
     <!-- Boost Pumps Between Tanks And Manifold                             -->
     <!-- ================================================================== -->
 

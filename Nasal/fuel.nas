@@ -40,8 +40,6 @@ var FuelSystemUpdater = {
         var m = {
             parents: [FuelSystemUpdater, updateloop.Updatable]
         };
-        m.manifolds = std.Vector.new();
-        m.pumps = std.Vector.new();
         m.loop = updateloop.UpdateLoop.new(components: [m], update_period: 1 / frequency);
         return m;
     },
@@ -71,8 +69,8 @@ var FuelSystemUpdater = {
     },
 
     reset: func {
-        me.manifolds.clear();
-        me.pumps.clear();
+        me.manifolds = [];
+        me.pumps     = [];
 
         ###############################################################################
         # Fuel Consumption                                                            #
@@ -112,6 +110,20 @@ var FuelSystemUpdater = {
             var flow_used = min(flow_needed, flow);
 
             return max(0, flow_used);
+        };
+
+        ###############################################################################
+        # Fuel Production                                                             #
+        ###############################################################################
+
+        var probe = func (tanker) {
+            var tanker_lbs_min = tanker.getNode("refuel/max-fuel-transfer-lbs-min", 1).getValue() or 6000;
+            var osprey_lbs_min = getprop("/systems/refuel/max-fuel-transfer-lbs-min");
+
+            var lbs_s = std.min(tanker_lbs_min, osprey_lbs_min) / 60;
+            var gal_s = lbs_s / ppg;
+
+            return gal_s / frequency * getprop("/sim/speed-up");
         };
 
         ###############################################################################
@@ -171,6 +183,16 @@ var FuelSystemUpdater = {
         pump_left_fwd_sponson.connect(tank_left_forward_sponson, manifold_feeders);
         pump_right_fwd_sponson.connect(tank_right_forward_sponson, manifold_feeders);
         pump_right_aft_sponson.connect(tank_right_aft_sponson, manifold_feeders);
+
+        ###############################################################################
+
+        # Aerial refueling probe
+        var aar_probe = fuel.AirRefuelProducer.new("probe", probe);
+
+        # Pump for the aerial refueling probe
+        var pump_aar_probe = fuel.AutoPump.new("aar-probe", 1.0);
+
+        pump_aar_probe.connect(aar_probe, tank_left_forward_sponson);
 
         ###############################################################################
         # MATS tanks and their boost pumps                                            #
@@ -238,31 +260,37 @@ var FuelSystemUpdater = {
         #pump_left_wing_aux.enable();
         #pump_right_wing_aux.enable();
 
-        me.manifolds.append(manifold_feeders);
+        me.manifolds = [
+            manifold_feeders
+        ];
 
-        me.pumps.append(pump_left_feed_engine);
-        me.pumps.append(pump_right_feed_engine);
+        me.pumps = [
+            pump_left_feed_engine,
+            pump_right_feed_engine,
 
-        me.pumps.append(pump_right_aft_sponson);
+            pump_right_aft_sponson,
 
-        me.pumps.append(pump_aft_mats_three);
+            pump_aft_mats_three,
 
-        me.pumps.append(pump_fwd_mats_one);
-        me.pumps.append(pump_fwd_mats_two);
+            pump_fwd_mats_one,
+            pump_fwd_mats_two,
 
-        me.pumps.append(pump_left_wing_aux);
-        me.pumps.append(pump_right_wing_aux);
+            pump_left_wing_aux,
+            pump_right_wing_aux,
 
-        me.pumps.append(pump_left_fwd_sponson);
-        me.pumps.append(pump_right_fwd_sponson);
+            pump_left_fwd_sponson,
+            pump_right_fwd_sponson,
+
+            pump_aar_probe
+        ];
     },
 
     update: func (dt) {
-        foreach (var manifold; me.manifolds.vector) {
+        foreach (var manifold; me.manifolds) {
             manifold.prepare_distribution();
         }
 
-        foreach (var pump; me.pumps.vector) {
+        foreach (var pump; me.pumps) {
             pump.transfer_fuel();
         }
     }
