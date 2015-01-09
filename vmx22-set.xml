@@ -453,9 +453,6 @@
         </atc>
         <v22>
             <file>Aircraft/VMX22-Osprey/Nasal/v22.nas</file>
-            <!-- <file>Aircraft/VMX22-Osprey/Nasal/terrain_under.nas</file> -->
-            <file>Aircraft/VMX22-Osprey/Nasal/tyresmoke.nas</file>
-            <file>Aircraft/VMX22-Osprey/Nasal/liveries.nas</file>
             <file>Aircraft/VMX22-Osprey/Nasal/runway.nas</file>
             <file>Aircraft/VMX22-Osprey/Nasal/fuel.nas</file>
             <file>Aircraft/Generic/limits.nas</file>
@@ -469,9 +466,6 @@
         <dialogs>
             <file>Aircraft/VMX22-Osprey/Nasal/dialogs.nas</file>
         </dialogs>
-        <aar>
-            <file>Aircraft/Generic/aar.nas</file>
-        </aar>
     </nasal>
 
     <consumables>

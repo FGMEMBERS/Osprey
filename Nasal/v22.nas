@@ -102,10 +102,6 @@ var engine2 = props.globals.getNode("sim/model/v22/engine_left", 1);
 var rotor = props.globals.getNode("controls/engines/engine/magnetos", 1);
 var rotor_rpm = props.globals.getNode("rotors/main/rpm", 1);
 
-# MP door/airrefuel ======================================================
-# door airrefuel probe
-#var door_fuelpr = props.globals.getNode("instrumentation/doors/airrefuel/position-norm", 1);
-
 var torque = props.globals.getNode("rotors/gear/total-torque", 1);
 var stall_right = props.globals.getNode("rotors/main/stall", 1);
 var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
@@ -490,7 +486,6 @@ var update_slide = func {
     }
 }
 
-
 # crash handler =====================================================
 #var load = nil;
 var crash = func {
@@ -622,6 +617,17 @@ setlistener("/sim/signals/fdm-initialized", func {
     setlistener("/rotors/main/blade/position-deg", func {
         update_rotor_brake();
     });
+
+    # Tyre smoke
+    aircraft.tyresmoke_system.new(0, 1, 2);
+
+    # Rain
+    aircraft.rain.init();
+    var rain_timer = maketimer(0.0, func aircraft.rain.update());
+    rain_timer.start();
+
+    # Livery
+    aircraft.livery.init("Aircraft/VMX22-Osprey/Models/Liveries");
 
     var afcs_loop_timer = maketimer(0.5, afcs.main_loop);
     afcs_loop_timer.start();
