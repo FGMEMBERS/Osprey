@@ -19,7 +19,7 @@ var control_rotor_incidence_wing_fold = props.globals.getNode("sim/model/v22/win
 var control_throttle = props.globals.getNode("/controls/engines/engine[0]/throttle");
 var control_rotor_brake = props.globals.getNode("/controls/rotor/brake",1);
 
-var out_wing_flap = props.globals.getNode("sim/model/v22/wing/flap");
+var out_wing_flap = props.globals.getNode("/v22/pfcs/output/flaps");
 
 var rotor_pos = props.globals.getNode("rotors/main/blade[0]/position-deg",1);
 
@@ -111,60 +111,87 @@ var torque_sound_filtered = props.globals.getNode("rotors/gear/torque-sound-filt
 var target_rel_rpm = props.globals.getNode("controls/rotor/reltarget", 1);
 var max_rel_torque = props.globals.getNode("controls/rotor/maxreltorque", 1);
 
-#wing_state
-# 0 fly-position
-# 1 moving engines up
-# 2 folding blades
-# 3 rotating wing and moving engines down
-# 10 fully folded
-# 11 rotating wing and moving engines up
-# 12 unfolding blades
-# 13 resetting blades collective
-# 14 -> 0
+# Blades Fold/Wing Stow state:
+
+#  0 Fly-position
+#  1 Tilting nacelles up
+#  2 Folding blades
+#  3 Tilting nacelles down
+#  4 Stowing wing and tilting nacelles down
+# 10 Wing fully stowed
+# 11 Unstowing wing and tilting nacelles up
+# 12 Wing unstowed, tilting nacelles up
+# 13 Unfolding blades
+# 14 Resetting blades collective
+# 15 -> 0
 var blade_folding = props.globals.getNode("sim/model/v22/blade_folding",1);
 
-var update_wing_state = func {
+# Duration in seconds for various parts of the Blades Fold/Wing Stow sequence
+var bfws_duration = {
+    flaps:       4.0,
+    blades:     20.0,
+    tilt:        6.0,
+    tilt_stow:  18.0,
+    stow:       34.0,
+};
+
+var update_wing_state = func (new_state) {
     var ws = wing_state.getValue();
-    var new_state = arg[0];
     if (new_state == (ws+1)) {
         wing_state.setValue(new_state);
         if (new_state == 1) {
+            # Tilting nacelles up
             var delta = abs(animation_tilt.getValue() - 0);
             settimer(func { update_wing_state(2) }, max(1.2 , delta/9+0.5));
             interpolate(animation_tilt, 0, delta/9);
-            interpolate(out_wing_flap, 0, 5.5);
+            interpolate(out_wing_flap, 0, bfws_duration.flaps);
             interpolate(control_rotor_incidence_wing_fold, 1 , 1);
         }
         if (new_state == 2) {
-            settimer(func { update_wing_state(3) }, 4);
-            interpolate(blade_folding, 1, 3.5);
+            # Folding blades
+            settimer(func { update_wing_state(3) }, bfws_duration.blades);
+            interpolate(blade_folding, 1, bfws_duration.blades);
         }
         if (new_state == 3) {
-            settimer(func { update_wing_state(4) }, 12);
-            interpolate(animation_tilt, 90, 9);
-            interpolate(wing_rotation, 90, 11.5);
+            # Tilting nacelles to 75 degrees from horizontal (15 degrees for YASim)
+            settimer(func { update_wing_state(4) }, bfws_duration.tilt);
+            interpolate(animation_tilt, 15, bfws_duration.tilt);
         }
         if (new_state == 4) {
+            # Stowing wing and tilting nacelles to 0 degrees
+            # from horizontal (90 degrees for YASim)
+            settimer(func { update_wing_state(5) }, std.max(bfws_duration.tilt_stow, bfws_duration.stow));
+            interpolate(animation_tilt, 90, bfws_duration.tilt_stow);
+            interpolate(wing_rotation, 90, bfws_duration.stow);
+        }
+        if (new_state == 5) {
             wing_state.setValue(10);
         }
         if (new_state == 11) {
-            settimer(func { update_wing_state(12) }, 12);
-            # interpolate(animation_tilt, 90, 2.5, 0, 11);
-            interpolate(wing_rotation, 0, 11.5);
-            # interpolate(out_wing_flap, 0, 7, 1, 12.5);
-            settimer(func { interpolate(animation_tilt, 0, 8.5); }, 2.5);
-            settimer(func { interpolate(out_wing_flap, 1, 5.5);}, 7);
+            # Unstowing wing and tilting nacelles to 75 degrees from
+            # horizontal (15 degrees for YASim)
+            assert(bfws_duration.stow >= bfws_duration.tilt_stow);
+            settimer(func { update_wing_state(12) }, bfws_duration.stow);
+            interpolate(wing_rotation, 0, bfws_duration.stow);
+            settimer(func { interpolate(animation_tilt, 15, bfws_duration.tilt_stow); }, bfws_duration.stow - bfws_duration.tilt_stow);
         }
         if (new_state == 12) {
-            settimer(func { update_wing_state(13) }, 4);
-            interpolate(blade_folding, 0, 3.5);
+            # Tilting nacelles up
+            settimer(func { update_wing_state(13) }, bfws_duration.tilt);
+            interpolate(animation_tilt, 0, bfws_duration.tilt);
         }
         if (new_state == 13) {
-            settimer(func { update_wing_state(14) }, 1);
+            # Unfold blades
+            settimer(func { update_wing_state(14) }, std.max(bfws_duration.blades, bfws_duration.flaps));
+            interpolate(blade_folding, 0, bfws_duration.blades);
+            interpolate(out_wing_flap, 1, bfws_duration.flaps);
+        }
+        if (new_state == 14) {
+            settimer(func { update_wing_state(15) }, 1);
             set_tilt(0);
             interpolate(control_rotor_incidence_wing_fold, 0 , 1);
         }
-        if (new_state == 14) {
+        if (new_state == 15) {
             wing_state.setValue(0);
         }
     }

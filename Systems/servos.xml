@@ -447,8 +447,8 @@
         <min>0.0</min>
         <max>1.0</max>
 
-        <!-- range (0..1 = 1) in 8 seconds -->
-        <max-rate-of-change>0.125</max-rate-of-change>
+        <!-- range (0..1 = 1) in 4 seconds -->
+        <max-rate-of-change>0.25</max-rate-of-change>
     </filter>
 
     <!-- ================================================================== -->
