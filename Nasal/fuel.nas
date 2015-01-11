@@ -126,6 +126,19 @@ var FuelSystemUpdater = {
             return gal_s / frequency * getprop("/sim/speed-up");
         };
 
+        var contact_point = func (fuel_truck) {
+            var truck_total_gal_us = fuel_truck.getNode("level-gal_us").getValue();
+
+            # Compute maximum gal/s that can be transferred
+            var truck_lbs_s = fuel_truck.getNode("max-fuel-transfer-lbs-min").getValue() / 60;
+            var truck_gal_s = truck_lbs_s / ppg;
+
+            # Compute actual flow (per step instead of per second), taking
+            # into account the maximum amount of fuel in the truck
+            var flow = truck_gal_s / frequency * getprop("/sim/speed-up");
+            return std.min(flow, truck_total_gal_us);
+        };
+
         ###############################################################################
         # Wing Feeder tanks and Engines                                               #
         ###############################################################################
@@ -193,6 +206,16 @@ var FuelSystemUpdater = {
         var pump_aar_probe = fuel.AutoPump.new("aar-probe", 1.0);
 
         pump_aar_probe.connect(aar_probe, tank_left_forward_sponson);
+
+        ###############################################################################
+
+        # Fuel truck contact point
+        var fuel_truck = fuel.GroundRefuelProducer.new("fuel-truck", contact_point);
+
+        # Pump for the fuel truck contact point
+        var pump_fuel_truck = fuel.AutoPump.new("fuel-truck", 1.0);
+
+        pump_fuel_truck.connect(fuel_truck, tank_left_forward_sponson);
 
         ###############################################################################
         # MATS tanks and their boost pumps                                            #
@@ -281,7 +304,8 @@ var FuelSystemUpdater = {
             pump_left_fwd_sponson,
             pump_right_fwd_sponson,
 
-            pump_aar_probe
+            pump_aar_probe,
+            pump_fuel_truck
         ];
     },
 

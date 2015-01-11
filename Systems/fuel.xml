@@ -96,7 +96,7 @@
     </filter>
 
     <!-- ================================================================== -->
-    <!-- Auto Pump for Air-to-Air Refueling                                 -->
+    <!-- Auto Pumps for Refueling                                           -->
     <!-- ================================================================== -->
 
     <filter>
@@ -108,6 +108,23 @@
         </input>
         <output>
             <property>/systems/fuel/pump-auto-aar-probe/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Pump Fuel Truck Refueling State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-auto-fuel-truck/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-auto-fuel-truck/actual-flow-factor</property>
         </output>
 
         <max-rate-of-change>
