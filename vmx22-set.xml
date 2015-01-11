@@ -512,6 +512,13 @@
             <serviceable type="bool">true</serviceable>
         </wxradar>
 
+        <!-- Turn off transponder by default -->
+        <transponder>
+            <inputs>
+                <knob-mode type="int">0</knob-mode>
+            </inputs>
+        </transponder>
+
         <use-new-navradio type="bool">true</use-new-navradio>
     </instrumentation>
 
