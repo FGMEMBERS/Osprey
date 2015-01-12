@@ -16,6 +16,7 @@
 io.include("Aircraft/ExpansionPack/Nasal/init.nas");
 
 with("fuel", "updateloop");
+check_version("fuel", 0, 0);
 
 # Number of iterations per second
 var frequency = 2.0;
