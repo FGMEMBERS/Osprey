@@ -21,14 +21,6 @@
             <enabled type="bool">true</enabled>
 
             <item>
-                <label>Pushback</label>
-                <binding>
-                    <command>dialog-show</command>
-                    <dialog-name>pushback</dialog-name>
-                </binding>
-            </item>
-
-            <item>
                 <label>Control Panel</label>
                 <binding>
                     <command>dialog-show</command>
@@ -45,6 +37,27 @@
                         setprop(p, var i = !getprop(p));
                         gui.popupTip("Blades visible " ~ (i ? "On" : "Off"));
                     </script>
+                </binding>
+            </item>
+
+            <item>
+                <label>-- Ground Services --</label>
+                <enabled type="bool">false</enabled>
+            </item>
+
+            <item>
+                <label>Fuel Truck</label>
+                <binding>
+                    <command>dialog-show</command>
+                    <dialog-name>fuel-truck</dialog-name>
+                </binding>
+            </item>
+
+            <item>
+                <label>Pushback</label>
+                <binding>
+                    <command>dialog-show</command>
+                    <dialog-name>pushback</dialog-name>
                 </binding>
             </item>
 

@@ -110,6 +110,24 @@
         </gear>
     </params>
 
+    <model>
+        <name>fuel-truck</name>
+        <path>Aircraft/ExpansionPack/Models/Airport/Fuel-Truck/fuel-truck.xml</path>
+        <offsets>
+            <x-m>0.0</x-m>
+            <y-m>0.0</y-m>
+            <z-m>0.0</z-m>
+        </offsets>
+    </model>
+
+    <animation>
+        <type>select</type>
+        <object-name>fuel-truck</object-name>
+        <condition>
+            <property>/sim/model/fuel-truck/enabled</property>
+        </condition>
+    </animation>
+
   <animation>
     <!-- Objets opaques - needs update -->
 	

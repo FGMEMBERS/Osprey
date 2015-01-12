@@ -716,6 +716,58 @@
             </condition>
         </ap-disengage>
 
+        <fuel-truck-outside>
+            <name>fuel-truck-outside</name>
+            <mode>looped</mode>
+            <path>Aircraft/ExpansionPack/Sounds/pushback.wav</path>
+            <condition>
+                <and>
+                    <not>
+                        <property>/sim/current-view/internal</property>
+                    </not>
+                    <property>/sim/model/fuel-truck/enabled</property>
+                </and>
+            </condition>
+            <volume>
+                <property>/sim/model/fuel-truck/enabled</property>
+                <factor>5.0</factor>
+                <offset>0.0</offset>
+                <min>0.1</min>
+                <max>7.0</max>
+            </volume>
+            <pitch>
+                <property>/sim/model/fuel-truck/enabled</property>
+                <factor>0.5</factor>
+                <offset>1.0</offset>
+            </pitch>
+            <!-- TODO Increase volume and pitch if line connected or refueling/draining -->
+        </fuel-truck-outside>
+
+        <fuel-truck-inside>
+            <name>fuel-truck-inside</name>
+            <mode>looped</mode>
+            <path>Aircraft/ExpansionPack/Sounds/pushback.wav</path>
+            <condition>
+                <and>
+                    <property>/sim/current-view/internal</property>
+                    <property>/sim/model/fuel-truck/enabled</property>
+                </and>
+            </condition>
+            <volume>
+                <property>/sim/model/fuel-truck/enabled</property>
+                <factor>1.0</factor>
+                <offset>0.0</offset>
+                <min>0.05</min>
+                <max>0.2</max>
+            </volume>
+            <pitch>
+                <property>/sim/model/fuel-truck/enabled</property>
+                <factor>0.5</factor>
+                <offset>1.0</offset>
+            </pitch>
+            <!-- TODO Increase volume and pitch if line connected or refueling/draining -->
+        </fuel-truck-inside>
+
     </fx>
 
 </PropertyList>
