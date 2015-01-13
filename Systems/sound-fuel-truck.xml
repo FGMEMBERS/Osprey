@@ -32,11 +32,11 @@
             <value>0.2</value>
             <offset>
                 <expression>
-                <product>
-                    <property>/instrumentation/doors/cockpitdoor/position-norm</property>
-                    <property>/instrumentation/doors/crewup/position-norm</property>
-                    <value>0.4</value>
-                </product>
+                    <product>
+                        <property>/instrumentation/doors/cockpitdoor/position-norm</property>
+                        <property>/instrumentation/doors/crewup/position-norm</property>
+                        <value>0.4</value>
+                    </product>
                 </expression>
             </offset>
         </input>
