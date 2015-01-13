@@ -179,19 +179,19 @@
         <systems>
             <path>Aircraft/VMX22-Osprey/Systems/systems.xml</path>
             <autopilot>
-                <path>Systems/servos.xml</path>
-            </autopilot>
-            <autopilot>
-                <path>Systems/rotors.xml</path>
-            </autopilot>
-            <autopilot>
                 <path>Systems/gforce.xml</path>
+            </autopilot>
+            <autopilot>
+                <path>Systems/autopilot.xml</path>
             </autopilot>
             <autopilot>
                 <path>Systems/fbw.xml</path>
             </autopilot>
             <autopilot>
-                <path>Systems/autopilot.xml</path>
+                <path>Systems/servos.xml</path>
+            </autopilot>
+            <autopilot>
+                <path>Systems/rotors.xml</path>
             </autopilot>
             <autopilot>
                 <path>Systems/fuel.xml</path>
