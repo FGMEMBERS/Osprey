@@ -196,6 +196,12 @@
             <autopilot>
                 <path>Systems/fuel.xml</path>
             </autopilot>
+            <autopilot>
+                <path>Aircraft/ExpansionPack/Systems/fuel-truck.xml</path>
+            </autopilot>
+            <autopilot>
+                <path>Systems/sound-fuel-truck.xml</path>
+            </autopilot>
         </systems>
 
         <hud>
