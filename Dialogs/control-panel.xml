@@ -149,7 +149,7 @@
                 <row>0</row>
                 <col>0</col>
                 <label>Cockpit:</label>
-                <halign>right</halign>
+                <halign>left</halign>
             </text>
             <button>
                 <row>0</row>
@@ -167,7 +167,7 @@
                 <row>1</row>
                 <col>0</col>
                 <label>Starboard upper:</label>
-                <halign>right</halign>
+                <halign>left</halign>
             </text>
             <button>
                 <row>1</row>
@@ -185,7 +185,7 @@
                 <row>2</row>
                 <col>0</col>
                 <label>Starboard lower:</label>
-                <halign>right</halign>
+                <halign>left</halign>
             </text>
             <button>
                 <row>2</row>
@@ -203,7 +203,7 @@
                 <row>3</row>
                 <col>0</col>
                 <label>Cargo:</label>
-                <halign>right</halign>
+                <halign>left</halign>
             </text>
             <button>
                 <row>3</row>
@@ -221,7 +221,7 @@
                 <row>4</row>
                 <col>0</col>
                 <label>Loading ramp:</label>
-                <halign>right</halign>
+                <halign>left</halign>
             </text>
             <button>
                 <row>4</row>
@@ -275,14 +275,14 @@
             <checkbox>
                 <halign>left</halign>
                 <label>Probe retracted</label>
-                <property>/instrumentation/doors/airrefuel</property>
+                <property>/instrumentation/doors/airrefuel/retract</property>
                 <live>true</live>
                 <binding>
                     <command>dialog-apply</command>
                 </binding>
                 <binding>
                     <command>nasal</command>
-                    <script>doors.air_refuel.toggle()</script>
+                    <script>doors.air_refuel.move(getprop("/instrumentation/doors/airrefuel/position-norm") != 1.0)</script>
                 </binding>
             </checkbox>
         </group>

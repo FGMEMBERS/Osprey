@@ -518,6 +518,12 @@
             <serviceable type="bool">true</serviceable>
         </wxradar>
 
+        <doors>
+            <airrefuel>
+                <retract type="bool">true</retract>
+            </airrefuel>
+        </doors>
+
         <!-- Turn off transponder by default -->
         <transponder>
             <inputs>

@@ -125,5 +125,9 @@ controls.gearDown = func (v) {
 ################################################################################
 
 var cockpit = aircraft.door.new("instrumentation/doors/cockpitdoor", 1.0, 0);
-var air_refuel = aircraft.door.new("instrumentation/doors/airrefuel", 4.0, 0);
+var air_refuel = aircraft.door.new("instrumentation/doors/airrefuel", 4.0, 1);
 var landinglightpos = aircraft.door.new("instrumentation/doors/landinglightpos", 4.0, 0);
+
+setlistener("/instrumentation/doors/airrefuel/position-norm", func (node) {
+    setprop("/instrumentation/doors/airrefuel/retract", node.getValue() == 1.0);
+});

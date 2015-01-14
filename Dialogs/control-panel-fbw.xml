@@ -83,7 +83,8 @@
                         <row>1</row>
                         <col>0</col>
                         <label>Roll Rate Limit:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
+                        <pref-width>110</pref-width>
                     </text>
                     <input>
                         <row>1</row>
@@ -103,7 +104,8 @@
                         <row>2</row>
                         <col>0</col>
                         <label>Pitch Rate Limit:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
+                        <pref-width>110</pref-width>
                     </text>
                     <input>
                         <row>2</row>
@@ -122,7 +124,7 @@
                     <checkbox>
                         <row>3</row>
                         <col>0</col>
-                        <colspan>3</colspan>
+                        <colspan>2</colspan>
                         <halign>left</halign>
                         <label>Bank Angle Hard Limit</label>
                         <property>/v22/pfcs/active/bank-angle-hard-limit</property>
@@ -155,7 +157,8 @@
                         <row>0</row>
                         <col>0</col>
                         <label>Roll Rate Gain:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
+                        <pref-width>110</pref-width>
                     </text>
                     <input>
                         <row>0</row>
@@ -174,7 +177,8 @@
                         <row>1</row>
                         <col>0</col>
                         <label>Pitch Rate Gain:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
+                        <pref-width>110</pref-width>
                     </text>
                     <input>
                         <row>1</row>
@@ -209,7 +213,8 @@
                         <row>0</row>
                         <col>0</col>
                         <label>Roll Rate Gain:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
+                        <pref-width>110</pref-width>
                     </text>
                     <input>
                         <row>0</row>
@@ -228,7 +233,8 @@
                         <row>1</row>
                         <col>0</col>
                         <label>Pitch Rate Gain:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
+                        <pref-width>110</pref-width>
                     </text>
                     <input>
                         <row>1</row>
@@ -247,7 +253,8 @@
                         <row>2</row>
                         <col>0</col>
                         <label>Yaw Rate Gain:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
+                        <pref-width>110</pref-width>
                     </text>
                     <input>
                         <row>2</row>
@@ -266,7 +273,8 @@
                         <row>3</row>
                         <col>0</col>
                         <label>Lateral Move Gain:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
+                        <pref-width>110</pref-width>
                     </text>
                     <input>
                         <row>3</row>
@@ -308,7 +316,7 @@
                         <row>0</row>
                         <col>0</col>
                         <label>Pitch Hold Max:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
                     </text>
                     <input>
                         <row>0</row>
@@ -328,7 +336,7 @@
                         <row>1</row>
                         <col>0</col>
                         <label>Pitch Hold Min:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
                     </text>
                     <input>
                         <row>1</row>
@@ -348,7 +356,7 @@
                         <row>2</row>
                         <col>0</col>
                         <label>G/S Hold Pitch Max:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
                     </text>
                     <input>
                         <row>2</row>
@@ -368,7 +376,7 @@
                         <row>3</row>
                         <col>0</col>
                         <label>Climb Rate Max:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
                     </text>
                     <input>
                         <row>3</row>
@@ -388,7 +396,7 @@
                         <row>4</row>
                         <col>0</col>
                         <label>VTOL Pitch Hold Max:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
                     </text>
                     <input>
                         <row>4</row>
@@ -408,7 +416,7 @@
                         <row>5</row>
                         <col>0</col>
                         <label>VTOL Pitch Hold Min:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
                     </text>
                     <input>
                         <row>5</row>
@@ -428,7 +436,7 @@
                         <row>6</row>
                         <col>0</col>
                         <label>NAV1 Intercept Max:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
                     </text>
                     <input>
                         <row>6</row>
@@ -448,7 +456,7 @@
                         <row>7</row>
                         <col>0</col>
                         <label>NAV1 Time Before G/S:</label>
-                        <halign>right</halign>
+                        <halign>left</halign>
                     </text>
                     <input>
                         <row>7</row>
