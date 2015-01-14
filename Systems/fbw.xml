@@ -1127,7 +1127,7 @@
         <gain>
             <property>/v22/pfcs/settings/vtol/direct-yaw-rate-gain</property>
             <abs type="bool">true</abs>
-            <max>4.0</max>
+            <max>5.0</max>
         </gain>
         <enable>
             <condition>
@@ -1312,21 +1312,20 @@
         <gain>
             <property>/v22/pfcs/settings/vtol/direct-lateral-move-gain</property>
             <abs type="bool">true</abs>
-            <max>5.0</max>
+            <max>200.0</max>
         </gain>
-        <!-- <enable>
-            <condition>
-                <not>
-                    <property>/v22/pfcs/active/lateral-move</property>
-                </not>
-            </condition>
-        </enable> -->
         <input>
             <property>/v22/pfcs/target/roll</property>
         </input>
         <output>
             <property>/v22/pfcs/output/vtol/lateral</property>
         </output>
+        <min>
+            <value>-4.0</value>
+        </min>
+        <max>
+            <value>4.0</value>
+        </max>
     </filter>
 
     <filter>
