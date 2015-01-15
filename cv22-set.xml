@@ -24,6 +24,10 @@
         <description>Bell Boeing CV-22 Osprey</description>
         <aero>cv22</aero>
 
+        <startup>
+            <splash-texture>cv22-splash.png</splash-texture>
+        </startup>
+
         <weight n="3">
             <name>Flight Engineer</name>
             <weight-lb>0</weight-lb>

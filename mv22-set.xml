@@ -24,6 +24,10 @@
         <description>Bell Boeing MV-22 Osprey</description>
         <aero>mv22</aero>
 
+        <startup>
+            <splash-texture>mv22-splash.png</splash-texture>
+        </startup>
+
         <weight n="3">
             <name>Load</name>
             <weight-lb>0</weight-lb>

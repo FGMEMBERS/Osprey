@@ -26,10 +26,6 @@
         <!-- Sources: [3] -->
         <max-payload>60500</max-payload>
 
-        <startup>
-            <splash-texture>Aircraft/VMX22-Osprey/vmx22-splash.png</splash-texture>
-        </startup>
-
         <sound>
             <path>Aircraft/VMX22-Osprey/Sounds/sound.xml</path>
         </sound>
