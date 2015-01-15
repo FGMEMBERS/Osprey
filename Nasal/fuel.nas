@@ -71,7 +71,7 @@ var FuelSystemUpdater = {
 
     reset: func {
         me.manifolds = [];
-        me.pumps     = [];
+        me.pumps = std.Vector.new();
 
         ###############################################################################
         # Fuel Consumption                                                            #
@@ -246,21 +246,23 @@ var FuelSystemUpdater = {
         # Wing Auxilliary tanks and their boost pumps                                 #
         ###############################################################################
 
-        # Sources attached to the manifold
-        var pump_left_wing_aux  = fuel.BoostPump.new("left-wing-aux", default_max_capacity);
-        var pump_right_wing_aux = fuel.BoostPump.new("right-wing-aux", default_max_capacity);
+        if (getprop("/sim/aircraft") == "cv22") {
+            # Sources attached to the manifold
+            var pump_left_wing_aux  = fuel.BoostPump.new("left-wing-aux", default_max_capacity);
+            var pump_right_wing_aux = fuel.BoostPump.new("right-wing-aux", default_max_capacity);
 
-        # Add the sources to the manifold
-        manifold_feeders.add_source(pump_left_wing_aux);
-        manifold_feeders.add_source(pump_right_wing_aux);
+            # Add the sources to the manifold
+            manifold_feeders.add_source(pump_left_wing_aux);
+            manifold_feeders.add_source(pump_right_wing_aux);
 
-        # The wing auxilliary tanks
-        var tank_left_wing_aux  = fuel.Tank.new("left-wing-aux", 8);
-        var tank_right_wing_aux = fuel.Tank.new("right-wing-aux", 9);
+            # The wing auxilliary tanks
+            var tank_left_wing_aux  = fuel.Tank.new("left-wing-aux", 8);
+            var tank_right_wing_aux = fuel.Tank.new("right-wing-aux", 9);
 
-        # Insert the boost pumps between the auxilliary tanks and the manifold
-        pump_left_wing_aux.connect(tank_left_wing_aux, manifold_feeders);
-        pump_right_wing_aux.connect(tank_right_wing_aux, manifold_feeders);
+            # Insert the boost pumps between the auxilliary tanks and the manifold
+            pump_left_wing_aux.connect(tank_left_wing_aux, manifold_feeders);
+            pump_right_wing_aux.connect(tank_right_wing_aux, manifold_feeders);
+        }
 
         ###############################################################################
 
@@ -288,7 +290,7 @@ var FuelSystemUpdater = {
             manifold_feeders
         ];
 
-        me.pumps = [
+        me.pumps.extend([
             pump_left_feed_engine,
             pump_right_feed_engine,
 
@@ -297,17 +299,23 @@ var FuelSystemUpdater = {
             pump_aft_mats_three,
 
             pump_fwd_mats_one,
-            pump_fwd_mats_two,
+            pump_fwd_mats_two
+        ]);
 
-            pump_left_wing_aux,
-            pump_right_wing_aux,
+        if (getprop("/sim/aircraft") == "cv22") {
+            me.pumps.extend([
+                pump_left_wing_aux,
+                pump_right_wing_aux
+            ]);
+        }
 
+        me.pumps.extend([
             pump_left_fwd_sponson,
             pump_right_fwd_sponson,
 
             pump_aar_probe,
             pump_fuel_truck
-        ];
+        ]);
     },
 
     update: func (dt) {
@@ -315,7 +323,7 @@ var FuelSystemUpdater = {
             manifold.prepare_distribution();
         }
 
-        foreach (var pump; me.pumps) {
+        foreach (var pump; me.pumps.vector) {
             pump.transfer_fuel();
         }
     }
