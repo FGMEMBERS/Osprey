@@ -546,6 +546,9 @@
             <report-contact type="bool">true</report-contact>
             <contact-radius-m type="double">4.0</contact-radius-m>
         </refuel>
+        <refuel-ground>
+            <level-gal_us type="double">3200.0</level-gal_us>
+        </refuel-ground>
     </systems>
 
     <autopilot>
