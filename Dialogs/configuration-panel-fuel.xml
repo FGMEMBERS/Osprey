@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+    <name>configuration-panel-fuel</name>
+    <layout>vbox</layout>
+    <width>330</width>
+    <resizable>false</resizable>
+
+    <group>
+        <layout>hbox</layout>
+
+        <empty><stretch>true</stretch></empty>
+        <text>
+            <label>Fuel System Configuration</label>
+        </text>
+        <empty><stretch>true</stretch></empty>
+
+        <button>
+            <legend/>
+            <keynum>27</keynum>
+            <pref-width>16</pref-width>
+            <pref-height>16</pref-height>
+            <border>2</border>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>vbox</layout>
+        <padding>6</padding>
+        <text>
+            <label>Consumption</label>
+        </text>
+
+        <group>
+            <layout>table</layout>
+            <halign>left</halign>
+
+            <text>
+                <row>0</row>
+                <col>0</col>
+                <label>Extra fuel at 100 % Nr:</label>
+                <halign>left</halign>
+            </text>
+            <input>
+                <row>0</row>
+                <col>1</col>
+                <name>full-rpm-extra-perc</name>
+                <label>%</label>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/systems/fuel/settings/full-rpm-extra-perc</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>full-rpm-extra-perc</object-name>
+                </binding>
+            </input>
+
+            <text>
+                <row>1</row>
+                <col>0</col>
+                <label>Extra fuel in VTOL mode:</label>
+                <halign>left</halign>
+            </text>
+            <input>
+                <row>1</row>
+                <col>1</col>
+                <name>vtol-extra-perc</name>
+                <label>%</label>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/systems/fuel/settings/vtol-extra-perc</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>vtol-extra-perc</object-name>
+                </binding>
+            </input>
+
+            <text>
+                <row>2</row>
+                <col>0</col>
+                <label>Gain at 0 % TCL:</label>
+                <halign>left</halign>
+            </text>
+            <input>
+                <row>2</row>
+                <col>1</col>
+                <name>gain-no-tcl</name>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/systems/fuel/settings/gain-no-tcl</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>gain-no-tcl</object-name>
+                </binding>
+            </input>
+
+            <text>
+                <row>3</row>
+                <col>0</col>
+                <label>Gain at 100 % TCL:</label>
+                <halign>left</halign>
+            </text>
+            <input>
+                <row>3</row>
+                <col>1</col>
+                <name>gain-full-tcl</name>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/systems/fuel/settings/gain-full-tcl</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>gain-full-tcl</object-name>
+                </binding>
+            </input>
+
+            <text>
+                <row>4</row>
+                <col>0</col>
+                <label>Default (cruise speed, 84 % Nr):</label>
+                <halign>left</halign>
+            </text>
+            <input>
+                <row>4</row>
+                <col>1</col>
+                <name>default-lbs-hour</name>
+                <label>lbs/h</label>
+                <halign>left</halign>
+                <live>true</live>
+                <property>/systems/fuel/settings/default-lbs-hour</property>
+                <binding>
+                    <command>dialog-apply</command>
+                    <object-name>default-lbs-hour</object-name>
+                </binding>
+            </input>
+
+        </group>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>hbox</layout>
+        <default-padding>6</default-padding>
+
+        <empty><stretch>true</stretch></empty>
+
+        <button>
+            <legend>Close</legend>
+            <default>true</default>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+    </group>
+
+</PropertyList>

@@ -87,6 +87,14 @@
                     <dialog-name>control-panel-fbw</dialog-name>
                 </binding>
             </item>
+
+            <item>
+                <label>Fuel System</label>
+                <binding>
+                    <command>dialog-show</command>
+                    <dialog-name>configuration-panel-fuel</dialog-name>
+                </binding>
+            </item>
         </menu>
 
     </default>

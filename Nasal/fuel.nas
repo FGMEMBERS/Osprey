@@ -21,19 +21,12 @@ check_version("fuel", 0, 0);
 # Number of iterations per second
 var frequency = 2.0;
 
+# RPM at which engines are running the most efficiently.
+# By default this is 84 % Nr.
 var target_rpm_eff = 334;
 
-# At 100 % Nr about 19 % extra fuel is consumed compared to 84 % Nr.
-# Use this factor to lower this amount if needed.
-var factor_ineff = 0.5;
-# (RPM/EFF_RPM-1)*factor_ineff*100 => extra percentage
-
-var gain_no_tcl = 0.10;
-var gain_full_tcl = 1.10;
-var gain_vtol_mode = 1.50;
-
-# LBS/h at 84 % Nr in APLN mode with throttle at about 0.92 (240 KIAS)
-var default_lbs_hour = 2100.0;
+# At 100 % Nr about 19 % extra fuel is consumed compared to 84 % Nr
+extra_fuel_100_nr_perc = (397 / target_rpm_eff - 1) * 100;
 
 var FuelSystemUpdater = {
 
@@ -46,26 +39,32 @@ var FuelSystemUpdater = {
     },
 
     get_gain: func (rpm) {
+        var full_rpm_extra_perc = getprop("/systems/fuel/settings/full-rpm-extra-perc");
+        var gain_no_tcl = getprop("/systems/fuel/settings/gain-no-tcl");
+        var gain_full_tcl = getprop("/systems/fuel/settings/gain-full-tcl");
+        var vtol_extra_perc = getprop("/systems/fuel/settings/vtol-extra-perc");
+
         # Compute tilt gain
         var factor_vtol = max(0, getprop("/v22/pfcs/internal/tilt-cos"));
-        var extra_vtol  = gain_vtol_mode - 1;
-        var gain_vtol   = extra_vtol * factor_vtol + 1;
+        var gain_vtol   = (vtol_extra_perc / 100) * factor_vtol + 1;
 
         # Compute the 100/84 % Nr gain
-        var extra_ineff = max(target_rpm_eff, rpm) / target_rpm_eff - 1;
-        var gain_ineff  = extra_ineff * factor_ineff + 1;
+        var extra_ineff  = max(target_rpm_eff, rpm) / target_rpm_eff - 1;
+        var factor_ineff = full_rpm_extra_perc / extra_fuel_100_nr_perc;
+        var gain_ineff   = extra_ineff * factor_ineff + 1;
 
         # Compute RPM gain so that engines do not consume fuel if RPM is
         # zero, but throttle is higher than zero.
-        var gain_rpm    = max(0, min(rpm / target_rpm_eff, 1));
+        var gain_rpm = max(0, min(rpm / target_rpm_eff, 1));
 
         # Compute power gain
-        var gain_tcl    = gain_no_tcl + getprop("/v22/pfcs/output/tcl") * (gain_full_tcl - gain_no_tcl);
+        var gain_tcl = gain_no_tcl + getprop("/v22/pfcs/output/tcl") * (gain_full_tcl - gain_no_tcl);
 
         return gain_tcl * gain_ineff * gain_rpm * gain_vtol;
     },
 
     get_lbs_per_hour: func (rpm) {
+        var default_lbs_hour = getprop("/systems/fuel/settings/default-lbs-hour");
         return me.get_gain(rpm) * default_lbs_hour / 2;
     },
 
@@ -302,6 +301,7 @@ var FuelSystemUpdater = {
             pump_fwd_mats_two
         ]);
 
+        # Add the two extra boost pumps of the wing auxilliary tanks for the CV-22
         if (getprop("/sim/aircraft") == "cv22") {
             me.pumps.extend([
                 pump_left_wing_aux,

@@ -553,6 +553,19 @@
         <refuel-ground>
             <level-gal_us type="double">3200.0</level-gal_us>
         </refuel-ground>
+        <fuel>
+            <settings>
+                <!-- At 100 % Nr about 19 % extra fuel is consumed compared to 84 % Nr -->
+                <full-rpm-extra-perc type="double">19.0</full-rpm-extra-perc>
+
+                <gain-no-tcl type="double">0.10</gain-no-tcl>
+                <gain-full-tcl type="double">1.10</gain-full-tcl>
+                <vtol-extra-perc type="double">50.0</vtol-extra-perc>
+
+                <!-- LBS/h at 84 % Nr in APLN mode with about 92 % throttle (240 KIAS) -->
+                <default-lbs-hour type="double">2100.0</default-lbs-hour>
+            </settings>
+        </fuel>
     </systems>
 
     <autopilot>
