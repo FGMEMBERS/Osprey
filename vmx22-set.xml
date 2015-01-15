@@ -273,6 +273,10 @@
             <taxi-light type="bool">false</taxi-light>
         </lighting>
 
+        <flight>
+            <auto-coordination-factor type="double">0.0</auto-coordination-factor>
+        </flight>
+
         <gear>
             <!-- Enable parking brake when starting FlightGear -->
             <brake-parking type="double">1.0</brake-parking>
