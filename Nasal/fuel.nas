@@ -15,8 +15,11 @@
 
 io.include("Aircraft/ExpansionPack/Nasal/init.nas");
 
-with("fuel", "updateloop");
-check_version("fuel", 1, 0);
+with("fuel");
+with("fuel_sequencer");
+with("updateloop");
+
+check_version("fuel", 2, 0);
 
 # Number of iterations per second
 var frequency = 2.0;
@@ -69,9 +72,6 @@ var FuelSystemUpdater = {
     },
 
     reset: func {
-        me.manifolds = [];
-        me.pumps = std.Vector.new();
-
         ###############################################################################
         # Fuel Consumption                                                            #
         ###############################################################################
@@ -265,38 +265,27 @@ var FuelSystemUpdater = {
 
         ###############################################################################
 
-        # Notes:
-        # 1) Actual aircraft needs to add some higher level Nasal code that
-        #    controls which pumps are enabled/disabled
-        # 2) Add some valves
-        # 3) Add a JettisonConsumer
-
-        # Enable sponson tanks
-        pump_left_fwd_sponson.enable();
-        pump_right_fwd_sponson.enable();
-        pump_right_aft_sponson.enable();
-
-        # Enable MATS tanks
-        #pump_fwd_mats_one.enable();
-        #pump_fwd_mats_two.enable();
-        #pump_aft_mats_three.enable();
-
-        # Enable wing auxilliary tanks
-        #pump_left_wing_aux.enable();
-        #pump_right_wing_aux.enable();
+        # To do:
+        # 1) Add some valves
+        # 2) Add a JettisonConsumer
 
         me.manifolds = [
             manifold_feeders
         ];
 
+        me.pumps = std.Vector.new();
+
         me.pumps.extend([
             pump_left_feed_engine,
             pump_right_feed_engine,
 
+            # Group 1
             pump_right_aft_sponson,
 
+            # Group 2
             pump_aft_mats_three,
 
+            # Group 3
             pump_fwd_mats_one,
             pump_fwd_mats_two
         ]);
@@ -304,21 +293,56 @@ var FuelSystemUpdater = {
         # Add the two extra boost pumps of the wing auxilliary tanks for the CV-22
         if (getprop("/sim/aircraft") == "cv22") {
             me.pumps.extend([
+                # Group 4
                 pump_left_wing_aux,
                 pump_right_wing_aux
             ]);
         }
 
         me.pumps.extend([
+            # Group 5
             pump_left_fwd_sponson,
             pump_right_fwd_sponson,
 
             pump_aar_probe,
             pump_fuel_truck
         ]);
+
+        ###############################################################################
+        # Pump Group Sequencer                                                        #
+        ###############################################################################
+
+        me.sequencer = fuel_sequencer.PumpGroupSequencer.new(0.5);
+
+        # Group 1: aft sponson tank
+        var group1 = me.sequencer.create_group();
+        group1.add_tank_pump(tank_right_aft_sponson, pump_right_aft_sponson);
+
+        # Group 2: aft MATS tank
+        var group2 = me.sequencer.create_group();
+        group2.add_tank_pump(tank_aft_mats_three, pump_aft_mats_three);
+
+        # Group 3: forward MATS tanks
+        var group3 = me.sequencer.create_group();
+        group3.add_tank_pump(tank_fwd_mats_one, pump_fwd_mats_one);
+        group3.add_tank_pump(tank_fwd_mats_two, pump_fwd_mats_two);
+
+        if (getprop("/sim/aircraft") == "cv22") {
+            # Group 4: wing auxilliary tanks
+            var group4 = me.sequencer.create_group();
+            group4.add_tank_pump(tank_left_wing_aux, pump_left_wing_aux);
+            group4.add_tank_pump(tank_right_wing_aux, pump_right_wing_aux);
+        }
+
+        # Group 5: forward sponson tanks
+        var group5 = me.sequencer.create_group();
+        group5.add_tank_pump(tank_left_forward_sponson, pump_left_fwd_sponson);
+        group5.add_tank_pump(tank_right_forward_sponson, pump_right_fwd_sponson);
     },
 
     update: func (dt) {
+        me.sequencer.update_pumps();
+
         foreach (var manifold; me.manifolds) {
             manifold.prepare_distribution(dt);
         }
