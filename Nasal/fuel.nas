@@ -80,12 +80,12 @@ var FuelSystemUpdater = {
 
         var super = me;
 
-        var left_engine_flow = func (flow) {
+        var left_engine_flow = func (flow, dt) {
             var lbs_hour = super.get_lbs_per_hour(getprop("/rotors/tail/rpm"));
             setprop("/v22/fadec/internal/left-lbs-hour", lbs_hour);
 
             var gal_s = lbs_hour / ppg / 3600;
-            var flow_needed = gal_s / frequency * getprop("/sim/speed-up");
+            var flow_needed = gal_s * dt;
             var flow_used = min(flow_needed, flow);
 
             if (flow_needed > 0.0) {
@@ -101,12 +101,12 @@ var FuelSystemUpdater = {
 
             return max(0, flow_used);
         };
-        var right_engine_flow = func (flow) {
+        var right_engine_flow = func (flow, dt) {
             var lbs_hour = super.get_lbs_per_hour(getprop("/rotors/main/rpm"));
             setprop("/v22/fadec/internal/right-lbs-hour", lbs_hour);
 
             var gal_s = lbs_hour / ppg / 3600;
-            var flow_needed = gal_s / frequency * getprop("/sim/speed-up");
+            var flow_needed = gal_s * dt;
             var flow_used = min(flow_needed, flow);
 
             return max(0, flow_used);
@@ -116,17 +116,17 @@ var FuelSystemUpdater = {
         # Fuel Production                                                             #
         ###############################################################################
 
-        var probe = func (tanker) {
+        var probe = func (tanker, dt) {
             var tanker_lbs_min = tanker.getNode("refuel/max-fuel-transfer-lbs-min", 1).getValue() or 6000;
             var osprey_lbs_min = getprop("/systems/refuel/max-fuel-transfer-lbs-min");
 
             var lbs_s = std.min(tanker_lbs_min, osprey_lbs_min) / 60;
             var gal_s = lbs_s / ppg;
 
-            return gal_s / frequency * getprop("/sim/speed-up");
+            return gal_s * dt;
         };
 
-        var contact_point = func (fuel_truck) {
+        var contact_point = func (fuel_truck, dt) {
             var truck_total_gal_us = fuel_truck.getNode("level-gal_us").getValue();
 
             # Compute maximum gal/s that can be transferred
@@ -135,7 +135,7 @@ var FuelSystemUpdater = {
 
             # Compute actual flow (per step instead of per second), taking
             # into account the maximum amount of fuel in the truck
-            var flow = truck_gal_s / frequency * getprop("/sim/speed-up");
+            var flow = truck_gal_s * dt;
             return std.min(flow, truck_total_gal_us);
         };
 
@@ -320,11 +320,11 @@ var FuelSystemUpdater = {
 
     update: func (dt) {
         foreach (var manifold; me.manifolds) {
-            manifold.prepare_distribution();
+            manifold.prepare_distribution(dt);
         }
 
         foreach (var pump; me.pumps.vector) {
-            pump.transfer_fuel();
+            pump.transfer_fuel(dt);
         }
     }
 
