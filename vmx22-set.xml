@@ -144,13 +144,6 @@
 
         <help include="Sim/help.xml"/>
 
-        <flaps>
-            <setting>0.00</setting> <!-- Cruise -->
-            <setting>0.33</setting> <!--  -->
-            <setting>0.66</setting> <!--  -->
-            <setting>1.00</setting> <!-- Full -->
-        </flaps>
-
         <hitches>
             <!-- Make sure some properties do exist, when the list for multiplayer transfer is defined -->
             <!-- They need to be in the same value, as they are initilized in the FDM, to get the same values after reset should fix this somehow -->
