@@ -19,7 +19,7 @@ with("fuel");
 with("fuel_sequencer");
 with("updateloop");
 
-check_version("fuel", 2, 0);
+check_version("fuel", 2, 1);
 
 # Number of iterations per second
 var frequency = 2.0;
@@ -338,6 +338,9 @@ var FuelSystemUpdater = {
         var group5 = me.sequencer.create_group();
         group5.add_tank_pump(tank_left_forward_sponson, pump_left_fwd_sponson);
         group5.add_tank_pump(tank_right_forward_sponson, pump_right_fwd_sponson);
+
+        # Make tank levels persistent across sessions
+        fuel.make_tank_levels_persistent();
     },
 
     update: func (dt) {

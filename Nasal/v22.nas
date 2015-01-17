@@ -619,6 +619,14 @@ var main_loop = func {
 
 var crashed = 0;
 
+var make_weights_persistent = func {
+    # Make weights persistent across sessions
+    foreach (var weight; props.globals.getNode("/sim").getChildren("weight")) {
+        aircraft.data.add(weight.getNode("weight-lb").getPath());
+    }
+    aircraft.data.load();
+};
+
 # Initialization
 setlistener("/sim/signals/fdm-initialized", func {
     control_throttle.setDoubleValue(0);
@@ -655,6 +663,8 @@ setlistener("/sim/signals/fdm-initialized", func {
 
     # Livery
     aircraft.livery.init("Aircraft/VMX22-Osprey/Models/Liveries");
+
+    make_weights_persistent();
 
     var afcs_loop_timer = maketimer(0.5, afcs.main_loop);
     afcs_loop_timer.start();

@@ -32,6 +32,7 @@
             <name>Flight Engineer</name>
             <weight-lb>0</weight-lb>
             <max-lb>300</max-lb>
+            <min-lb>150</min-lb>
         </weight>
 
         <weight n="4">
