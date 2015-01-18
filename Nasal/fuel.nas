@@ -144,8 +144,8 @@ var FuelSystemUpdater = {
         # Wing feeder tanks and engines                                               #
         ###############################################################################
 
-        # Default gallons per time step
-        var default_max_capacity = 0.1;
+        # Default gallons per second
+        var default_max_capacity = 1.0;
 
         # Left/Right Wing Feeder tanks
         var tank_left_wing_feed  = fuel.Tank.new("left-wing-feeder", 2);
@@ -204,7 +204,7 @@ var FuelSystemUpdater = {
         var aar_probe = fuel.AirRefuelProducer.new("probe", probe);
 
         # Pump for the aerial refueling probe
-        var pump_aar_probe = fuel.AutoPump.new("aar-probe", 1.0);
+        var pump_aar_probe = fuel.AutoPump.new("aar-probe", 7.0);
 
         pump_aar_probe.connect(aar_probe, tank_left_forward_sponson);
 
@@ -214,7 +214,7 @@ var FuelSystemUpdater = {
         var fuel_truck = fuel.GroundRefuelProducer.new("fuel-truck", contact_point);
 
         # Pump for the fuel truck contact point
-        var pump_fuel_truck = fuel.AutoPump.new("fuel-truck", 1.0);
+        var pump_fuel_truck = fuel.AutoPump.new("fuel-truck", 7.0);
 
         pump_fuel_truck.connect(fuel_truck, tank_left_forward_sponson);
 
@@ -268,17 +268,20 @@ var FuelSystemUpdater = {
         # Refueling manifold, boost pump, and valves                                  #
         ###############################################################################
 
+        # Default gallons per second for refueling lines
+        var refueling_max_capacity = 7.0;
+
         var manifold_refueling = fuel.Manifold.new("refueling");
 
         # Sources attached to the manifold
-        var pump_refuel_left_fwd_sponson = fuel.BoostPump.new("refuel-left-fwd-sponson", default_max_capacity);
+        var pump_refuel_left_fwd_sponson = fuel.BoostPump.new("refuel-left-fwd-sponson", refueling_max_capacity);
 
         # Sinks attached to the manifold
-        var valve_refuel_right_fwd_sponson = fuel.Valve.new("refuel-right-fwd-sponson", default_max_capacity);
-        var valve_refuel_right_aft_sponson = fuel.Valve.new("refuel-right-aft-sponson", default_max_capacity);
-        var valve_refuel_fwd_mats_one   = fuel.Valve.new("refuel-fwd-mats-1", default_max_capacity);
-        var valve_refuel_fwd_mats_two   = fuel.Valve.new("refuel-fwd-mats-2", default_max_capacity);
-        var valve_refuel_aft_mats_three = fuel.Valve.new("refuel-aft-mats-3", default_max_capacity);
+        var valve_refuel_right_fwd_sponson = fuel.Valve.new("refuel-right-fwd-sponson", refueling_max_capacity);
+        var valve_refuel_right_aft_sponson = fuel.Valve.new("refuel-right-aft-sponson", refueling_max_capacity);
+        var valve_refuel_fwd_mats_one   = fuel.Valve.new("refuel-fwd-mats-1", refueling_max_capacity);
+        var valve_refuel_fwd_mats_two   = fuel.Valve.new("refuel-fwd-mats-2", refueling_max_capacity);
+        var valve_refuel_aft_mats_three = fuel.Valve.new("refuel-aft-mats-3", refueling_max_capacity);
 
         # Add the sinks and sources to the manifold
         manifold_refueling.add_source(pump_refuel_left_fwd_sponson);
@@ -298,8 +301,8 @@ var FuelSystemUpdater = {
 
         if (getprop("/sim/aircraft") == "cv22") {
             # Sinks attached to the manifold
-            var valve_refuel_left_wing_aux  = fuel.Valve.new("refuel-left-wing-aux", default_max_capacity);
-            var valve_refuel_right_wing_aux = fuel.Valve.new("refuel-right-wing-aux", default_max_capacity);
+            var valve_refuel_left_wing_aux  = fuel.Valve.new("refuel-left-wing-aux", refueling_max_capacity);
+            var valve_refuel_right_wing_aux = fuel.Valve.new("refuel-right-wing-aux", refueling_max_capacity);
 
             # Add the sinks to the manifold
             manifold_refueling.add_sink(valve_refuel_left_wing_aux);
@@ -315,6 +318,7 @@ var FuelSystemUpdater = {
         # To do:
         # 1) Add some valves
         # 2) Add a JettisonConsumer
+        # 3) Use two manifolds (one for the left side and one for the right side)
 
         me.manifolds = [
             manifold_feeders,
