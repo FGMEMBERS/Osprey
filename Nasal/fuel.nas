@@ -20,7 +20,7 @@ with("fuel_sequencer");
 with("updateloop");
 
 check_version("fuel", 3, 1);
-check_version("fuel_sequencer", 1, 1);
+check_version("fuel_sequencer", 1, 2);
 
 # Number of iterations per second
 var frequency = 2.0;
@@ -269,7 +269,10 @@ var FuelSystemUpdater = {
         ###############################################################################
 
         # Default gallons per second for refueling lines
-        var refueling_max_capacity = 7.0;
+        # Should be larger than the flow rate of the fuel truck and AAR
+        # probe, otherwise refueling would stop as soon as left forward
+        # sponson tank is full.
+        var refueling_max_capacity = 9.0;
 
         var manifold_refueling = fuel.Manifold.new("refueling");
 
@@ -398,8 +401,18 @@ var FuelSystemUpdater = {
 
         me.refueling_sequencer = fuel_sequencer.PumpGroupSequencer.new(0.5, fuel_sequencer.FullTankPumpGroup);
 
+        # Only let fuel truck or tanker fill left forward sponson tank if
+        # there is at least this amount of gallons free, otherwise there is
+        # a risk of filling the tank completely, which results in stopping
+        # the refueling operation.
+        var refuel_buffer_gal = 10.0
+
         # Group 1: forward sponson tanks
         var group1 = me.refueling_sequencer.create_group();
+        group1.set_condition(func (group) {
+            var tank = tank_left_forward_sponson;
+            return tank.get_typical_level() - tank.get_current_level() > refuel_buffer_gal;
+        });
         group1.add_tank_pump(tank_right_forward_sponson, valve_refuel_right_fwd_sponson);
 
         if (getprop("/sim/aircraft") == "cv22") {
