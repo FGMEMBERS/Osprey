@@ -20,6 +20,7 @@ with("fuel_sequencer");
 with("updateloop");
 
 check_version("fuel", 2, 1);
+check_version("fuel_sequencer", 1, 0);
 
 # Number of iterations per second
 var frequency = 2.0;
@@ -312,7 +313,7 @@ var FuelSystemUpdater = {
         # Pump Group Sequencer                                                        #
         ###############################################################################
 
-        me.sequencer = fuel_sequencer.PumpGroupSequencer.new(0.5);
+        me.sequencer = fuel_sequencer.PumpGroupSequencer.new(0.5, fuel_sequencer.EmptyTankPumpGroup);
 
         # Group 1: aft sponson tank
         var group1 = me.sequencer.create_group();
