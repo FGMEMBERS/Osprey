@@ -273,4 +273,144 @@
         </max-rate-of-change>
     </filter>
 
+    <!-- ================================================================== -->
+    <!-- Pumps And Valves Between Left Fwd Sponson Tank And Other Tanks     -->
+    <!-- ================================================================== -->
+
+    <filter>
+        <name>Pump Boost Refuel Left Fwd Sponson State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/pump-boost-refuel-left-fwd-sponson/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-boost-refuel-left-fwd-sponson/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Valve Refuel Right Fwd Sponson State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/valve-refuel-right-fwd-sponson/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-refuel-right-fwd-sponson/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>1.0</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Valve Refuel Right Aft Sponson State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/valve-refuel-right-aft-sponson/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-refuel-right-aft-sponson/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>1.0</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Valve Refuel Left Wing Aux State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/valve-refuel-left-wing-aux/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-refuel-left-wing-aux/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>1.0</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Valve Refuel Right Wing Aux State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/valve-refuel-right-wing-aux/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-refuel-right-wing-aux/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>1.0</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Valve Refuel Fwd MATS 1 State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/valve-refuel-fwd-mats-1/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-refuel-fwd-mats-1/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>1.0</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Valve Refuel Fwd MATS 2 State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/valve-refuel-fwd-mats-2/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-refuel-fwd-mats-2/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>1.0</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Valve Refuel Aft MATS 3 State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/valve-refuel-aft-mats-3/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-refuel-aft-mats-3/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>1.0</scale>
+        </max-rate-of-change>
+    </filter>
+
 </PropertyList>

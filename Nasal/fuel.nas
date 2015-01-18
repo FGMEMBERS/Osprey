@@ -19,8 +19,8 @@ with("fuel");
 with("fuel_sequencer");
 with("updateloop");
 
-check_version("fuel", 2, 1);
-check_version("fuel_sequencer", 1, 0);
+check_version("fuel", 3, 1);
+check_version("fuel_sequencer", 1, 1);
 
 # Number of iterations per second
 var frequency = 2.0;
@@ -74,7 +74,7 @@ var FuelSystemUpdater = {
 
     reset: func {
         ###############################################################################
-        # Fuel Consumption                                                            #
+        # Fuel consumption                                                            #
         ###############################################################################
 
         var ppg = getprop("/consumables/fuel/tank[2]/density-ppg");
@@ -114,7 +114,7 @@ var FuelSystemUpdater = {
         };
 
         ###############################################################################
-        # Fuel Production                                                             #
+        # Fuel production                                                             #
         ###############################################################################
 
         var probe = func (tanker, dt) {
@@ -141,7 +141,7 @@ var FuelSystemUpdater = {
         };
 
         ###############################################################################
-        # Wing Feeder tanks and Engines                                               #
+        # Wing feeder tanks and engines                                               #
         ###############################################################################
 
         # Default gallons per time step
@@ -243,7 +243,7 @@ var FuelSystemUpdater = {
         pump_aft_mats_three.connect(tank_aft_mats_three, manifold_feeders);
 
         ###############################################################################
-        # Wing Auxilliary tanks and their boost pumps                                 #
+        # Wing auxilliary tanks and their boost pumps                                 #
         ###############################################################################
 
         if (getprop("/sim/aircraft") == "cv22") {
@@ -265,13 +265,60 @@ var FuelSystemUpdater = {
         }
 
         ###############################################################################
+        # Refueling manifold, boost pump, and valves                                  #
+        ###############################################################################
+
+        var manifold_refueling = fuel.Manifold.new("refueling");
+
+        # Sources attached to the manifold
+        var pump_refuel_left_fwd_sponson = fuel.BoostPump.new("refuel-left-fwd-sponson", default_max_capacity);
+
+        # Sinks attached to the manifold
+        var valve_refuel_right_fwd_sponson = fuel.Valve.new("refuel-right-fwd-sponson", default_max_capacity);
+        var valve_refuel_right_aft_sponson = fuel.Valve.new("refuel-right-aft-sponson", default_max_capacity);
+        var valve_refuel_fwd_mats_one   = fuel.Valve.new("refuel-fwd-mats-1", default_max_capacity);
+        var valve_refuel_fwd_mats_two   = fuel.Valve.new("refuel-fwd-mats-2", default_max_capacity);
+        var valve_refuel_aft_mats_three = fuel.Valve.new("refuel-aft-mats-3", default_max_capacity);
+
+        # Add the sinks and sources to the manifold
+        manifold_refueling.add_source(pump_refuel_left_fwd_sponson);
+        manifold_refueling.add_sink(valve_refuel_right_fwd_sponson);
+        manifold_refueling.add_sink(valve_refuel_right_aft_sponson);
+        manifold_refueling.add_sink(valve_refuel_fwd_mats_one);
+        manifold_refueling.add_sink(valve_refuel_fwd_mats_two);
+        manifold_refueling.add_sink(valve_refuel_aft_mats_three);
+
+        # Insert the valves between the tanks and the manifold
+        pump_refuel_left_fwd_sponson.connect(tank_left_forward_sponson, manifold_refueling);
+        valve_refuel_right_fwd_sponson.connect(manifold_refueling, tank_right_forward_sponson);
+        valve_refuel_right_aft_sponson.connect(manifold_refueling, tank_right_aft_sponson);
+        valve_refuel_fwd_mats_one.connect(manifold_refueling, tank_fwd_mats_one);
+        valve_refuel_fwd_mats_two.connect(manifold_refueling, tank_fwd_mats_two);
+        valve_refuel_aft_mats_three.connect(manifold_refueling, tank_aft_mats_three);
+
+        if (getprop("/sim/aircraft") == "cv22") {
+            # Sinks attached to the manifold
+            var valve_refuel_left_wing_aux  = fuel.Valve.new("refuel-left-wing-aux", default_max_capacity);
+            var valve_refuel_right_wing_aux = fuel.Valve.new("refuel-right-wing-aux", default_max_capacity);
+
+            # Add the sinks to the manifold
+            manifold_refueling.add_sink(valve_refuel_left_wing_aux);
+            manifold_refueling.add_sink(valve_refuel_right_wing_aux);
+
+            # Insert the valves between the tanks and the manifold
+            valve_refuel_left_wing_aux.connect(manifold_refueling, tank_left_wing_aux);
+            valve_refuel_right_wing_aux.connect(manifold_refueling, tank_right_wing_aux);
+        }
+
+        ###############################################################################
 
         # To do:
         # 1) Add some valves
         # 2) Add a JettisonConsumer
 
         me.manifolds = [
-            manifold_feeders
+            manifold_feeders,
+            manifold_refueling
         ];
 
         me.pumps = std.Vector.new();
@@ -306,46 +353,49 @@ var FuelSystemUpdater = {
             pump_right_fwd_sponson,
 
             pump_aar_probe,
-            pump_fuel_truck
+            pump_fuel_truck,
+            pump_refuel_left_fwd_sponson
         ]);
 
         ###############################################################################
-        # Pump Group Sequencer                                                        #
+        # Pump group sequencer for engines operation                                  #
         ###############################################################################
 
-        me.sequencer = fuel_sequencer.PumpGroupSequencer.new(0.5, fuel_sequencer.EmptyTankPumpGroup);
+        me.engines_sequencer = fuel_sequencer.PumpGroupSequencer.new(0.5, fuel_sequencer.EmptyTankPumpGroup);
 
         # Group 1: aft sponson tank
-        var group1 = me.sequencer.create_group();
+        var group1 = me.engines_sequencer.create_group();
         group1.add_tank_pump(tank_right_aft_sponson, pump_right_aft_sponson);
 
         # Group 2: aft MATS tank
-        var group2 = me.sequencer.create_group();
+        var group2 = me.engines_sequencer.create_group();
         group2.add_tank_pump(tank_aft_mats_three, pump_aft_mats_three);
 
         # Group 3: forward MATS tanks
-        var group3 = me.sequencer.create_group();
+        var group3 = me.engines_sequencer.create_group();
         group3.add_tank_pump(tank_fwd_mats_one, pump_fwd_mats_one);
         group3.add_tank_pump(tank_fwd_mats_two, pump_fwd_mats_two);
 
         if (getprop("/sim/aircraft") == "cv22") {
             # Group 4: wing auxilliary tanks
-            var group4 = me.sequencer.create_group();
+            var group4 = me.engines_sequencer.create_group();
             group4.add_tank_pump(tank_left_wing_aux, pump_left_wing_aux);
             group4.add_tank_pump(tank_right_wing_aux, pump_right_wing_aux);
         }
 
         # Group 5: forward sponson tanks
-        var group5 = me.sequencer.create_group();
+        var group5 = me.engines_sequencer.create_group();
         group5.add_tank_pump(tank_left_forward_sponson, pump_left_fwd_sponson);
         group5.add_tank_pump(tank_right_forward_sponson, pump_right_fwd_sponson);
+
+        ###############################################################################
 
         # Make tank levels persistent across sessions
         fuel.make_tank_levels_persistent();
     },
 
     update: func (dt) {
-        me.sequencer.update_pumps();
+        me.engines_sequencer.update_pumps();
 
         foreach (var manifold; me.manifolds) {
             manifold.prepare_distribution(dt);
