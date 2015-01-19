@@ -405,7 +405,7 @@ var FuelSystemUpdater = {
         # there is at least this amount of gallons free, otherwise there is
         # a risk of filling the tank completely, which results in stopping
         # the refueling operation.
-        var refuel_buffer_gal = 10.0
+        var refuel_buffer_gal = 10.0;
 
         # Group 1: forward sponson tanks
         var group1 = me.refueling_sequencer.create_group();
