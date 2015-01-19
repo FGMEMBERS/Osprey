@@ -28,6 +28,10 @@
             <splash-texture>cv22-splash.png</splash-texture>
         </startup>
 
+        <model>
+            <path>Aircraft/VMX22-Osprey/Models/CV-22.xml</path>
+        </model>
+
         <weight n="3">
             <name>Flight Engineer</name>
             <weight-lb>0</weight-lb>

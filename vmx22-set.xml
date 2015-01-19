@@ -31,8 +31,6 @@
         </sound>
 
         <model>
-            <path archive="y">Aircraft/VMX22-Osprey/Models/CV-22.xml</path>
-
             <livery>
                 <file type="string">default</file>
             </livery>

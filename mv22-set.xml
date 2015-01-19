@@ -28,6 +28,10 @@
             <splash-texture>mv22-splash.png</splash-texture>
         </startup>
 
+        <model>
+            <path>Aircraft/VMX22-Osprey/Models/MV-22.xml</path>
+        </model>
+
         <weight n="3">
             <name>Load</name>
             <weight-lb>0</weight-lb>
