@@ -159,8 +159,15 @@ var FuelSystemUpdater = {
         var pump_left_feed_engine  = fuel.AutoPump.new("left-feed-engine", 1.0);
         var pump_right_feed_engine = fuel.AutoPump.new("right-feed-engine", 1.0);
 
-        pump_left_feed_engine.connect(tank_left_wing_feed, left_engine);
-        pump_right_feed_engine.connect(tank_right_wing_feed, right_engine);
+        # Fuel cut-off valves for engines
+        var valve_cutoff_left_engine = fuel.Valve.new("cut-off-left-engine", 1.0);
+        var valve_cutoff_right_engine = fuel.Valve.new("cut-off-right-engine", 1.0);
+
+        pump_left_feed_engine.connect(valve_cutoff_left_engine, left_engine);
+        pump_right_feed_engine.connect(valve_cutoff_right_engine, right_engine);
+
+        valve_cutoff_left_engine.connect(tank_left_wing_feed, pump_left_feed_engine);
+        valve_cutoff_right_engine.connect(tank_right_wing_feed, pump_right_feed_engine);
 
         ###############################################################################
         # Manifold and the sponson tanks and their boost pumps                        #

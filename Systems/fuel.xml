@@ -58,11 +58,11 @@
     </filter>
 
     <!-- ================================================================== -->
-    <!-- Auto Pumps Between Engines And Wing Feeder Tanks                   -->
+    <!-- Auto Pumps And Cut-Off Valves Between Engines And Feeder Tanks     -->
     <!-- ================================================================== -->
 
     <filter>
-        <name>Pump Left Auto Engine State</name>
+        <name>Pump Auto Left Engine State</name>
         <update-interval-secs type="double">0.1</update-interval-secs>
         <type>noise-spike</type>
         <input>
@@ -79,7 +79,7 @@
     </filter>
 
     <filter>
-        <name>Pump Right Auto Engine State</name>
+        <name>Pump Auto Right Engine State</name>
         <update-interval-secs type="double">0.1</update-interval-secs>
         <type>noise-spike</type>
         <input>
@@ -92,6 +92,40 @@
         <max-rate-of-change>
             <value>1.0</value>
             <scale>0.5</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Valve Cut-Off Left Engine State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/valve-cut-off-left-engine/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-cut-off-left-engine/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>1.0</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <filter>
+        <name>Valve Cut-Off Right Engine State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/valve-cut-off-right-engine/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-cut-off-right-engine/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>1.0</scale>
         </max-rate-of-change>
     </filter>
 
