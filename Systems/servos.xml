@@ -846,7 +846,12 @@
         <input>
             <property>/v22/tpms/target/nr-norm</property>
             <scale>
-                <property>/v22/fadec/output/fuel-flow-norm</property>
+                <expression>
+                    <max>
+                        <property>/v22/fadec/output/left-fuel-flow-norm</property>
+                        <property>/v22/fadec/output/right-fuel-flow-norm</property>
+                    </max>
+                </expression>
             </scale>
         </input>
         <output>
