@@ -544,6 +544,9 @@
         </refuel>
         <refuel-ground>
             <level-gal_us type="double">3200.0</level-gal_us>
+            <x-m type="double">-8.0</x-m>
+            <y-m type="double">-15.0</y-m>
+            <yaw-deg type="double">90.0</yaw-deg>
         </refuel-ground>
         <fuel>
             <settings>
