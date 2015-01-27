@@ -35,6 +35,15 @@
                 <file type="string">default</file>
             </livery>
 
+            <fuel-truck>
+                <!-- Initial position of the fuel truck. These values are
+                     used for a split second before they are overwritten
+                     by FuelTruckPositionUpdater from ExpansionPack. -->
+                <x-m type="double">-15.0</x-m>
+                <y-m type="double">-8.0</y-m>
+                <yaw-deg type="double">90.0</yaw-deg>
+            </fuel-truck>
+
             <v22>
                 <state type="int">0</state>
                 <wing_state type="int">0</wing_state>
@@ -533,7 +542,7 @@
             <serviceable type="bool">false</serviceable>
 
             <!-- Maximum rate of fuel in lbs/min. Actual value is unknown -->
-            <max-fuel-transfer-lbs-min>6000</max-fuel-transfer-lbs-min>
+            <max-fuel-transfer-lbs-min>2800</max-fuel-transfer-lbs-min>
 
             <!-- Offset of the probe from the aircraft model's origin -->
             <offset-x-m>9</offset-x-m>
@@ -545,8 +554,8 @@
         </refuel>
         <refuel-ground>
             <level-gal_us type="double">3200.0</level-gal_us>
-            <x-m type="double">-8.0</x-m>
-            <y-m type="double">-15.0</y-m>
+            <x-m type="double">-15.0</x-m>
+            <y-m type="double">-8.0</y-m>
             <yaw-deg type="double">90.0</yaw-deg>
         </refuel-ground>
         <fuel>
