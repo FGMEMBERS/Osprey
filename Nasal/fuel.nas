@@ -19,7 +19,7 @@ with("fuel");
 with("fuel_sequencer");
 with("updateloop");
 
-check_version("fuel", 3, 1);
+check_version("fuel", 4, 0);
 check_version("fuel_sequencer", 1, 2);
 
 # Number of iterations per second
@@ -73,6 +73,8 @@ var FuelSystemUpdater = {
     },
 
     reset: func {
+        me.network = fuel.Network.new();
+
         ###############################################################################
         # Fuel consumption                                                            #
         ###############################################################################
@@ -332,50 +334,86 @@ var FuelSystemUpdater = {
         ###############################################################################
 
         # To do:
-        # 1) Add some valves
-        # 2) Add a JettisonConsumer
-        # 3) Use two manifolds (one for the left side and one for the right side)
+        # 1) Add a JettisonConsumer
+        # 2) Use two manifolds (one for the left side and one for the right side)
 
-        me.manifolds = [
-            manifold_feeders,
-            manifold_refueling
-        ];
+        # Manifolds
+        me.network.add(manifold_feeders);
+        me.network.add(manifold_refueling);
 
-        me.pumps = std.Vector.new();
+        # Pumps
+        me.network.add(pump_left_feed_engine);
+        me.network.add(pump_right_feed_engine);
 
-        me.pumps.extend([
-            pump_left_feed_engine,
-            pump_right_feed_engine,
+        # Group 1
+        me.network.add(pump_right_aft_sponson);
 
-            # Group 1
-            pump_right_aft_sponson,
+        # Group 2
+        me.network.add(pump_aft_mats_three);
 
-            # Group 2
-            pump_aft_mats_three,
-
-            # Group 3
-            pump_fwd_mats_one,
-            pump_fwd_mats_two
-        ]);
+        # Group 3
+        me.network.add(pump_fwd_mats_one);
+        me.network.add(pump_fwd_mats_two);
 
         # Add the two extra boost pumps of the wing auxilliary tanks for the CV-22
         if (getprop("/sim/aircraft") == "cv22") {
-            me.pumps.extend([
-                # Group 4
-                pump_left_wing_aux,
-                pump_right_wing_aux
-            ]);
+            # Group 4
+            me.network.add(pump_left_wing_aux);
+            me.network.add(pump_right_wing_aux);
         }
 
-        me.pumps.extend([
-            # Group 5
-            pump_left_fwd_sponson,
-            pump_right_fwd_sponson,
+        # Group 5
+        me.network.add(pump_left_fwd_sponson);
+        me.network.add(pump_right_fwd_sponson);
 
-            pump_aar_probe,
-            pump_fuel_truck,
-            pump_refuel_left_fwd_sponson
-        ]);
+        me.network.add(pump_aar_probe);
+        me.network.add(pump_fuel_truck);
+        me.network.add(pump_refuel_left_fwd_sponson);
+
+        # Consumers
+        me.network.add(left_engine);
+        me.network.add(right_engine);
+
+        # Producers
+        me.network.add(aar_probe);
+        me.network.add(fuel_truck);
+
+        # Cut-off valves
+        me.network.add(valve_cutoff_left_engine);
+        me.network.add(valve_cutoff_right_engine);
+
+        # Tubes
+        me.network.add(tube_left_feeder);
+        me.network.add(tube_right_feeder);
+
+        # Tanks
+        me.network.add(tank_left_wing_feed);
+        me.network.add(tank_right_wing_feed);
+
+        me.network.add(tank_left_forward_sponson);
+        me.network.add(tank_right_forward_sponson);
+        me.network.add(tank_right_aft_sponson);
+
+        me.network.add(tank_fwd_mats_one);
+        me.network.add(tank_fwd_mats_two);
+        me.network.add(tank_aft_mats_three);
+
+        if (getprop("/sim/aircraft") == "cv22") {
+            me.network.add(tank_left_wing_aux);
+            me.network.add(tank_right_wing_aux);
+        }
+
+        # Refuel valves
+        me.network.add(valve_refuel_right_fwd_sponson);
+        me.network.add(valve_refuel_right_aft_sponson);
+        me.network.add(valve_refuel_fwd_mats_one);
+        me.network.add(valve_refuel_fwd_mats_two);
+        me.network.add(valve_refuel_aft_mats_three);
+
+        if (getprop("/sim/aircraft") == "cv22") {
+            me.network.add(valve_refuel_left_wing_aux);
+            me.network.add(valve_refuel_right_wing_aux);
+        }
 
         ###############################################################################
         # Pump group sequencer for engines operation                                  #
@@ -458,13 +496,7 @@ var FuelSystemUpdater = {
         me.engines_sequencer.update_pumps();
         me.refueling_sequencer.update_pumps();
 
-        foreach (var manifold; me.manifolds) {
-            manifold.prepare_distribution(dt);
-        }
-
-        foreach (var pump; me.pumps.vector) {
-            pump.transfer_fuel(dt);
-        }
+        me.network.update(dt);
     }
 
 };
