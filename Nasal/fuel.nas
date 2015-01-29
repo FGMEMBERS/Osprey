@@ -19,7 +19,7 @@ with("fuel");
 with("fuel_sequencer");
 with("updateloop");
 
-check_version("fuel", 4, 0);
+check_version("fuel", 5, 0);
 check_version("fuel_sequencer", 1, 2);
 
 # Number of iterations per second
@@ -169,11 +169,8 @@ var FuelSystemUpdater = {
         var valve_cutoff_left_engine = fuel.Valve.new("cut-off-left-engine", 1.0);
         var valve_cutoff_right_engine = fuel.Valve.new("cut-off-right-engine", 1.0);
 
-        pump_left_feed_engine.connect(valve_cutoff_left_engine, left_engine);
-        pump_right_feed_engine.connect(valve_cutoff_right_engine, right_engine);
-
-        valve_cutoff_left_engine.connect(tank_left_wing_feed, pump_left_feed_engine);
-        valve_cutoff_right_engine.connect(tank_right_wing_feed, pump_right_feed_engine);
+        fuel.connect([tank_left_wing_feed, valve_cutoff_left_engine, pump_left_feed_engine, left_engine]);
+        fuel.connect([tank_right_wing_feed, valve_cutoff_right_engine, pump_right_feed_engine, right_engine]);
 
         ###############################################################################
         # Manifold and the sponson tanks and their boost pumps                        #
@@ -190,16 +187,9 @@ var FuelSystemUpdater = {
         var pump_right_fwd_sponson = fuel.BoostPump.new("right-fwd-sponson", default_max_capacity);
         var pump_right_aft_sponson = fuel.BoostPump.new("right-aft-sponson", default_max_capacity);
 
-        # Add the sinks and sources to the manifold
-        manifold_feeders.add_sink(tube_left_feeder);
-        manifold_feeders.add_sink(tube_right_feeder);
-        manifold_feeders.add_source(pump_left_fwd_sponson);
-        manifold_feeders.add_source(pump_right_fwd_sponson);
-        manifold_feeders.add_source(pump_right_aft_sponson);
-
         # Insert the tubes between the manifold and the two wing feeder tanks
-        tube_left_feeder.connect(manifold_feeders, tank_left_wing_feed);
-        tube_right_feeder.connect(manifold_feeders, tank_right_wing_feed);
+        fuel.connect([manifold_feeders, tube_left_feeder, tank_left_wing_feed]);
+        fuel.connect([manifold_feeders, tube_right_feeder, tank_right_wing_feed]);
 
         # The sponson tanks
         var tank_left_forward_sponson  = fuel.Tank.new("left-forward-sponson", 0);
@@ -207,9 +197,9 @@ var FuelSystemUpdater = {
         var tank_right_aft_sponson     = fuel.Tank.new("right-aft-sponson", 4);
 
         # Insert the boost pumps between the sponson tanks and the manifold
-        pump_left_fwd_sponson.connect(tank_left_forward_sponson, manifold_feeders);
-        pump_right_fwd_sponson.connect(tank_right_forward_sponson, manifold_feeders);
-        pump_right_aft_sponson.connect(tank_right_aft_sponson, manifold_feeders);
+        fuel.connect([tank_left_forward_sponson, pump_left_fwd_sponson, manifold_feeders]);
+        fuel.connect([tank_right_forward_sponson, pump_right_fwd_sponson, manifold_feeders]);
+        fuel.connect([tank_right_aft_sponson, pump_right_aft_sponson, manifold_feeders]);
 
         ###############################################################################
 
@@ -219,7 +209,7 @@ var FuelSystemUpdater = {
         # Pump for the aerial refueling probe
         var pump_aar_probe = fuel.AutoPump.new("aar-probe", 7.0);
 
-        pump_aar_probe.connect(aar_probe, tank_left_forward_sponson);
+        fuel.connect([aar_probe, pump_aar_probe, tank_left_forward_sponson]);
 
         ###############################################################################
 
@@ -229,7 +219,7 @@ var FuelSystemUpdater = {
         # Pump for the fuel truck contact point
         var pump_fuel_truck = fuel.AutoPump.new("fuel-truck", 7.0);
 
-        pump_fuel_truck.connect(fuel_truck, tank_left_forward_sponson);
+        fuel.connect([fuel_truck, pump_fuel_truck, tank_left_forward_sponson]);
 
         ###############################################################################
         # MATS tanks and their boost pumps                                            #
@@ -240,20 +230,15 @@ var FuelSystemUpdater = {
         var pump_fwd_mats_two   = fuel.BoostPump.new("fwd-mats-2", default_max_capacity);
         var pump_aft_mats_three = fuel.BoostPump.new("aft-mats-3", default_max_capacity);
 
-        # Add the sources to the manifold
-        manifold_feeders.add_source(pump_fwd_mats_one);
-        manifold_feeders.add_source(pump_fwd_mats_two);
-        manifold_feeders.add_source(pump_aft_mats_three);
-
         # The MATS tanks
         var tank_fwd_mats_one   = fuel.Tank.new("fwd-mats-1", 5);
         var tank_fwd_mats_two   = fuel.Tank.new("fwd-mats-2", 6);
         var tank_aft_mats_three = fuel.Tank.new("aft-mats-3", 7);
 
         # Insert the boost pumps between the MATS tanks and the manifold
-        pump_fwd_mats_one.connect(tank_fwd_mats_one, manifold_feeders);
-        pump_fwd_mats_two.connect(tank_fwd_mats_two, manifold_feeders);
-        pump_aft_mats_three.connect(tank_aft_mats_three, manifold_feeders);
+        fuel.connect([tank_fwd_mats_one, pump_fwd_mats_one, manifold_feeders]);
+        fuel.connect([tank_fwd_mats_two, pump_fwd_mats_two, manifold_feeders]);
+        fuel.connect([tank_aft_mats_three, pump_aft_mats_three, manifold_feeders]);
 
         ###############################################################################
         # Wing auxilliary tanks and their boost pumps                                 #
@@ -264,17 +249,13 @@ var FuelSystemUpdater = {
             var pump_left_wing_aux  = fuel.BoostPump.new("left-wing-aux", default_max_capacity);
             var pump_right_wing_aux = fuel.BoostPump.new("right-wing-aux", default_max_capacity);
 
-            # Add the sources to the manifold
-            manifold_feeders.add_source(pump_left_wing_aux);
-            manifold_feeders.add_source(pump_right_wing_aux);
-
             # The wing auxilliary tanks
             var tank_left_wing_aux  = fuel.Tank.new("left-wing-aux", 8);
             var tank_right_wing_aux = fuel.Tank.new("right-wing-aux", 9);
 
             # Insert the boost pumps between the auxilliary tanks and the manifold
-            pump_left_wing_aux.connect(tank_left_wing_aux, manifold_feeders);
-            pump_right_wing_aux.connect(tank_right_wing_aux, manifold_feeders);
+            fuel.connect([tank_left_wing_aux, pump_left_wing_aux, manifold_feeders]);
+            fuel.connect([tank_right_wing_aux, pump_right_wing_aux, manifold_feeders]);
         }
 
         ###############################################################################
@@ -299,34 +280,22 @@ var FuelSystemUpdater = {
         var valve_refuel_fwd_mats_two   = fuel.Valve.new("refuel-fwd-mats-2", refueling_max_capacity);
         var valve_refuel_aft_mats_three = fuel.Valve.new("refuel-aft-mats-3", refueling_max_capacity);
 
-        # Add the sinks and sources to the manifold
-        manifold_refueling.add_source(pump_refuel_left_fwd_sponson);
-        manifold_refueling.add_sink(valve_refuel_right_fwd_sponson);
-        manifold_refueling.add_sink(valve_refuel_right_aft_sponson);
-        manifold_refueling.add_sink(valve_refuel_fwd_mats_one);
-        manifold_refueling.add_sink(valve_refuel_fwd_mats_two);
-        manifold_refueling.add_sink(valve_refuel_aft_mats_three);
-
         # Insert the valves between the tanks and the manifold
-        pump_refuel_left_fwd_sponson.connect(tank_left_forward_sponson, manifold_refueling);
-        valve_refuel_right_fwd_sponson.connect(manifold_refueling, tank_right_forward_sponson);
-        valve_refuel_right_aft_sponson.connect(manifold_refueling, tank_right_aft_sponson);
-        valve_refuel_fwd_mats_one.connect(manifold_refueling, tank_fwd_mats_one);
-        valve_refuel_fwd_mats_two.connect(manifold_refueling, tank_fwd_mats_two);
-        valve_refuel_aft_mats_three.connect(manifold_refueling, tank_aft_mats_three);
+        fuel.connect([tank_left_forward_sponson, pump_refuel_left_fwd_sponson, manifold_refueling]);
+        fuel.connect([manifold_refueling, valve_refuel_right_fwd_sponson, tank_right_forward_sponson]);
+        fuel.connect([manifold_refueling, valve_refuel_right_aft_sponson, tank_right_aft_sponson]);
+        fuel.connect([manifold_refueling, valve_refuel_fwd_mats_one, tank_fwd_mats_one]);
+        fuel.connect([manifold_refueling, valve_refuel_fwd_mats_two, tank_fwd_mats_two]);
+        fuel.connect([manifold_refueling, valve_refuel_aft_mats_three, tank_aft_mats_three]);
 
         if (getprop("/sim/aircraft") == "cv22") {
             # Sinks attached to the manifold
             var valve_refuel_left_wing_aux  = fuel.Valve.new("refuel-left-wing-aux", refueling_max_capacity);
             var valve_refuel_right_wing_aux = fuel.Valve.new("refuel-right-wing-aux", refueling_max_capacity);
 
-            # Add the sinks to the manifold
-            manifold_refueling.add_sink(valve_refuel_left_wing_aux);
-            manifold_refueling.add_sink(valve_refuel_right_wing_aux);
-
             # Insert the valves between the tanks and the manifold
-            valve_refuel_left_wing_aux.connect(manifold_refueling, tank_left_wing_aux);
-            valve_refuel_right_wing_aux.connect(manifold_refueling, tank_right_wing_aux);
+            fuel.connect([manifold_refueling, valve_refuel_left_wing_aux, tank_left_wing_aux]);
+            fuel.connect([manifold_refueling, valve_refuel_right_wing_aux, tank_right_wing_aux]);
         }
 
         ###############################################################################
