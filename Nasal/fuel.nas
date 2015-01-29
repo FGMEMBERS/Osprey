@@ -83,40 +83,38 @@ var FuelSystemUpdater = {
 
         var super = me;
 
-        var set_fuel_flow_norm = func (flow_needed, flow_used, property) {
+        var get_fuel_flow_norm = func (flow_needed, flow_used) {
             if (flow_needed > 0.0) {
                 var fuel_flow_norm = flow_used / flow_needed;
                 if (fuel_flow_norm < 0.1) {
                     fuel_flow_norm = 0.0;
                 }
-                setprop(property, fuel_flow_norm);
+                return fuel_flow_norm;
             }
             else {
-                setprop(property, 0.0);
+                return 0.0;
             }
         };
 
         var left_engine_flow = func (flow, dt) {
             var lbs_hour = super.get_lbs_per_hour(getprop("/rotors/tail/rpm"));
-            setprop("/v22/fadec/internal/left-lbs-hour", lbs_hour);
-
             var gal_s = lbs_hour / ppg / 3600;
             var flow_needed = gal_s * dt;
             var flow_used = min(flow_needed, flow);
 
-            set_fuel_flow_norm(flow_needed, flow_used, "/v22/fadec/output/left-fuel-flow-norm");
+            setprop("/v22/fadec/output/left-fuel-flow-norm", get_fuel_flow_norm(flow_needed, flow_used));
+            setprop("/v22/fadec/internal/left-lbs-hour", flow_used / dt * 3600 * ppg);
 
             return max(0, flow_used);
         };
         var right_engine_flow = func (flow, dt) {
             var lbs_hour = super.get_lbs_per_hour(getprop("/rotors/main/rpm"));
-            setprop("/v22/fadec/internal/right-lbs-hour", lbs_hour);
-
             var gal_s = lbs_hour / ppg / 3600;
             var flow_needed = gal_s * dt;
             var flow_used = min(flow_needed, flow);
 
-            set_fuel_flow_norm(flow_needed, flow_used, "/v22/fadec/output/right-fuel-flow-norm");
+            setprop("/v22/fadec/output/right-fuel-flow-norm", get_fuel_flow_norm(flow_needed, flow_used));
+            setprop("/v22/fadec/internal/right-lbs-hour", flow_used / dt * 3600 * ppg);
 
             return max(0, flow_used);
         };
