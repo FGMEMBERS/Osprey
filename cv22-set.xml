@@ -32,14 +32,14 @@
             <path>Aircraft/VMX22-Osprey/Models/CV-22.xml</path>
         </model>
 
-        <weight n="3">
+        <weight n="4">
             <name>Flight Engineer</name>
             <weight-lb>0</weight-lb>
             <max-lb>300</max-lb>
             <min-lb>150</min-lb>
         </weight>
 
-        <weight n="4">
+        <weight n="3">
             <name>Load</name>
             <weight-lb>0</weight-lb>
             <max-lb>20000</max-lb> <!-- or 12500 lb external cargo -->

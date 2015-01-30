@@ -361,10 +361,10 @@
     <weight x="6.0" y="-0.60" z="-1.3" mass-prop="/sim/weight[1]/weight-lb"/>
     <!-- Cabin crew -->
     <weight x="4.2" y="-0.60" z="-1.5" mass-prop="/sim/weight[2]/weight-lb"/>
-    <!-- Flight engineer -->
-    <weight x="5.7" y="0" z="-1.5" mass-prop="/sim/weight[3]/weight-lb"/>
     <!-- Load -->
-    <weight x="0.20" y="0" z="-1.9" mass-prop="/sim/weight[4]/weight-lb"/>
+    <weight x="0.20" y="0" z="-1.9" mass-prop="/sim/weight[3]/weight-lb"/>
+    <!-- Flight engineer -->
+    <weight x="5.7" y="0" z="-1.5" mass-prop="/sim/weight[4]/weight-lb"/>
 
     <!-- Pushback -->
     <thruster x="7.105" y="0" z="-3.212" vx="1" vy="0" vz="0" thrust="5200">

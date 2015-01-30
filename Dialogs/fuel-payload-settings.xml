@@ -515,12 +515,24 @@
                 <text>
                     <row>9</row>
                     <col>0</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>left</halign>
                     <property>/consumables/fuel/tank[8]/name</property>
                 </text>
                 <slider>
                     <row>9</row>
                     <col>2</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>right</halign>
                     <enable><false/></enable>
                     <property>/consumables/fuel/tank[8]/level-norm</property>
@@ -538,6 +550,12 @@
                 <text>
                     <row>9</row>
                     <col>3</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>left</halign>
                     <format>%.2f lbs</format>
                     <property>/consumables/fuel/tank[8]/level-lbs</property>
@@ -546,6 +564,12 @@
                 <text>
                     <row>9</row>
                     <col>4</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>left</halign>
                     <format>%.2f gal</format>
                     <property>/consumables/fuel/tank[8]/level-gal_us</property>
@@ -554,6 +578,12 @@
                 <text>
                     <row>9</row>
                     <col>5</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>left</halign>
                     <format>%.2f</format>
                     <property>/consumables/fuel/tank[8]/level-norm</property>
@@ -564,12 +594,24 @@
                 <text>
                     <row>10</row>
                     <col>0</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>left</halign>
                     <property>/consumables/fuel/tank[9]/name</property>
                 </text>
                 <slider>
                     <row>10</row>
                     <col>2</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>right</halign>
                     <enable><false/></enable>
                     <property>/consumables/fuel/tank[9]/level-norm</property>
@@ -587,6 +629,12 @@
                 <text>
                     <row>10</row>
                     <col>3</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>left</halign>
                     <format>%.2f lbs</format>
                     <property>/consumables/fuel/tank[9]/level-lbs</property>
@@ -595,6 +643,12 @@
                 <text>
                     <row>10</row>
                     <col>4</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>left</halign>
                     <format>%.2f gal</format>
                     <property>/consumables/fuel/tank[9]/level-gal_us</property>
@@ -603,6 +657,12 @@
                 <text>
                     <row>10</row>
                     <col>5</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>left</halign>
                     <format>%.2f</format>
                     <property>/consumables/fuel/tank[9]/level-norm</property>
@@ -676,7 +736,7 @@
                     <halign>left</halign>
                 </text>
 
-                <!-- Weight 0 -->
+                <!-- Weight Pilot -->
                 <text>
                     <row>1</row>
                     <col>0</col>
@@ -711,7 +771,7 @@
                     <pref-width>40</pref-width>
                 </text>
 
-                <!-- Weight 1 -->
+                <!-- Weight Co-Pilot -->
                 <text>
                     <row>2</row>
                     <col>0</col>
@@ -740,7 +800,7 @@
                     <live>true</live>
                 </text>
 
-                <!-- Weight 2 -->
+                <!-- Weight Cabin Crew -->
                 <text>
                     <row>3</row>
                     <col>0</col>
@@ -769,7 +829,7 @@
                     <live>true</live>
                 </text>
 
-                <!-- Weight 3 -->
+                <!-- Weight Load -->
                 <text>
                     <row>4</row>
                     <col>0</col>
@@ -782,8 +842,8 @@
                     <halign>right</halign>
                     <property>/sim/weight[3]/weight-lb</property>
                     <live>true</live>
-                    <min>150</min>
-                    <max>300</max>
+                    <min>0</min>
+                    <max>20000</max>
                     <binding>
                         <command>dialog-apply</command>
                     </binding>
@@ -798,21 +858,33 @@
                     <live>true</live>
                 </text>
 
-                <!-- Weight 4 -->
+                <!-- Weight Flight Engineer -->
                 <text>
                     <row>5</row>
                     <col>0</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>left</halign>
                     <property>/sim/weight[4]/name</property>
                 </text>
                 <slider>
                     <row>5</row>
                     <col>1</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>right</halign>
                     <property>/sim/weight[4]/weight-lb</property>
                     <live>true</live>
-                    <min>0</min>
-                    <max>20000</max>
+                    <min>150</min>
+                    <max>300</max>
                     <binding>
                         <command>dialog-apply</command>
                     </binding>
@@ -820,6 +892,12 @@
                 <text>
                     <row>5</row>
                     <col>2</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
                     <halign>left</halign>
                     <label>0123456</label>
                     <format>%.0f lbs</format>
