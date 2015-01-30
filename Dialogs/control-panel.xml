@@ -159,7 +159,7 @@
                 <legend>Open/Close</legend>
                 <binding>
                     <command>nasal</command>
-                    <script>doors.cockpit.toggle()</script>
+                    <script>doors.cockpit_toggle()</script>
                 </binding>
             </button>
 
