@@ -567,8 +567,8 @@
                 <gain-full-tcl type="double">1.10</gain-full-tcl>
                 <vtol-extra-perc type="double">50.0</vtol-extra-perc>
 
-                <!-- LBS/h at 84 % Nr in APLN mode with about 92 % throttle (240 KIAS) -->
-                <default-lbs-hour type="double">2100.0</default-lbs-hour>
+                <!-- LBS/h at 84 % Nr in APLN mode with about 92 % throttle (275 KTAS) -->
+                <default-lbs-hour type="double">2400.0</default-lbs-hour>
             </settings>
         </fuel>
     </systems>
