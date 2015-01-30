@@ -731,7 +731,7 @@
                 </text>
                 <text>
                     <row>0</row>
-                    <col>2</col>
+                    <col>3</col>
                     <label>Pounds</label>
                     <halign>left</halign>
                 </text>
@@ -748,7 +748,7 @@
                 </text>
                 <slider>
                     <row>1</row>
-                    <col>1</col>
+                    <col>2</col>
                     <halign>right</halign>
                     <property>/sim/weight[0]/weight-lb</property>
                     <live>true</live>
@@ -760,7 +760,7 @@
                 </slider>
                 <text>
                     <row>1</row>
-                    <col>2</col>
+                    <col>3</col>
                     <halign>left</halign>
                     <label>0123456</label>
                     <format>%.0f lbs</format>
@@ -780,7 +780,7 @@
                 </text>
                 <slider>
                     <row>2</row>
-                    <col>1</col>
+                    <col>2</col>
                     <halign>right</halign>
                     <property>/sim/weight[1]/weight-lb</property>
                     <live>true</live>
@@ -792,7 +792,7 @@
                 </slider>
                 <text>
                     <row>2</row>
-                    <col>2</col>
+                    <col>3</col>
                     <halign>left</halign>
                     <label>0123456</label>
                     <format>%.0f lbs</format>
@@ -807,9 +807,25 @@
                     <halign>left</halign>
                     <property>/sim/weight[2]/name</property>
                 </text>
-                <slider>
+                <checkbox>
                     <row>3</row>
                     <col>1</col>
+                    <halign>center</halign>
+                    <property>/sim/weight[2]/installed</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <binding>
+                        <command>property-toggle</command>
+                    </binding>
+                </checkbox>
+                <slider>
+                    <row>3</row>
+                    <col>2</col>
+                    <enable>
+                        <property>/sim/weight[2]/installed</property>
+                    </enable>
                     <halign>right</halign>
                     <property>/sim/weight[2]/weight-lb</property>
                     <live>true</live>
@@ -821,7 +837,7 @@
                 </slider>
                 <text>
                     <row>3</row>
-                    <col>2</col>
+                    <col>3</col>
                     <halign>left</halign>
                     <label>0123456</label>
                     <format>%.0f lbs</format>
@@ -838,7 +854,7 @@
                 </text>
                 <slider>
                     <row>4</row>
-                    <col>1</col>
+                    <col>2</col>
                     <halign>right</halign>
                     <property>/sim/weight[3]/weight-lb</property>
                     <live>true</live>
@@ -850,7 +866,7 @@
                 </slider>
                 <text>
                     <row>4</row>
-                    <col>2</col>
+                    <col>3</col>
                     <halign>left</halign>
                     <label>0123456</label>
                     <format>%.0f lbs</format>
@@ -871,7 +887,7 @@
                     <halign>left</halign>
                     <property>/sim/weight[4]/name</property>
                 </text>
-                <slider>
+                <checkbox>
                     <row>5</row>
                     <col>1</col>
                     <visible>
@@ -880,6 +896,28 @@
                             <value>cv22</value>
                         </equals>
                     </visible>
+                    <halign>center</halign>
+                    <property>/sim/weight[4]/installed</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <binding>
+                        <command>property-toggle</command>
+                    </binding>
+                </checkbox>
+                <slider>
+                    <row>5</row>
+                    <col>2</col>
+                    <visible>
+                        <equals>
+                            <property>/sim/aircraft</property>
+                            <value>cv22</value>
+                        </equals>
+                    </visible>
+                    <enable>
+                        <property>/sim/weight[4]/installed</property>
+                    </enable>
                     <halign>right</halign>
                     <property>/sim/weight[4]/weight-lb</property>
                     <live>true</live>
@@ -891,7 +929,7 @@
                 </slider>
                 <text>
                     <row>5</row>
-                    <col>2</col>
+                    <col>3</col>
                     <visible>
                         <equals>
                             <property>/sim/aircraft</property>

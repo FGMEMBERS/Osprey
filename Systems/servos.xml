@@ -921,4 +921,65 @@
         </output>
     </logic>
 
+    <filter>
+        <name>Cabin Crew Empty</name>
+        <type>gain</type>
+        <gain>1</gain>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/weight[2]/installed</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <value>0.0</value>
+        </input>
+        <output>
+            <property>/sim/weight[2]/weight-lb</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>Flight Engineer Empty</name>
+        <type>gain</type>
+        <gain>1</gain>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/weight[4]/installed</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <value>0.0</value>
+        </input>
+        <output>
+            <property>/sim/weight[4]/weight-lb</property>
+        </output>
+    </filter>
+
+    <logic>
+        <name>Cabin Crew Installed Logic</name>
+        <input>
+            <property>/sim/weight[2]/installed</property>
+        </input>
+        <output>
+            <property>/sim/view[101]/enabled</property>
+        </output>
+        <output>
+            <property>/sim/view[102]/enabled</property>
+        </output>
+    </logic>
+
+    <logic>
+        <name>Flight Engineer Installed Logic</name>
+        <input>
+            <property>/sim/weight[4]/installed</property>
+        </input>
+        <output>
+            <property>/sim/view[104]/enabled</property>
+        </output>
+    </logic>
+
 </PropertyList>

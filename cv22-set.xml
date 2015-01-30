@@ -37,6 +37,7 @@
             <weight-lb>0</weight-lb>
             <max-lb>300</max-lb>
             <min-lb>150</min-lb>
+            <installed type="bool">true</installed>
         </weight>
 
         <weight n="3">
