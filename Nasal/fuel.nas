@@ -19,7 +19,7 @@ with("fuel");
 with("fuel_sequencer");
 with("updateloop");
 
-check_version("fuel", 5, 0);
+check_version("fuel", 5, 1);
 check_version("fuel_sequencer", 1, 2);
 
 # Number of iterations per second
@@ -87,10 +87,7 @@ var FuelSystemUpdater = {
 
     reset: func {
         if (contains(globals, "fuel") and typeof(fuel) == "hash") {
-            if (fuel.loop != nil) {
-                debug.dump("XX KILLED FUEL LOOP", "KILLED FUEL LOOP");
-                fuel.loop = func nil;
-            }
+            fuel.loop = func nil;
         }
 
         me.network = fuel.Network.new();
@@ -440,25 +437,26 @@ var FuelSystemUpdater = {
         });
         group1.add_tank_pump(tank_right_forward_sponson, valve_refuel_right_fwd_sponson);
 
+        # Group 2: aft sponson tank
+        var group2 = me.refueling_sequencer.create_group();
+        group2.add_tank_pump(tank_right_aft_sponson, valve_refuel_right_aft_sponson);
+
         if (getprop("/sim/aircraft") == "cv22") {
-            # Group 2: wing auxilliary tanks
-            var group2 = me.refueling_sequencer.create_group();
-            group2.add_tank_pump(tank_left_wing_aux, valve_refuel_left_wing_aux);
-            group2.add_tank_pump(tank_right_wing_aux, valve_refuel_right_wing_aux);
+            # Group 3: wing auxilliary tanks
+            var group3 = me.refueling_sequencer.create_group();
+            group3.add_tank_pump(tank_left_wing_aux, valve_refuel_left_wing_aux);
+            group3.add_tank_pump(tank_right_wing_aux, valve_refuel_right_wing_aux);
         }
 
-        # Group 3: forward MATS tanks
-        var group3 = me.refueling_sequencer.create_group();
-        group3.add_tank_pump(tank_fwd_mats_one, valve_refuel_fwd_mats_one);
-        group3.add_tank_pump(tank_fwd_mats_two, valve_refuel_fwd_mats_two);
-
-        # Group 4: aft MATS tank
+        # Group 4: forward MATS tanks
         var group4 = me.refueling_sequencer.create_group();
-        group4.add_tank_pump(tank_aft_mats_three, valve_refuel_aft_mats_three);
+        group4.add_tank_pump(tank_fwd_mats_one, valve_refuel_fwd_mats_one);
+        group4.add_tank_pump(tank_fwd_mats_two, valve_refuel_fwd_mats_two);
+        #tank_fwd_mats_one.property.getNode("installed").getBoolValue();
 
-        # Group 5: aft sponson tank
+        # Group 5: aft MATS tank
         var group5 = me.refueling_sequencer.create_group();
-        group5.add_tank_pump(tank_right_aft_sponson, valve_refuel_right_aft_sponson);
+        group5.add_tank_pump(tank_aft_mats_three, valve_refuel_aft_mats_three);
 
         ###############################################################################
 

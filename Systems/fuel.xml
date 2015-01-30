@@ -447,6 +447,23 @@
         </max-rate-of-change>
     </filter>
 
+    <!-- Activate the boost pump to transfer fuel to tanks if AAR probe
+         is connected to drogue or if the fuel truck is trying to transfer
+         fuel.
+    -->
+    <logic>
+        <name>Pump Boost Refuel Left Fwd Sponson Logic</name>
+        <input>
+            <or>
+                <property>/systems/refuel-ground/refuel</property>
+                <property>/systems/refuel/contact</property>
+            </or>
+        </input>
+        <output>
+            <property>/systems/fuel/pump-boost-refuel-left-fwd-sponson/serviceable</property>
+        </output>
+    </logic>
+
     <!-- ================================================================== -->
     <!-- Filters To Empty MATS Tanks If Uninstalled                         -->
     <!-- ================================================================== -->
@@ -507,5 +524,35 @@
             <property>/consumables/fuel/tank[7]/level-gal_us</property>
         </output>
     </filter>
+
+    <logic>
+        <name>Tank Forward MATS No. 1 Selected Logic</name>
+        <input>
+            <property>/consumables/fuel/tank[5]/installed</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-refuel-fwd-mats-1/selected</property>
+        </output>
+    </logic>
+
+    <logic>
+        <name>Tank Forward MATS No. 2 Selected Logic</name>
+        <input>
+            <property>/consumables/fuel/tank[6]/installed</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-refuel-fwd-mats-2/selected</property>
+        </output>
+    </logic>
+
+    <logic>
+        <name>Tank Aft MATS No. 3 Selected Logic</name>
+        <input>
+            <property>/consumables/fuel/tank[7]/installed</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-refuel-aft-mats-3/selected</property>
+        </output>
+    </logic>
 
 </PropertyList>
