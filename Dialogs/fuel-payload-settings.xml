@@ -1,0 +1,892 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+    <name>fuel-payload-settings</name>
+    <layout>vbox</layout>
+    <resizable>false</resizable>
+
+    <group>
+        <layout>hbox</layout>
+
+        <empty><stretch>true</stretch></empty>
+        <text>
+            <label>Fuel and Payload Settings</label>
+        </text>
+        <empty><stretch>true</stretch></empty>
+
+        <button>
+            <legend/>
+            <keynum>27</keynum>
+            <pref-width>16</pref-width>
+            <pref-height>16</pref-height>
+            <border>2</border>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>hbox</layout>
+        <padding>6</padding>
+
+        <group>
+            <layout>vbox</layout>
+
+            <text>
+                <label>Fuel Tanks</label>
+            </text>
+
+            <group>
+                <layout>table</layout>
+
+                <!-- Header -->
+                <text>
+                    <row>0</row>
+                    <col>0</col>
+                    <label>Tank</label>
+                </text>
+                <text>
+                    <row>0</row>
+                    <col>3</col>
+                    <label>Pounds</label>
+                    <halign>left</halign>
+                </text>
+                <text>
+                    <row>0</row>
+                    <col>4</col>
+                    <label>Gallons</label>
+                    <halign>left</halign>
+                </text>
+                <text>
+                    <row>0</row>
+                    <col>5</col>
+                    <label>Fraction</label>
+                    <halign>left</halign>
+                </text>
+
+                <!-- Tank Left Forward Sponson -->
+                <text>
+                    <row>1</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/consumables/fuel/tank[0]/name</property>
+                    
+                    <!-- PUI, your worst nightmare -->
+                    <pref-width>130</pref-width>
+                </text>
+                <slider>
+                    <row>1</row>
+                    <col>2</col>
+                    <halign>right</halign>
+                    <enable><false/></enable>
+                    <property>/consumables/fuel/tank[0]/level-norm</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <color>
+                        <!-- 95 92 97 -->
+                        <red>0.37109375</red>
+                        <green>0.359375</green>
+                        <blue>0.37890625</blue>
+                    </color>
+                </slider>
+                <text>
+                    <row>1</row>
+                    <col>3</col>
+                    <halign>left</halign>
+                    <format>%.2f lbs</format>
+                    <property>/consumables/fuel/tank[0]/level-lbs</property>
+                    <live>true</live>
+                    
+                    <!-- PUI, your worst nightmare -->
+                    <pref-width>70</pref-width>
+                </text>
+                <text>
+                    <row>1</row>
+                    <col>4</col>
+                    <halign>left</halign>
+                    <format>%.2f gal</format>
+                    <property>/consumables/fuel/tank[0]/level-gal_us</property>
+                    <live>true</live>
+                    
+                    <!-- PUI, your worst nightmare -->
+                    <pref-width>70</pref-width>
+                </text>
+                <text>
+                    <row>1</row>
+                    <col>5</col>
+                    <halign>left</halign>
+                    <format>%.2f</format>
+                    <property>/consumables/fuel/tank[0]/level-norm</property>
+                    <live>true</live>
+                    
+                    <!-- PUI, your worst nightmare -->
+                    <pref-width>70</pref-width>
+                </text>
+
+                <!-- Tank Right Forward Sponson -->
+                <text>
+                    <row>2</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/consumables/fuel/tank[1]/name</property>
+                </text>
+                <slider>
+                    <row>2</row>
+                    <col>2</col>
+                    <halign>right</halign>
+                    <enable><false/></enable>
+                    <property>/consumables/fuel/tank[1]/level-norm</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <color>
+                        <!-- 95 92 97 -->
+                        <red>0.37109375</red>
+                        <green>0.359375</green>
+                        <blue>0.37890625</blue>
+                    </color>
+                </slider>
+                <text>
+                    <row>2</row>
+                    <col>3</col>
+                    <halign>left</halign>
+                    <format>%.2f lbs</format>
+                    <property>/consumables/fuel/tank[1]/level-lbs</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>2</row>
+                    <col>4</col>
+                    <halign>left</halign>
+                    <format>%.2f gal</format>
+                    <property>/consumables/fuel/tank[1]/level-gal_us</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>2</row>
+                    <col>5</col>
+                    <halign>left</halign>
+                    <format>%.2f</format>
+                    <property>/consumables/fuel/tank[1]/level-norm</property>
+                    <live>true</live>
+                </text>
+
+                <!-- Tank Left Wing Feeder -->
+                <text>
+                    <row>3</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/consumables/fuel/tank[2]/name</property>
+                </text>
+                <slider>
+                    <row>3</row>
+                    <col>2</col>
+                    <halign>right</halign>
+                    <enable><false/></enable>
+                    <property>/consumables/fuel/tank[2]/level-norm</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <color>
+                        <!-- 95 92 97 -->
+                        <red>0.37109375</red>
+                        <green>0.359375</green>
+                        <blue>0.37890625</blue>
+                    </color>
+                </slider>
+                <text>
+                    <row>3</row>
+                    <col>3</col>
+                    <halign>left</halign>
+                    <format>%.2f lbs</format>
+                    <property>/consumables/fuel/tank[2]/level-lbs</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>3</row>
+                    <col>4</col>
+                    <halign>left</halign>
+                    <format>%.2f gal</format>
+                    <property>/consumables/fuel/tank[2]/level-gal_us</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>3</row>
+                    <col>5</col>
+                    <halign>left</halign>
+                    <format>%.2f</format>
+                    <property>/consumables/fuel/tank[2]/level-norm</property>
+                    <live>true</live>
+                </text>
+
+                <!-- Tank Right Wing Feeder -->
+                <text>
+                    <row>4</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/consumables/fuel/tank[3]/name</property>
+                </text>
+                <slider>
+                    <row>4</row>
+                    <col>2</col>
+                    <halign>right</halign>
+                    <enable><false/></enable>
+                    <property>/consumables/fuel/tank[3]/level-norm</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <color>
+                        <!-- 95 92 97 -->
+                        <red>0.37109375</red>
+                        <green>0.359375</green>
+                        <blue>0.37890625</blue>
+                    </color>
+                </slider>
+                <text>
+                    <row>4</row>
+                    <col>3</col>
+                    <halign>left</halign>
+                    <format>%.2f lbs</format>
+                    <property>/consumables/fuel/tank[3]/level-lbs</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>4</row>
+                    <col>4</col>
+                    <halign>left</halign>
+                    <format>%.2f gal</format>
+                    <property>/consumables/fuel/tank[3]/level-gal_us</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>4</row>
+                    <col>5</col>
+                    <halign>left</halign>
+                    <format>%.2f</format>
+                    <property>/consumables/fuel/tank[3]/level-norm</property>
+                    <live>true</live>
+                </text>
+
+                <!-- Tank Right Aft Sponson -->
+                <text>
+                    <row>5</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/consumables/fuel/tank[4]/name</property>
+                </text>
+                <slider>
+                    <row>5</row>
+                    <col>2</col>
+                    <halign>right</halign>
+                    <enable><false/></enable>
+                    <property>/consumables/fuel/tank[4]/level-norm</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <color>
+                        <!-- 95 92 97 -->
+                        <red>0.37109375</red>
+                        <green>0.359375</green>
+                        <blue>0.37890625</blue>
+                    </color>
+                </slider>
+                <text>
+                    <row>5</row>
+                    <col>3</col>
+                    <halign>left</halign>
+                    <format>%.2f lbs</format>
+                    <property>/consumables/fuel/tank[4]/level-lbs</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>5</row>
+                    <col>4</col>
+                    <halign>left</halign>
+                    <format>%.2f gal</format>
+                    <property>/consumables/fuel/tank[4]/level-gal_us</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>5</row>
+                    <col>5</col>
+                    <halign>left</halign>
+                    <format>%.2f</format>
+                    <property>/consumables/fuel/tank[4]/level-norm</property>
+                    <live>true</live>
+                </text>
+
+                <!-- Tank Forward MATS no. 1 -->
+                <text>
+                    <row>6</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/consumables/fuel/tank[5]/name</property>
+                </text>
+                <checkbox>
+                    <row>6</row>
+                    <col>1</col>
+                    <halign>center</halign>
+                    <property>/consumables/fuel/tank[5]/installed</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <binding>
+                        <command>property-toggle</command>
+                    </binding>
+                </checkbox>
+                <slider>
+                    <row>6</row>
+                    <col>2</col>
+                    <halign>right</halign>
+                    <enable><false/></enable>
+                    <property>/consumables/fuel/tank[5]/level-norm</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <color>
+                        <!-- 95 92 97 -->
+                        <red>0.37109375</red>
+                        <green>0.359375</green>
+                        <blue>0.37890625</blue>
+                    </color>
+                </slider>
+                <text>
+                    <row>6</row>
+                    <col>3</col>
+                    <halign>left</halign>
+                    <format>%.2f lbs</format>
+                    <property>/consumables/fuel/tank[5]/level-lbs</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>6</row>
+                    <col>4</col>
+                    <halign>left</halign>
+                    <format>%.2f gal</format>
+                    <property>/consumables/fuel/tank[5]/level-gal_us</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>6</row>
+                    <col>5</col>
+                    <halign>left</halign>
+                    <format>%.2f</format>
+                    <property>/consumables/fuel/tank[5]/level-norm</property>
+                    <live>true</live>
+                </text>
+
+                <!-- Tank Forward MATS no. 2 -->
+                <text>
+                    <row>7</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/consumables/fuel/tank[6]/name</property>
+                </text>
+                <checkbox>
+                    <row>7</row>
+                    <col>1</col>
+                    <halign>center</halign>
+                    <property>/consumables/fuel/tank[6]/installed</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <binding>
+                        <command>property-toggle</command>
+                    </binding>
+                </checkbox>
+                <slider>
+                    <row>7</row>
+                    <col>2</col>
+                    <halign>right</halign>
+                    <enable><false/></enable>
+                    <property>/consumables/fuel/tank[6]/level-norm</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <color>
+                        <!-- 95 92 97 -->
+                        <red>0.37109375</red>
+                        <green>0.359375</green>
+                        <blue>0.37890625</blue>
+                    </color>
+                </slider>
+                <text>
+                    <row>7</row>
+                    <col>3</col>
+                    <halign>left</halign>
+                    <format>%.2f lbs</format>
+                    <property>/consumables/fuel/tank[6]/level-lbs</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>7</row>
+                    <col>4</col>
+                    <halign>left</halign>
+                    <format>%.2f gal</format>
+                    <property>/consumables/fuel/tank[6]/level-gal_us</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>7</row>
+                    <col>5</col>
+                    <halign>left</halign>
+                    <format>%.2f</format>
+                    <property>/consumables/fuel/tank[6]/level-norm</property>
+                    <live>true</live>
+                </text>
+
+                <!-- Tank Aft MATS no. 3 -->
+                <text>
+                    <row>8</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/consumables/fuel/tank[7]/name</property>
+                </text>
+                <checkbox>
+                    <row>8</row>
+                    <col>1</col>
+                    <halign>center</halign>
+                    <property>/consumables/fuel/tank[7]/installed</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <binding>
+                        <command>property-toggle</command>
+                    </binding>
+                </checkbox>
+                <slider>
+                    <row>8</row>
+                    <col>2</col>
+                    <halign>right</halign>
+                    <enable><false/></enable>
+                    <property>/consumables/fuel/tank[7]/level-norm</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <color>
+                        <!-- 95 92 97 -->
+                        <red>0.37109375</red>
+                        <green>0.359375</green>
+                        <blue>0.37890625</blue>
+                    </color>
+                </slider>
+                <text>
+                    <row>8</row>
+                    <col>3</col>
+                    <halign>left</halign>
+                    <format>%.2f lbs</format>
+                    <property>/consumables/fuel/tank[7]/level-lbs</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>8</row>
+                    <col>4</col>
+                    <halign>left</halign>
+                    <format>%.2f gal</format>
+                    <property>/consumables/fuel/tank[7]/level-gal_us</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>8</row>
+                    <col>5</col>
+                    <halign>left</halign>
+                    <format>%.2f</format>
+                    <property>/consumables/fuel/tank[7]/level-norm</property>
+                    <live>true</live>
+                </text>
+
+                <!-- Tank Left Wing Auxilliary -->
+                <text>
+                    <row>9</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/consumables/fuel/tank[8]/name</property>
+                </text>
+                <slider>
+                    <row>9</row>
+                    <col>2</col>
+                    <halign>right</halign>
+                    <enable><false/></enable>
+                    <property>/consumables/fuel/tank[8]/level-norm</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <color>
+                        <!-- 95 92 97 -->
+                        <red>0.37109375</red>
+                        <green>0.359375</green>
+                        <blue>0.37890625</blue>
+                    </color>
+                </slider>
+                <text>
+                    <row>9</row>
+                    <col>3</col>
+                    <halign>left</halign>
+                    <format>%.2f lbs</format>
+                    <property>/consumables/fuel/tank[8]/level-lbs</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>9</row>
+                    <col>4</col>
+                    <halign>left</halign>
+                    <format>%.2f gal</format>
+                    <property>/consumables/fuel/tank[8]/level-gal_us</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>9</row>
+                    <col>5</col>
+                    <halign>left</halign>
+                    <format>%.2f</format>
+                    <property>/consumables/fuel/tank[8]/level-norm</property>
+                    <live>true</live>
+                </text>
+
+                <!-- Tank Right Wing Auxilliary -->
+                <text>
+                    <row>10</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/consumables/fuel/tank[9]/name</property>
+                </text>
+                <slider>
+                    <row>10</row>
+                    <col>2</col>
+                    <halign>right</halign>
+                    <enable><false/></enable>
+                    <property>/consumables/fuel/tank[9]/level-norm</property>
+                    <live>true</live>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                    <color>
+                        <!-- 95 92 97 -->
+                        <red>0.37109375</red>
+                        <green>0.359375</green>
+                        <blue>0.37890625</blue>
+                    </color>
+                </slider>
+                <text>
+                    <row>10</row>
+                    <col>3</col>
+                    <halign>left</halign>
+                    <format>%.2f lbs</format>
+                    <property>/consumables/fuel/tank[9]/level-lbs</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>10</row>
+                    <col>4</col>
+                    <halign>left</halign>
+                    <format>%.2f gal</format>
+                    <property>/consumables/fuel/tank[9]/level-gal_us</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>10</row>
+                    <col>5</col>
+                    <halign>left</halign>
+                    <format>%.2f</format>
+                    <property>/consumables/fuel/tank[9]/level-norm</property>
+                    <live>true</live>
+                </text>
+
+                <!-- Horizontal line and total -->
+                <hrule>
+                    <row>11</row>
+                    <col>0</col>
+                    <colspan>6</colspan>
+                </hrule>
+                
+                <text>
+                    <row>12</row>
+                    <col>2</col>
+                    <halign>right</halign>
+                    <label>Total:</label>
+                </text>
+                <text>
+                    <row>12</row>
+                    <col>3</col>
+                    <halign>left</halign>
+                    <format>%.2f lbs</format>
+                    <property>/consumables/fuel/total-fuel-lbs</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>12</row>
+                    <col>4</col>
+                    <halign>left</halign>
+                    <format>%.2f gal</format>
+                    <property>/consumables/fuel/total-fuel-gal_us</property>
+                    <live>true</live>
+                </text>
+                <text>
+                    <row>12</row>
+                    <col>5</col>
+                    <halign>left</halign>
+                    <format>%.2f</format>
+                    <property>/consumables/fuel/total-fuel-norm</property>
+                    <live>true</live>
+                </text>
+            </group>
+
+            <empty><stretch>true</stretch></empty>
+        </group>
+
+        <vrule/>
+
+        <group>
+            <layout>vbox</layout>
+            
+            <text>
+                <label>Payload</label>
+            </text>
+
+            <group>
+                <layout>table</layout>
+
+                <!-- Header -->
+                <text>
+                    <row>0</row>
+                    <col>0</col>
+                    <label>Location</label>
+                </text>
+                <text>
+                    <row>0</row>
+                    <col>2</col>
+                    <label>Pounds</label>
+                    <halign>left</halign>
+                </text>
+
+                <!-- Weight 0 -->
+                <text>
+                    <row>1</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/sim/weight[0]/name</property>
+                    
+                    <!-- PUI, your worst nightmare -->
+                    <pref-width>90</pref-width>
+                </text>
+                <slider>
+                    <row>1</row>
+                    <col>1</col>
+                    <halign>right</halign>
+                    <property>/sim/weight[0]/weight-lb</property>
+                    <live>true</live>
+                    <min>150</min>
+                    <max>300</max>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                </slider>
+                <text>
+                    <row>1</row>
+                    <col>2</col>
+                    <halign>left</halign>
+                    <label>0123456</label>
+                    <format>%.0f lbs</format>
+                    <property>/sim/weight[0]/weight-lb</property>
+                    <live>true</live>
+                    
+                    <!-- PUI, your worst nightmare -->
+                    <pref-width>40</pref-width>
+                </text>
+
+                <!-- Weight 1 -->
+                <text>
+                    <row>2</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/sim/weight[1]/name</property>
+                </text>
+                <slider>
+                    <row>2</row>
+                    <col>1</col>
+                    <halign>right</halign>
+                    <property>/sim/weight[1]/weight-lb</property>
+                    <live>true</live>
+                    <min>150</min>
+                    <max>300</max>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                </slider>
+                <text>
+                    <row>2</row>
+                    <col>2</col>
+                    <halign>left</halign>
+                    <label>0123456</label>
+                    <format>%.0f lbs</format>
+                    <property>/sim/weight[1]/weight-lb</property>
+                    <live>true</live>
+                </text>
+
+                <!-- Weight 2 -->
+                <text>
+                    <row>3</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/sim/weight[2]/name</property>
+                </text>
+                <slider>
+                    <row>3</row>
+                    <col>1</col>
+                    <halign>right</halign>
+                    <property>/sim/weight[2]/weight-lb</property>
+                    <live>true</live>
+                    <min>150</min>
+                    <max>300</max>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                </slider>
+                <text>
+                    <row>3</row>
+                    <col>2</col>
+                    <halign>left</halign>
+                    <label>0123456</label>
+                    <format>%.0f lbs</format>
+                    <property>/sim/weight[2]/weight-lb</property>
+                    <live>true</live>
+                </text>
+
+                <!-- Weight 3 -->
+                <text>
+                    <row>4</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/sim/weight[3]/name</property>
+                </text>
+                <slider>
+                    <row>4</row>
+                    <col>1</col>
+                    <halign>right</halign>
+                    <property>/sim/weight[3]/weight-lb</property>
+                    <live>true</live>
+                    <min>150</min>
+                    <max>300</max>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                </slider>
+                <text>
+                    <row>4</row>
+                    <col>2</col>
+                    <halign>left</halign>
+                    <label>0123456</label>
+                    <format>%.0f lbs</format>
+                    <property>/sim/weight[3]/weight-lb</property>
+                    <live>true</live>
+                </text>
+
+                <!-- Weight 4 -->
+                <text>
+                    <row>5</row>
+                    <col>0</col>
+                    <halign>left</halign>
+                    <property>/sim/weight[4]/name</property>
+                </text>
+                <slider>
+                    <row>5</row>
+                    <col>1</col>
+                    <halign>right</halign>
+                    <property>/sim/weight[4]/weight-lb</property>
+                    <live>true</live>
+                    <min>0</min>
+                    <max>20000</max>
+                    <binding>
+                        <command>dialog-apply</command>
+                    </binding>
+                </slider>
+                <text>
+                    <row>5</row>
+                    <col>2</col>
+                    <halign>left</halign>
+                    <label>0123456</label>
+                    <format>%.0f lbs</format>
+                    <property>/sim/weight[4]/weight-lb</property>
+                    <live>true</live>
+                </text>
+            </group>
+
+            <empty><stretch>true</stretch></empty>
+        </group>
+    </group>
+
+    <!-- Limits -->
+    <group>
+        <layout>table</layout>
+        <halign>center</halign>
+
+        <!-- Gross Weight -->
+        <text>
+            <row>0</row>
+            <col>0</col>
+            <halign>right</halign>
+            <label>Gross Weight:</label>
+        </text>
+        <text>
+            <row>0</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label>0123457890123456789</label>
+            <format>%.0f lbs</format>
+            <property>/yasim/gross-weight-lbs</property>
+            <live>true</live>
+        </text>
+
+        <!-- Max. Takeoff  Weight -->
+        <text>
+            <row>1</row>
+            <col>0</col>
+            <halign>right</halign>
+            <label>Max. Takeoff  Weight:</label>
+        </text>
+        <text>
+            <row>1</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label>0123457890123456789</label>
+            <format>%.0f lbs</format>
+            <property>/limits/mass-and-balance/maximum-takeoff-mass-lbs</property>
+            <live>true</live>
+        </text>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>hbox</layout>
+        <default-padding>6</default-padding>
+
+        <empty><stretch>true</stretch></empty>
+
+        <button>
+            <legend>Close</legend>
+            <default>true</default>
+            <binding>
+                <command>dialog-close</command>
+            </binding>
+        </button>
+    </group>
+
+</PropertyList>

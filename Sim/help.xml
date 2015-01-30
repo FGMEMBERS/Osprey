@@ -62,6 +62,10 @@
         <name>O</name>
         <desc>Open tow hook</desc>
     </key>
+    <key>
+        <name>F9</name>
+        <desc>Popup Fuel and Payload Settings dialog</desc>
+    </key>
     <text>The tilt range is from -10 degrees to 0 degrees (vertical) to 90 degrees (horizontal). The allowed tilt range is a function of the aircraft's speed. The flight computer limits the actual tilt to this range. Therefore you can lift of with vertical rotors and accelerate like a helicopter. The computer will increase the tilt with increasing airspeed. For faster acceleration set the tilt to the maximum.
 
 The Osprey can hover within a range of -10 degrees to 30 degrees. You can set the tilt to 90 degrees (horizontal) on ground. However, due to the lack of speed the tilt is limited to a maximum of 30 degrees.</text>

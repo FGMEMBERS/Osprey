@@ -208,4 +208,13 @@
         </binding>
     </key>
 
+    <key n="265">
+        <name>F9</name>
+        <desc>Popup Fuel and Payload Settings dialog</desc>
+        <binding>
+            <command>dialog-show</command>
+            <dialog-name>fuel-payload-settings</dialog-name>
+        </binding>
+    </key>
+
 </PropertyList>

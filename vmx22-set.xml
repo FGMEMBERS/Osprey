@@ -483,9 +483,18 @@
             <tank n="2"><name>Left Wing Feeder</name></tank>
             <tank n="3"><name>Right Wing Feeder</name></tank>
             <tank n="4"><name>Right Aft Sponson</name></tank>
-            <tank n="5"><name>Forward MATS no. 1</name></tank>
-            <tank n="6"><name>Forward MATS no. 2</name></tank>
-            <tank n="7"><name>Aft MATS no. 3</name></tank>
+            <tank n="5">
+                <name>Forward MATS no. 1</name>
+                <installed type="bool">false</installed>
+            </tank>
+            <tank n="6">
+                <name>Forward MATS no. 2</name>
+                <installed type="bool">false</installed>
+            </tank>
+            <tank n="7">
+                <name>Aft MATS no. 3</name>
+                <installed type="bool">false</installed>
+            </tank>
         </fuel>
     </consumables>
 

@@ -72,7 +72,27 @@ var FuelSystemUpdater = {
         return me.get_gain(rpm) * default_lbs_hour / 2;
     },
 
+    get_fuel_flow_norm: func (flow_needed, flow_used) {
+        if (flow_needed > 0.0) {
+            var fuel_flow_norm = flow_used / flow_needed;
+            if (fuel_flow_norm < 0.1) {
+                fuel_flow_norm = 0.0;
+            }
+            return fuel_flow_norm;
+        }
+        else {
+            return 0.0;
+        }
+    },
+
     reset: func {
+        if (contains(globals, "fuel") and typeof(fuel) == "hash") {
+            if (fuel.loop != nil) {
+                debug.dump("XX KILLED FUEL LOOP", "KILLED FUEL LOOP");
+                fuel.loop = func nil;
+            }
+        }
+
         me.network = fuel.Network.new();
 
         ###############################################################################
@@ -83,26 +103,13 @@ var FuelSystemUpdater = {
 
         var super = me;
 
-        var get_fuel_flow_norm = func (flow_needed, flow_used) {
-            if (flow_needed > 0.0) {
-                var fuel_flow_norm = flow_used / flow_needed;
-                if (fuel_flow_norm < 0.1) {
-                    fuel_flow_norm = 0.0;
-                }
-                return fuel_flow_norm;
-            }
-            else {
-                return 0.0;
-            }
-        };
-
         var left_engine_flow = func (flow, dt) {
             var lbs_hour = super.get_lbs_per_hour(getprop("/rotors/tail/rpm"));
             var gal_s = lbs_hour / ppg / 3600;
             var flow_needed = gal_s * dt;
             var flow_used = min(flow_needed, flow);
 
-            setprop("/v22/fadec/output/left-fuel-flow-norm", get_fuel_flow_norm(flow_needed, flow_used));
+            setprop("/v22/fadec/output/left-fuel-flow-norm", super.get_fuel_flow_norm(flow_needed, flow_used));
             setprop("/v22/fadec/internal/left-lbs-hour", flow_used / dt * 3600 * ppg);
 
             return max(0, flow_used);
@@ -113,7 +120,7 @@ var FuelSystemUpdater = {
             var flow_needed = gal_s * dt;
             var flow_used = min(flow_needed, flow);
 
-            setprop("/v22/fadec/output/right-fuel-flow-norm", get_fuel_flow_norm(flow_needed, flow_used));
+            setprop("/v22/fadec/output/right-fuel-flow-norm", super.get_fuel_flow_norm(flow_needed, flow_used));
             setprop("/v22/fadec/internal/right-lbs-hour", flow_used / dt * 3600 * ppg);
 
             return max(0, flow_used);
@@ -457,6 +464,11 @@ var FuelSystemUpdater = {
 
         # Make tank levels persistent across sessions
         fuel.make_tank_levels_persistent();
+
+        # Make "installed" properties of MATS tanks persistent
+        aircraft.data.add(tank_fwd_mats_one.property.getNode("installed").getPath());
+        aircraft.data.add(tank_fwd_mats_two.property.getNode("installed").getPath());
+        aircraft.data.add(tank_aft_mats_three.property.getNode("installed").getPath());
     },
 
     update: func (dt) {

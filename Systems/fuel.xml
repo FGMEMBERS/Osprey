@@ -447,4 +447,65 @@
         </max-rate-of-change>
     </filter>
 
+    <!-- ================================================================== -->
+    <!-- Filters To Empty MATS Tanks If Uninstalled                         -->
+    <!-- ================================================================== -->
+
+    <filter>
+        <name>Tank Forward MATS No. 1 Empty</name>
+        <type>gain</type>
+        <gain>1</gain>
+        <enable>
+            <condition>
+                <not>
+                    <property>/consumables/fuel/tank[5]/installed</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <value>0.0</value>
+        </input>
+        <output>
+            <property>/consumables/fuel/tank[5]/level-gal_us</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>Tank Forward MATS No. 2 Empty</name>
+        <type>gain</type>
+        <gain>1</gain>
+        <enable>
+            <condition>
+                <not>
+                    <property>/consumables/fuel/tank[6]/installed</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <value>0.0</value>
+        </input>
+        <output>
+            <property>/consumables/fuel/tank[6]/level-gal_us</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>Tank Aft MATS No. 3 Empty</name>
+        <type>gain</type>
+        <gain>1</gain>
+        <enable>
+            <condition>
+                <not>
+                    <property>/consumables/fuel/tank[7]/installed</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <value>0.0</value>
+        </input>
+        <output>
+            <property>/consumables/fuel/tank[7]/level-gal_us</property>
+        </output>
+    </filter>
+
 </PropertyList>
