@@ -335,6 +335,9 @@
                 <checkbox>
                     <row>6</row>
                     <col>1</col>
+                    <enable>
+                        <property>/gear/on-ground</property>
+                    </enable>
                     <halign>center</halign>
                     <property>/consumables/fuel/tank[5]/installed</property>
                     <live>true</live>
@@ -397,6 +400,9 @@
                 <checkbox>
                     <row>7</row>
                     <col>1</col>
+                    <enable>
+                        <property>/gear/on-ground</property>
+                    </enable>
                     <halign>center</halign>
                     <property>/consumables/fuel/tank[6]/installed</property>
                     <live>true</live>
@@ -459,6 +465,9 @@
                 <checkbox>
                     <row>8</row>
                     <col>1</col>
+                    <enable>
+                        <property>/gear/on-ground</property>
+                    </enable>
                     <halign>center</halign>
                     <property>/consumables/fuel/tank[7]/installed</property>
                     <live>true</live>
@@ -749,6 +758,9 @@
                 <slider>
                     <row>1</row>
                     <col>2</col>
+                    <enable>
+                        <property>/gear/on-ground</property>
+                    </enable>
                     <halign>right</halign>
                     <property>/sim/weight[0]/weight-lb</property>
                     <live>true</live>
@@ -781,6 +793,9 @@
                 <slider>
                     <row>2</row>
                     <col>2</col>
+                    <enable>
+                        <property>/gear/on-ground</property>
+                    </enable>
                     <halign>right</halign>
                     <property>/sim/weight[1]/weight-lb</property>
                     <live>true</live>
@@ -810,6 +825,9 @@
                 <checkbox>
                     <row>3</row>
                     <col>1</col>
+                    <enable>
+                        <property>/gear/on-ground</property>
+                    </enable>
                     <halign>center</halign>
                     <property>/sim/weight[2]/installed</property>
                     <live>true</live>
@@ -824,7 +842,10 @@
                     <row>3</row>
                     <col>2</col>
                     <enable>
-                        <property>/sim/weight[2]/installed</property>
+                        <and>
+                            <property>/sim/weight[2]/installed</property>
+                            <property>/gear/on-ground</property>
+                        </and>
                     </enable>
                     <halign>right</halign>
                     <property>/sim/weight[2]/weight-lb</property>
@@ -890,6 +911,9 @@
                 <checkbox>
                     <row>5</row>
                     <col>1</col>
+                    <enable>
+                        <property>/gear/on-ground</property>
+                    </enable>
                     <visible>
                         <equals>
                             <property>/sim/aircraft</property>
@@ -916,7 +940,10 @@
                         </equals>
                     </visible>
                     <enable>
-                        <property>/sim/weight[4]/installed</property>
+                        <and>
+                            <property>/sim/weight[4]/installed</property>
+                            <property>/gear/on-ground</property>
+                        </and>
                     </enable>
                     <halign>right</halign>
                     <property>/sim/weight[4]/weight-lb</property>
