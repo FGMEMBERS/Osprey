@@ -42,6 +42,15 @@
                 <x-m type="double">-15.0</x-m>
                 <y-m type="double">-8.0</y-m>
                 <yaw-deg type="double">90.0</yaw-deg>
+
+                <line-diameter type="double">120.0</line-diameter>
+                <line-length type="double">0.0</line-length>
+                <line-heading-deg type="double">0.0</line-heading-deg>
+                <line-pitch-deg type="double">0.0</line-pitch-deg>
+
+                <px type="double">2.0</px>
+                <py type="double">-2.0</py>
+                <pz type="double">-1.7</pz>
             </fuel-truck>
 
             <v22>

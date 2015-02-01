@@ -123,6 +123,16 @@
         </condition>
     </animation>
 
+    <model>
+        <name>fuel-line</name>
+        <path>Aircraft/ExpansionPack/Models/Airport/Fuel-Truck/fuel-line.xml</path>
+        <offsets>
+            <x-m>2.0</x-m>
+            <y-m>-2.0</y-m>
+            <z-m>-1.7</z-m>
+        </offsets>
+    </model>
+
     <animation>
         <!-- Objets opaques - needs update -->
 
