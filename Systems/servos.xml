@@ -982,4 +982,110 @@
         </output>
     </logic>
 
+    <logic>
+        <name>Anti-Collission Light Low State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <input>
+            <and>
+                <property>/controls/lighting/beacon</property>
+                <not>
+                    <property>/controls/lighting/beacon-full</property>
+                </not>
+                <or>
+                    <equals>
+                        <property>/v22/tpms/target/rpm-norm</property>
+                        <value>0.00</value>
+                    </equals>
+                    <less-than>
+                        <property>/v22/pfcs/output/tcl</property>
+                        <value>0.30</value>
+                    </less-than>
+                </or>
+            </and>
+        </input>
+        <output>
+            <property>/controls/lighting/beacon-low</property>
+        </output>
+    </logic>
+
+    <logic>
+        <name>Anti-Collission Light Medium State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <input>
+            <and>
+                <property>/controls/lighting/beacon</property>
+                <not>
+                    <property>/controls/lighting/beacon-full</property>
+                </not>
+                <not>
+                    <property>/controls/lighting/beacon-low</property>
+                </not>
+                <greater-than-equals>
+                    <property>/v22/pfcs/output/tcl</property>
+                    <value>0.30</value>
+                </greater-than-equals>
+                <less-than>
+                    <property>/v22/pfcs/output/tcl</property>
+                    <value>0.60</value>
+                </less-than>
+            </and>
+        </input>
+        <output>
+            <property>/controls/lighting/beacon-medium</property>
+        </output>
+    </logic>
+
+    <logic>
+        <name>Anti-Collission Light High State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <input>
+            <and>
+                <property>/controls/lighting/beacon</property>
+                <not>
+                    <property>/controls/lighting/beacon-full</property>
+                </not>
+                <not>
+                    <property>/controls/lighting/beacon-low</property>
+                </not>
+                <greater-than-equals>
+                    <property>/v22/pfcs/output/tcl</property>
+                    <value>0.60</value>
+                </greater-than-equals>
+                <less-than>
+                    <property>/v22/pfcs/output/tcl</property>
+                    <value>0.85</value>
+                </less-than>
+            </and>
+        </input>
+        <output>
+            <property>/controls/lighting/beacon-high</property>
+        </output>
+    </logic>
+
+    <logic>
+        <name>Anti-Collission Light Full State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <input>
+            <and>
+                <property>/controls/lighting/beacon</property>
+                <not>
+                    <property>/controls/lighting/beacon-low</property>
+                </not>
+                <or>
+                    <equals>
+                        <property>/sim/model/v22/tilt</property>
+                        <value>90.0</value>
+                    </equals>
+                    <greater-than-equals>
+                        <property>/v22/pfcs/output/tcl</property>
+                        <value>0.85</value>
+                    </greater-than-equals>
+                </or>
+            </and>
+        </input>
+        <output>
+            <property>/controls/lighting/beacon-full</property>
+        </output>
+    </logic>
+
 </PropertyList>

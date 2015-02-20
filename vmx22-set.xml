@@ -281,6 +281,10 @@
 
         <lighting>
             <beacon type="bool">false</beacon>
+            <beacon-low type="bool">false</beacon-low>
+            <beacon-medium type="bool">false</beacon-medium>
+            <beacon-high type="bool">false</beacon-high>
+            <beacon-full type="bool">false</beacon-full>
             <nav-lights type="bool">false</nav-lights>
             <taxi-light type="bool">false</taxi-light>
         </lighting>

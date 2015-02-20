@@ -526,7 +526,10 @@ var crash = func {
         setprop("rotors/main/blade[1]/incidence-deg", -20);
         setprop("rotors/main/blade[2]/incidence-deg", -50);
         setprop("rotors/tail/rpm", 0);
-        lighting.beacon_switch.setValue(0);
+        lighting.beacon_switch_low.setValue(0);
+        lighting.beacon_switch_medium.setValue(0);
+        lighting.beacon_switch_high.setValue(0);
+        lighting.beacon_switch_full.setValue(0);
         lighting.navigation_switch.setValue(0);
         rotor.setValue(0);
         stall_filtered.setValue(stall_val = 0);
