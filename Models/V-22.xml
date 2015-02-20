@@ -2771,4 +2771,13 @@
         </axis>
     </animation>
 
+    <!-- In the FLIR Camera View, the view looks at the FLIR camera
+         object from the inside, so hide it instead.
+    -->
+    <animation>
+        <type>range</type>
+        <object-name>nightv02</object-name>
+        <min-m>0.1</min-m>
+    </animation>
+
 </PropertyList>
