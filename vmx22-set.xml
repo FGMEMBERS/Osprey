@@ -565,9 +565,9 @@
             <max-fuel-transfer-lbs-min>2800</max-fuel-transfer-lbs-min>
 
             <!-- Offset of the probe from the aircraft model's origin -->
-            <offset-x-m>9</offset-x-m>
-            <offset-y-m>1</offset-y-m>
-            <offset-z-m>0</offset-z-m>
+            <offset-x-m type="double">-9.91746</offset-x-m> <!-- -9.51746 in 3D model file -->
+            <offset-y-m type="double"> 0.51109</offset-y-m>
+            <offset-z-m type="double">-2.18595</offset-z-m>
 
             <report-contact type="bool">true</report-contact>
             <contact-radius-m type="double">4.0</contact-radius-m>
