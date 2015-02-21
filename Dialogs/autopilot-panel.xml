@@ -943,7 +943,7 @@
                 <pref-width>40</pref-width>
                 <binding>
                     <command>nasal</command>
-                    <script>if (!getprop("/v22/afcs/active/gs-hold")) { setprop("/v22/afcs/locks/auto-nac", 0) }</script>
+                    <script>if (!getprop("/v22/afcs/active/gs-hold")) { setprop("/v22/afcs/locks/auto-nac", !getprop("/v22/afcs/locks/auto-nac")) }</script>
                 </binding>
             </button>
             <button>
