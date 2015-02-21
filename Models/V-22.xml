@@ -2780,4 +2780,13 @@
         <min-m>0.1</min-m>
     </animation>
 
+    <model>
+        <path>Aircraft/VMX22-Osprey/Models/fx/fuel-dump.xml</path>
+        <offsets>
+            <x-m> 2.65876</x-m>
+            <y-m> 1.3187</y-m>
+            <z-m>-2.50611</z-m>
+        </offsets>
+    </model>
+
 </PropertyList>
