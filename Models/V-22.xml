@@ -284,15 +284,8 @@
         <shader>chrome</shader>
         <texture>glass_shader.png</texture>
         <object-name>frontdoor_vitre</object-name>
-        <object-name>vitres</object-name>
-    </animation>
-
-    <!-- Shader for Frontdoor invitres -->
-    <animation>
-        <type>shader</type>
-        <shader>chrome</shader>
-        <texture>invitres_shader.png</texture>
         <object-name>frontdoor_invitre</object-name>
+        <object-name>vitres</object-name>
     </animation>
 
     <!-- Shader for Landing Lights Coverglass -->
