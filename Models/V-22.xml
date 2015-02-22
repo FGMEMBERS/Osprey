@@ -2782,4 +2782,24 @@
         </offsets>
     </model>
 
+    <model>
+        <name>loading-ramp-vapour-left</name>
+        <path>Aircraft/VMX22-Osprey/Models/fx/vapour.xml</path>
+        <offsets>
+            <x-m> 2.48812</x-m> <!-- 3.62512 - 2.274/2 -->
+            <y-m>-0.9395</y-m>  <!-- -2.279/2 plus a small offset -->
+            <z-m>-2.49511</z-m> <!-- -2.12961 - 0.731/2 -->
+        </offsets>
+    </model>
+
+    <model>
+        <name>loading-ramp-vapour-right</name>
+        <path>Aircraft/VMX22-Osprey/Models/fx/vapour.xml</path>
+        <offsets>
+            <x-m> 2.48812</x-m> <!-- 3.62512 - 2.274/2 -->
+            <y-m> 0.9395</y-m>  <!-- 2.279/2 minus a small offset -->
+            <z-m>-2.49511</z-m> <!-- -2.12961 - 0.731/2 -->
+        </offsets>
+    </model>
+
 </PropertyList>
