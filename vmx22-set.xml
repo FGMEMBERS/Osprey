@@ -258,6 +258,7 @@
     <engines>
         <engine n="7">
             <n1 alias="/gear/gear[0]/caster-angle-deg"/>
+            <n2 alias="/systems/fuel/consumer-jettison-fuel/current-flow-gal_us-ps"/>
         </engine>
         <engine n="8">
             <n1 alias="/rotors/main/roll-deg"/>

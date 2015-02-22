@@ -465,6 +465,27 @@
     </logic>
 
     <!-- ================================================================== -->
+    <!-- Valve Between Manifold And Jettison Point                          -->
+    <!-- ================================================================== -->
+
+    <filter>
+        <name>Valve Jettison State</name>
+        <update-interval-secs type="double">0.1</update-interval-secs>
+        <type>noise-spike</type>
+        <input>
+            <property>/systems/fuel/valve-jettison/requested-flow-factor</property>
+        </input>
+        <output>
+            <property>/systems/fuel/valve-jettison/actual-flow-factor</property>
+        </output>
+
+        <max-rate-of-change>
+            <value>1.0</value>
+            <scale>1.0</scale>
+        </max-rate-of-change>
+    </filter>
+
+    <!-- ================================================================== -->
     <!-- Filters To Empty MATS Tanks If Uninstalled                         -->
     <!-- ================================================================== -->
 

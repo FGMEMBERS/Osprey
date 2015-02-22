@@ -9,10 +9,10 @@
         <texture>smoke.png</texture>
 
         <condition>
-            <equals>
-                <property>sim/multiplay/generic/int[2]</property>
-                <value>1</value>
-            </equals>
+            <greater-than>
+                <property>engines/engine[7]/n2</property>
+                <value>0.0</value>
+            </greater-than>
         </condition>
 
         <emissive>false</emissive>

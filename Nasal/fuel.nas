@@ -155,7 +155,7 @@ var FuelSystemUpdater = {
         ###############################################################################
 
         # Default gallons per second
-        var default_max_capacity = 1.0;
+        var default_max_capacity = 2.0;
 
         # Left/Right Wing Feeder tanks
         var tank_left_wing_feed  = fuel.Tank.new("left-wing-feeder", 2);
@@ -263,6 +263,18 @@ var FuelSystemUpdater = {
         }
 
         ###############################################################################
+        # Jettison manifold and consumer                                              #
+        ###############################################################################
+
+        # Jettison consumer
+        var jettison_point = fuel.JettisonConsumer.new("fuel");
+
+        # Valve controlling the fuel dump rate to 800 lbs/min
+        var valve_jettison = fuel.Valve.new("jettison", 800.0 / 60.0 / ppg);
+
+        fuel.connect([manifold_feeders, valve_jettison, jettison_point]);
+
+        ###############################################################################
         # Refueling manifold, boost pump, and valves                                  #
         ###############################################################################
 
@@ -305,8 +317,7 @@ var FuelSystemUpdater = {
         ###############################################################################
 
         # To do:
-        # 1) Add a JettisonConsumer
-        # 2) Use two manifolds (one for the left side and one for the right side)
+        # 1) Use two manifolds (one for the left side and one for the right side)
 
         # Manifolds
         me.network.add(manifold_feeders);
@@ -344,6 +355,7 @@ var FuelSystemUpdater = {
         # Consumers
         me.network.add(left_engine);
         me.network.add(right_engine);
+        me.network.add(jettison_point);
 
         # Producers
         me.network.add(aar_probe);
@@ -352,6 +364,7 @@ var FuelSystemUpdater = {
         # Cut-off valves
         me.network.add(valve_cutoff_left_engine);
         me.network.add(valve_cutoff_right_engine);
+        me.network.add(valve_jettison);
 
         # Tubes
         me.network.add(tube_left_feeder);
