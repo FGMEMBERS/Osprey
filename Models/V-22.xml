@@ -477,6 +477,16 @@
         </offsets>
     </model>
 
+    <model>
+        <name>NavigationLightWhite</name>
+        <path>Aircraft/VMX22-Osprey/Models/light/Whitelight.xml</path>
+        <offsets>
+            <x-m> 9.400</x-m>
+            <y-m>-2.520</y-m>
+            <z-m>-0.090</z-m>
+        </offsets>
+    </model>
+
     <!-- Beacon light on tail -->
     <model>
         <name>BeaconLightOnTail</name>

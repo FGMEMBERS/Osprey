@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <PropertyList>
+
     <path>WhiteLight.ac</path>
+
+    <params>
+        <position-state>
+            <property>sim/multiplay/generic/int[1]</property>
+        </position-state>
+    </params>
 
     <animation>
         <type>noshadow</type>
@@ -23,7 +30,7 @@
         <type>select</type>
         <object-name>Light</object-name>
         <condition>
-            <property>/sim/model/v22/lighting/beacon/state</property>
+            <property alias="../../../params/position-state/property"/>
         </condition>
     </animation>
 
@@ -31,18 +38,9 @@
         <type>dist-scale</type>
         <object-name>Light</object-name>
         <interpolation>
-            <entry>
-                <ind>0</ind>
-                <dep>0.25</dep>
-            </entry>
-            <entry>
-                <ind>20</ind>
-                <dep>0.5</dep>
-            </entry>
-            <entry>
-                <ind>1500</ind>
-                <dep>5</dep>
-            </entry>
+            <entry><ind>   0</ind><dep>0.25</dep></entry>
+            <entry><ind>  20</ind><dep>0.50</dep></entry>
+            <entry><ind>1500</ind><dep>2.00</dep></entry>
         </interpolation>
     </animation>
 
