@@ -96,7 +96,7 @@
 
             <checkbox>
                 <halign>left</halign>
-                <label>Navigation</label>
+                <label>Position steady</label>
                 <property>/controls/lighting/nav-lights</property>
                 <live>true</live>
                 <enable>
@@ -114,7 +114,7 @@
 
             <checkbox>
                 <halign>left</halign>
-                <label>Taxi</label>
+                <label>Position flash</label>
                 <property>/controls/lighting/taxi-light</property>
                 <live>true</live>
                 <enable>
