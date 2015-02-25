@@ -190,9 +190,18 @@ var disable_tacan_heading = func (node) {
     }
 };
 
+# Disable VOR/ILS and TACAN if standard magnetic heading has been
+# enabled.
+var disable_vor_tacan = func (node) {
+    if (node.getValue() == "dg-heading-hold") {
+        setprop("/v22/afcs/locks/vor-ils", 0);
+        setprop("/v22/afcs/locks/heading", "");
+    }
+};
+
 setlistener("/v22/afcs/active/loc-hold", disable_tacan_heading, 0, 0);
 setlistener("/v22/afcs/active/tacan-hold", disable_vor_heading, 0, 0);
-
+setlistener("/autopilot/locks/heading", disable_vor_tacan, 0, 0);
 
 # Disable standard altitude hold if NAV1 glideslope signal has been
 # captured.

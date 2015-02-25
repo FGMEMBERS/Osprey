@@ -800,14 +800,6 @@
                 <legend></legend>
                 <pref-width>40</pref-width>
                 <binding>
-                    <condition>
-                        <not>
-                            <or>
-                                <property>/v22/afcs/active/loc-hold</property>
-                                <property>/v22/afcs/active/tacan-hold</property>
-                            </or>
-                        </not>
-                    </condition>
                     <command>property-assign</command>
                     <property>/autopilot/locks/heading</property>
                     <value type="string">dg-heading-hold</value>
