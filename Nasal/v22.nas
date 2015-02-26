@@ -665,7 +665,7 @@ setlistener("/sim/signals/fdm-initialized", func {
     rain_timer.start();
 
     # Livery
-    aircraft.livery.init("Aircraft/VMX22-Osprey/Models/Liveries");
+    aircraft.livery.init("Aircraft/V-22/Models/Liveries");
 
     make_weights_persistent();
 

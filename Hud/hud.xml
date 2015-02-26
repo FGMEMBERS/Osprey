@@ -14,19 +14,19 @@
     </import>
 
     <import>
-        <path>Aircraft/VMX22-Osprey/Hud/Sets/autopilot.xml</path>
+        <path>Aircraft/V-22/Hud/Sets/autopilot.xml</path>
         <x-offset>-90</x-offset>
         <y-offset>160</y-offset>
     </import>
 
     <import>
-        <path>Aircraft/VMX22-Osprey/Hud/Sets/ils.xml</path>
+        <path>Aircraft/V-22/Hud/Sets/ils.xml</path>
         <x-offset>-90</x-offset>
         <y-offset>160</y-offset>
     </import>
 
     <import>
-        <path>Aircraft/VMX22-Osprey/Hud/Sets/fgcom.xml</path>
+        <path>Aircraft/V-22/Hud/Sets/fgcom.xml</path>
         <x-offset>-30</x-offset>
         <y-offset>150</y-offset>
     </import>
@@ -38,13 +38,13 @@
     </import>
 
     <import>
-        <path>Aircraft/VMX22-Osprey/Hud/Sets/gear.xml</path>
+        <path>Aircraft/V-22/Hud/Sets/gear.xml</path>
         <x-offset>-300</x-offset>
         <y-offset>110</y-offset>
     </import>
 
     <import>
-        <path>Aircraft/VMX22-Osprey/Hud/Sets/radio.xml</path>
+        <path>Aircraft/V-22/Hud/Sets/radio.xml</path>
         <x-offset>210</x-offset>
         <y-offset>160</y-offset>
     </import>

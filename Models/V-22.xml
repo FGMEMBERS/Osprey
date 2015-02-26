@@ -6,7 +6,7 @@
 
     <nasal>
         <load>
-            var livery_update = aircraft.livery_update.new("Aircraft/VMX22-Osprey/Models/Liveries", 10);
+            var livery_update = aircraft.livery_update.new("Aircraft/V-22/Models/Liveries", 10);
         </load>
         <unload>
             livery_update.stop();
@@ -435,7 +435,7 @@
 
     <!-- Interior -->
     <model>
-        <path>Aircraft/VMX22-Osprey/Models/Interior/interior.xml</path>
+        <path>Aircraft/V-22/Models/Interior/interior.xml</path>
         <offsets>
             <x-m> 0.0 </x-m>
             <y-m> 0.0 </y-m>
@@ -449,7 +449,7 @@
     <!-- Beacon light under fuselage -->
     <model>
         <name>BeaconLightUnderFuselage</name>
-        <path>Aircraft/VMX22-Osprey/Models/light/beacon.xml</path>
+        <path>Aircraft/V-22/Models/light/beacon.xml</path>
         <offsets>
             <x-m> -2.673 </x-m>
             <y-m>  0.000 </y-m>
@@ -459,7 +459,7 @@
 
     <model>
         <name>NavigationLightRed</name>
-        <path>Aircraft/VMX22-Osprey/Models/light/RedLight.xml</path>
+        <path>Aircraft/V-22/Models/light/RedLight.xml</path>
         <offsets>
             <x-m> -1.515 </x-m>
             <y-m> -7.726 </y-m>
@@ -469,7 +469,7 @@
 
     <model>
         <name>NavigationLightGreen</name>
-        <path>Aircraft/VMX22-Osprey/Models/light/GreenLight.xml</path>
+        <path>Aircraft/V-22/Models/light/GreenLight.xml</path>
         <offsets>
             <x-m> -1.515 </x-m>
             <y-m>  7.726 </y-m>
@@ -479,7 +479,7 @@
 
     <model>
         <name>NavigationLightWhite</name>
-        <path>Aircraft/VMX22-Osprey/Models/light/Whitelight.xml</path>
+        <path>Aircraft/V-22/Models/light/Whitelight.xml</path>
         <offsets>
             <x-m> 9.400</x-m>
             <y-m>-2.520</y-m>
@@ -490,7 +490,7 @@
     <!-- Beacon light on tail -->
     <model>
         <name>BeaconLightOnTail</name>
-        <path>Aircraft/VMX22-Osprey/Models/light/beacon.xml</path>
+        <path>Aircraft/V-22/Models/light/beacon.xml</path>
         <offsets>
             <x-m>  8.392 </x-m>
             <y-m> -2.515 </y-m>
@@ -525,7 +525,7 @@
 
     <!-- Left -->
     <model>
-        <path>Aircraft/VMX22-Osprey/Models/light/landinglightLeft.xml</path>
+        <path>Aircraft/V-22/Models/light/landinglightLeft.xml</path>
         <offsets>
         <pitch-deg>0</pitch-deg>
             <heading-deg>28</heading-deg>
@@ -538,7 +538,7 @@
 
     <!-- Right -->
     <model>
-        <path>Aircraft/VMX22-Osprey/Models/light/landinglightRight.xml</path>
+        <path>Aircraft/V-22/Models/light/landinglightRight.xml</path>
         <offsets>
             <pitch-deg>0</pitch-deg>
             <heading-deg>-28</heading-deg>
@@ -554,7 +554,7 @@
     <!-- Tyre smoke Front Gear-->
     <model>
         <name>tyre-smoke-nose</name>
-        <path>Aircraft/VMX22-Osprey/Models/tyre-smoke/tyre-smoke-nose.xml</path>
+        <path>Aircraft/V-22/Models/tyre-smoke/tyre-smoke-nose.xml</path>
         <offsets>
             <x-m> -7.105 </x-m>
             <y-m>  0.000 </y-m>
@@ -565,7 +565,7 @@
     <!-- Tyre smoke Left Gear - G -->
     <model>
         <name>tyre-smoke-left</name>
-        <path>Aircraft/VMX22-Osprey/Models/tyre-smoke/tyre-smoke-left.xml</path>
+        <path>Aircraft/V-22/Models/tyre-smoke/tyre-smoke-left.xml</path>
         <offsets>
             <x-m>  1.118 </x-m>
             <y-m>  2.101 </y-m>
@@ -576,7 +576,7 @@
     <!-- Tyre smoke Right Gear - D -->
     <model>
         <name>tyre-smoke-right</name>
-        <path>Aircraft/VMX22-Osprey/Models/tyre-smoke/tyre-smoke-right.xml</path>
+        <path>Aircraft/V-22/Models/tyre-smoke/tyre-smoke-right.xml</path>
         <offsets>
             <x-m>  1.118 </x-m>
             <y-m> -2.101 </y-m>
@@ -589,7 +589,7 @@
     <!-- Rain smoke Front Gear-->
     <model>
         <name>tyre-smoke-nose</name>
-        <path>Aircraft/VMX22-Osprey/Models/tyre-smoke/rain-nose.xml</path>
+        <path>Aircraft/V-22/Models/tyre-smoke/rain-nose.xml</path>
         <offsets>
             <x-m> -7.105 </x-m>
             <y-m>  0.000 </y-m>
@@ -600,7 +600,7 @@
     <!-- Rain smoke Left Gear - G -->
     <model>
         <name>tyre-smoke-left</name>
-        <path>Aircraft/VMX22-Osprey/Models/tyre-smoke/rain-left.xml</path>
+        <path>Aircraft/V-22/Models/tyre-smoke/rain-left.xml</path>
         <offsets>
             <x-m>  1.118 </x-m>
             <y-m>  2.101 </y-m>
@@ -611,7 +611,7 @@
     <!-- Rain smoke Right Gear - D -->
     <model>
         <name>tyre-smoke-right</name>
-        <path>Aircraft/VMX22-Osprey/Models/tyre-smoke/rain-right.xml</path>
+        <path>Aircraft/V-22/Models/tyre-smoke/rain-right.xml</path>
         <offsets>
             <x-m>  1.118 </x-m>
             <y-m> -2.101 </y-m>
@@ -624,7 +624,7 @@
     <!-- Crash smoke slide on Ground with Gear up-->
     <model>
         <name>crash-slide-smoke</name>
-        <path>Aircraft/VMX22-Osprey/Models/crash-fx/crash-slide-smoke.xml</path>
+        <path>Aircraft/V-22/Models/crash-fx/crash-slide-smoke.xml</path>
         <offsets>
             <x-m> -0.105 </x-m>
             <y-m>  0.000 </y-m>
@@ -635,7 +635,7 @@
     <!-- Crash smoke ruder LEFT on Ground -->
     <model>
         <name>crash-left-ruder</name>
-        <path>Aircraft/VMX22-Osprey/Models/crash-fx/crash-ruderl-smoke.xml</path>
+        <path>Aircraft/V-22/Models/crash-fx/crash-ruderl-smoke.xml</path>
         <offsets>
             <x-m>  9.000 </x-m>
             <y-m> -2.500 </y-m>
@@ -646,7 +646,7 @@
     <!-- Crash smoke ruder RIGHT on Ground -->
     <model>
         <name>crash-left-ruder</name>
-        <path>Aircraft/VMX22-Osprey/Models/crash-fx/crash-ruderr-smoke.xml</path>
+        <path>Aircraft/V-22/Models/crash-fx/crash-ruderr-smoke.xml</path>
         <offsets>
             <x-m>  9.000 </x-m>
             <y-m>  2.500 </y-m>
@@ -657,7 +657,7 @@
     <!-- Crash smoke engine LEFT on Ground -->
     <model>
         <name>crash-left-ruder</name>
-        <path>Aircraft/VMX22-Osprey/Models/crash-fx/crash-enginel-smoke.xml</path>
+        <path>Aircraft/V-22/Models/crash-fx/crash-enginel-smoke.xml</path>
         <offsets>
             <x-m> -1.400 </x-m>
             <y-m> -7.041 </y-m>
@@ -668,7 +668,7 @@
     <!-- Crash smoke ebgine RIGHT on Ground -->
     <model>
         <name>crash-left-ruder</name>
-        <path>Aircraft/VMX22-Osprey/Models/crash-fx/crash-enginer-smoke.xml</path>
+        <path>Aircraft/V-22/Models/crash-fx/crash-enginer-smoke.xml</path>
         <offsets>
             <x-m> -1.400 </x-m>
             <y-m>  7.041 </y-m>
@@ -679,7 +679,7 @@
     <!-- Pushback - changed generic military truck for first tests -->
     <model>
         <name>Pushback</name>
-        <path>Aircraft/VMX22-Osprey/Models/Pushback/Military.xml</path>
+        <path>Aircraft/V-22/Models/Pushback/Military.xml</path>
         <offsets>
             <x-m>-7.15</x-m>
             <y-m>0</y-m>
@@ -2784,7 +2784,7 @@
     </animation>
 
     <model>
-        <path>Aircraft/VMX22-Osprey/Models/fx/fuel-dump.xml</path>
+        <path>Aircraft/V-22/Models/fx/fuel-dump.xml</path>
         <offsets>
             <x-m> 2.65876</x-m>
             <y-m> 1.3187</y-m>
@@ -2794,7 +2794,7 @@
 
     <model>
         <name>loading-ramp-vapour-left</name>
-        <path>Aircraft/VMX22-Osprey/Models/fx/vapour.xml</path>
+        <path>Aircraft/V-22/Models/fx/vapour.xml</path>
         <offsets>
             <x-m> 2.48812</x-m> <!-- 3.62512 - 2.274/2 -->
             <y-m>-0.9395</y-m>  <!-- -2.279/2 plus a small offset -->
@@ -2804,7 +2804,7 @@
 
     <model>
         <name>loading-ramp-vapour-right</name>
-        <path>Aircraft/VMX22-Osprey/Models/fx/vapour.xml</path>
+        <path>Aircraft/V-22/Models/fx/vapour.xml</path>
         <offsets>
             <x-m> 2.48812</x-m> <!-- 3.62512 - 2.274/2 -->
             <y-m> 0.9395</y-m>  <!-- 2.279/2 minus a small offset -->

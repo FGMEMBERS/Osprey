@@ -29,7 +29,7 @@
         </startup>
 
         <model>
-            <path>Aircraft/VMX22-Osprey/Models/CV-22.xml</path>
+            <path>Aircraft/V-22/Models/CV-22.xml</path>
         </model>
 
         <weight n="4">
@@ -63,7 +63,7 @@
         <flight-recorder include="Systems/flight-recorder/flight-recorder-cv22.xml"/>
 
         <instrumentation>
-            <path>Aircraft/VMX22-Osprey/Systems/instrumentation-cv22.xml</path>
+            <path>Aircraft/V-22/Systems/instrumentation-cv22.xml</path>
         </instrumentation>
 
     </sim>

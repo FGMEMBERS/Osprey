@@ -7,7 +7,7 @@
         <engine>
             <name>right-engine-start</name>
             <mode>once</mode>
-            <path>Aircraft/VMX22-Osprey/Sounds/v22_turbine_strt_out.wav</path>
+            <path>Aircraft/V-22/Sounds/v22_turbine_strt_out.wav</path>
             <condition>
                 <greater-than>
                     <property>sim/model/v22/state</property>
@@ -29,7 +29,7 @@
         <engine>
             <name>left-engine-start</name>
             <mode>once</mode>
-            <path>Aircraft/VMX22-Osprey/Sounds/v22_turbine_strt_out.wav</path>
+            <path>Aircraft/V-22/Sounds/v22_turbine_strt_out.wav</path>
             <condition>
                 <greater-than>
                     <property>sim/model/v22/state</property>
@@ -51,7 +51,7 @@
         <engine>
             <name>right-engine-loop</name>
             <mode>looped</mode>
-            <path>Aircraft/VMX22-Osprey/Sounds/v22_turbine_out.wav</path>
+            <path>Aircraft/V-22/Sounds/v22_turbine_out.wav</path>
             <condition>
                 <greater-than>
                     <property>sim/model/v22/state</property>
@@ -85,7 +85,7 @@
         <engine>
             <name>left-engine-loop</name>
             <mode>looped</mode>
-            <path>Aircraft/VMX22-Osprey/Sounds/v22_turbine_out.wav</path>
+            <path>Aircraft/V-22/Sounds/v22_turbine_out.wav</path>
             <condition>
                 <greater-than>
                     <property>sim/model/v22/state</property>
@@ -119,7 +119,7 @@
         <engine>
             <name>exhaust-loop</name>
             <mode>looped</mode>
-            <path>Aircraft/VMX22-Osprey/Sounds/v22_exh.wav</path>
+            <path>Aircraft/V-22/Sounds/v22_exh.wav</path>
             <condition>
                 <greater-than>
                     <property>sim/model/v22/state</property>
@@ -163,7 +163,7 @@
         <rotor>
             <name>rotor</name>
             <mode>looped</mode>
-            <path>Aircraft/VMX22-Osprey/Sounds/v22_flap.wav</path>
+            <path>Aircraft/V-22/Sounds/v22_flap.wav</path>
             <condition>
                 <and>
                     <greater-than>
@@ -202,7 +202,7 @@
         <wing>
             <name>wingrotation</name>
             <mode>looped</mode>
-            <path>Aircraft/VMX22-Osprey/Sounds/v22_wing_rotate.wav</path>
+            <path>Aircraft/V-22/Sounds/v22_wing_rotate.wav</path>
             <condition>
                 <and>
                     <greater-than>
@@ -232,7 +232,7 @@
         <blade_fold>
             <name>bladefold</name>
             <mode>looped</mode>
-            <path>Aircraft/VMX22-Osprey/Sounds/v22_blade_fold.wav</path>
+            <path>Aircraft/V-22/Sounds/v22_blade_fold.wav</path>
             <condition>
                 <and>
                     <greater-than>
@@ -262,7 +262,7 @@
         <flap>
             <name>flap</name>
             <mode>looped</mode>
-            <path>Aircraft/VMX22-Osprey/Sounds/Flaps.wav</path>
+            <path>Aircraft/V-22/Sounds/Flaps.wav</path>
             <condition>
                 <and>
                     <greater-than>
@@ -293,7 +293,7 @@
         <engine_tilt>
             <name>enginetilt</name>
             <mode>looped</mode>
-            <path>Aircraft/VMX22-Osprey/Sounds/servo.wav</path>
+            <path>Aircraft/V-22/Sounds/servo.wav</path>
             <condition>
                 <and>
                     <greater-than>
@@ -614,7 +614,7 @@
         <door>
             <name>airrefuel-move</name>
             <mode>in-transit</mode>
-            <path>Aircraft/VMX22-Osprey/Sounds/servo.wav</path>
+            <path>Aircraft/V-22/Sounds/servo.wav</path>
             <property>instrumentation/doors/airrefuel/position-norm</property>
             <volume>
                 <factor>0.25</factor>

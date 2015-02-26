@@ -82,7 +82,7 @@
 
   <!-- Dashboard -->
   <model>
-    <path>Aircraft/VMX22-Osprey/Models/Interior/Panel/panel.xml</path>
+    <path>Aircraft/V-22/Models/Interior/Panel/panel.xml</path>
     <offsets>
       <x-m> -6.736 </x-m>
       <y-m>  0.000 </y-m>
@@ -95,7 +95,7 @@
 
   <!-- Pilot -->
   <model>
-    <path>Aircraft/VMX22-Osprey/Models/Pilot/pilot.xml</path>
+    <path>Aircraft/V-22/Models/Pilot/pilot.xml</path>
     <offsets>
       <x-m> -5.810 </x-m>
       <y-m>  0.524 </y-m>
@@ -105,7 +105,7 @@
 
   <!-- Co-pilot -->
   <model>
-    <path>Aircraft/VMX22-Osprey/Models/Pilot/pilot.xml</path>
+    <path>Aircraft/V-22/Models/Pilot/pilot.xml</path>
     <offsets>
       <x-m> -5.810 </x-m>
       <y-m> -0.524 </y-m>

@@ -29,7 +29,7 @@
         </startup>
 
         <model>
-            <path>Aircraft/VMX22-Osprey/Models/MV-22.xml</path>
+            <path>Aircraft/V-22/Models/MV-22.xml</path>
         </model>
 
         <weight n="3">

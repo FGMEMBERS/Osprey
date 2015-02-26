@@ -49,7 +49,7 @@
   </model>
 
   <model>
-    <path>Aircraft/VMX22-Osprey/Models/Interior/Panel/Instruments/ai/ai.xml</path>
+    <path>Aircraft/V-22/Models/Interior/Panel/Instruments/ai/ai.xml</path>
     <offsets>
       <x-m> 0.033 </x-m>
       <y-m> 0.147 </y-m>
