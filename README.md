@@ -6,7 +6,7 @@ This is a model of the V-22 Osprey for FlightGear.
 Dependencies
 ------------
 
-* FlightGear 3.3 or later
+* FlightGear 3.4 or later
 
 * [ExpansionPack][url-fg-expansion-pack] aircraft
 
