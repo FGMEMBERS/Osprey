@@ -14,7 +14,10 @@
             <property>/instrumentation/nav[0]/nav-id</property>
         </input>
         <condition>
-            <property>/v22/afcs/active/loc-hold</property>
+            <and>
+                <property>/v22/afcs/active/coupled</property>
+                <property>/v22/afcs/active/loc-hold</property>
+            </and>
         </condition>
     </label>
 
@@ -27,6 +30,7 @@
         <halign>left</halign>
         <condition>
             <and>
+                <property>/v22/afcs/active/coupled</property>
                 <property>/v22/afcs/armed/loc-hold</property>
                 <not>
                     <property>/v22/afcs/active/tacan-hold</property>
@@ -45,7 +49,10 @@
         <format>G/S CAP</format>
         <halign>left</halign>
         <condition>
-            <property>/v22/afcs/active/gs-hold</property>
+            <and>
+                <property>/v22/afcs/active/coupled</property>
+                <property>/v22/afcs/active/gs-hold</property>
+            </and>
         </condition>
     </label>
 
@@ -58,7 +65,10 @@
         <format>G/S ARM</format>
         <halign>left</halign>
         <condition>
-            <property>/v22/afcs/armed/gs-hold</property>
+            <and>
+                <property>/v22/afcs/active/coupled</property>
+                <property>/v22/afcs/armed/gs-hold</property>
+            </and>
         </condition>
     </label>
 

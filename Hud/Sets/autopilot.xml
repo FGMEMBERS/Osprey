@@ -11,10 +11,13 @@
         <format>ROLL</format>
         <halign>left</halign>
         <condition>
-            <equals>
-                <property>/autopilot/locks/heading</property>
-                <value>wing-leveler</value>
-            </equals>
+            <and>
+                <property>/v22/afcs/active/coupled</property>
+                <equals>
+                    <property>/autopilot/locks/heading</property>
+                    <value>wing-leveler</value>
+                </equals>
+            </and>
         </condition>
     </label>
 
@@ -28,7 +31,10 @@
             <property>/autopilot/settings/heading-bug-deg</property>
         </input>
         <condition>
-            <property>/v22/afcs/active/mag-heading-hold</property>
+            <and>
+                <property>/v22/afcs/active/coupled</property>
+                <property>/v22/afcs/active/mag-heading-hold</property>
+            </and>
         </condition>
     </label>
 
@@ -42,7 +48,10 @@
             <property>/autopilot/settings/true-heading-deg</property>
         </input>
         <condition>
-            <property>/v22/afcs/active/wypt-hold</property>
+            <and>
+                <property>/v22/afcs/active/coupled</property>
+                <property>/v22/afcs/active/wypt-hold</property>
+            </and>
         </condition>
     </label>
 
@@ -56,7 +65,10 @@
             <property>/instrumentation/tacan/ident</property>
         </input>
         <condition>
-            <property>/v22/afcs/active/tacan-hold</property>
+            <and>
+                <property>/v22/afcs/active/coupled</property>
+                <property>/v22/afcs/active/tacan-hold</property>
+            </and>
         </condition>
     </label>
  
@@ -69,6 +81,7 @@
         <halign>left</halign>
         <condition>
             <and>
+                <property>/v22/afcs/active/coupled</property>
                 <property>/v22/afcs/armed/tacan-hold</property>
                 <not>
                     <property>/v22/afcs/active/loc-hold</property>
@@ -90,7 +103,10 @@
             <property>/v22/afcs/target/ap-altitude-ft</property>
         </input>
         <condition>
-            <property>/v22/afcs/active/alt-hold</property>
+            <and>
+                <property>/v22/afcs/active/coupled</property>
+                <property>/v22/afcs/active/alt-hold</property>
+            </and>
         </condition>
     </label>
 
@@ -102,10 +118,13 @@
         <format>PTCH</format>
         <halign>left</halign>
         <condition>
-            <equals>
-                <property>/autopilot/locks/altitude</property>
-                <value>pitch-hold</value>
-            </equals>
+            <and>
+                <property>/v22/afcs/active/coupled</property>
+                <equals>
+                    <property>/autopilot/locks/altitude</property>
+                    <value>pitch-hold</value>
+                </equals>
+            </and>
         </condition>
     </label>
 
@@ -120,10 +139,13 @@
             <property>/autopilot/settings/vertical-speed-fpm</property>
         </input>
         <condition>
-            <equals>
-                <property>/autopilot/locks/altitude</property>
-                <value>vertical-speed-hold</value>
-            </equals>
+            <and>
+                <property>/v22/afcs/active/coupled</property>
+                <equals>
+                    <property>/autopilot/locks/altitude</property>
+                    <value>vertical-speed-hold</value>
+                </equals>
+            </and>
         </condition>
     </label>
 
@@ -138,7 +160,10 @@
             <property>/v22/afcs/target/ap-agl-ft</property>
         </input>
         <condition>
-            <property>/v22/afcs/active/hvr-alt-hold</property>
+            <and>
+                <property>/v22/afcs/active/coupled</property>
+                <property>/v22/afcs/active/hvr-alt-hold</property>
+            </and>
         </condition>
     </label>
 
@@ -155,7 +180,10 @@
             <property>/autopilot/settings/target-speed-kt</property>
         </input>
         <condition>
-            <property>/v22/afcs/active/spd-hold</property>
+            <and>
+                <property>/v22/afcs/active/coupled</property>
+                <property>/v22/afcs/active/spd-hold</property>
+            </and>
         </condition>
     </label>
 
