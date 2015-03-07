@@ -41,7 +41,7 @@
 * [ ] Add fuel system
     * [ ] Split manifold into two manifolds and connect them through a crossfeed valve
     * [x] Add JettisonConsumer and fuel jettison animation
-    * [ ] Add engines cut-off valves to a GUI window
+    * [x] Add engines cut-off valves to a GUI window
 * [ ] Add hydraulic system
 * [ ] In cockpit, display a stall meter when nacelles are between 35 degrees and 0 degrees (horizontal)
 * [ ] Add weather radar
