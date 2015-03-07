@@ -14,7 +14,7 @@
 
         <author>onox (FBW, Systems), Emmanuel Baranger (3D), Maik Justus (FDM), Oliver Thurau (3D upgrade and FDM / XML upgrade)</author>
         <status>alpha</status>
-        <aircraft-version>0.60-22.06.2014</aircraft-version>
+        <aircraft-version>1.0</aircraft-version>
 
         <flight-model>yasim</flight-model>
 
