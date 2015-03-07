@@ -75,6 +75,100 @@
         <layout>vbox</layout>
         <padding>6</padding>
         <text>
+            <label>Fuel Cut-Off Valves</label>
+        </text>
+
+        <group>
+            <layout>table</layout>
+
+            <text>
+                <row>0</row>
+                <col>0</col>
+                <label>Left Engine</label>
+            </text>
+            <text>
+                <row>0</row>
+                <col>1</col>
+                <label>Right Engine</label>
+            </text>
+
+            <button>
+                <row>1</row>
+                <col>0</col>
+                <visible>
+                    <property>/systems/fuel/valve-cut-off-left-engine/serviceable</property>
+                </visible>
+                <legend>OPEN</legend>
+                <pref-width>60</pref-width>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/systems/fuel/valve-cut-off-left-engine/serviceable</property>
+                </binding>
+            </button>
+            <button>
+                <row>1</row>
+                <col>0</col>
+                <visible>
+                    <not>
+                        <property>/systems/fuel/valve-cut-off-left-engine/serviceable</property>
+                    </not>
+                </visible>
+                <legend></legend>
+                <pref-width>60</pref-width>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/systems/fuel/valve-cut-off-left-engine/serviceable</property>
+                </binding>
+            </button>
+            <button>
+                <row>1</row>
+                <col>1</col>
+                <visible>
+                    <property>/systems/fuel/valve-cut-off-right-engine/serviceable</property>
+                </visible>
+                <legend>OPEN</legend>
+                <pref-width>60</pref-width>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/systems/fuel/valve-cut-off-right-engine/serviceable</property>
+                </binding>
+            </button>
+            <button>
+                <row>1</row>
+                <col>1</col>
+                <visible>
+                    <not>
+                        <property>/systems/fuel/valve-cut-off-right-engine/serviceable</property>
+                    </not>
+                </visible>
+                <legend></legend>
+                <pref-width>60</pref-width>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/systems/fuel/valve-cut-off-right-engine/serviceable</property>
+                </binding>
+            </button>
+        </group>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>vbox</layout>
+        <padding>6</padding>
+        <text>
             <label>Lighting</label>
         </text>
 
