@@ -463,9 +463,6 @@
     </gear>
 
     <nasal>
-        <collections>
-            <file>Aircraft/V-22/Nasal/collections.nas</file>
-        </collections>
         <lighting>
             <file>Aircraft/V-22/Nasal/lighting.nas</file>
         </lighting>

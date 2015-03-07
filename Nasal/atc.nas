@@ -93,7 +93,7 @@ var ChoiceListClass = {
 
 };
 
-var flight_phases = collections.Vector.new([
+var flight_phases = std.Vector.new([
     "En-route Clearance",
     "Start-up",
     "Push-back",
