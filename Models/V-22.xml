@@ -128,155 +128,108 @@
         <path>Aircraft/ExpansionPack/Models/Airport/Fuel-Truck/fuel-line.xml</path>
     </model>
 
-    <animation>
-        <!-- Objets opaques - needs update -->
+    <effect>
+        <inherits-from>fuselage-rain</inherits-from>
 
-        <!-- Main Fuselage & Gear Doors -->
         <object-name>fuselage</object-name>
-        <object-name>profondeur</object-name>
-        <object-name>antenne</object-name>
-        <object-name>porteAG</object-name>
-        <object-name>porteAD</object-name>
-        <object-name>porteD</object-name>
-        <object-name>porteG</object-name>
-        <object-name>porteDfront</object-name>
-        <object-name>porteDfront_blob</object-name>
-        <object-name>porteGfront</object-name>
-        <object-name>porteGfront_blob</object-name>
-
-        <object-name>roueA</object-name>
-
-        <object-name>derive</object-name>
-        <object-name>directionG</object-name>
-        <object-name>directionD</object-name>
         <object-name>aile</object-name>
+        <object-name>derive</object-name>
+        <object-name>whiper_deflector</object-name>
+
+        <!-- Ailerons -->
         <object-name>aileronD</object-name>
+        <object-name>aileronD_01</object-name>
+        <object-name>aileronD_up</object-name>
         <object-name>aileronG</object-name>
+        <object-name>aileronG_01</object-name>
+        <object-name>aileronG_up</object-name>
+
+        <!-- Flaps -->
         <object-name>voletD</object-name>
+        <object-name>voletD_01</object-name>
+        <object-name>voletD_up</object-name>
         <object-name>voletG</object-name>
-        <object-name>moteurD</object-name>
-        <object-name>moteurG</object-name>
-        <object-name>piedpaleG1</object-name>
-        <object-name>piedpaleG2</object-name>
-        <object-name>piedpaleG3</object-name>
-        <object-name>piedpaleD1</object-name>
-        <object-name>piedpaleD2</object-name>
-        <object-name>piedpaleD3</object-name>
+        <object-name>voletG_01</object-name>
+        <object-name>voletG_up</object-name>
+
+        <!-- Rudders -->
+        <object-name>directionD</object-name>
+        <object-name>directionG</object-name>
+
+        <!-- Elevator -->
+        <object-name>profondeur</object-name>
+
+        <!-- Nacelles -->
+        <object-name>bolD</object-name>
+        <object-name>moteurD_01</object-name>
+        <object-name>moteurD_02</object-name>
+        <object-name>trousD_01</object-name>
+        <object-name>trousD_02</object-name>
+        <object-name>trousD_03</object-name>
+        <object-name>trousD_04</object-name>
+        <object-name>trousD_05</object-name>
+        <object-name>trousD_06</object-name>
+
+        <object-name>bolG</object-name>
+        <object-name>moteurG_01</object-name>
+        <object-name>moteurG_02</object-name>
+        <object-name>trousG_01</object-name>
+        <object-name>trousG_02</object-name>
+        <object-name>trousG_03</object-name>
+        <object-name>trousG_04</object-name>
+        <object-name>trousG_05</object-name>
+        <object-name>trousG_06</object-name>
+
+        <object-name>nassel_hydr_eng_G</object-name>
+        <object-name>nassel_hydr_wing_G</object-name>
+
+        <!-- Rotor blades -->
         <object-name>paleD1</object-name>
         <object-name>paleD2</object-name>
         <object-name>paleD3</object-name>
         <object-name>paleG1</object-name>
         <object-name>paleG2</object-name>
         <object-name>paleG3</object-name>
-        <object-name>bolD</object-name>
-        <object-name>bolG</object-name>
-        <object-name>trous</object-name>
-        <object-name>trousG</object-name>
-        <object-name>trousD</object-name>
 
-        <!-- Wing hydraulics -->
-        <object-name>nassel_hydr_wing_G</object-name>
+        <!-- Component connecting the rotor blades to the rotor hubs -->
+        <object-name>piedpaleD1</object-name>
+        <object-name>piedpaleD2</object-name>
+        <object-name>piedpaleD3</object-name>
+        <object-name>piedpaleG1</object-name>
+        <object-name>piedpaleG2</object-name>
+        <object-name>piedpaleG3</object-name>
 
-        <!-- Engine nacel hydraulics -->
-        <object-name>nassel_hydr_eng_G</object-name>
-        <object-name>aile_G</object-name>
-
-        <!-- Main Fuselage Adons -->
+        <!-- Aerial refueling probe -->
         <object-name>AirRF-01</object-name>
         <object-name>AirRF-02</object-name>
-        <object-name>Frontdefense</object-name>
-        <!-- maybe the alle.001 will be fused to fuselage -->
-        <object-name>alle.001</object-name>
-        <object-name>radar01</object-name>
-        <object-name>radar02</object-name>
+
+        <!-- AAR-54 sensors at the back of the aft sponsons and in front
+             of the pitot tubes.
+        -->
+        <object-name>BackDefense</object-name>
+        <object-name>FrontDefense</object-name>
+
+        <!-- Antennas -->
+        <object-name>antena_aft_01</object-name>
+        <object-name>antena_aft_02</object-name>
         <object-name>def_door</object-name>
         <object-name>def_gear</object-name>
-        <object-name>wing_stab</object-name>
 
-        <object-name>landinglight_02</object-name>
-        <object-name>landinglight_03</object-name>
+        <!-- Radar -->
+        <object-name>rad_01</object-name>
+        <object-name>rad_02</object-name>
 
-        <object-name>sensor_01</object-name>
-        <object-name>sensor_02</object-name>
-        <object-name>doorrail_01</object-name>
-        <object-name>doorrail_02</object-name>
-        <object-name>doorrail_03</object-name>
-        <object-name>doorrail_04</object-name>
-
-        <object-name>cargohook_front</object-name>
-        <object-name>cargohook_aft</object-name>
-
-        <!-- passenger and cargo doors -->
-        <object-name>frontdoorup</object-name>
-        <!--<object-name>frontdoor_up01</object-name>-->
-        <!--<object-name>frontdoor_up02</object-name>-->
-        <object-name>frontdoorlow</object-name>
-        <object-name>frontdoor_hand1</object-name>
-        <object-name>frontdoor_hand2</object-name>
-        <object-name>frontdoorcenter</object-name>
+        <!-- Lower starboard door steps -->
         <object-name>doorstep_01</object-name>
         <object-name>doorstep_02</object-name>
-        <!-- rename the doorstep_frame.001 for next ac -->
-        <object-name>doorstep_frame</object-name>
-        <object-name>doorstep_frame.001</object-name>
-        <object-name>doorstephinge1</object-name>
-        <object-name>doorstephinge2</object-name>
 
-        <!--  cargo door -->
-        <object-name>cargodoorup</object-name>
-        <object-name>cargodoorlow</object-name>
+        <!-- Upper doors of rear gear -->
+        <object-name>porteD</object-name>
+        <object-name>porteG</object-name>
+
+        <!-- Loading ramp -->
         <object-name>cargodoorlow_in</object-name>
-        <object-name>floorbeams_door</object-name>
-        <object-name>cargodoor_hdr4</object-name>
-        <object-name>cargodoor_hup04</object-name>
-        <object-name>cargodoor_hdr1</object-name>
-        <object-name>cargodoor_hup03</object-name>
-        <object-name>cargodoor_hdr2</object-name>
-        <object-name>cargodoor_hup02</object-name>
-        <object-name>cargodoor_tank</object-name>
-
-        <!-- main gear rougeG rougeD -->
-        <object-name>roueG</object-name>
-        <object-name>roueD</object-name>
-
-        <object-name>RGmg_up_02</object-name>
-        <object-name>RGmg_up_03</object-name>
-        <object-name>RGmg_up_04</object-name>
-        <object-name>RGmg_hinge_up</object-name>
-        <object-name>RGmg_hinge_lo</object-name>
-        <object-name>RGmg_g01</object-name>
-        <object-name>RGmg_axe</object-name>
-        <object-name>RGmg_damper</object-name>
-        <object-name>RGmg_upparts_01</object-name>
-        <object-name>RGmg_hinge_up</object-name>
-
-        <object-name>RDmg_up_02</object-name>
-        <object-name>RDmg_up_03</object-name>
-        <object-name>RDmg_up_04</object-name>
-        <object-name>RDmg_hinge_up</object-name>
-        <object-name>RDmg_hinge_lo</object-name>
-        <object-name>RDmg_g01</object-name>
-        <object-name>RDmg_axe</object-name>
-        <object-name>RDmg_damper</object-name>
-        <object-name>RDmg_upparts_01</object-name>
-        <object-name>RDmg_hinge_up</object-name>
-
-        <object-name>tempAB</object-name>
-        <object-name>tempAH</object-name>
-        <object-name>rotationH</object-name>
-        <object-name>articule01</object-name>
-        <object-name>articule02</object-name>
-
-        <!-- Objets transparents -->
-        <object-name>vitres</object-name>
-        <object-name>frontdoor_vitre</object-name>
-        <object-name>frontdoor_invitre</object-name>
-        <object-name>landinglight_01</object-name>
-        <object-name>propdiscG</object-name>
-        <object-name>propdiscD</object-name>
-        <object-name>propblurG</object-name>
-        <object-name>propblurD</object-name>
-    </animation>
+    </effect>
 
     <!-- Shader for vitres and Frontdoor vitres -->
     <animation>
