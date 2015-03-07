@@ -17,7 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<PropertyList include="vmx22-set.xml">
+<PropertyList include="v22-set-common.xml">
 
     <sim>
 
