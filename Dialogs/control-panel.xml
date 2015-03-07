@@ -388,6 +388,55 @@
         <layout>vbox</layout>
         <padding>6</padding>
         <text>
+            <label>Fuel Jettison Valve</label>
+        </text>
+
+        <group>
+            <layout>table</layout>
+
+            <button>
+                <row>0</row>
+                <col>0</col>
+                <visible>
+                    <property>/systems/fuel/valve-jettison/serviceable</property>
+                </visible>
+                <legend>OPEN</legend>
+                <pref-width>60</pref-width>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/systems/fuel/valve-jettison/serviceable</property>
+                </binding>
+            </button>
+            <button>
+                <row>0</row>
+                <col>0</col>
+                <visible>
+                    <not>
+                        <property>/systems/fuel/valve-jettison/serviceable</property>
+                    </not>
+                </visible>
+                <legend></legend>
+                <pref-width>60</pref-width>
+                <binding>
+                    <command>dialog-apply</command>
+                </binding>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/systems/fuel/valve-jettison/serviceable</property>
+                </binding>
+            </button>
+        </group>
+    </group>
+
+    <hrule/>
+
+    <group>
+        <layout>vbox</layout>
+        <padding>6</padding>
+        <text>
             <label>TCAS</label>
         </text>
 
