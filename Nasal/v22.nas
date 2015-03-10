@@ -659,11 +659,6 @@ setlistener("/sim/signals/fdm-initialized", func {
     # Tyre smoke
     aircraft.tyresmoke_system.new(0, 1, 2);
 
-    # Rain
-    aircraft.rain.init();
-    var rain_timer = maketimer(0.0, func aircraft.rain.update());
-    rain_timer.start();
-
     # Livery
     aircraft.livery.init("Aircraft/V-22/Models/Liveries");
 
