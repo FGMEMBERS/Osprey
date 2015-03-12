@@ -652,7 +652,7 @@
                     <value>90.0</value>
                 </equals>
                 <equals>
-                    <property>/v22/pfcs/output/tilt-rate</property>
+                    <property>/v22/pfcs/target/tilt-rate</property>
                     <value>0.0</value>
                 </equals>
                 <greater-than>
@@ -687,7 +687,7 @@
                     <value>90.0</value>
                 </equals>
                 <equals>
-                    <property>/v22/pfcs/output/tilt-rate</property>
+                    <property>/v22/pfcs/target/tilt-rate</property>
                     <value>0.0</value>
                 </equals>
             </and>
@@ -712,7 +712,7 @@
 
                 <!-- Pilot moves thumb wheel forward -->
                 <greater-than>
-                    <property>/v22/pfcs/output/tilt-rate</property>
+                    <property>/v22/pfcs/target/tilt-rate</property>
                     <value>0.0</value>
                 </greater-than>
             </and>
@@ -724,7 +724,7 @@
 
                     <!-- Pilot moves thumb wheel forward -->
                     <greater-than>
-                        <property>/v22/pfcs/output/tilt-rate</property>
+                        <property>/v22/pfcs/target/tilt-rate</property>
                         <value>0.0</value>
                     </greater-than>
                 </and>
