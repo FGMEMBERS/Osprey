@@ -3,6 +3,6 @@ Installation
 
 1. Rename this directory to `V-22` and place it in FlightGear's aircraft directory.
 
-2. Install the ExpansionPack aircraft from the [fg-expansion-pack][url-fg-expansion-pack] project.
+2. Download and install the [ExpansionPack][url-expansion-pack] aircraft.
 
-  [url-fg-expansion-pack]: https://github.com/onox/fg-expansion-pack
+  [url-expansion-pack]: https://github.com/onox/ExpansionPack
