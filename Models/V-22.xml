@@ -231,15 +231,12 @@
         <object-name>cargodoorlow_in</object-name>
     </effect>
 
-    <!-- Shader for vitres and Frontdoor vitres -->
-    <animation>
-        <type>shader</type>
-        <shader>chrome</shader>
-        <texture>glass_shader.png</texture>
+    <effect>
+        <inherits-from>effects/outside-glass</inherits-from>
+        <object-name>vitres</object-name>
         <object-name>frontdoor_vitre</object-name>
         <object-name>frontdoor_invitre</object-name>
-        <object-name>vitres</object-name>
-    </animation>
+    </effect>
 
     <!-- Shader for Landing Lights Coverglass -->
     <animation>
@@ -276,14 +273,6 @@
         <texture>crome_proto_shader.png</texture>
         <object-name>hydG_05</object-name>
         <object-name>hydD_05</object-name>
-    </animation>
-
-    <!-- No shadow for glass Parts -->
-    <animation>
-        <type>noshadow</type>
-        <object-name>vitre</object-name>
-        <object-name>frontdoor_vitre</object-name>
-        <object-name>frontdoor_invitre</object-name>
     </animation>
 
     <!-- vmx22 model prototype colors 
