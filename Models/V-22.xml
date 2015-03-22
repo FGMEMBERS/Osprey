@@ -129,7 +129,7 @@
     </model>
 
     <effect>
-        <inherits-from>fuselage-rain</inherits-from>
+        <inherits-from>effects/fuselage-rain</inherits-from>
 
         <object-name>fuselage</object-name>
         <object-name>aile</object-name>
