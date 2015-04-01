@@ -233,9 +233,13 @@
 
     <effect>
         <inherits-from>effects/outside-glass</inherits-from>
-        <object-name>vitres</object-name>
-        <object-name>frontdoor_vitre</object-name>
-        <object-name>frontdoor_invitre</object-name>
+        <object-name>glass-windshield</object-name>
+        <object-name>glass-cockpit-left</object-name>
+        <object-name>glass-cockpit-right</object-name>
+        <object-name>glass-cockpit-top-left</object-name>
+        <object-name>glass-cockpit-top-right</object-name>
+        <object-name>glass-portholes</object-name>
+        <object-name>glass-starboard-door</object-name>
     </effect>
 
     <!-- Shader for Landing Lights Coverglass -->
@@ -1992,8 +1996,8 @@
         <object-name>frontdoorup</object-name>
         <!--<object-name>frontdoor_up01</object-name>-->
         <!--<object-name>frontdoor_up02</object-name>-->
-        <object-name>frontdoor_vitre</object-name>
-        <object-name>frontdoor_invitre</object-name>
+        <object-name>glass-starboard-door</object-name>
+        <object-name>glass-interior-starboard-door</object-name>
     </animation>
 
     <!-- Starboard Door Lower Part -->
