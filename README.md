@@ -139,4 +139,4 @@ These factors are read-only and can be found in `internal/`
 
 * Differential Swashplate Tilting (DST) controls the yaw
 
-  [url-fg-expansion-pack]: https://github.com/onox/fg-expansion-pack
+  [url-fg-expansion-pack]: https://github.com/onox/ExpansionPack
