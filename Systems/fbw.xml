@@ -1127,7 +1127,7 @@
         <gain>
             <property>/v22/pfcs/settings/vtol/direct-yaw-rate-gain</property>
             <abs type="bool">true</abs>
-            <max>5.0</max>
+            <max>8.0</max>
         </gain>
         <enable>
             <condition>
