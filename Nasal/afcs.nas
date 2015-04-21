@@ -1,5 +1,9 @@
 # Automatic Flight Control System
 
+io.include("Aircraft/ExpansionPack/Nasal/init.nas");
+
+with("logger");
+
 var interpol = func(x, x0, y0, x1, y1) { x < x0 ? y0 : x > x1 ? y1 : y0 + (y1 - y0) * (x - x0) / (x1 - x0) };
 
 var main_loop = func {
@@ -220,3 +224,11 @@ var disable_auto_nac = func (node) {
 };
 
 setlistener("/v22/afcs/active/spd-hold", disable_auto_nac, 0, 0);
+
+# Report when the autopilot is established on the localizer, so that the
+# pilot knows the autopilot is ready to capture the glideslope.
+setlistener("/v22/afcs/active/loc-established", func (node) {
+    if (node.getValue()) {
+        logger.screen.white("Established on localizer");
+    }
+}, 0, 0);
