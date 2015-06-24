@@ -259,37 +259,6 @@
             <max-dist>1000</max-dist>
         </blade_fold>
 
-        <flap>
-            <name>flap</name>
-            <mode>looped</mode>
-            <path>Aircraft/V-22/Sounds/Flaps.wav</path>
-            <condition>
-                <and>
-                    <greater-than>
-                        <property>sim/model/v22/flap_speed</property>
-                        <value>0.0001</value>
-                    </greater-than>
-                    <not>
-                        <property>sim/crashed</property>
-                    </not>
-                </and>
-            </condition>
-            <volume>
-                <property>sim/model/v22/flap_speed</property>
-                <factor>10</factor>
-                <min>0</min>
-                <max>0.25</max>
-            </volume>
-            <pitch>
-                <property>sim/model/v22/flap_speed</property>
-                <factor>25</factor>
-                <min>0.0</min>
-                <max>1.0</max>
-            </pitch>
-            <reference-dist>100</reference-dist>
-            <max-dist>1000</max-dist>
-        </flap>
-
         <engine_tilt>
             <name>enginetilt</name>
             <mode>looped</mode>
