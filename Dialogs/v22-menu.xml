@@ -5,7 +5,7 @@
     <default>
 
         <menu n="7">
-            <item n="6">
+            <item n="8">
                 <name>mp-atc-chat</name>
                 <key>-</key>
                 <label>ATC Chat</label>
